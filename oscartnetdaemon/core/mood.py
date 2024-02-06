@@ -3,8 +3,10 @@ from dataclasses import dataclass
 
 @dataclass
 class Mood:
+    animation: float = 0.5
+    blinking: float = 0.5
     bpm: float = 0.0
-    phase: float = 0.0
-    hue: float = 0.0
-    saturation: float = 1.0
-    value: float = 1.0
+    bpm_scale: int = 1
+    palette: float = 0.0
+    palette_animation: int = 2
+    texture: float = 0.5

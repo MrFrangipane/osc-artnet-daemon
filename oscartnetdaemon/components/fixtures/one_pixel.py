@@ -7,11 +7,11 @@ from oscartnetdaemon.core.mood import Mood
 
 class OnePixel(BaseFixture):
 
-    def __init__(self, address):
+    def __init__(self, address=0):
         BaseFixture.__init__(self, address)
-        self.channels = bytearray(3)
+        self._channels = bytearray(3)
 
-    def update(self, mood: Mood):
-        self.channels[0] = int((mood.hue * math.cos(time.time()) * 0.5 + 0.5) * 255)
-        self.channels[1] = int(mood.saturation * 255)
-        self.channels[2] = int(mood.value * 255)
+    def update(self, mood: Mood, group_position: float = 0):
+        self.channels[0] = int((mood.palette * math.cos(time.time() + group_position * 3.14) * 0.5 + 0.5) * 255)
+        self.channels[1] = 0
+        self.channels[2] = 0
