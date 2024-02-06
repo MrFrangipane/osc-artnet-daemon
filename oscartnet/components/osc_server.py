@@ -18,6 +18,8 @@ class OSCServer:
         self.host = self.DEFAULT_HOST
         self.port = self.DEFAULT_PORT
 
+        self._mood = Components().mood
+
         self._dispatcher = Dispatcher()
         self._server: ThreadingOSCUDPServer = None
 
@@ -38,4 +40,4 @@ class OSCServer:
         self.last_message_datetime = datetime.now()
 
         if address == '/encoder1':
-            Components().mood.hue = values[0]
+            self._mood.hue = values[0]

@@ -1,10 +1,11 @@
 import logging
-import sys
+import socket
 import time
 from threading import Thread
 
 from oscartnet.components.fixtures_updater.concrete import FixturesUpdater
 from oscartnet.components.osc_server.concrete import OSCServer
+from oscartnet.components.argument_parser import parse_args
 from oscartnet.core.components import Components
 
 _logger = logging.getLogger(__name__)
@@ -17,7 +18,11 @@ class Launcher:
         self._fixture_thread: Thread = None
 
     def exec(self):
-        if "-v" in sys.argv:
+        #
+        # Command line arguments
+        arguments = parse_args()
+
+        if arguments.verbose:
             logging.basicConfig(level=logging.DEBUG)
         else:
             logging.basicConfig(level=logging.INFO)
@@ -30,7 +35,11 @@ class Launcher:
 
         #
         # Artnet
-        Components().artnet.start("127.0.0.1", 0)
+        artnet_target_ip = socket.gethostbyname(arguments.artnet_target_ip)
+        Components().artnet.start(
+            target_node_ip=artnet_target_ip,
+            universe_number=arguments.artnet_universe
+        )
 
         #
         # Fixtures Updater
@@ -45,6 +54,5 @@ class Launcher:
             try:
                 time.sleep(1)
             except KeyboardInterrupt:
-                _logger.info("Keyboard Interrupt")
                 _logger.info(f"Last OSC message received {Components().osc.last_message_datetime}")
                 break

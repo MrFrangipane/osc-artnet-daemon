@@ -15,10 +15,5 @@ class ArtNetServer:
         self._stupid_artnet.start()
         _logger.info(f"ArtNetServer started (target_node_ip={target_node_ip}, universe_number={universe_number})")
 
-    def stop(self):
-        self._stupid_artnet.blackout()
-        self._stupid_artnet.stop()
-        self._stupid_artnet.close()
-
     def set_universe(self, universe: bytearray):
         self._stupid_artnet.set(universe)
