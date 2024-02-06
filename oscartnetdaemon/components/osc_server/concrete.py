@@ -4,8 +4,8 @@ from datetime import datetime
 from pythonosc.dispatcher import Dispatcher
 from pythonosc.osc_server import ThreadingOSCUDPServer
 
-from oscartnet.components.osc_server.abstract import AbstractOSCServer
-from oscartnet.components.osc_server.mood_updater import MoodUpdater
+from oscartnetdaemon.components.osc_server.abstract import AbstractOSCServer
+from oscartnetdaemon.components.osc_server.mood_updater import MoodUpdater
 
 _logger = logging.getLogger(__name__)
 

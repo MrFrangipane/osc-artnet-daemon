@@ -1,4 +1,4 @@
-from oscartnet.core.components import Components
+from oscartnetdaemon.core.components import Components
 
 
 class MoodUpdater:

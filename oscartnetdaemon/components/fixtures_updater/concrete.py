@@ -1,9 +1,9 @@
 import time
 from copy import copy
 
-from oscartnet.components.fixtures.one_pixel import OnePixel
-from oscartnet.components.fixtures_updater.abstract import AbstractFixturesUpdater
-from oscartnet.core.components import Components
+from oscartnetdaemon.components.fixtures.one_pixel import OnePixel
+from oscartnetdaemon.components.fixtures_updater.abstract import AbstractFixturesUpdater
+from oscartnetdaemon.core.components import Components
 
 
 class FixturesUpdater(AbstractFixturesUpdater):

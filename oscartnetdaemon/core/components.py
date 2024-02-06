@@ -1,10 +1,10 @@
 from dataclasses import dataclass
 
-from oscartnet.components.artnet_server import ArtNetServer
-from oscartnet.components.fixtures_updater.abstract import AbstractFixturesUpdater
-from oscartnet.components.osc_server.abstract import AbstractOSCServer
-from oscartnet.core.mood import Mood
-from oscartnet.python_extensions.singleton_metaclass import SingletonMetaclass
+from oscartnetdaemon.components.artnet_server import ArtNetServer
+from oscartnetdaemon.components.fixtures_updater.abstract import AbstractFixturesUpdater
+from oscartnetdaemon.components.osc_server.abstract import AbstractOSCServer
+from oscartnetdaemon.core.mood import Mood
+from oscartnetdaemon.python_extensions.singleton_metaclass import SingletonMetaclass
 
 
 @dataclass

@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from oscartnet.core.mood import Mood
+from oscartnetdaemon.core.mood import Mood
 
 
 class BaseFixture(ABC):

@@ -3,10 +3,10 @@ import socket
 import time
 from threading import Thread
 
-from oscartnet.components.fixtures_updater.concrete import FixturesUpdater
-from oscartnet.components.osc_server.concrete import OSCServer
-from oscartnet.components.argument_parser import parse_args
-from oscartnet.core.components import Components
+from oscartnetdaemon.components.fixtures_updater.concrete import FixturesUpdater
+from oscartnetdaemon.components.osc_server.concrete import OSCServer
+from oscartnetdaemon.components.argument_parser import parse_args
+from oscartnetdaemon.core.components import Components
 
 _logger = logging.getLogger(__name__)
 

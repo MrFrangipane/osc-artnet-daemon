@@ -1,8 +1,8 @@
 import time
 import math
 
-from oscartnet.core.base_fixture import BaseFixture
-from oscartnet.core.mood import Mood
+from oscartnetdaemon.core.base_fixture import BaseFixture
+from oscartnetdaemon.core.mood import Mood
 
 
 class OnePixel(BaseFixture):

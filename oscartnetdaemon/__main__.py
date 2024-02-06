@@ -1,3 +1,3 @@
-from oscartnet.components.launcher import Launcher
+from oscartnetdaemon.components.launcher import Launcher
 
 Launcher().exec()

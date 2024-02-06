@@ -4,7 +4,7 @@ from datetime import datetime
 from pythonosc.dispatcher import Dispatcher
 from pythonosc.osc_server import ThreadingOSCUDPServer
 
-from oscartnet.core.components import Components
+from oscartnetdaemon.core.components import Components
 
 _logger = logging.getLogger(__name__)
 
