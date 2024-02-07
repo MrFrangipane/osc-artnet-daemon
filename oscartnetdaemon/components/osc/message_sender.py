@@ -7,7 +7,7 @@ from oscartnetdaemon.core.osc_client_info import OSCClientInfo
 _logger = logging.getLogger(__name__)
 
 
-class OSCClients:
+class OSCMessageSender:
     def __init__(self):
         self._clients: dict[bytes, SimpleUDPClient] = dict()
         self._clients_info: dict[bytes, OSCClientInfo] = dict()

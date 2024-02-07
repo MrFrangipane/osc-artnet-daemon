@@ -2,10 +2,10 @@ import logging
 import time
 from threading import Thread
 
-from oscartnetdaemon.components.discovery.concrete import Discovery
-from oscartnetdaemon.components.fixtures_updater.concrete import FixturesUpdater
-from oscartnetdaemon.components.osc_clients import OSCClients
-from oscartnetdaemon.components.osc_server.concrete import OSCServer
+from oscartnetdaemon.components.discovery.discovery import Discovery
+from oscartnetdaemon.components.fixtures_updater.fixtures_updater import FixturesUpdater
+from oscartnetdaemon.components.osc.message_sender import OSCMessageSender
+from oscartnetdaemon.components.osc.server import OSCServer
 from oscartnetdaemon.components.argument_parser import parse_args
 from oscartnetdaemon.components.artnet_server import ArtNetServer
 from oscartnetdaemon.core.components import Components
@@ -40,7 +40,7 @@ class Launcher:
         self._osc_thread: Thread = Thread(target=Components().osc_server.start, daemon=True)
         self._osc_thread.start()
 
-        Components().osc_clients = OSCClients()
+        Components().osc_message_sender = OSCMessageSender()
 
         #
         # Artnet

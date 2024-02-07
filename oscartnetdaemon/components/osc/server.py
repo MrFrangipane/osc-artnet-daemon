@@ -4,8 +4,8 @@ from datetime import datetime
 from pythonosc.dispatcher import Dispatcher
 from pythonosc.osc_server import ThreadingOSCUDPServer
 
-from oscartnetdaemon.components.osc_server.abstract import AbstractOSCServer
-from oscartnetdaemon.components.osc_server.message_handler import MessageHandler
+from oscartnetdaemon.components.osc.server_abstract import AbstractOSCServer
+from oscartnetdaemon.components.osc.message_handler import MessageHandler
 from oscartnetdaemon.core.components import Components
 
 _logger = logging.getLogger(__name__)
@@ -40,4 +40,4 @@ class OSCServer(AbstractOSCServer):
 
         response_address, response_values = self._message_handler.handle(address, values)
         if response_address is not None:
-            Components().osc_clients.send(response_address, response_values)
+            Components().osc_message_sender.send(response_address, response_values)

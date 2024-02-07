@@ -20,7 +20,7 @@ class Discovery(AbstractDiscovery):
         self._is_running = False
 
     def start(self):
-        _logger.info("Zeroconf starting...")
+        _logger.info("Discovery service starting...")
         self._browser = ServiceBrowser(
             self._zeroconf, self._zeroconf_service,
             handlers=[self._on_service_change]
@@ -33,13 +33,14 @@ class Discovery(AbstractDiscovery):
     def stop(self):
         self._is_running = False
         self._zeroconf.close()
-        _logger.info("Zeroconf stopped")
+        _logger.info("Discovery service stopped")
 
     def _on_service_change(self, zeroconf: Zeroconf, service_type: str, name: str, state_change: ServiceStateChange):
         info = zeroconf.get_service_info(service_type, name)
 
         if state_change is ServiceStateChange.Added:
-            Components().osc_clients.create_client(OSCClientInfo(
+            _logger.info(f"Added")
+            Components().osc_message_sender.create_client(OSCClientInfo(
                 address=info.addresses[0],  # FIXME compare to server address mask ?
                 id=info.properties[b'IID'],
                 name=info.name.split('.')[0],
@@ -47,4 +48,5 @@ class Discovery(AbstractDiscovery):
             ))
 
         elif state_change is ServiceStateChange.Removed:
-            Components().osc_clients.delete_client(info.properties[b'IID'])
+            _logger.info(f"Removed")
+            Components().osc_message_sender.delete_client(info.properties[b'IID'])
