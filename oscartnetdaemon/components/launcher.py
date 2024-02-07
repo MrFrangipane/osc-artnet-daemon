@@ -33,14 +33,14 @@ class Launcher:
 
         #
         # OSC
+        Components().osc_message_sender = OSCMessageSender()
+
         Components().osc_server = OSCServer(
             address=configuration.osc_server_address,
             port=configuration.osc_server_port
         )
         self._osc_thread: Thread = Thread(target=Components().osc_server.start, daemon=True)
         self._osc_thread.start()
-
-        Components().osc_message_sender = OSCMessageSender()
 
         #
         # Artnet

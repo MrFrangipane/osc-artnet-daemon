@@ -35,11 +35,13 @@ class Discovery(AbstractDiscovery):
         self._zeroconf.close()
         _logger.info("Discovery service stopped")
 
-    def _on_service_change(self, zeroconf: Zeroconf, service_type: str, name: str, state_change: ServiceStateChange):
+    @staticmethod
+    def _on_service_change(zeroconf: Zeroconf, service_type: str, name: str, state_change: ServiceStateChange):
         info = zeroconf.get_service_info(service_type, name)
+        if info is None:
+            return
 
         if state_change is ServiceStateChange.Added:
-            _logger.info(f"Added")
             Components().osc_message_sender.create_client(OSCClientInfo(
                 address=info.addresses[0],  # FIXME compare to server address mask ?
                 id=info.properties[b'IID'],
@@ -48,5 +50,4 @@ class Discovery(AbstractDiscovery):
             ))
 
         elif state_change is ServiceStateChange.Removed:
-            _logger.info(f"Removed")
             Components().osc_message_sender.delete_client(info.properties[b'IID'])

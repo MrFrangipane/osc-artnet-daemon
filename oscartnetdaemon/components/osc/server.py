@@ -37,7 +37,4 @@ class OSCServer(AbstractOSCServer):
     def _handle(self, address, *values):
         _logger.debug(f"{address} {values}")
         self._last_message_datetime = datetime.now()
-
-        response_address, response_values = self._message_handler.handle(address, values)
-        if response_address is not None:
-            Components().osc_message_sender.send(response_address, response_values)
+        self._message_handler.handle(address, values)
