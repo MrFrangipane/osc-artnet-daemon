@@ -21,7 +21,7 @@ class Launcher:
         self._fixture_thread: Thread = None
         self._osc_thread: Thread = None
 
-    def exec(self):
+    def exec(self, blocking=True) -> None:
         #
         # Command line arguments
         configuration = parse_args()
@@ -68,12 +68,17 @@ class Launcher:
 
         #
         # Loop
-        while True:
-            try:
-                time.sleep(1)
-            except KeyboardInterrupt:
-                break
+        if blocking:
+            while True:
+                try:
+                    time.sleep(1)
+                except KeyboardInterrupt:
+                    break
 
+            self.stop()
+
+    @staticmethod
+    def stop():
         Components().fixture_updater.stop()
         Components().discovery.stop()
         Components().osc_server.stop()

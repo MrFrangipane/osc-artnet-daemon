@@ -31,6 +31,7 @@ class OSCServer(AbstractOSCServer):
 
     def stop(self):
         self._server.shutdown()
+        self._server.server_close()
         _logger.info(f"Last OSC message received {self._last_message_datetime}")
         _logger.info(f"OSC server stopped")
 

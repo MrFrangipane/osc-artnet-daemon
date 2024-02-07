@@ -3,7 +3,7 @@ from codecs import open
 from setuptools import setup, find_packages
 
 
-NAME = 'oscartnet'
+NAME = 'oscartnetdaemon'
 VERSION = '0.0.0'
 DESCRIPTION = 'Animate and control lighting fixtures with OSC and ArtNet'
 AUTHOR = 'Frangitron'
