@@ -4,6 +4,7 @@ from threading import Thread
 
 from oscartnetdaemon.components.discovery.discovery import Discovery
 from oscartnetdaemon.components.fixtures_updater.fixtures_updater import FixturesUpdater
+from oscartnetdaemon.components.mood_store.mood_store import MoodStore
 from oscartnetdaemon.components.osc.message_sender import OSCMessageSender
 from oscartnetdaemon.components.osc.server import OSCServer
 from oscartnetdaemon.components.argument_parser import parse_args
@@ -28,8 +29,11 @@ class Launcher:
             logging.basicConfig(level=logging.DEBUG)
         else:
             logging.basicConfig(level=logging.INFO)
-        # Components().configuration = configuration
         _logger.info(f"Configuration loaded from command line arguments {configuration}")
+
+        #
+        # Mood Store
+        Components().mood_store = MoodStore()
 
         #
         # OSC

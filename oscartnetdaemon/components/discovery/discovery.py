@@ -42,12 +42,21 @@ class Discovery(AbstractDiscovery):
             return
 
         if state_change is ServiceStateChange.Added:
-            Components().osc_message_sender.create_client(OSCClientInfo(
+            new_client_info = OSCClientInfo(
                 address=info.addresses[0],  # FIXME compare to server address mask ?
                 id=info.properties[b'IID'],
                 name=info.name.split('.')[0],
                 port=info.port
-            ))
+            )
+            Components().mood_store.register_client(new_client_info)
+            Components().osc_message_sender.register_client(new_client_info)
 
         elif state_change is ServiceStateChange.Removed:
-            Components().osc_message_sender.delete_client(info.properties[b'IID'])
+            client_info = OSCClientInfo(
+                address=info.addresses[0],  # FIXME compare to server address mask ?
+                id=info.properties[b'IID'],
+                name=info.name.split('.')[0],
+                port=info.port
+            )
+            Components().mood_store.unregister_client(client_info)
+            Components().osc_message_sender.unregister_client(client_info)

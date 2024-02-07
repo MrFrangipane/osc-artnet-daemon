@@ -1,13 +1,9 @@
 from oscartnetdaemon.core.components import Components
-from oscartnetdaemon.core.mood import Mood
 
 
 class MessageHandler:
     def __init__(self):
-        self._mood: Mood = Components().mood
-        self._message_sender = Components().osc_message_sender
-
-        if self._message_sender is None:
+        if Components().osc_message_sender is None:
             raise ValueError("No message sender is configured")
 
     def handle(self, address, values) -> None:
@@ -19,21 +15,31 @@ class MessageHandler:
         value = values[0]
         _, sender, control_name = path_items
 
-        if control_name.startswith('scene_') and value == 1:
-            _, scene, action = address.split('_')
+        if control_name.startswith('scene_'):
+            _, scene_name, action = address.split('_')
+            if action == "save" and value == 1:
+                Components().mood_store.save(sender, scene_name)
+
+            if action == "recall" and value == 1:
+                Components().mood_store.load(sender, scene_name)
+
+            if action == "punch":
+                Components().mood_store.set_punch(sender, scene_name, value)
+                Components().osc_message_sender.notify_punch(sender, value)
+
             return
 
         if control_name == 'palette':
-            self._mood.palette = value
+            Components().mood.palette = value
         elif control_name == 'animation':
-            self._mood.animation = value
+            Components().mood.animation = value
         elif control_name == 'texture':
-            self._mood.texture = value
+            Components().mood.texture = value
         elif control_name == 'blinking':
-            self._mood.blinking = value
+            Components().mood.blinking = value
         elif control_name == 'bpm_scale':
-            self._mood.bpm_scale = [0.25, 0.5, 1, 2, 4][value]
+            Components().mood.bpm_scale = value  # fixme: we need an interop service between tosc and mood
         elif control_name == 'palette_animation':
-            self._mood.palette_animation = [0.25, 0.5, 1, 2, 4][value]
+            Components().mood.palette_animation = value   # fixme: we need an interop service between tosc and mood
 
-        self._message_sender.send(control_name, value, sender)
+        Components().osc_message_sender.send(control_name, value, sender)
