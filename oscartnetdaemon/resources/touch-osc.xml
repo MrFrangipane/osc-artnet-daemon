@@ -1249,7 +1249,7 @@ end</value>
 									</property>
 									<property type="f">
 										<key>cornerRadius</key>
-										<value>1</value>
+										<value>0</value>
 									</property>
 									<property type="b">
 										<key>cursor</key>
@@ -1274,14 +1274,14 @@ end</value>
 									</property>
 									<property type="b">
 										<key>grid</key>
-										<value>0</value>
+										<value>1</value>
 									</property>
 									<property type="c">
 										<key>gridColor</key>
 										<value>
-											<r>0</r>
-											<g>0</g>
-											<b>0</b>
+											<r>1</r>
+											<g>1</g>
+											<b>1</b>
 											<a>0.25</a>
 										</value>
 									</property>
@@ -1311,7 +1311,7 @@ end</value>
 									</property>
 									<property type="i">
 										<key>outlineStyle</key>
-										<value>0</value>
+										<value>1</value>
 									</property>
 									<property type="i">
 										<key>pointerPriority</key>
@@ -2135,7 +2135,7 @@ end</value>
 									</property>
 									<property type="i">
 										<key>outlineStyle</key>
-										<value>2</value>
+										<value>1</value>
 									</property>
 									<property type="i">
 										<key>pointerPriority</key>
@@ -3986,7 +3986,7 @@ end</value>
 									</property>
 									<property type="i">
 										<key>outlineStyle</key>
-										<value>2</value>
+										<value>1</value>
 									</property>
 									<property type="i">
 										<key>pointerPriority</key>
@@ -4171,7 +4171,7 @@ end</value>
 									</property>
 									<property type="i">
 										<key>outlineStyle</key>
-										<value>2</value>
+										<value>1</value>
 									</property>
 									<property type="i">
 										<key>pointerPriority</key>
@@ -9725,8 +9725,8 @@ end</value>
 										<key>color</key>
 										<value>
 											<r>1</r>
-											<g>0</g>
-											<b>0</b>
+											<g>1</g>
+											<b>1</b>
 											<a>1</a>
 										</value>
 									</property>
@@ -9742,9 +9742,9 @@ end</value>
 										<key>frame</key>
 										<value>
 											<x>260</x>
-											<y>25</y>
-											<w>120</w>
-											<h>20</h>
+											<y>20</y>
+											<w>460</w>
+											<h>35</h>
 										</value>
 									</property>
 									<property type="b">
@@ -9769,7 +9769,7 @@ end</value>
 									</property>
 									<property type="b">
 										<key>outline</key>
-										<value>1</value>
+										<value>0</value>
 									</property>
 									<property type="i">
 										<key>outlineStyle</key>
@@ -9822,7 +9822,7 @@ end</value>
 										<key>text</key>
 										<locked>0</locked>
 										<lockedDefaultCurrent>1</lockedDefaultCurrent>
-										<default>Frangitronik</default>
+										<default>&lt;device-hostname&gt;</default>
 										<defaultPull>0</defaultPull>
 									</value>
 									<value>
