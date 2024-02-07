@@ -1,3 +1,5 @@
+from typing import Any
+
 from oscartnetdaemon.core.components import Components
 from oscartnetdaemon.core.mood import Mood
 
@@ -6,7 +8,9 @@ class MessageHandler:
     def __init__(self):
         self._mood: Mood = Components().mood
 
-    def handle(self, address, values):
+    def handle(self, address, values) -> [str, Any]:
+        r_address, r_value = None, None
+
         if address == '/mood/palette':
             self._mood.palette = values[0]
         elif address == '/animation':
@@ -23,3 +27,6 @@ class MessageHandler:
         elif address.startswith('/mood/scene_') and values[0] == 1:
             _, scene, action = address.split('_')
             print(scene, action)
+            r_address, r_value = '/mood/palette_animation', 4
+
+        return r_address, r_value
