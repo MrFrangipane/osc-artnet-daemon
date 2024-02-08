@@ -17,7 +17,6 @@ class FixturesUpdater(AbstractFixturesUpdater):
         super().__init__()
 
         self._is_running = False
-        self._mood = Components().mood
         self._artnet = Components().artnet
 
     def load_fixtures(self):
@@ -30,7 +29,7 @@ class FixturesUpdater(AbstractFixturesUpdater):
         _logger.info(f"Starting fixture updater...")
         self._is_running = True
         while self._is_running:
-            mood = copy(self._mood)
+            mood = copy(Components().mood)
             for fixture in self._fixtures:
                 fixture.update(mood)
                 channels = fixture.channels

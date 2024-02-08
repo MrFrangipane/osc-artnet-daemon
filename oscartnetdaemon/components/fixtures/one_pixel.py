@@ -12,6 +12,6 @@ class OnePixel(BaseFixture):
         self._channels = bytearray(3)
 
     def update(self, mood: Mood, group_position: float = 0):
-        self.channels[0] = int((mood.palette * math.cos(time.time() + group_position * 3.14) * 0.5 + 0.5) * 255)
+        self.channels[0] = int((mood.palette * math.cos(time.time() + group_position * 10) * 0.5 + 0.5) * 255)
         self.channels[1] = 0
         self.channels[2] = 0
