@@ -3,6 +3,8 @@ from abc import ABC, abstractmethod
 
 class AbstractFixturesUpdater(ABC):
     def __init__(self):
+        self.universe = bytearray(512)
+
         self._fixtures = list()
 
     @abstractmethod

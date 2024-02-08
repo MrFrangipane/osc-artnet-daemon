@@ -15,8 +15,8 @@ class FixturesUpdater(AbstractFixturesUpdater):
 
     def __init__(self):
         super().__init__()
+
         self._is_running = False
-        self._universe = bytearray(512)
         self._mood = Components().mood
         self._artnet = Components().artnet
 
@@ -36,9 +36,9 @@ class FixturesUpdater(AbstractFixturesUpdater):
                 channels = fixture.channels
                 start = fixture.address
                 end = fixture.address + len(channels)
-                self._universe[start:end] = channels
+                self.universe[start:end] = channels
 
-            self._artnet.set_universe(self._universe)
+            self._artnet.set_universe(self.universe)
 
             time.sleep(self.sleep_interval)
 
