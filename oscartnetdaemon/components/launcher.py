@@ -7,8 +7,7 @@ from oscartnetdaemon.components.fixtures_updater.fixtures_updater import Fixture
 from oscartnetdaemon.components.mood_store.mood_store import MoodStore
 from oscartnetdaemon.components.osc.message_sender import OSCMessageSender
 from oscartnetdaemon.components.osc.server import OSCServer
-from oscartnetdaemon.components.argument_parser import parse_args
-from oscartnetdaemon.components.artnet_server import ArtNetServer
+from oscartnetdaemon.components.artnet_server import ArtnetServer
 from oscartnetdaemon.core.components import Components
 
 _logger = logging.getLogger(__name__)
@@ -21,15 +20,8 @@ class Launcher:
         self._fixture_thread: Thread = None
         self._osc_thread: Thread = None
 
-    def exec(self, blocking=True) -> None:
-        #
-        # Command line arguments
-        configuration = parse_args()
-        if configuration.is_verbose:
-            logging.basicConfig(level=logging.DEBUG)
-        else:
-            logging.basicConfig(level=logging.INFO)
-        _logger.info(f"Configuration loaded from command line arguments {configuration}")
+    def start(self, blocking) -> None:
+        configuration = Components().configuration
 
         #
         # Mood Store
@@ -48,7 +40,7 @@ class Launcher:
 
         #
         # Artnet
-        Components().artnet = ArtNetServer(
+        Components().artnet = ArtnetServer(
             target_node_ip=configuration.artnet_target_node_ip,
             universe_number=configuration.artnet_universe
         )

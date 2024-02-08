@@ -26,7 +26,7 @@ class FixturesUpdater(AbstractFixturesUpdater):
         ))
 
     def start(self):
-        _logger.info(f"Starting fixture updater...")
+        _logger.info(f"Starting Fixture Updater")
         self._is_running = True
         while self._is_running:
             mood = copy(Components().mood)

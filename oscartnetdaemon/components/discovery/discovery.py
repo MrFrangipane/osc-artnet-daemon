@@ -20,7 +20,7 @@ class Discovery(AbstractDiscovery):
         self._is_running = False
 
     def start(self):
-        _logger.info("Discovery service starting...")
+        _logger.info("Starting Discovery service")
         self._browser = ServiceBrowser(
             self._zeroconf, self._zeroconf_service,
             handlers=[self._on_service_change]

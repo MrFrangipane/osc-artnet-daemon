@@ -1,3 +1,5 @@
-from oscartnetdaemon.components.launcher import Launcher
+from oscartnetdaemon import OSCArtnetDaemonAPI
 
-Launcher().exec()
+daemon = OSCArtnetDaemonAPI()
+daemon.configure_from_command_line()
+daemon.run_forever()
