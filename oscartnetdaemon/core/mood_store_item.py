@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 
-from oscartnetdaemon.core.mood import Mood
+from oscartnetdaemon.core.osc.mood import Mood
 
 
 @dataclass

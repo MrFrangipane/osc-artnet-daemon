@@ -24,14 +24,14 @@ class MoodStore(AbstractMoodStore):
     def save(self, sender, scene_name):
         _logger.debug(f"Saving scene {sender}/{scene_name}")
 
-        mood = copy(Components().mood)
+        mood = copy(Components().osc_state_model.mood)
         setattr(self._stored_moods[sender], scene_name, mood)
 
     def load(self, sender, scene_name):
         _logger.debug(f"Loading scene {sender}/{scene_name}")
 
         mood = copy(getattr(self._stored_moods[sender], scene_name))
-        Components().mood = mood
+        Components().osc_state_model.mood = mood
         Components().osc_message_sender.send_mood_to_all()
 
     def set_punch(self, sender, scene_name, is_punch):

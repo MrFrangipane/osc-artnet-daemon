@@ -45,5 +45,5 @@ class OSCMessageSender(AbstractOSCMessageSender):
         # FIXME light a square on people's tablets
 
     def send_mood_to_all(self):
-        for name, value in vars(Components().mood).items():
+        for name, value in vars(Components().osc_state_model.mood).items():
             self.send(name, value, "Server")

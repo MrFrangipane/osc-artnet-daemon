@@ -101,7 +101,7 @@ class FixturesUpdater(AbstractFixturesUpdater):
         self._is_running = True
 
         while self._is_running:
-            mood = copy(Components().mood)
+            mood = copy(Components().osc_state_model.mood)
             address_pointer = 0  # fixme: find better name
 
             for fixture in self._fixtures:

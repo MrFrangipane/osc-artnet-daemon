@@ -10,6 +10,7 @@ def to_xml(filename_in, filename_out):
     tree = ElementTree.ElementTree(root)
     ElementTree.indent(tree, space="\t", level=0)
     tree.write(filename_out, xml_declaration=True, encoding='UTF-8')
+    # TODO replace: <default>Frangitronik</default> (hostname)
 
 
 def to_tosc(filename_in, filename_out):

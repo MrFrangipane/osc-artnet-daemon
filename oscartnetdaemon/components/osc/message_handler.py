@@ -10,12 +10,17 @@ class MessageHandler:
         path_items = address.split('/')
 
         if 'pager' in path_items or len(values) != 1:
+            print("pager", values)
             return
 
         value = values[0]
         _, sender, control_name = path_items
 
-        if control_name.startswith('scene_'):
+        if sender.startswith('#'):
+            fixture_name = sender[1:]
+            return
+
+        elif control_name.startswith('scene_'):
             _, scene_name, action = address.split('_')
             if action == "save" and value == 1:
                 Components().mood_store.save(sender, scene_name)
@@ -30,16 +35,16 @@ class MessageHandler:
             return
 
         if control_name == 'palette':
-            Components().mood.palette = value
+            Components().osc_state_model.mood.palette = value
         elif control_name == 'animation':
-            Components().mood.animation = value
+            Components().osc_state_model.mood.animation = value
         elif control_name == 'texture':
-            Components().mood.texture = value
+            Components().osc_state_model.mood.texture = value
         elif control_name == 'blinking':
-            Components().mood.blinking = value
+            Components().osc_state_model.mood.blinking = value
         elif control_name == 'bpm_scale':
-            Components().mood.bpm_scale = value  # fixme: we need an interop service between tosc and mood
+            Components().osc_state_model.mood.bpm_scale = value  # fixme: we need an interop service between tosc and mood
         elif control_name == 'palette_animation':
-            Components().mood.palette_animation = value   # fixme: we need an interop service between tosc and mood
+            Components().osc_state_model.mood.palette_animation = value   # fixme: we need an interop service between tosc and mood
 
         Components().osc_message_sender.send(control_name, value, sender)

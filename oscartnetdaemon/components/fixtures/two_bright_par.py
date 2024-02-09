@@ -2,7 +2,7 @@ from dataclasses import dataclass
 import colorsys
 
 from oscartnetdaemon.core.fixture.base import BaseFixture
-from oscartnetdaemon.core.mood import Mood
+from oscartnetdaemon.core.osc.mood import Mood
 from oscartnetdaemon.python_extensions.math import map_to_int
 
 

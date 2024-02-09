@@ -8,7 +8,7 @@ from oscartnetdaemon.components.osc.abstract_message_sender import AbstractOSCMe
 from oscartnetdaemon.components.osc.server_abstract import AbstractOSCServer
 
 from oscartnetdaemon.core.configuration import Configuration
-from oscartnetdaemon.core.mood import Mood
+from oscartnetdaemon.core.osc.state_model import OSCStateModel
 
 from oscartnetdaemon.python_extensions.singleton_metaclass import SingletonMetaclass
 
@@ -27,4 +27,4 @@ class Components(metaclass=SingletonMetaclass):
     #
     # Models
     configuration: Configuration = None
-    mood: Mood = field(default_factory=Mood)
+    osc_state_model: OSCStateModel = field(default_factory=OSCStateModel)

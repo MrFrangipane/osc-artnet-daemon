@@ -1,5 +1,5 @@
 from oscartnetdaemon.core.fixture.base import BaseFixture
-from oscartnetdaemon.core.mood import Mood
+from oscartnetdaemon.core.osc.mood import Mood
 
 
 class FixtureGroup:
