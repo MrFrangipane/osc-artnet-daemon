@@ -1,6 +1,7 @@
 import logging
 import time
 from copy import copy
+from dataclasses import fields
 
 from oscartnetdaemon.components.fixtures_updater.abstract import AbstractFixturesUpdater
 from oscartnetdaemon.core.components import Components
@@ -36,13 +37,12 @@ class FixturesUpdater(AbstractFixturesUpdater):
     def channels_info(self) -> list[ChannelInfo]:
         infos = list()
         dmx_index = 0
-        group_index = 0
+        group_index = 1
         fixture_index = 0
         for fixture in self._fixtures:
-            group_index += 1
             if isinstance(fixture, FixtureGroup):
                 for sub_fixture in fixture.fixtures:
-                    for _ in vars(sub_fixture.Mapping):
+                    for _ in fields(sub_fixture.Mapping):
                         infos.append(ChannelInfo(
                             dmx_index,
                             fixture_index,
@@ -51,8 +51,9 @@ class FixturesUpdater(AbstractFixturesUpdater):
                         ))
                         dmx_index += 1
                     fixture_index += 1
+                group_index += 1
             else:
-                for _ in vars(fixture.Mapping):
+                for _ in fields(fixture.Mapping):
                     infos.append(ChannelInfo(
                         dmx_index,
                         fixture_index,
@@ -71,17 +72,16 @@ class FixturesUpdater(AbstractFixturesUpdater):
 
         while self._is_running:
             mood = copy(Components().mood)
-            address_pointer = 1  # fixme: find better name
+            address_pointer = 0  # fixme: find better name
 
             for fixture in self._fixtures:
-                address = address_pointer if fixture.address is None else fixture.address
                 channels = fixture.map_to_channels(mood, 0)
-                start = address
-                end = address + len(channels)
+                start = address_pointer if fixture.address is None else fixture.address
+                end = start + len(channels)
 
                 _logger.debug(f"{type(fixture).__name__}({start}:{end}) = {channels}")
                 self.universe[start:end] = channels
-                address_pointer = end + 1
+                address_pointer = end
 
             self._artnet.set_universe(self.universe)
             time.sleep(self.sleep_interval)
