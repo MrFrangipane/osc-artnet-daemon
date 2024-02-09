@@ -3,6 +3,7 @@ import colorsys
 
 from oscartnetdaemon.core.fixture.base import BaseFixture
 from oscartnetdaemon.core.mood import Mood
+from oscartnetdaemon.python_extensions.math import map_to_int
 
 
 class TwoBrightPar(BaseFixture):
@@ -21,8 +22,8 @@ class TwoBrightPar(BaseFixture):
         red, green, blue = colorsys.hsv_to_rgb(hue, 1.0, 1.0)
 
         mapping = TwoBrightPar.Mapping()
-        mapping.red = int(red * 255)
-        mapping.green = int(green * 255)
-        mapping.blue = int(blue * 255)
+        mapping.red = map_to_int(red)
+        mapping.green = map_to_int(green)
+        mapping.blue = map_to_int(blue)
 
         return list(vars(mapping).values())

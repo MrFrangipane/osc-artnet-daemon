@@ -1,9 +1,8 @@
-import math
-import time
 from dataclasses import dataclass
 
 from oscartnetdaemon.core.fixture.base import BaseFixture
 from oscartnetdaemon.core.mood import Mood
+from oscartnetdaemon.python_extensions.math import map_to_int
 
 
 class Tristan200(BaseFixture):
@@ -30,8 +29,8 @@ class Tristan200(BaseFixture):
 
     def map_to_channels(self, mood: Mood, group_position: float) -> list[int]:
         mapping = Tristan200.Mapping()
-        mapping.color = int(mood.palette * 255)
-        mapping.pan = int(((math.cos(time.time()) * 0.5) + 0.5) * 255)
-        mapping.tilt = int(mood.texture * 255)
+        mapping.color = map_to_int(mood.palette, 66, 80)
+        mapping.pan = map_to_int(mood.animation)
+        mapping.tilt = map_to_int(mood.texture)
 
         return list(vars(mapping).values())
