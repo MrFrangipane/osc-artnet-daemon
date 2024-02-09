@@ -14,7 +14,7 @@ class ArtnetServer:
 
     def start(self):
         _logger.info("Starting Artnet server")
-        self._stupid_artnet = StupidArtnet(target_ip=self.target_node_ip, universe=self.universe_number, fps=40)
+        self._stupid_artnet = StupidArtnet(target_ip=self.target_node_ip, universe=self.universe_number, fps=30)
         self._stupid_artnet.start()
         _logger.info(f"ArtnetServer started (target_node_ip={self.target_node_ip}, universe_number={self.universe_number})")
 

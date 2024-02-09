@@ -10,11 +10,26 @@ _logger = logging.getLogger(__name__)
 
 
 class OSCArtnetDaemonAPI:
+    """
+    The OSCArtnetDaemonAPI class.
+
+    This class defines the API for the OSCArtnetDaemon.
+    """
+
     def __init__(self):
+        """
+        OSCArtnetDaemonAPI instance initializer.
+        """
         self._launcher = Launcher()
 
     @property
     def artnet_universe(self):
+        """
+        Gets the Artnet universe.
+
+        :return: The Artnet universe. If a fixture updater component exists, a copy of its universe is returned. Otherwise, bytes(512) is returned.
+        :rtype: bytes
+        """
         if Components().fixture_updater is None:
             return bytes(512)
 
@@ -22,10 +37,22 @@ class OSCArtnetDaemonAPI:
 
     @staticmethod
     def configure(configuration: Configuration):
+        """
+        Configures the components.
+
+        :param configuration: The configuration to be set.
+        :type configuration: Configuration
+        """
         Components().configuration = configuration
 
     @staticmethod
-    def configure_from_command_line():
+    def configure_from_command_line() -> Configuration:
+        """
+        Configures the components by parsing command-line arguments and returns the configuration.
+
+        :return: The configuration parsed from the command line.
+        :rtype: Configuration
+        """
         configuration = parse_args()
         if configuration.is_verbose:
             logging.basicConfig(level=logging.DEBUG)
@@ -35,12 +62,22 @@ class OSCArtnetDaemonAPI:
         Components().configuration = configuration
 
         _logger.info(f"Configuration loaded from command line arguments {configuration}")
+        return configuration
 
     def run_forever(self):
+        """
+        Starts the launcher in blocking mode.
+        """
         self._launcher.start(blocking=True)
 
     def start(self):
+        """
+        Starts the launcher in non-blocking mode.
+        """
         self._launcher.start(blocking=False)
 
     def stop(self):
+        """
+        Stops the launcher.
+        """
         self._launcher.stop()
