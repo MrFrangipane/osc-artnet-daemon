@@ -27,4 +27,4 @@ class Components(metaclass=SingletonMetaclass):
     #
     # Models
     configuration: Configuration = None
-    mood: Mood = Mood()
+    mood: Mood = field(default_factory=Mood)

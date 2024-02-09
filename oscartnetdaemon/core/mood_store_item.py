@@ -1,12 +1,12 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from oscartnetdaemon.core.mood import Mood
 
 
 @dataclass
 class MoodStoreItem:
-    before_punch: Mood = Mood()
-    a: Mood = Mood()
-    b: Mood = Mood()
-    c: Mood = Mood()
-    d: Mood = Mood()
+    before_punch: Mood = field(default_factory=Mood)
+    a: Mood = field(default_factory=Mood)
+    b: Mood = field(default_factory=Mood)
+    c: Mood = field(default_factory=Mood)
+    d: Mood = field(default_factory=Mood)

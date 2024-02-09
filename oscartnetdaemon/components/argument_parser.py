@@ -1,6 +1,5 @@
 import argparse
 import logging
-import socket
 
 from oscartnetdaemon.core.configuration import Configuration
 
@@ -34,7 +33,8 @@ def parse_args() -> Configuration:
         "-v", "--verbose", action="store_true",
         help="Logs all OSC messages"
     )
-    arguments = parser.parse_args()
+
+    arguments, _ = parser.parse_known_args()
 
     return Configuration(
         is_verbose=arguments.verbose,
