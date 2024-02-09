@@ -5,6 +5,7 @@ from dataclasses import fields
 
 from oscartnetdaemon.components.fixtures_updater.abstract import AbstractFixturesUpdater
 from oscartnetdaemon.core.components import Components
+from oscartnetdaemon.python_extensions.math import map_to_int
 
 from oscartnetdaemon.components.fixtures.tristan_200 import Tristan200
 from oscartnetdaemon.components.fixtures.octostrip_bar import OctostripBar
@@ -12,6 +13,7 @@ from oscartnetdaemon.components.fixtures.two_bright_par import TwoBrightPar
 from oscartnetdaemon.core.channel_info import ChannelInfo
 from oscartnetdaemon.core.fixture.group import FixtureGroup
 from oscartnetdaemon.core.fixture.info import FixtureInfo
+from oscartnetdaemon.core.osc.state_model import OSCStateModel
 
 _logger = logging.getLogger(__name__)
 
@@ -27,8 +29,8 @@ class FixturesUpdater(AbstractFixturesUpdater):
     def load_fixtures(self):
         self._fixtures = [
             FixtureGroup([OctostripBar() for _ in range(8)]),
-            Tristan200(),
-            Tristan200(),
+            Tristan200(address=49),  # fixme: compute addresses once in "session manager"
+            Tristan200(address=67),
             FixtureGroup([TwoBrightPar() for _ in range(5)]),
         ]
 
@@ -101,20 +103,38 @@ class FixturesUpdater(AbstractFixturesUpdater):
         self._is_running = True
 
         while self._is_running:
-            mood = copy(Components().osc_state_model.mood)
-            address_pointer = 0  # fixme: find better name
+            if Components().osc_state_model.current_page == OSCStateModel.Page.Mood:
+                mood = copy(Components().osc_state_model.mood)
+                address_pointer = 0  # fixme: find better name
 
-            for fixture in self._fixtures:
-                channels = fixture.map_to_channels(mood, 0)
-                start = address_pointer if fixture.address is None else fixture.address
-                end = start + len(channels)
+                for fixture in self._fixtures:
+                    channels = fixture.map_to_channels(mood, 0)
+                    start = address_pointer if fixture.address is None else fixture.address
+                    end = start + len(channels)
 
-                _logger.debug(f"{type(fixture).__name__}({start}:{end}) = {channels}")
-                self.universe[start:end] = channels
-                address_pointer = end
+                    _logger.debug(f"{type(fixture).__name__}({start}:{end}) = {channels}")
+                    self.universe[start:end] = channels
+                    address_pointer = end
 
-            for artnet_server in Components().artnet_servers:
-                artnet_server.set_universe(self.universe)
+                for artnet_server in Components().artnet_servers:
+                    artnet_server.set_universe(self.universe)
+
+            elif Components().osc_state_model.current_page == OSCStateModel.Page.Tristan200:
+                tristans = list()
+                for fixture in self._fixtures:
+                    if isinstance(fixture, FixtureGroup):
+                        for sub_fixture in fixture.fixtures:
+                            if isinstance(sub_fixture, Tristan200):
+                                tristans.append(sub_fixture)
+                    elif isinstance(fixture, Tristan200):
+                        tristans.append(fixture)
+
+                channels = [map_to_int(v) for v in vars(Components().osc_state_model.tristan_200).values()]
+                for tristan in tristans:
+                    # fixme: implies that address is set (and in artnet 1-based!) !
+                    start = tristan.address - 1
+                    end = start + len(channels)
+                    self.universe[start:end] = channels
 
             time.sleep(self.sleep_interval)
 

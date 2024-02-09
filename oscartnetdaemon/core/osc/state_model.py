@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from enum import Enum
+from enum import IntEnum
 
 from oscartnetdaemon.core.osc.mood import Mood
 from oscartnetdaemon.core.osc.tristan_200 import Tristan200
@@ -8,7 +8,7 @@ from oscartnetdaemon.core.osc.tristan_200 import Tristan200
 @dataclass
 class OSCStateModel:
 
-    class Page(Enum):
+    class Page(IntEnum):
         Mood = 0
         Setting = 1
         Tristan200 = 2
@@ -16,3 +16,4 @@ class OSCStateModel:
     current_page: Page = Page.Mood
     mood: Mood = field(default_factory=Mood)
     tristan_200: Tristan200 = field(default_factory=Tristan200)
+

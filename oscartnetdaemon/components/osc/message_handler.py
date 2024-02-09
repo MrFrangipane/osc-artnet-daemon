@@ -1,4 +1,5 @@
 from oscartnetdaemon.core.components import Components
+from oscartnetdaemon.core.osc.state_model import OSCStateModel
 
 
 class MessageHandler:
@@ -8,16 +9,20 @@ class MessageHandler:
 
     def handle(self, address, values) -> None:
         path_items = address.split('/')
+        value = values[0]
 
-        if 'pager' in path_items or len(values) != 1:
-            print("pager", values)
+        if len(values) != 1:
             return
 
-        value = values[0]
+        if 'pager' in path_items:
+            Components().osc_state_model.current_page = OSCStateModel.Page(values[0])
+            return
+
         _, sender, control_name = path_items
 
         if sender.startswith('#'):
-            fixture_name = sender[1:]
+            page_name = sender[1:]
+            setattr(getattr(Components().osc_state_model, page_name), control_name, value)
             return
 
         elif control_name.startswith('scene_'):
