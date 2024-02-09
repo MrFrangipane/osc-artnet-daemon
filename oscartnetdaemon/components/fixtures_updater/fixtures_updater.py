@@ -120,4 +120,9 @@ class FixturesUpdater(AbstractFixturesUpdater):
 
     def stop(self):
         self._is_running = False
-        _logger.info(f"Fixture updater stopped")
+
+        self.universe = bytearray(512)
+        for artnet_server in Components().artnet_servers:
+            artnet_server.set_universe(self.universe)
+
+        _logger.info(f"Fixture updater stopped, blackout")

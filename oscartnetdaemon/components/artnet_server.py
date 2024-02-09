@@ -15,6 +15,7 @@ class ArtnetServer:
         self.target_node_ip = None
         self.universe_number = universe_number
         self._stupid_artnet: StupidArtnet = None
+        self._is_running = False
 
     def start(self):
         try:
@@ -34,13 +35,15 @@ class ArtnetServer:
         self._stupid_artnet = StupidArtnet(target_ip=self.target_node_ip, universe=self.universe_number, fps=40)
         self._stupid_artnet.start()
         _logger.info(f"ArtnetServer started {self.target_node_ip} for universe {self.universe_number}")
+        self._is_running = True
 
     def set_universe(self, universe: bytearray):
-        if self._stupid_artnet is not None:
+        if self._is_running:
             self._stupid_artnet.set(universe)
 
     def stop(self):
-        if self._stupid_artnet is not None:
+        if self._is_running:
+            self._is_running = False
             self._stupid_artnet.stop()
             self._stupid_artnet.close()
             _logger.info(f"Artnet server stopped '{self.target_node}'")
