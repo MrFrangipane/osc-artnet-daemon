@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 
 from oscartnetdaemon.core.channel_info import ChannelInfo
 from oscartnetdaemon.core.fixture.base import BaseFixture
+from oscartnetdaemon.core.fixture.info import FixtureInfo
 
 
 class AbstractFixturesUpdater(ABC):
@@ -16,6 +17,10 @@ class AbstractFixturesUpdater(ABC):
 
     @abstractmethod
     def channels_info(self) -> list[ChannelInfo]:
+        pass
+
+    @abstractmethod
+    def fixtures_info(self) -> list[FixtureInfo]:
         pass
 
     @abstractmethod

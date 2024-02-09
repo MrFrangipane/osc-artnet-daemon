@@ -11,6 +11,7 @@ from oscartnetdaemon.components.fixtures.octostrip_bar import OctostripBar
 from oscartnetdaemon.components.fixtures.two_bright_par import TwoBrightPar
 from oscartnetdaemon.core.channel_info import ChannelInfo
 from oscartnetdaemon.core.fixture.group import FixtureGroup
+from oscartnetdaemon.core.fixture.info import FixtureInfo
 
 _logger = logging.getLogger(__name__)
 
@@ -44,10 +45,10 @@ class FixturesUpdater(AbstractFixturesUpdater):
                 for sub_fixture in fixture.fixtures:
                     for _ in fields(sub_fixture.Mapping):
                         infos.append(ChannelInfo(
-                            dmx_index,
-                            fixture_index,
-                            group_index,
-                            self.universe[dmx_index]
+                            dmx_index=dmx_index,
+                            fixture_index=fixture_index,
+                            group_index=group_index,
+                            value=self.universe[dmx_index]
                         ))
                         dmx_index += 1
                     fixture_index += 1
@@ -55,12 +56,43 @@ class FixturesUpdater(AbstractFixturesUpdater):
             else:
                 for _ in fields(fixture.Mapping):
                     infos.append(ChannelInfo(
-                        dmx_index,
-                        fixture_index,
-                        0,
-                        self.universe[dmx_index]
+                        dmx_index=dmx_index,
+                        fixture_index=fixture_index,
+                        group_index=0,
+                        value=self.universe[dmx_index]
                     ))
                     dmx_index += 1
+                fixture_index += 1
+                group_index += 1
+
+        return infos
+
+    # fixme: move this to a "session manager" class
+    def fixtures_info(self) -> list[FixtureInfo]:
+        infos = list()
+        dmx_index = 0
+        group_index = 1
+        fixture_index = 0
+        for fixture in self._fixtures:
+            if isinstance(fixture, FixtureGroup):
+                for sub_fixture in fixture.fixtures:
+                    infos.append(FixtureInfo(
+                        name=f"{fixture_index:02d} {type(sub_fixture).__name__}",
+                        channel_start=dmx_index,
+                        channel_count=len(fields(sub_fixture.Mapping)),
+                        group_index=group_index
+                    ))
+                    dmx_index += len(fields(sub_fixture.Mapping))
+                    fixture_index += 1
+                group_index += 1
+            else:
+                infos.append(FixtureInfo(
+                    name=f"{fixture_index:02d} {type(fixture).__name__}",
+                    channel_start=dmx_index,
+                    channel_count=len(fields(fixture.Mapping)),
+                    group_index=group_index
+                ))
+                dmx_index += len(fields(fixture.Mapping))
                 fixture_index += 1
                 group_index += 1
 

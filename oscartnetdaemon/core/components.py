@@ -12,6 +12,7 @@ from oscartnetdaemon.core.mood import Mood
 
 from oscartnetdaemon.python_extensions.singleton_metaclass import SingletonMetaclass
 
+
 @dataclass
 class Components(metaclass=SingletonMetaclass):
     #

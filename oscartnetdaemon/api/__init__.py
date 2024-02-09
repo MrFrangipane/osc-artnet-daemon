@@ -6,6 +6,7 @@ from oscartnetdaemon.components.launcher import Launcher
 from oscartnetdaemon.core.channel_info import ChannelInfo
 from oscartnetdaemon.core.components import Components
 from oscartnetdaemon.core.configuration import Configuration
+from oscartnetdaemon.core.fixture.info import FixtureInfo
 
 _logger = logging.getLogger(__name__)
 
@@ -71,6 +72,13 @@ class OSCArtnetDaemonAPI:
             return list()
 
         return Components().fixture_updater.channels_info()
+
+    @property
+    def fixtures_info(self) -> list[FixtureInfo]:
+        if Components().fixture_updater is None:
+            return list()
+
+        return Components().fixture_updater.fixtures_info()
 
     def run_forever(self):
         """
