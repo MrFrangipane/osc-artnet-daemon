@@ -3,6 +3,7 @@ from copy import copy
 
 from oscartnetdaemon.components.argument_parser import parse_args
 from oscartnetdaemon.components.launcher import Launcher
+from oscartnetdaemon.core.channel_info import ChannelInfo
 from oscartnetdaemon.core.components import Components
 from oscartnetdaemon.core.configuration import Configuration
 
@@ -63,6 +64,13 @@ class OSCArtnetDaemonAPI:
 
         _logger.info(f"Configuration loaded from command line arguments {configuration}")
         return configuration
+
+    @property
+    def channels_info(self) -> list[ChannelInfo]:
+        if Components().fixture_updater is None:
+            return list()
+
+        return Components().fixture_updater.channels_info()
 
     def run_forever(self):
         """

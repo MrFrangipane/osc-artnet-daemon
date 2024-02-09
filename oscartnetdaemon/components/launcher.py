@@ -19,6 +19,8 @@ class Launcher:
         self._discovery_thread: Thread = None
         self._fixture_thread: Thread = None
         self._osc_thread: Thread = None
+        self._was_started = False
+        self._is_running = False
 
     def start(self, blocking) -> None:
         configuration = Components().configuration
@@ -66,12 +68,14 @@ class Launcher:
                     time.sleep(1)
                 except KeyboardInterrupt:
                     break
-
             self.stop()
 
-    @staticmethod
-    def stop():
-        Components().fixture_updater.stop()
-        Components().discovery.stop()
-        Components().osc_server.stop()
-        Components().artnet.stop()
+        else:
+            self._was_started = True
+
+    def stop(self):
+        if self._was_started:
+            Components().fixture_updater.stop()
+            Components().discovery.stop()
+            Components().osc_server.stop()
+            Components().artnet.stop()
