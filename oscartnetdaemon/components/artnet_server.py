@@ -1,27 +1,48 @@
 import logging
+import socket
 
 from stupidArtnet import StupidArtnet
+
+from oscartnetdaemon.python_extensions.ping import ping
 
 _logger = logging.getLogger(__name__)
 
 
 class ArtnetServer:
 
-    def __init__(self, target_node_ip, universe_number):
-        self.target_node_ip = target_node_ip
+    def __init__(self, target_node, universe_number):
+        self.target_node = target_node
+        self.target_node_ip = None
         self.universe_number = universe_number
         self._stupid_artnet: StupidArtnet = None
 
     def start(self):
-        _logger.info("Starting Artnet server")
-        self._stupid_artnet = StupidArtnet(target_ip=self.target_node_ip, universe=self.universe_number, fps=30)
+        try:
+            self.target_node_ip = socket.gethostbyname(self.target_node)
+            if self.target_node_ip != self.target_node:
+                _logger.info(f"Found target node ip address '{self.target_node}' {self.target_node_ip}")
+            else:
+                if not ping(self.target_node_ip):
+                    _logger.warning(f"Target node ip address doesn't respond to ping '{self.target_node}'")
+                    _logger.warning(f"Server not started '{self.target_node}'")
+                    return
+        except socket.gaierror:
+            _logger.warning(f"Target node ip address not found '{self.target_node}'")
+            _logger.warning(f"Server not started '{self.target_node}'")
+            return
+
+        self._stupid_artnet = StupidArtnet(target_ip=self.target_node_ip, universe=self.universe_number, fps=40)
         self._stupid_artnet.start()
-        _logger.info(f"ArtnetServer started (target_node_ip={self.target_node_ip}, universe_number={self.universe_number})")
+        _logger.info(f"ArtnetServer started {self.target_node_ip} for universe {self.universe_number}")
 
     def set_universe(self, universe: bytearray):
-        self._stupid_artnet.set(universe)
+        if self._stupid_artnet is not None:
+            self._stupid_artnet.set(universe)
 
     def stop(self):
-        self._stupid_artnet.stop()
-        self._stupid_artnet.close()
-        _logger.info("Artnet server stopped")
+        if self._stupid_artnet is not None:
+            self._stupid_artnet.stop()
+            self._stupid_artnet.close()
+            _logger.info(f"Artnet server stopped '{self.target_node}'")
+        else:
+            _logger.info(f"Artnet was server started '{self.target_node}'")

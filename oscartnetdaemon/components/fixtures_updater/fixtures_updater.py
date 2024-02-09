@@ -21,9 +21,7 @@ class FixturesUpdater(AbstractFixturesUpdater):
 
     def __init__(self):
         super().__init__()
-
         self._is_running = False
-        self._artnet = Components().artnet
 
     # fixme: move this to a "session manager" class
     def load_fixtures(self):
@@ -115,7 +113,9 @@ class FixturesUpdater(AbstractFixturesUpdater):
                 self.universe[start:end] = channels
                 address_pointer = end
 
-            self._artnet.set_universe(self.universe)
+            for artnet_server in Components().artnet_servers:
+                artnet_server.set_universe(self.universe)
+
             time.sleep(self.sleep_interval)
 
     def stop(self):

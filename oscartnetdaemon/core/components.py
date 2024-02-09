@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from oscartnetdaemon.components.artnet_server import ArtnetServer
 from oscartnetdaemon.components.discovery.abstract import AbstractDiscovery
@@ -17,7 +17,7 @@ from oscartnetdaemon.python_extensions.singleton_metaclass import SingletonMetac
 class Components(metaclass=SingletonMetaclass):
     #
     # Services
-    artnet: ArtnetServer = None
+    artnet_servers: list[ArtnetServer] = field(default_factory=list)
     discovery: AbstractDiscovery = None
     fixture_updater: AbstractFixturesUpdater = None
     mood_store: AbstractMoodStore = None

@@ -6,7 +6,7 @@ from dataclasses import dataclass
 @dataclass
 class Configuration:
     is_verbose: bool
-    artnet_target_node_ip: str
+    artnet_target_nodes: list[str]
     artnet_universe: int
     osc_server_address: str
     osc_server_port: int

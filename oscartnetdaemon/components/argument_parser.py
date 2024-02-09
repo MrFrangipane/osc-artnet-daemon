@@ -11,7 +11,7 @@ def parse_args() -> Configuration:
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
-        "-a", "--artnet-target-node", default="127.0.0.1",
+        "-a", "--artnet-target-nodes", nargs='+', default=["127.0.0.1"],
         help="Name or address of the Artnet target node"
     )
 
@@ -38,7 +38,7 @@ def parse_args() -> Configuration:
 
     return Configuration(
         is_verbose=arguments.verbose,
-        artnet_target_node_ip=socket.gethostbyname(arguments.artnet_target_node),
+        artnet_target_nodes=arguments.artnet_target_nodes,
         artnet_universe=arguments.artnet_universe,
         osc_server_address=arguments.osc_server_address,
         osc_server_port=arguments.osc_server_port

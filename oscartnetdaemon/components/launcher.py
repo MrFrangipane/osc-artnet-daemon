@@ -42,11 +42,14 @@ class Launcher:
 
         #
         # Artnet
-        Components().artnet = ArtnetServer(
-            target_node_ip=configuration.artnet_target_node_ip,
-            universe_number=configuration.artnet_universe
-        )
-        Components().artnet.start()
+        Components().artnet_servers = list()
+        for target_node in configuration.artnet_target_nodes:
+            new_server = ArtnetServer(
+                target_node=target_node,
+                universe_number=configuration.artnet_universe
+            )
+            Components().artnet_servers.append(new_server)
+            new_server.start()
 
         #
         # Fixtures Updater
@@ -78,4 +81,5 @@ class Launcher:
             Components().fixture_updater.stop()
             Components().discovery.stop()
             Components().osc_server.stop()
-            Components().artnet.stop()
+            for artnet_server in Components().artnet_servers:
+                artnet_server.stop()

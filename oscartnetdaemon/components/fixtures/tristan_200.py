@@ -32,5 +32,6 @@ class Tristan200(BaseFixture):
         mapping = Tristan200.Mapping()
         mapping.color = int(mood.palette * 255)
         mapping.pan = int(((math.cos(time.time()) * 0.5) + 0.5) * 255)
+        mapping.tilt = int(mood.texture * 255)
 
         return list(vars(mapping).values())
