@@ -28,8 +28,6 @@ class Launcher:
         Components().show_store = ShowStore()
         Components().show_store.load_show()
 
-        Components().fixture_updater = FixturesUpdater()
-
     def start(self, blocking) -> None:
         configuration = Components().configuration
 
@@ -69,6 +67,7 @@ class Launcher:
 
         #
         # Fixtures Updater
+        Components().fixture_updater = FixturesUpdater()  # fixme understand how threading copies object to Thread ?
         self._fixture_thread: Thread = Thread(target=Components().fixture_updater.start, daemon=True)
         self._fixture_thread.start()
 

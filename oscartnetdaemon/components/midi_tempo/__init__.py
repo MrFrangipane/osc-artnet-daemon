@@ -1,8 +1,10 @@
 import mido
 import time
 
+from oscartnetdaemon.core.midi_tempo_info import MIDITempoInfo
 
-class MIDITempo():
+
+class MIDITempo:
     BeatTickCount = 24
 
     def __init__(self):
@@ -15,6 +17,12 @@ class MIDITempo():
     @property
     def available_ports(self) -> list[str]:
         return mido.get_input_names()
+
+    def info(self) -> MIDITempoInfo:
+        return MIDITempoInfo(
+            beat_counter=self.beat_counter,
+            bpm=self.bpm
+        )
 
     def set_port(self, port_name):
         self._port_name = port_name

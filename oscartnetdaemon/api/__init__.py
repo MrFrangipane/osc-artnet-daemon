@@ -7,6 +7,7 @@ from oscartnetdaemon.core.channel_info import ChannelInfo
 from oscartnetdaemon.core.components import Components
 from oscartnetdaemon.core.configuration import Configuration
 from oscartnetdaemon.core.show.item import ShowItem
+from oscartnetdaemon.core.midi_tempo_info import MIDITempoInfo
 
 _logger = logging.getLogger(__name__)
 
@@ -97,3 +98,10 @@ class OSCArtnetDaemonAPI:
         Stops the launcher.
         """
         self._launcher.stop()
+
+    @property
+    def tempo_info(self) -> MIDITempoInfo:
+        if Components().midi_tempo is None:
+            return MIDITempoInfo(0, 0)
+
+        return Components().midi_tempo.info()
