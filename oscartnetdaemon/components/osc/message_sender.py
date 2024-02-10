@@ -34,9 +34,15 @@ class OSCMessageSender(AbstractOSCMessageSender):
 
     def send(self, control_name, value, sender):
         for client_id in self._clients:
-            name = self._clients_info[client_id].name
-            if name != sender:
-                address = f"/{name}/{control_name}"
+            client_name = self._clients_info[client_id].name
+
+            # FIXME: very hacky
+            bpm = Components().midi_tempo.bpm
+            self._clients[client_name].send_message(f"/{client_name}/bpm_value", f"{bpm:.1f}")
+            # FIXME: ----------
+
+            if client_name != sender:
+                address = f"/{client_name}/{control_name}"
                 _logger.debug(f"Sending message {address} {value}")
                 self._clients[client_id].send_message(address, value)
 

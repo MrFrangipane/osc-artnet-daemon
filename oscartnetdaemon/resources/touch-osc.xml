@@ -9977,7 +9977,7 @@ end</value>
 										<key>text</key>
 										<locked>0</locked>
 										<lockedDefaultCurrent>0</lockedDefaultCurrent>
-										<default>&lt;device-name&gt;</default>
+										<default>&lt;DEVICE_NAME&gt;</default>
 										<defaultPull>0</defaultPull>
 									</value>
 									<value>
@@ -10548,7 +10548,7 @@ end</value>
 										<key>x</key>
 										<locked>0</locked>
 										<lockedDefaultCurrent>0</lockedDefaultCurrent>
-										<default>0.5</default>
+										<default>1</default>
 										<defaultPull>0</defaultPull>
 									</value>
 								</values>
@@ -10852,7 +10852,7 @@ end</value>
 										<key>x</key>
 										<locked>0</locked>
 										<lockedDefaultCurrent>0</lockedDefaultCurrent>
-										<default>0.5</default>
+										<default>1</default>
 										<defaultPull>0</defaultPull>
 									</value>
 								</values>
@@ -11331,8 +11331,8 @@ end</value>
 									<value>
 										<key>text</key>
 										<locked>0</locked>
-										<lockedDefaultCurrent>1</lockedDefaultCurrent>
-										<default>&lt;bpm&gt;</default>
+										<lockedDefaultCurrent>0</lockedDefaultCurrent>
+										<default>&lt;bpm_value&gt;</default>
 										<defaultPull>0</defaultPull>
 									</value>
 									<value>
@@ -11343,6 +11343,60 @@ end</value>
 										<defaultPull>0</defaultPull>
 									</value>
 								</values>
+								<messages>
+									<osc>
+										<enabled>1</enabled>
+										<send>0</send>
+										<receive>1</receive>
+										<feedback>0</feedback>
+										<connections>11111</connections>
+										<triggers>
+											<trigger>
+												<var>text</var>
+												<condition>ANY</condition>
+											</trigger>
+										</triggers>
+										<path>
+											<partial>
+												<type>CONSTANT</type>
+												<conversion>STRING</conversion>
+												<value>/</value>
+												<scaleMin>0</scaleMin>
+												<scaleMax>1</scaleMax>
+											</partial>
+											<partial>
+												<type>PROPERTY</type>
+												<conversion>STRING</conversion>
+												<value>parent.name</value>
+												<scaleMin>0</scaleMin>
+												<scaleMax>1</scaleMax>
+											</partial>
+											<partial>
+												<type>CONSTANT</type>
+												<conversion>STRING</conversion>
+												<value>/</value>
+												<scaleMin>0</scaleMin>
+												<scaleMax>1</scaleMax>
+											</partial>
+											<partial>
+												<type>PROPERTY</type>
+												<conversion>STRING</conversion>
+												<value>name</value>
+												<scaleMin>0</scaleMin>
+												<scaleMax>1</scaleMax>
+											</partial>
+										</path>
+										<arguments>
+											<partial>
+												<type>VALUE</type>
+												<conversion>STRING</conversion>
+												<value>text</value>
+												<scaleMin>0</scaleMin>
+												<scaleMax>1</scaleMax>
+											</partial>
+										</arguments>
+									</osc>
+								</messages>
 							</node>
 							<node ID="8d579479-c7fb-11ee-a6a1-0826ae311d34" type="BUTTON">
 								<properties>

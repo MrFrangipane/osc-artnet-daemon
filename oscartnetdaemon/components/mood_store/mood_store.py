@@ -64,7 +64,7 @@ class MoodStore(AbstractMoodStore):
             self._clients_stores[info.name] = _ClientMoodStore(info)
 
     def unregister_client(self, info: OSCClientInfo):
-        pass  # keep data alive (when client reconnects)
+        pass  # keep data alive (for when client reconnects)
 
     def save(self, sender, scene_name):
         self._clients_stores[sender].save(scene_name)
