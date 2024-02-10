@@ -2,12 +2,13 @@ import logging
 import time
 from threading import Thread
 
+from oscartnetdaemon.components.artnet_server import ArtnetServer
 from oscartnetdaemon.components.discovery.discovery import Discovery
 from oscartnetdaemon.components.fixtures_updater.fixtures_updater import FixturesUpdater
 from oscartnetdaemon.components.mood_store.mood_store import MoodStore
 from oscartnetdaemon.components.osc.message_sender import OSCMessageSender
 from oscartnetdaemon.components.osc.server import OSCServer
-from oscartnetdaemon.components.artnet_server import ArtnetServer
+from oscartnetdaemon.components.show_store.store import ShowStore
 from oscartnetdaemon.core.components import Components
 
 _logger = logging.getLogger(__name__)
@@ -52,9 +53,13 @@ class Launcher:
             new_server.start()
 
         #
+        # Show Store
+        Components().show_store = ShowStore()
+        Components().show_store.load_show()
+
+        #
         # Fixtures Updater
         Components().fixture_updater = FixturesUpdater()
-        Components().fixture_updater.load_fixtures()
         self._fixture_thread: Thread = Thread(target=Components().fixture_updater.start, daemon=True)
         self._fixture_thread.start()
 

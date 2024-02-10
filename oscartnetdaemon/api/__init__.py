@@ -6,7 +6,7 @@ from oscartnetdaemon.components.launcher import Launcher
 from oscartnetdaemon.core.channel_info import ChannelInfo
 from oscartnetdaemon.core.components import Components
 from oscartnetdaemon.core.configuration import Configuration
-from oscartnetdaemon.core.fixture.info import FixtureInfo
+from oscartnetdaemon.core.show.item import ShowItem
 
 _logger = logging.getLogger(__name__)
 
@@ -74,11 +74,11 @@ class OSCArtnetDaemonAPI:
         return Components().fixture_updater.channels_info()
 
     @property
-    def fixtures_info(self) -> list[FixtureInfo]:
-        if Components().fixture_updater is None:
+    def show_items(self) -> list[ShowItem]:
+        if Components().show_store is None:
             return list()
 
-        return Components().fixture_updater.fixtures_info()
+        return Components().show_store.show.items
 
     def run_forever(self):
         """

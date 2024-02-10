@@ -6,6 +6,7 @@ from oscartnetdaemon.components.fixtures_updater.abstract import AbstractFixture
 from oscartnetdaemon.components.mood_store.abstract import AbstractMoodStore
 from oscartnetdaemon.components.osc.abstract_message_sender import AbstractOSCMessageSender
 from oscartnetdaemon.components.osc.server_abstract import AbstractOSCServer
+from oscartnetdaemon.components.show_store.abstract import AbstractShowStore
 
 from oscartnetdaemon.core.configuration import Configuration
 from oscartnetdaemon.core.osc.state_model import OSCStateModel
@@ -23,6 +24,7 @@ class Components(metaclass=SingletonMetaclass):
     mood_store: AbstractMoodStore = None
     osc_server: AbstractOSCServer = None
     osc_message_sender: AbstractOSCMessageSender = None
+    show_store: AbstractShowStore = None
 
     #
     # Models

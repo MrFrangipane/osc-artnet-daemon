@@ -1,13 +1,20 @@
+from dataclasses import dataclass
+
 from oscartnetdaemon.core.fixture.base import BaseFixture
 from oscartnetdaemon.core.osc.mood import Mood
 
 
-class FixtureGroup:
+class FixtureGroup(BaseFixture):
+    @dataclass
+    class Mapping:
+        """Dummy Mapping to conform to BaseFixture"""
+        pass
 
     def __init__(self, fixtures, address: int = None):
-        self.address = address
+        super().__init__(address)
+
         self.fixtures: list[BaseFixture] = fixtures
-        # fixme: use a getter on fixtures to check too ?
+        # fixme: use a setter on fixtures to check too ?
         if any([isinstance(f, FixtureGroup) for f in self.fixtures]):
             raise ValueError("Nested fixture groups not supported")
 
