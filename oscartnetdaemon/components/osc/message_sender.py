@@ -11,16 +11,16 @@ _logger = logging.getLogger(__name__)
 
 class OSCMessageSender(AbstractOSCMessageSender):
     def __init__(self):
-        self._clients: dict[bytes, SimpleUDPClient] = dict()
-        self._clients_info: dict[bytes, OSCClientInfo] = dict()
+        self._clients: dict[str, SimpleUDPClient] = dict()
+        self._clients_info: dict[str, OSCClientInfo] = dict()
 
     def register_client(self, info: OSCClientInfo):
         _logger.info(f"Registering client {info.name}")
         address = ".".join([str(int(b)) for b in info.address])
         new_client = SimpleUDPClient(address, info.port)
 
-        self._clients[info.id] = new_client
-        self._clients_info[info.id] = info
+        self._clients[info.name] = new_client
+        self._clients_info[info.name] = info
 
         _logger.debug(f"Sending '/device_name {info.name}' to {info.name}")
         new_client.send_message('/device_name', info.name)
@@ -29,8 +29,8 @@ class OSCMessageSender(AbstractOSCMessageSender):
 
     def unregister_client(self, info: OSCClientInfo):
         _logger.info(f"Unregistering client {info.name}")
-        self._clients.pop(info.id)
-        self._clients_info.pop(info.id)
+        self._clients.pop(info.name)
+        self._clients_info.pop(info.name)
 
     def send(self, control_name, value, sender):
         for client_id in self._clients:
@@ -42,12 +42,15 @@ class OSCMessageSender(AbstractOSCMessageSender):
 
     def notify_punch(self, sender, is_punch):
         _logger.debug(f"Notify punch from {sender} {bool(is_punch)}")
-        # FIXME light a square on people's tablets
+        # todo: light a square on people's tablets ?
 
     def send_mood_to_all(self):
         for name, value in vars(Components().osc_state_model.mood).items():
+            # fixme: use reflexion ? pack messages ?
+            if name == "master_dimmer":
+                continue
             self.send(name, value, "Server")
 
     def send_to_all_raw(self, address, value):
-        for client_id in self._clients:
-            self._clients[client_id].send_message(address, value)
+        for client_name in self._clients:
+            self._clients[client_name].send_message(address, value)

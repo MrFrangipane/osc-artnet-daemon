@@ -24,7 +24,11 @@ class FixturesUpdater(AbstractFixturesUpdater):
 
         while self._is_running:
             if Components().osc_state_model.current_page == OSCStateModel.Page.Mood:
+                # fixme: create a component that transforms OSC model to FixtureUpdater model
+                # todo: add a "last midi message" timestamp to let fixtures deal with time if no midi was received ?
                 mood = copy(Components().osc_state_model.mood)
+                mood.bpm = Components().midi_tempo.bpm
+                mood.beat_counter = Components().midi_tempo.beat_counter
 
                 for show_item in Components().show_store.show.items:
                     channels = show_item.fixture.map_to_channels(mood, 0)
@@ -42,8 +46,12 @@ class FixturesUpdater(AbstractFixturesUpdater):
                     self.universe[show_item.channel_first:show_item.channel_last] = channels
 
                 for i, mapping in enumerate(vars(Components().osc_state_model.tristan_200).keys()):
+                    # fixme: pack messages ?
                     Components().osc_message_sender.send_to_all_raw(
                         f"/#tristan_200/{mapping}_value", f"{channels[i]:03d}"
+                    )
+                    Components().osc_message_sender.send_to_all_raw(
+                        f"/#tristan_200/{mapping}", float(channels[i]) / 255.0
                     )
 
             time.sleep(self.sleep_interval)

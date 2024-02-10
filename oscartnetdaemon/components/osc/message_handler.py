@@ -44,14 +44,14 @@ class MessageHandler:
         if control_name == "temporary_modifier":
             Components().mood_store.set_temporary_modifier(sender, value)
 
-        if control_name == "tap_tempo":
+        if control_name == "tap_tempo" and value == 1:
             # fixme: specific OSC messages to notify other (messages get lost in timings)
             Components().midi_tempo.send_tap()
 
         elif control_name == 'recallable_dimmer':
-            pass  # Components().osc_state_model.mood.palette = value
+            Components().osc_state_model.mood.recallable_dimmer = value
         elif control_name == 'master_dimmer':
-            pass  # Components().osc_state_model.mood.palette = value
+            Components().osc_state_model.mood.master_dimmer = value
 
         elif control_name == 'palette':
             Components().osc_state_model.mood.palette = value

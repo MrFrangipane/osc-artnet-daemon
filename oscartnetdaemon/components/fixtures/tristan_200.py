@@ -3,7 +3,7 @@ import math
 from dataclasses import dataclass
 
 from oscartnetdaemon.core.fixture.base import BaseFixture
-from oscartnetdaemon.core.osc.mood import Mood
+from oscartnetdaemon.core.mood import Mood
 from oscartnetdaemon.python_extensions.math import map_to_int
 
 

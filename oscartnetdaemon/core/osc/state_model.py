@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from enum import IntEnum
 
-from oscartnetdaemon.core.osc.mood import Mood
+from oscartnetdaemon.core.mood import Mood
 from oscartnetdaemon.core.osc.tristan_200 import Tristan200
 
 

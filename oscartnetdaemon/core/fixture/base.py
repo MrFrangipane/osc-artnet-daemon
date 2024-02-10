@@ -2,7 +2,7 @@ from abc import abstractmethod
 from dataclasses import dataclass
 
 from oscartnetdaemon.core.fixture.abstract_metaclass import AbstractFixtureMetaclass
-from oscartnetdaemon.core.osc.mood import Mood
+from oscartnetdaemon.core.mood import Mood
 
 
 class BaseFixture(metaclass=AbstractFixtureMetaclass):

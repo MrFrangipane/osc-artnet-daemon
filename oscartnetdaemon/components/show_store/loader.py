@@ -1,4 +1,4 @@
-from oscartnetdaemon.core.osc.mood import Mood
+from oscartnetdaemon.core.mood import Mood
 from oscartnetdaemon.core.fixture.base import BaseFixture
 from oscartnetdaemon.core.fixture.group import FixtureGroup
 from oscartnetdaemon.core.show.show import Show

@@ -9976,8 +9976,8 @@ end</value>
 									<value>
 										<key>text</key>
 										<locked>0</locked>
-										<lockedDefaultCurrent>1</lockedDefaultCurrent>
-										<default>Frangitronik</default>
+										<lockedDefaultCurrent>0</lockedDefaultCurrent>
+										<default>&lt;device-name&gt;</default>
 										<defaultPull>0</defaultPull>
 									</value>
 									<value>
@@ -10769,7 +10769,7 @@ end</value>
 										<key>frame</key>
 										<value>
 											<x>400</x>
-											<y>75</y>
+											<y>78</y>
 											<w>60</w>
 											<h>220</h>
 										</value>
@@ -11907,9 +11907,9 @@ end</value>
 							<property type="c">
 								<key>color</key>
 								<value>
-									<r>0.090909</r>
-									<g>1</g>
-									<b>0.292639</b>
+									<r>1</r>
+									<g>0.106061</g>
+									<b>0.106061</b>
 									<a>0.668639</a>
 								</value>
 							</property>
@@ -11965,18 +11965,18 @@ end</value>
 							<property type="c">
 								<key>tabColorOff</key>
 								<value>
-									<r>0.0926214</r>
-									<g>1</g>
-									<b>0.0681818</b>
+									<r>1</r>
+									<g>0.030303</g>
+									<b>0.030303</b>
 									<a>0.207101</a>
 								</value>
 							</property>
 							<property type="c">
 								<key>tabColorOn</key>
 								<value>
-									<r>0.114493</r>
-									<g>1</g>
-									<b>0.0227273</b>
+									<r>1</r>
+									<g>0</g>
+									<b>0</b>
 									<a>0.514793</a>
 								</value>
 							</property>
@@ -12035,8 +12035,8 @@ end</value>
 										<key>color</key>
 										<value>
 											<r>1</r>
-											<g>0.851449</g>
-											<b>0.159091</b>
+											<g>0.0378788</g>
+											<b>0.0378788</b>
 											<a>1</a>
 										</value>
 									</property>
@@ -12375,8 +12375,8 @@ end</value>
 										<key>color</key>
 										<value>
 											<r>1</r>
-											<g>0.851449</g>
-											<b>0.159091</b>
+											<g>0.0378788</g>
+											<b>0.0378788</b>
 											<a>1</a>
 										</value>
 									</property>
@@ -12715,8 +12715,8 @@ end</value>
 										<key>color</key>
 										<value>
 											<r>1</r>
-											<g>0.851449</g>
-											<b>0.159091</b>
+											<g>0.0378788</g>
+											<b>0.0378788</b>
 											<a>1</a>
 										</value>
 									</property>
@@ -13055,8 +13055,8 @@ end</value>
 										<key>color</key>
 										<value>
 											<r>1</r>
-											<g>0.851449</g>
-											<b>0.159091</b>
+											<g>0.0378788</g>
+											<b>0.0378788</b>
 											<a>1</a>
 										</value>
 									</property>
@@ -13395,8 +13395,8 @@ end</value>
 										<key>color</key>
 										<value>
 											<r>1</r>
-											<g>0.851449</g>
-											<b>0.159091</b>
+											<g>0.0378788</g>
+											<b>0.0378788</b>
 											<a>1</a>
 										</value>
 									</property>
@@ -13735,8 +13735,8 @@ end</value>
 										<key>color</key>
 										<value>
 											<r>1</r>
-											<g>0.851449</g>
-											<b>0.159091</b>
+											<g>0.0378788</g>
+											<b>0.0378788</b>
 											<a>1</a>
 										</value>
 									</property>
@@ -14075,8 +14075,8 @@ end</value>
 										<key>color</key>
 										<value>
 											<r>1</r>
-											<g>0.851449</g>
-											<b>0.159091</b>
+											<g>0.0378788</g>
+											<b>0.0378788</b>
 											<a>1</a>
 										</value>
 									</property>
@@ -14415,8 +14415,8 @@ end</value>
 										<key>color</key>
 										<value>
 											<r>1</r>
-											<g>0.851449</g>
-											<b>0.159091</b>
+											<g>0.0378788</g>
+											<b>0.0378788</b>
 											<a>1</a>
 										</value>
 									</property>
@@ -14755,8 +14755,8 @@ end</value>
 										<key>color</key>
 										<value>
 											<r>1</r>
-											<g>0.851449</g>
-											<b>0.159091</b>
+											<g>0.0378788</g>
+											<b>0.0378788</b>
 											<a>1</a>
 										</value>
 									</property>
@@ -15095,8 +15095,8 @@ end</value>
 										<key>color</key>
 										<value>
 											<r>1</r>
-											<g>0.851449</g>
-											<b>0.159091</b>
+											<g>0.0378788</g>
+											<b>0.0378788</b>
 											<a>1</a>
 										</value>
 									</property>
@@ -15435,8 +15435,8 @@ end</value>
 										<key>color</key>
 										<value>
 											<r>1</r>
-											<g>0.851449</g>
-											<b>0.159091</b>
+											<g>0.0378788</g>
+											<b>0.0378788</b>
 											<a>1</a>
 										</value>
 									</property>
@@ -15775,8 +15775,8 @@ end</value>
 										<key>color</key>
 										<value>
 											<r>1</r>
-											<g>0.851449</g>
-											<b>0.159091</b>
+											<g>0.0378788</g>
+											<b>0.0378788</b>
 											<a>1</a>
 										</value>
 									</property>
@@ -16115,8 +16115,8 @@ end</value>
 										<key>color</key>
 										<value>
 											<r>1</r>
-											<g>0.851449</g>
-											<b>0.159091</b>
+											<g>0.0378788</g>
+											<b>0.0378788</b>
 											<a>1</a>
 										</value>
 									</property>
@@ -16455,8 +16455,8 @@ end</value>
 										<key>color</key>
 										<value>
 											<r>1</r>
-											<g>0.851449</g>
-											<b>0.159091</b>
+											<g>0.0378788</g>
+											<b>0.0378788</b>
 											<a>1</a>
 										</value>
 									</property>
@@ -16795,8 +16795,8 @@ end</value>
 										<key>color</key>
 										<value>
 											<r>1</r>
-											<g>0.851449</g>
-											<b>0.159091</b>
+											<g>0.0378788</g>
+											<b>0.0378788</b>
 											<a>1</a>
 										</value>
 									</property>
@@ -17135,8 +17135,8 @@ end</value>
 										<key>color</key>
 										<value>
 											<r>1</r>
-											<g>0.851449</g>
-											<b>0.159091</b>
+											<g>0.0378788</g>
+											<b>0.0378788</b>
 											<a>1</a>
 										</value>
 									</property>
@@ -17475,8 +17475,8 @@ end</value>
 										<key>color</key>
 										<value>
 											<r>1</r>
-											<g>0.851449</g>
-											<b>0.159091</b>
+											<g>0.0378788</g>
+											<b>0.0378788</b>
 											<a>1</a>
 										</value>
 									</property>
@@ -17819,8 +17819,8 @@ end</value>
 										<key>color</key>
 										<value>
 											<r>1</r>
-											<g>0.851449</g>
-											<b>0.159091</b>
+											<g>0.0378788</g>
+											<b>0.0378788</b>
 											<a>1</a>
 										</value>
 									</property>
@@ -18767,7 +18767,7 @@ end</value>
 										<key>text</key>
 										<locked>0</locked>
 										<lockedDefaultCurrent>1</lockedDefaultCurrent>
-										<default>140</default>
+										<default>000</default>
 										<defaultPull>0</defaultPull>
 									</value>
 									<value>
@@ -18940,7 +18940,7 @@ end</value>
 										<key>text</key>
 										<locked>0</locked>
 										<lockedDefaultCurrent>1</lockedDefaultCurrent>
-										<default>107</default>
+										<default>000</default>
 										<defaultPull>0</defaultPull>
 									</value>
 									<value>
@@ -19113,7 +19113,7 @@ end</value>
 										<key>text</key>
 										<locked>0</locked>
 										<lockedDefaultCurrent>1</lockedDefaultCurrent>
-										<default>147</default>
+										<default>000</default>
 										<defaultPull>0</defaultPull>
 									</value>
 									<value>
@@ -19805,7 +19805,7 @@ end</value>
 										<key>text</key>
 										<locked>0</locked>
 										<lockedDefaultCurrent>1</lockedDefaultCurrent>
-										<default>108</default>
+										<default>004</default>
 										<defaultPull>0</defaultPull>
 									</value>
 									<value>
@@ -19978,7 +19978,7 @@ end</value>
 										<key>text</key>
 										<locked>0</locked>
 										<lockedDefaultCurrent>1</lockedDefaultCurrent>
-										<default>185</default>
+										<default>000</default>
 										<defaultPull>0</defaultPull>
 									</value>
 									<value>
@@ -20151,7 +20151,7 @@ end</value>
 										<key>text</key>
 										<locked>0</locked>
 										<lockedDefaultCurrent>1</lockedDefaultCurrent>
-										<default>135</default>
+										<default>000</default>
 										<defaultPull>0</defaultPull>
 									</value>
 									<value>
@@ -20324,7 +20324,7 @@ end</value>
 										<key>text</key>
 										<locked>0</locked>
 										<lockedDefaultCurrent>1</lockedDefaultCurrent>
-										<default>116</default>
+										<default>000</default>
 										<defaultPull>0</defaultPull>
 									</value>
 									<value>
@@ -20497,7 +20497,7 @@ end</value>
 										<key>text</key>
 										<locked>0</locked>
 										<lockedDefaultCurrent>1</lockedDefaultCurrent>
-										<default>137</default>
+										<default>000</default>
 										<defaultPull>0</defaultPull>
 									</value>
 									<value>
@@ -20670,7 +20670,7 @@ end</value>
 										<key>text</key>
 										<locked>0</locked>
 										<lockedDefaultCurrent>1</lockedDefaultCurrent>
-										<default>170</default>
+										<default>000</default>
 										<defaultPull>0</defaultPull>
 									</value>
 									<value>
@@ -20843,7 +20843,7 @@ end</value>
 										<key>text</key>
 										<locked>0</locked>
 										<lockedDefaultCurrent>1</lockedDefaultCurrent>
-										<default>062</default>
+										<default>000</default>
 										<defaultPull>0</defaultPull>
 									</value>
 									<value>

@@ -3,20 +3,18 @@ from abc import ABC, abstractmethod
 from oscartnetdaemon.core.osc_client_info import OSCClientInfo
 
 
-# FIXME find better names for FourMoods and MoodStore
+# FIXME find a better name than MoodStore
 class AbstractMoodStore(ABC):
-    _before_punch = "before_punch"
-
     @abstractmethod
     def register_client(self, info: OSCClientInfo):
         pass
 
     @abstractmethod
-    def save(self, sender, scene_name):
+    def unregister_client(self, info: OSCClientInfo):
         pass
 
     @abstractmethod
-    def unregister_client(self, info: OSCClientInfo):
+    def save(self, sender, scene_name):
         pass
 
     @abstractmethod
