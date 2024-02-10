@@ -1,3 +1,5 @@
+from dataclasses import fields
+
 from oscartnetdaemon.core.mood import Mood
 from oscartnetdaemon.core.fixture.base import BaseFixture
 from oscartnetdaemon.core.fixture.group import FixtureGroup
@@ -27,16 +29,20 @@ class ShowLoader:
 
         for fixture in fixtures:
             if not isinstance(fixture, FixtureGroup):
-                show_items.append(self._fixture_to_show_item(fixture, is_group=False))
+                show_items.append(self._fixture_to_show_item(fixture, is_group=False, group_position=0.5))
             else:
-                for sub_fixture in fixture.fixtures:
-                    show_items.append(self._fixture_to_show_item(sub_fixture, is_group=True))
+                for i, sub_fixture in enumerate(fixture.fixtures):
+                    show_items.append(self._fixture_to_show_item(
+                        sub_fixture,
+                        is_group=True,
+                        group_position=float(i) / (len(fixture.fixtures) - 1)
+                    ))
                 self._group_index += 1
 
         return show_items
 
-    def _fixture_to_show_item(self, fixture: BaseFixture, is_group) -> ShowItem:
-        channel_count = len(fixture.map_to_channels(mood=self._default_mood, group_position=0.0))
+    def _fixture_to_show_item(self, fixture: BaseFixture, is_group, group_position) -> ShowItem:
+        channel_count = len(fields(fixture.Mapping))
         new_item = ShowItem(
             name=type(fixture).__name__,
             fixture=fixture,
@@ -44,7 +50,8 @@ class ShowLoader:
             channel_first=self._channel_start_index,
             channel_last=self._channel_start_index + channel_count,
             channel_count=channel_count,
-            group_index=self._group_index if is_group else 0
+            group_index=self._group_index if is_group else 0,
+            group_position=group_position
         )
 
         self._channel_start_index += new_item.channel_count

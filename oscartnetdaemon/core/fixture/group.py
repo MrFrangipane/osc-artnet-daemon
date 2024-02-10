@@ -19,7 +19,4 @@ class FixtureGroup(BaseFixture):
             raise ValueError("Nested fixture groups not supported")
 
     def map_to_channels(self, mood: Mood, group_position: float):
-        channels = list()
-        for group_index, fixture in enumerate(self.fixtures):
-            channels += fixture.map_to_channels(mood, group_position=float(group_index) / (len(self.fixtures) - 1))
-        return channels
+        raise RuntimeError("Groups should not call this function")

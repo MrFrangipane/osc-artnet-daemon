@@ -34,7 +34,8 @@ class ShowItem:
     fixture: BaseFixture
     fixture_index: int
 
-    group_index: int
+    group_index: int  # which group
+    group_position: float  # where in the group
 
     channel_first: int
     channel_last: int
