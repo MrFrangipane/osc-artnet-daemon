@@ -1,9 +1,10 @@
+import math
 from dataclasses import dataclass
 import colorsys
 
 from oscartnetdaemon.core.fixture.base import BaseFixture
 from oscartnetdaemon.core.mood import Mood
-from oscartnetdaemon.python_extensions.math import map_to_int
+from oscartnetdaemon.python_extensions.math import map_to_int, p_cos
 
 
 class TwoBrightPar(BaseFixture):
@@ -17,9 +18,9 @@ class TwoBrightPar(BaseFixture):
         uv: int = 0
 
     def map_to_channels(self, mood: Mood, group_position: float) -> list[int]:
-        offset = 0 #((group_position * 2) - 1) * mood.animation * 0.5
+        offset = 0  # ((group_position * 2) - 1) * mood.animation * 0.5
         hue = (mood.palette + offset) % 1.0
-        red, green, blue = colorsys.hsv_to_rgb(hue, 1.0, 1.0)
+        red, green, blue = colorsys.hsv_to_rgb(hue, 1.0, mood.master_dimmer * mood.recallable_dimmer)
 
         mapping = TwoBrightPar.Mapping()
         mapping.red = map_to_int(red * mood.blinking * .5)

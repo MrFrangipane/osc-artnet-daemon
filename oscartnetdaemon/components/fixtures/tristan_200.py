@@ -1,10 +1,12 @@
-import math
+import logging
 
 from dataclasses import dataclass
 
 from oscartnetdaemon.core.fixture.base import BaseFixture
 from oscartnetdaemon.core.mood import Mood
-from oscartnetdaemon.python_extensions.math import map_to_int
+from oscartnetdaemon.python_extensions.math import map_to_int, p_cos
+
+_logger = logging.getLogger(__name__)
 
 
 class Tristan200(BaseFixture):
@@ -39,9 +41,37 @@ class Tristan200(BaseFixture):
 
         mapping = Tristan200.Mapping()
         mapping.color = map_to_int(mood.palette, 66, 80)
-        mapping.pan = map_to_int((math.cos(self.elapsed) * sym) * .5 + .5, 100, 160)
-        mapping.tilt = map_to_int(mood.texture)
-        mapping.dimmer = map_to_int(mood.blinking, 0, 40)
-        mapping.gobo1 = map_to_int(mood.bpm_scale / 8.0)
+
+        if mood.texture > .66:
+            mapping.focus = 255
+            mapping.gobo2 = 11
+            dim_factor = 1.0
+
+        elif mood.texture > .33:
+            mapping.focus = 255
+            mapping.gobo1 = 28
+            mapping.prism = 26
+            mapping.frost = 34
+            mapping.prism_rotation = 179 + int(group_position * 27)
+            dim_factor = 0.6
+
+        else:
+            mapping.prism = 26
+            mapping.frost = 144
+            dim_factor = 0.4
+
+        if mood.blinking > .7:
+            mapping.shutter = 121
+
+        elif mood.blinking < .3:
+            dim_factor *= p_cos(mood.beat_counter * 6.28)
+
+        pan = p_cos(mood.beat_counter + 1.57 * sym) * .3
+        if .6 > mood.animation > .3:
+            pan = 0.18  # roughly 45, centered
+
+        mapping.pan = map_to_int(pan)
+        mapping.tilt = 40
+        mapping.dimmer = map_to_int(mood.master_dimmer * mood.recallable_dimmer * dim_factor * 0.5)
 
         return list(vars(mapping).values())
