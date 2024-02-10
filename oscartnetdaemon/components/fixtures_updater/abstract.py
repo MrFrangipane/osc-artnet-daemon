@@ -7,7 +7,6 @@ from oscartnetdaemon.core.channel_info import ChannelInfo
 class AbstractFixturesUpdater(ABC):
     def __init__(self):
         self.universe = bytearray(512)
-        self._show_store: ShowStore = None
 
     @abstractmethod
     def start(self):

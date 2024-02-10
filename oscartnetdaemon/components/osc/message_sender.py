@@ -47,3 +47,7 @@ class OSCMessageSender(AbstractOSCMessageSender):
     def send_mood_to_all(self):
         for name, value in vars(Components().osc_state_model.mood).items():
             self.send(name, value, "Server")
+
+    def send_to_all_raw(self, address, value):
+        for client_id in self._clients:
+            self._clients[client_id].send_message(address, value)

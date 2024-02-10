@@ -24,3 +24,7 @@ class AbstractOSCMessageSender(ABC):
     @abstractmethod
     def send_mood_to_all(self):
         pass
+
+    @abstractmethod
+    def send_to_all_raw(self, address, value):
+        pass

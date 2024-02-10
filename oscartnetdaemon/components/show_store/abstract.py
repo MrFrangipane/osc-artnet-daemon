@@ -10,3 +10,7 @@ class AbstractShowStore(ABC):
     @abstractmethod
     def load_show(self):
         pass
+
+    @abstractmethod
+    def items_by_type(self, type_name):
+        pass

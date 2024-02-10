@@ -21,52 +21,7 @@ class ShowStore(AbstractShowStore):
             FixtureGroup([TwoBrightPar() for _ in range(5)]),
         ])
 
-
-"""
-
-    # fixme: move this to a "session manager" class
-    def load_fixtures(self):
-        self._fixtures = [
-            FixtureGroup([OctostripBar() for _ in range(8)]),
-            FixtureGroup([
-                Tristan200(address=48),  # fixme: compute addresses once in "session manager"
-                Tristan200(address=66)
-            ]),
-            FixtureGroup([TwoBrightPar() for _ in range(5)]),
-        ]
-
-    # fixme: move this to a "session manager" class
-    def channels_info(self) -> list[ChannelInfo]:
-        pass
-
-    # fixme: move this to a "session manager" class
-    def fixtures_info(self) -> list[FixtureInfo]:
-        infos = list()
-        dmx_index = 0
-        group_index = 1
-        fixture_index = 0
-        for fixture in self._fixtures:
-            if isinstance(fixture, FixtureGroup):
-                for sub_fixture in fixture.fixtures:
-                    infos.append(FixtureInfo(
-                        name=f"{fixture_index:02d} {type(sub_fixture).__name__}",
-                        channel_start=dmx_index,
-                        channel_count=len(fields(sub_fixture.Mapping)),
-                        group_index=group_index
-                    ))
-                    dmx_index += len(fields(sub_fixture.Mapping))
-                    fixture_index += 1
-                group_index += 1
-            else:
-                infos.append(FixtureInfo(
-                    name=f"{fixture_index:02d} {type(fixture).__name__}",
-                    channel_start=dmx_index,
-                    channel_count=len(fields(fixture.Mapping)),
-                    group_index=group_index
-                ))
-                dmx_index += len(fields(fixture.Mapping))
-                fixture_index += 1
-                group_index += 1
-
-        return infos
-"""
+    def items_by_type(self, type_name):
+        for item in self.show.items:
+            if type(item.fixture).__name__ == type_name:
+                yield item
