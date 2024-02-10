@@ -26,3 +26,7 @@ class AbstractMoodStore(ABC):
     @abstractmethod
     def set_punch(self, sender, scene_name, is_punch):
         pass
+
+    @abstractmethod
+    def set_temporary_modifier(self, sender, is_active):
+        pass

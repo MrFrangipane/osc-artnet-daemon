@@ -39,7 +39,21 @@ class MessageHandler:
 
             return
 
-        if control_name == 'palette':
+        #
+        # Controls
+        if control_name == "temporary_modifier":
+            Components().mood_store.set_temporary_modifier(sender, value)
+
+        if control_name == "tap_tempo":
+            # fixme: specific OSC messages to notify other (messages get lost in timings)
+            Components().midi_tempo.send_tap()
+
+        elif control_name == 'recallable_dimmer':
+            pass  # Components().osc_state_model.mood.palette = value
+        elif control_name == 'master_dimmer':
+            pass  # Components().osc_state_model.mood.palette = value
+
+        elif control_name == 'palette':
             Components().osc_state_model.mood.palette = value
         elif control_name == 'animation':
             Components().osc_state_model.mood.animation = value
@@ -48,8 +62,10 @@ class MessageHandler:
         elif control_name == 'blinking':
             Components().osc_state_model.mood.blinking = value
         elif control_name == 'bpm_scale':
-            Components().osc_state_model.mood.bpm_scale = value  # fixme: we need an interop service between tosc and mood
+            # fixme: we need an interop service between tosc and mood
+            Components().osc_state_model.mood.bpm_scale = value
         elif control_name == 'palette_animation':
-            Components().osc_state_model.mood.palette_animation = value   # fixme: we need an interop service between tosc and mood
+            # fixme: we need an interop service between tosc and mood
+            Components().osc_state_model.mood.palette_animation = value
 
         Components().osc_message_sender.send(control_name, value, sender)

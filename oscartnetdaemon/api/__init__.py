@@ -112,4 +112,4 @@ class OSCArtnetDaemonAPI:
             _logger.warning("No MIDI connection, tap not sent")
             return
 
-        Components().midi_tempo.tap()
+        Components().midi_tempo.send_tap()

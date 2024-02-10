@@ -49,3 +49,6 @@ class MoodStore(AbstractMoodStore):
         else:
             self._load(sender, self._before_punch)
             self._is_punching = False
+
+    def set_temporary_modifier(self, sender, is_active):
+        _logger.warning(f"NOT IMPLEMENTED Setting temporary modifier {sender}/{is_active}")

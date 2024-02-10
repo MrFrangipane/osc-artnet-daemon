@@ -65,6 +65,6 @@ class MIDITempo:
         self._is_running = False
         self._out.close()
 
-    def tap(self):
+    def send_tap(self):
         self._out.send(mido.Message('note_on', note=60))
         self._out.send(mido.Message('note_off', note=60))

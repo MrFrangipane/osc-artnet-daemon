@@ -38,7 +38,6 @@ class Launcher:
         #
         # OSC
         Components().osc_message_sender = OSCMessageSender()
-
         Components().osc_server = OSCServer(
             address=configuration.osc_server_address,
             port=configuration.osc_server_port
