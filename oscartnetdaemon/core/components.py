@@ -7,6 +7,7 @@ from oscartnetdaemon.components.mood_store.abstract import AbstractMoodStore
 from oscartnetdaemon.components.osc.abstract_message_sender import AbstractOSCMessageSender
 from oscartnetdaemon.components.osc.server_abstract import AbstractOSCServer
 from oscartnetdaemon.components.show_store.abstract import AbstractShowStore
+from oscartnetdaemon.components.midi_tempo import MIDITempo
 
 from oscartnetdaemon.core.configuration import Configuration
 from oscartnetdaemon.core.osc.state_model import OSCStateModel
@@ -21,6 +22,7 @@ class Components(metaclass=SingletonMetaclass):
     artnet_servers: list[ArtnetServer] = field(default_factory=list)
     discovery: AbstractDiscovery = None
     fixture_updater: AbstractFixturesUpdater = None
+    midi_tempo: MIDITempo = None
     mood_store: AbstractMoodStore = None
     osc_server: AbstractOSCServer = None
     osc_message_sender: AbstractOSCMessageSender = None

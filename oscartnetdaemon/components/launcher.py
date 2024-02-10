@@ -5,6 +5,7 @@ from threading import Thread
 from oscartnetdaemon.components.artnet_server import ArtnetServer
 from oscartnetdaemon.components.discovery.discovery import Discovery
 from oscartnetdaemon.components.fixtures_updater.fixtures_updater import FixturesUpdater
+from oscartnetdaemon.components.midi_tempo import MIDITempo
 from oscartnetdaemon.components.mood_store.mood_store import MoodStore
 from oscartnetdaemon.components.osc.message_sender import OSCMessageSender
 from oscartnetdaemon.components.osc.server import OSCServer
@@ -19,9 +20,15 @@ class Launcher:
     def __init__(self):
         self._discovery_thread: Thread = None
         self._fixture_thread: Thread = None
+        self._midi_thread: Thread = None
         self._osc_thread: Thread = None
         self._was_started = False
         self._is_running = False
+
+        Components().show_store = ShowStore()
+        Components().show_store.load_show()
+
+        Components().fixture_updater = FixturesUpdater()
 
     def start(self, blocking) -> None:
         configuration = Components().configuration
@@ -42,6 +49,14 @@ class Launcher:
         self._osc_thread.start()
 
         #
+        # MIDI
+        Components().midi_tempo = MIDITempo()
+        _logger.info(f"Available MIDI ports {Components().midi_tempo.available_ports}")
+        Components().midi_tempo.set_port(configuration.midi_in_port)
+        self._midi_thread: Thread = Thread(target=Components().midi_tempo.start, daemon=True)
+        self._midi_thread.start()
+
+        #
         # Artnet
         Components().artnet_servers = list()
         for target_node in configuration.artnet_target_nodes:
@@ -53,13 +68,7 @@ class Launcher:
             new_server.start()
 
         #
-        # Show Store
-        Components().show_store = ShowStore()
-        Components().show_store.load_show()
-
-        #
         # Fixtures Updater
-        Components().fixture_updater = FixturesUpdater()
         self._fixture_thread: Thread = Thread(target=Components().fixture_updater.start, daemon=True)
         self._fixture_thread.start()
 
@@ -85,6 +94,7 @@ class Launcher:
         if self._was_started:
             Components().fixture_updater.stop()
             Components().discovery.stop()
+            Components().midi_tempo.stop()
             Components().osc_server.stop()
             for artnet_server in Components().artnet_servers:
                 artnet_server.stop()

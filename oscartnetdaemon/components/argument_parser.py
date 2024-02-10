@@ -30,6 +30,11 @@ def parse_args() -> Configuration:
     )
 
     parser.add_argument(
+        "-m", "--midi-in-port", type=str, default="OSCArtnetLoopback 0",
+        help="MIDI Port to listen for tempo"
+    )
+
+    parser.add_argument(
         "-v", "--verbose", action="store_true",
         help="Logs all OSC messages"
     )
@@ -40,6 +45,7 @@ def parse_args() -> Configuration:
         is_verbose=arguments.verbose,
         artnet_target_nodes=arguments.artnet_target_nodes,
         artnet_universe=arguments.artnet_universe,
+        midi_in_port=arguments.midi_in_port,
         osc_server_address=arguments.osc_server_address,
         osc_server_port=arguments.osc_server_port
     )

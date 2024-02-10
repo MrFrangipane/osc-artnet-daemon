@@ -1,3 +1,5 @@
 python-osc
 stupidartnet
 zeroconf
+mido[ports-rtmidi]
+python-rtmidi
