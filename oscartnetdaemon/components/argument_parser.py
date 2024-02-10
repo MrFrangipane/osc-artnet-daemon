@@ -35,6 +35,11 @@ def parse_args() -> Configuration:
     )
 
     parser.add_argument(
+        "-n", "--midi-out-port", type=str, default="OSCArtnetLoopback 1",
+        help="MIDI Port to send tap tempo"
+    )
+
+    parser.add_argument(
         "-v", "--verbose", action="store_true",
         help="Logs all OSC messages"
     )
@@ -46,6 +51,7 @@ def parse_args() -> Configuration:
         artnet_target_nodes=arguments.artnet_target_nodes,
         artnet_universe=arguments.artnet_universe,
         midi_in_port=arguments.midi_in_port,
+        midi_out_port=arguments.midi_out_port,
         osc_server_address=arguments.osc_server_address,
         osc_server_port=arguments.osc_server_port
     )

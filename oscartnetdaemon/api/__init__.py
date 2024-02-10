@@ -105,3 +105,11 @@ class OSCArtnetDaemonAPI:
             return MIDITempoInfo(0, 0)
 
         return Components().midi_tempo.info()
+
+    @staticmethod
+    def send_tap_tempo() -> None:
+        if Components().midi_tempo is None:
+            _logger.warning("No MIDI connection, tap not sent")
+            return
+
+        Components().midi_tempo.tap()
