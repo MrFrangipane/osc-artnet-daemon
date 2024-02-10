@@ -31,7 +31,7 @@ class MessageHandler:
                 Components().mood_store.save(sender, scene_name)
 
             if action == "recall" and value == 1:
-                Components().mood_store.load(sender, scene_name)
+                Components().mood_store.recall(sender, scene_name)
 
             if action == "punch":
                 Components().mood_store.set_punch(sender, scene_name, value)

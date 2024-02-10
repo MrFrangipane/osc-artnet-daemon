@@ -12,15 +12,15 @@ class AbstractMoodStore(ABC):
         pass
 
     @abstractmethod
-    def unregister_client(self, info: OSCClientInfo):
-        pass
-
-    @abstractmethod
     def save(self, sender, scene_name):
         pass
 
     @abstractmethod
-    def load(self, sender, scene_name):
+    def unregister_client(self, info: OSCClientInfo):
+        pass
+
+    @abstractmethod
+    def recall(self, sender, scene_name):
         pass
 
     @abstractmethod

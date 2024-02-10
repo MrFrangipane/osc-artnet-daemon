@@ -1,3 +1,5 @@
+import math
+
 from dataclasses import dataclass
 
 from oscartnetdaemon.core.fixture.base import BaseFixture
@@ -27,10 +29,19 @@ class Tristan200(BaseFixture):
         dimmer_fine: int = 0
         reset: int = 0
 
+    def __init__(self, address=None):
+        super().__init__(address)
+        self.elapsed = 0
+
     def map_to_channels(self, mood: Mood, group_position: float) -> list[int]:
+        self.elapsed += mood.animation / 10.0
+        sym = (group_position * 2.0) - 1.0
+
         mapping = Tristan200.Mapping()
         mapping.color = map_to_int(mood.palette, 66, 80)
-        mapping.pan = map_to_int(mood.animation)
+        mapping.pan = map_to_int((math.cos(self.elapsed) * sym) * .5 + .5, 100, 160)
         mapping.tilt = map_to_int(mood.texture)
+        mapping.dimmer = map_to_int(mood.blinking, 0, 40)
+        mapping.gobo1 = map_to_int(mood.bpm_scale / 8.0)
 
         return list(vars(mapping).values())

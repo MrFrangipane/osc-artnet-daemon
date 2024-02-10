@@ -29,8 +29,10 @@ class FixturesUpdater(AbstractFixturesUpdater):
     def load_fixtures(self):
         self._fixtures = [
             FixtureGroup([OctostripBar() for _ in range(8)]),
-            Tristan200(address=49),  # fixme: compute addresses once in "session manager"
-            Tristan200(address=67),
+            FixtureGroup([
+                Tristan200(address=48),  # fixme: compute addresses once in "session manager"
+                Tristan200(address=66)
+            ]),
             FixtureGroup([TwoBrightPar() for _ in range(5)]),
         ]
 
@@ -132,7 +134,7 @@ class FixturesUpdater(AbstractFixturesUpdater):
                 channels = [map_to_int(v) for v in vars(Components().osc_state_model.tristan_200).values()]
                 for tristan in tristans:
                     # fixme: implies that address is set (and in artnet 1-based!) !
-                    start = tristan.address - 1
+                    start = tristan.address
                     end = start + len(channels)
                     self.universe[start:end] = channels
 
