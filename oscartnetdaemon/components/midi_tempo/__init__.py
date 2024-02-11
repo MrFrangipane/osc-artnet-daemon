@@ -76,7 +76,10 @@ class MIDITempo:
             time.sleep(0.001)
 
         self._out.close()
+        self._out = None
+
         self._in.close()
+        self._in = None
 
         _logger.info(f"MIDI service stopped")
 
@@ -84,5 +87,8 @@ class MIDITempo:
         self._is_running = False
 
     def send_tap(self):
+        if self._out is None:
+            return
+
         self._out.send(mido.Message('note_on', note=60))
         self._out.send(mido.Message('note_off', note=60))
