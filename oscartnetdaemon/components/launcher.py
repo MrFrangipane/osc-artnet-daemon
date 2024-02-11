@@ -27,13 +27,10 @@ class Launcher:
 
         Components().show_store = ShowStore()
         Components().show_store.load_show()
+        Components().mood_store = MoodStore()  # let's keep stored moods between starts/restarts
 
     def start(self, blocking) -> None:
         configuration = Components().configuration
-
-        #
-        # Mood Store
-        Components().mood_store = MoodStore()
 
         #
         # OSC
