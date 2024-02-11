@@ -6,7 +6,8 @@ from oscartnetdaemon.components.fixtures_updater.abstract import AbstractFixture
 from oscartnetdaemon.core.channel_info import ChannelInfo
 from oscartnetdaemon.core.components import Components
 from oscartnetdaemon.core.osc.state_model import OSCStateModel
-from oscartnetdaemon.python_extensions.math import map_to_int
+
+from oscartnetfixtures.python_extensions.math import map_to_int  # FIXME !!
 
 _logger = logging.getLogger(__name__)
 
