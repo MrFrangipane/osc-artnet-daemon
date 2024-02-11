@@ -2,6 +2,5 @@
 
 **/!\ BETA VERSION**
 
-Animate and control lighting fixtures with OSC and Artnet
-
-Desktop application [here](https://github.com/MrFrangipane/osc-artnet-desktop)
+- [OSC Artnet Fixtures](https://github.com/MrFrangipane/osc-artnet-fixtures)
+- [OSC Artnet Desktop](https://github.com/MrFrangipane/osc-artnet-desktop)
