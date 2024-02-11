@@ -6,7 +6,6 @@ from oscartnetdaemon.components.show_store.loader import ShowLoader
 from oscartnetdaemon.core.fixture.group import FixtureGroup
 
 
-
 class ShowStore(AbstractShowStore):
     """
     Loads and stores all ShowItems (Fixtures) in a Show object

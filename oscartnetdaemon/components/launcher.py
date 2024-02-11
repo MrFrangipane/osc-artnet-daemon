@@ -26,11 +26,13 @@ class Launcher:
         self._is_running = False
 
         Components().show_store = ShowStore()
-        Components().show_store.load_show()
+        Components().show_store.load_show()  # so GUI can have a list of fixtures (fixme)
         Components().mood_store = MoodStore()  # let's keep stored moods between starts/restarts
 
     def start(self, blocking) -> None:
         configuration = Components().configuration
+
+        Components().show_store.load_show()
 
         #
         # OSC
