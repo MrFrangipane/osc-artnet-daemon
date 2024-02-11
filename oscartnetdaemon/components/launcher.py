@@ -48,8 +48,6 @@ class Launcher:
         #
         # MIDI
         Components().midi_tempo = MIDITempo()
-        _logger.info(f"Available MIDI in ports {Components().midi_tempo.available_input_ports}")
-        _logger.info(f"Available MIDI out ports {Components().midi_tempo.available_output_ports}")
         Components().midi_tempo.set_in_port(configuration.midi_in_port)
         Components().midi_tempo.set_out_port(configuration.midi_out_port)
         self._midi_thread: Thread = Thread(target=Components().midi_tempo.start, daemon=True)
