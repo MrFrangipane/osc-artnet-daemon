@@ -19,6 +19,8 @@ class MIDITempo:
         self._out: mido.ports.IOPort = None
         self._in: mido.ports.IOPort = None
 
+        self._is_tapping = False
+        self._latest_tap = time.time()
         self.beat_counter: float = 0
         self.bpm = 0
 
@@ -73,6 +75,10 @@ class MIDITempo:
                 message_count = 0
                 self.bpm = 60.0 / time_interval
 
+            # todo: can we do better ?
+            if time.time() - self._latest_tap > 5 and self._is_tapping:
+                self._is_tapping = False
+
             time.sleep(0.001)
 
         self._out.close()
@@ -92,3 +98,11 @@ class MIDITempo:
 
         self._out.send(mido.Message('note_on', note=60))
         self._out.send(mido.Message('note_off', note=60))
+
+        # todo: can we do better ?
+        self._latest_tap = time.time()
+        if not self._is_tapping:
+            self.beat_counter = 0
+            self._is_tapping = True
+        else:
+            self.beat_counter += 1
