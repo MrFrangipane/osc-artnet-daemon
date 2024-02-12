@@ -1,3 +1,4 @@
+import math
 from abc import abstractmethod
 from dataclasses import dataclass
 
@@ -13,7 +14,16 @@ class BaseFixture(metaclass=AbstractFixtureMetaclass):
 
     def __init__(self, address: int = None):
         self.address = address
+        self.mood = Mood()
+        self.group_position: float = 0.0
 
     @abstractmethod
-    def map_to_channels(self, mood: Mood, group_position: float) -> list[int]:
+    def map_to_channels(self) -> list[int]:
         pass
+
+    def read_pattern(self, table) -> float:
+        f_group_index = (len(table) - 1) * self.group_position
+        group_index = math.ceil(f_group_index) if f_group_index % 1 >= 0.5 else int(f_group_index)  # how expensive is that ?
+        pattern_index = int(self.mood.beat_counter % 4)
+
+        return table[group_index][pattern_index]

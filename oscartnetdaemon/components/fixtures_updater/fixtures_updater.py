@@ -32,7 +32,10 @@ class FixturesUpdater(AbstractFixturesUpdater):
                 mood.beat_counter = Components().midi_tempo.beat_counter
 
                 for show_item in Components().show_store.show.items:
-                    channels = show_item.fixture.map_to_channels(mood, show_item.group_position)
+                    # fixme: better models please (ShowItem, Fixture, ...)
+                    show_item.fixture.group_position = show_item.group_position
+                    show_item.fixture.mood = mood
+                    channels = show_item.fixture.map_to_channels()
                     self.universe[show_item.channel_first:show_item.channel_last] = channels
 
                 for artnet_server in Components().artnet_servers:

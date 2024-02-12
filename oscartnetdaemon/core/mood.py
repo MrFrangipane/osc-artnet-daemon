@@ -10,7 +10,7 @@ class Mood:
     blinking: float = 0.5
     bpm_scale: int = 2  # fixme: we need an interop service between tosc and mood
     palette: float = 0.0
-    palette_animation: int = 2  # fixme: we need an interop service between tosc and mood
+    pattern: int = 0
     texture: float = 0.5
 
     master_dimmer: float = 1.0

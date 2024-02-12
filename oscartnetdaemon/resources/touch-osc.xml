@@ -6130,7 +6130,7 @@ end</value>
 										<key>frame</key>
 										<value>
 											<x>870</x>
-											<y>60</y>
+											<y>45</y>
 											<w>60</w>
 											<h>240</h>
 										</value>
@@ -6149,11 +6149,11 @@ end</value>
 									</property>
 									<property type="s">
 										<key>name</key>
-										<value>palette_animation</value>
+										<value>pattern</value>
 									</property>
 									<property type="i">
 										<key>orientation</key>
-										<value>0</value>
+										<value>2</value>
 									</property>
 									<property type="b">
 										<key>outline</key>
@@ -6196,7 +6196,7 @@ end</value>
 										<key>x</key>
 										<locked>0</locked>
 										<lockedDefaultCurrent>0</lockedDefaultCurrent>
-										<default>2</default>
+										<default>0</default>
 										<defaultPull>0</defaultPull>
 									</value>
 								</values>
@@ -6321,7 +6321,7 @@ end</value>
 										<key>frame</key>
 										<value>
 											<x>750</x>
-											<y>260</y>
+											<y>240</y>
 											<w>120</w>
 											<h>40</h>
 										</value>
@@ -6401,126 +6401,7 @@ end</value>
 										<key>text</key>
 										<locked>0</locked>
 										<lockedDefaultCurrent>1</lockedDefaultCurrent>
-										<default>Faster smooth</default>
-										<defaultPull>0</defaultPull>
-									</value>
-									<value>
-										<key>touch</key>
-										<locked>0</locked>
-										<lockedDefaultCurrent>0</lockedDefaultCurrent>
-										<default>false</default>
-										<defaultPull>0</defaultPull>
-									</value>
-								</values>
-							</node>
-							<node ID="109d22b6-c4dd-11ee-b438-0826ae311d34" type="LABEL">
-								<properties>
-									<property type="b">
-										<key>background</key>
-										<value>1</value>
-									</property>
-									<property type="c">
-										<key>color</key>
-										<value>
-											<r>1</r>
-											<g>1</g>
-											<b>1</b>
-											<a>0.390533</a>
-										</value>
-									</property>
-									<property type="f">
-										<key>cornerRadius</key>
-										<value>1</value>
-									</property>
-									<property type="i">
-										<key>font</key>
-										<value>0</value>
-									</property>
-									<property type="r">
-										<key>frame</key>
-										<value>
-											<x>730</x>
-											<y>20</y>
-											<w>220</w>
-											<h>35</h>
-										</value>
-									</property>
-									<property type="b">
-										<key>grabFocus</key>
-										<value>0</value>
-									</property>
-									<property type="b">
-										<key>interactive</key>
-										<value>0</value>
-									</property>
-									<property type="b">
-										<key>locked</key>
-										<value>0</value>
-									</property>
-									<property type="s">
-										<key>name</key>
-										<value>label31</value>
-									</property>
-									<property type="i">
-										<key>orientation</key>
-										<value>0</value>
-									</property>
-									<property type="b">
-										<key>outline</key>
-										<value>0</value>
-									</property>
-									<property type="i">
-										<key>outlineStyle</key>
-										<value>1</value>
-									</property>
-									<property type="i">
-										<key>pointerPriority</key>
-										<value>0</value>
-									</property>
-									<property type="i">
-										<key>shape</key>
-										<value>1</value>
-									</property>
-									<property type="i">
-										<key>textAlignH</key>
-										<value>2</value>
-									</property>
-									<property type="i">
-										<key>textAlignV</key>
-										<value>2</value>
-									</property>
-									<property type="b">
-										<key>textClip</key>
-										<value>1</value>
-									</property>
-									<property type="c">
-										<key>textColor</key>
-										<value>
-											<r>1</r>
-											<g>1</g>
-											<b>1</b>
-											<a>1</a>
-										</value>
-									</property>
-									<property type="i">
-										<key>textLength</key>
-										<value>0</value>
-									</property>
-									<property type="i">
-										<key>textSize</key>
-										<value>14</value>
-									</property>
-									<property type="b">
-										<key>visible</key>
-										<value>1</value>
-									</property>
-								</properties>
-								<values>
-									<value>
-										<key>text</key>
-										<locked>0</locked>
-										<lockedDefaultCurrent>1</lockedDefaultCurrent>
-										<default>Palette animation</default>
+										<default>Pattern E</default>
 										<defaultPull>0</defaultPull>
 									</value>
 									<value>
@@ -6559,7 +6440,7 @@ end</value>
 										<key>frame</key>
 										<value>
 											<x>750</x>
-											<y>210</y>
+											<y>193</y>
 											<w>120</w>
 											<h>40</h>
 										</value>
@@ -6639,7 +6520,7 @@ end</value>
 										<key>text</key>
 										<locked>0</locked>
 										<lockedDefaultCurrent>1</lockedDefaultCurrent>
-										<default>Smooth</default>
+										<default>Pattern D</default>
 										<defaultPull>0</defaultPull>
 									</value>
 									<value>
@@ -6678,7 +6559,7 @@ end</value>
 										<key>frame</key>
 										<value>
 											<x>750</x>
-											<y>160</y>
+											<y>145</y>
 											<w>120</w>
 											<h>40</h>
 										</value>
@@ -6758,7 +6639,7 @@ end</value>
 										<key>text</key>
 										<locked>0</locked>
 										<lockedDefaultCurrent>1</lockedDefaultCurrent>
-										<default>None</default>
+										<default>Pattern C</default>
 										<defaultPull>0</defaultPull>
 									</value>
 									<value>
@@ -6797,7 +6678,7 @@ end</value>
 										<key>frame</key>
 										<value>
 											<x>750</x>
-											<y>110</y>
+											<y>98</y>
 											<w>120</w>
 											<h>40</h>
 										</value>
@@ -6877,7 +6758,7 @@ end</value>
 										<key>text</key>
 										<locked>0</locked>
 										<lockedDefaultCurrent>1</lockedDefaultCurrent>
-										<default>Blocky</default>
+										<default>Pattern B</default>
 										<defaultPull>0</defaultPull>
 									</value>
 									<value>
@@ -6916,7 +6797,7 @@ end</value>
 										<key>frame</key>
 										<value>
 											<x>750</x>
-											<y>60</y>
+											<y>50</y>
 											<w>120</w>
 											<h>40</h>
 										</value>
@@ -6996,7 +6877,7 @@ end</value>
 										<key>text</key>
 										<locked>0</locked>
 										<lockedDefaultCurrent>1</lockedDefaultCurrent>
-										<default>Faster blocky</default>
+										<default>Pattern A</default>
 										<defaultPull>0</defaultPull>
 									</value>
 									<value>

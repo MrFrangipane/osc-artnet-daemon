@@ -64,8 +64,7 @@ class MessageHandler:
         elif control_name == 'bpm_scale':
             # fixme: we need an interop service between tosc and mood
             Components().osc_state_model.mood.bpm_scale = value
-        elif control_name == 'palette_animation':
-            # fixme: we need an interop service between tosc and mood
-            Components().osc_state_model.mood.palette_animation = value
+        elif control_name == 'pattern':
+            Components().osc_state_model.mood.pattern = value
 
         Components().osc_message_sender.send(control_name, value, sender)
