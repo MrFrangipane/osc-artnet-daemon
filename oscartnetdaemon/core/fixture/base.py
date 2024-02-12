@@ -21,8 +21,8 @@ class BaseFixture(metaclass=AbstractFixtureMetaclass):
     def map_to_channels(self) -> list[int]:
         pass
 
-    def read_pattern(self, table) -> float:
-        beat_counter = self.mood.beat_counter * [0.25, 0.5, 1.0, 2.0, 4.0][self.mood.bpm_scale]
+    def read_pattern(self, table, time_scale) -> float:
+        beat_counter = self.mood.beat_counter * time_scale
         f_group_index = (len(table) - 1) * self.group_position
         # how expensive is that ?
         group_index = math.ceil(f_group_index) if f_group_index % 1 >= 0.5 else int(f_group_index)
