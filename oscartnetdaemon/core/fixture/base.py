@@ -22,8 +22,10 @@ class BaseFixture(metaclass=AbstractFixtureMetaclass):
         pass
 
     def read_pattern(self, table) -> float:
+        beat_counter = self.mood.beat_counter * [0.25, 0.5, 1.0, 2.0, 4.0][self.mood.bpm_scale]
         f_group_index = (len(table) - 1) * self.group_position
-        group_index = math.ceil(f_group_index) if f_group_index % 1 >= 0.5 else int(f_group_index)  # how expensive is that ?
-        pattern_index = int(self.mood.beat_counter % 4)
+        # how expensive is that ?
+        group_index = math.ceil(f_group_index) if f_group_index % 1 >= 0.5 else int(f_group_index)
+        pattern_index = int(beat_counter % len(table[group_index]))
 
         return table[group_index][pattern_index]
