@@ -4,4 +4,4 @@ zeroconf
 mido[ports-rtmidi]
 python-rtmidi
 pyside6-helpers @ git+https://github.com/MrFrangipane/pyside6-helpers@main
-osc-artnet-fixtures @ git+https://github.com/MrFrangipane/osc-artnet-fixtures@main
+oscartnetfixtures @ git+https://github.com/MrFrangipane/osc-artnet-fixtures@main
