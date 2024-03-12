@@ -40,12 +40,12 @@ class MIDITempo:
         _logger.info(f"MIDI service starting (in='{self._port_in_name}' out='{self._port_out_name}')")
 
         try:
-            mido.ports.IOPort
             self._out = mido.open_output(self._port_out_name)
         except OSError:
             # available_out_ports = mido.get_output_names()  # todo message log
             _logger.warning(f"MIDI out port '{self._port_out_name}' not found")
-            _logger.warning(f"MIDI service not started")
+            _logger.warning(f"Falling back to fixed 120 bpm tempo")
+            self._fallback_loop()
             return
 
         try:
@@ -53,9 +53,13 @@ class MIDITempo:
         except OSError:
             # available_in_ports = mido.get_input_names()  # todo message log
             _logger.warning(f"MIDI in port '{self._port_in_name}' not found")
-            _logger.warning(f"MIDI service not started")
+            _logger.warning(f"Falling back to fixed 120 bpm tempo")
+            self._fallback_loop()
             return
 
+        self._midi_loop()
+
+    def _midi_loop(self):
         timestamp = time.time()
         message_count = 0
         self.beat_counter = 0
@@ -89,16 +93,27 @@ class MIDITempo:
 
         _logger.info(f"MIDI service stopped")
 
+    def _fallback_loop(self):
+        timestamp = time.time()
+        self.beat_counter = 0
+        self.bpm = 120
+
+        self._is_running = True
+        while self._is_running:
+            time_interval = time.time() - timestamp
+            timestamp = time.time()
+            self.beat_counter += time_interval * 60.0 / self.bpm
+
+            # todo: can we do better ?
+            if time.time() - self._latest_tap > 5 and self._is_tapping:
+                self._is_tapping = False
+
+            time.sleep(0.001)
+
     def stop(self):
         self._is_running = False
 
     def send_tap(self):
-        if self._out is None:
-            return
-
-        self._out.send(mido.Message('note_on', note=60))
-        self._out.send(mido.Message('note_off', note=60))
-
         # todo: can we do better ?
         self._latest_tap = time.time()
         if not self._is_tapping:
@@ -106,3 +121,9 @@ class MIDITempo:
             self._is_tapping = True
         else:
             self.beat_counter += 1
+
+        if self._out is None:
+            return
+
+        self._out.send(mido.Message('note_on', note=60))
+        self._out.send(mido.Message('note_off', note=60))
