@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 
 NAME = 'oscartnetdaemon'
-VERSION = '0.0.0'
+VERSION = '0.0.1'
 DESCRIPTION = 'Animate and control lighting fixtures with OSC and Artnet'
 AUTHOR = 'Frangitron'
 AUTHOR_EMAIL = 'contact@frangitron.com'
