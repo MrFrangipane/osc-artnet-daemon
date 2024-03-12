@@ -102,7 +102,7 @@ class MIDITempo:
         while self._is_running:
             time_interval = time.time() - timestamp
             timestamp = time.time()
-            self.beat_counter += time_interval * 60.0 / self.bpm
+            self.beat_counter += time_interval * self.bpm / 60.0
 
             # todo: can we do better ?
             if time.time() - self._latest_tap > 5 and self._is_tapping:
