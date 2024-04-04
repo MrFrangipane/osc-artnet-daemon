@@ -16,3 +16,4 @@ class Show:
     """
     title: str
     items: list[ShowItem] = field(default_factory=list)
+    groups_dimmers: list[float] = field(default_factory=lambda: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0])

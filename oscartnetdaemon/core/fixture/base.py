@@ -18,7 +18,7 @@ class BaseFixture(metaclass=AbstractFixtureMetaclass):
         self.group_position: float = 0.0
 
     @abstractmethod
-    def map_to_channels(self) -> list[int]:
+    def map_to_channels(self, group_dimmer: float) -> list[int]:
         pass
 
     def read_pattern(self, table, time_scale) -> float:

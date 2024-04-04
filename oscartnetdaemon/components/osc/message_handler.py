@@ -1,5 +1,9 @@
+import logging
+
 from oscartnetdaemon.core.components import Components
 from oscartnetdaemon.core.osc.state_model import OSCStateModel
+
+_logger = logging.getLogger(__name__)
 
 
 class MessageHandler:

@@ -24,25 +24,21 @@ class FixturesUpdater(AbstractFixturesUpdater):
         self._is_running = True
 
         while self._is_running:
-            if Components().osc_state_model.current_page == OSCStateModel.Page.Mood:
-                # fixme: create a component that transforms OSC model to FixtureUpdater model
-                # todo: add a "last midi message" timestamp to let fixtures deal with time if no midi was received ?
-                mood = copy(Components().osc_state_model.mood)
-                mood.bpm = Components().midi_tempo.bpm
-                mood.beat_counter = Components().midi_tempo.beat_counter
-
-                for show_item in Components().show_store.show.items:
-                    # fixme: better models please (ShowItem, Fixture, ...)
-                    show_item.fixture.group_position = show_item.group_position
-                    show_item.fixture.mood = mood
-                    channels = show_item.fixture.map_to_channels()
-                    self.universe[show_item.channel_first:show_item.channel_last] = channels
-
-                for artnet_server in Components().artnet_servers:
-                    artnet_server.set_universe(self.universe)
+            if Components().osc_state_model.current_page == OSCStateModel.Page.Groups:
+                # fixme: Groups's variables are int, map to int should be done in message handler
+                channels = [map_to_int(v) for v in vars(Components().osc_state_model.groups).values()]
+                for i, mapping in enumerate(vars(Components().osc_state_model.groups).keys()):
+                    Components().osc_message_sender.send_to_all_raw(
+                        f"/#groups/{mapping}_value", f"{channels[i]:03d}"
+                    )
+                    Components().osc_message_sender.send_to_all_raw(
+                        f"/#groups/{mapping}", float(channels[i]) / 255.0
+                    )
+                    Components().show_store.show.groups_dimmers[i] = float(channels[i]) / 255.0
 
             # fixme later: dont rely on actual Fixtures (use reflection, Fixture.Mapping, etc)
-            elif Components().osc_state_model.current_page == OSCStateModel.Page.Tristan200:
+            if Components().osc_state_model.current_page == OSCStateModel.Page.Tristan200:
+                # fixme: Tristan200's variables are int, map to int should be done in message handler
                 channels = [map_to_int(v) for v in vars(Components().osc_state_model.tristan_200).values()]
 
                 show_items = Components().show_store.items_by_type(Components().osc_state_model.current_page.name)
@@ -57,6 +53,24 @@ class FixturesUpdater(AbstractFixturesUpdater):
                     Components().osc_message_sender.send_to_all_raw(
                         f"/#tristan_200/{mapping}", float(channels[i]) / 255.0
                     )
+
+            if Components().osc_state_model.current_page != OSCStateModel.Page.Tristan200:
+                # fixme: create a component that transforms OSC model to FixtureUpdater model
+                # todo: add a "last midi message" timestamp to let fixtures deal with time if no midi was received ?
+                mood = copy(Components().osc_state_model.mood)
+                mood.bpm = Components().midi_tempo.bpm
+                mood.beat_counter = Components().midi_tempo.beat_counter
+
+                for show_item in Components().show_store.show.items:
+                    # fixme: better models please (ShowItem, Fixture, ...)
+                    show_item.fixture.group_position = show_item.group_position
+                    show_item.fixture.mood = mood
+                    group_dimmer = Components().show_store.show.groups_dimmers[show_item.group_index]
+                    channels = show_item.fixture.map_to_channels(group_dimmer)
+                    self.universe[show_item.channel_first:show_item.channel_last] = channels
+
+                for artnet_server in Components().artnet_servers:
+                    artnet_server.set_universe(self.universe)
 
             time.sleep(self.sleep_interval)
 

@@ -18,5 +18,7 @@ class FixtureGroup(BaseFixture):
         if any([isinstance(f, FixtureGroup) for f in self.fixtures]):
             raise ValueError("Nested fixture groups not supported")
 
+        self.dimmer = 1.0
+
     def map_to_channels(self, mood: Mood, group_position: float):
         raise RuntimeError("Groups should not call this function")
