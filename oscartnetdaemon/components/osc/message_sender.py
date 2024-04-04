@@ -15,20 +15,22 @@ class OSCMessageSender(AbstractOSCMessageSender):
         self._clients_info: dict[str, OSCClientInfo] = dict()
 
     def register_client(self, info: OSCClientInfo):
-        _logger.info(f"Registering client {info.name}")
         address = ".".join([str(int(b)) for b in info.address])
+        _logger.info(f"Registering client {info.name} ({address})")
         new_client = SimpleUDPClient(address, info.port)
 
         self._clients[info.name] = new_client
         self._clients_info[info.name] = info
 
-        _logger.debug(f"Sending '/device_name {info.name}' to {info.name}")
+        _logger.debug(f"Sending /device_name, /device_address to {info.name}")
         new_client.send_message('/device_name', info.name)
+        new_client.send_message('/device_address', address)
 
         self.send_mood_to_all()
 
     def unregister_client(self, info: OSCClientInfo):
-        _logger.info(f"Unregistering client {info.name}")
+        address = ".".join([str(int(b)) for b in info.address])
+        _logger.info(f"Unregistering client {info.name} ({address})")
         self._clients.pop(info.name)
         self._clients_info.pop(info.name)
 
