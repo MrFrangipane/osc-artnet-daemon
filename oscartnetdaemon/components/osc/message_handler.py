@@ -24,6 +24,13 @@ class MessageHandler:
 
         _, sender, control_name = path_items
 
+        # fixme: we shouldn't know what to do here
+        if sender.startswith('#two_bright_par'):
+            par_index, value_name = control_name.split("_")
+            par_index = int(par_index) - 1
+            setattr(Components().osc_state_model.two_bright_par.pars[par_index], value_name, value)
+            return
+
         if sender.startswith('#'):
             page_name = sender[1:]
             setattr(getattr(Components().osc_state_model, page_name), control_name, value)

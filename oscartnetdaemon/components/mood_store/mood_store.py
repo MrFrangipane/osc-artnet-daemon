@@ -39,8 +39,9 @@ class _ClientMoodStore:
             self._punch_pile.append(scene_name)
             self._set_mood(self._mood_store[scene_name])
         else:
-            self._punch_pile.remove(scene_name)
-            self._set_mood(self._mood_store[self._punch_pile[-1]])
+            if scene_name in self._punch_pile:
+                self._punch_pile.remove(scene_name)
+                self._set_mood(self._mood_store[self._punch_pile[-1]])
 
     def set_temporary_modifier(self, is_temp_active):
         if is_temp_active:

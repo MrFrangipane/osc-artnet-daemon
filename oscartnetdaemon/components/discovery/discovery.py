@@ -42,6 +42,9 @@ class Discovery(AbstractDiscovery):
             return
 
         if state_change is ServiceStateChange.Added:
+            if info.properties.get(b'IID', None) is None:
+                return
+
             new_client_info = OSCClientInfo(
                 address=info.addresses[0],  # FIXME compare to server address mask ?
                 id=info.properties[b'IID'],

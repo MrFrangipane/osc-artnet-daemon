@@ -37,7 +37,7 @@ class FixturesUpdater(AbstractFixturesUpdater):
                     Components().show_store.show.groups_dimmers[i] = float(channels[i]) / 255.0
 
             # fixme later: dont rely on actual Fixtures (use reflection, Fixture.Mapping, etc)
-            if Components().osc_state_model.current_page == OSCStateModel.Page.Tristan200:
+            elif Components().osc_state_model.current_page == OSCStateModel.Page.Tristan200:
                 # fixme: Tristan200's variables are int, map to int should be done in message handler
                 channels = [map_to_int(v) for v in vars(Components().osc_state_model.tristan_200).values()]
 
@@ -54,7 +54,7 @@ class FixturesUpdater(AbstractFixturesUpdater):
                         f"/#tristan_200/{mapping}", float(channels[i]) / 255.0
                     )
 
-            if Components().osc_state_model.current_page != OSCStateModel.Page.Tristan200:
+            elif Components().osc_state_model.current_page == OSCStateModel.Page.Mood:
                 # fixme: create a component that transforms OSC model to FixtureUpdater model
                 # todo: add a "last midi message" timestamp to let fixtures deal with time if no midi was received ?
                 mood = copy(Components().osc_state_model.mood)
@@ -71,6 +71,17 @@ class FixturesUpdater(AbstractFixturesUpdater):
 
                 for artnet_server in Components().artnet_servers:
                     artnet_server.set_universe(self.universe)
+
+            elif Components().osc_state_model.current_page == OSCStateModel.Page.TwoBrightPar:
+                show_items = Components().show_store.items_by_type(Components().osc_state_model.current_page.name)
+                colors = Components().osc_state_model.two_bright_par.pars
+
+                for par_index, show_item in enumerate(show_items):
+                    if par_index >= len(colors):
+                        continue
+                    color = colors[par_index]
+                    channels = show_item.fixture.map_from_hsl(color)  # fixme: no one knows this function exists !
+                    self.universe[show_item.channel_first:show_item.channel_last] = channels
 
             time.sleep(self.sleep_interval)
 

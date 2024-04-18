@@ -30,7 +30,7 @@ def parse_args() -> Configuration:
     )
 
     parser.add_argument(
-        "-m", "--midi-in-port", type=str, default="OSCArtnetLoopback 0",
+        "-m", "--midi-in-port", type=str, default=" ",
         help="MIDI Port to listen for tempo"
     )
 
