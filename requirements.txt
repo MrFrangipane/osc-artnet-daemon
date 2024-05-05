@@ -1,6 +1,7 @@
 python-osc
 stupidartnet
 zeroconf
+pyyaml
 mido[ports-rtmidi]
 python-rtmidi
 pyside6-helpers @ git+https://github.com/MrFrangipane/pyside6-helpers@main

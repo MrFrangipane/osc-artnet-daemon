@@ -1,0 +1,17 @@
+---
+osc-server:
+  address: '0.0.0.0'
+  port: 8080
+
+osc-mapping:
+  - name: "Fader"
+    type: "fader"
+    address: "/fader"
+
+  - name: "Palette"
+    type: "palette_select"
+    address: "/palette_select"
+
+  - name: "Color"
+    type: "color_wheel"
+    address: "/color_wheel"
