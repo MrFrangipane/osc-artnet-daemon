@@ -15,3 +15,7 @@ osc-mapping:
   - name: "Color"
     type: "color_wheel"
     address: "/color_wheel"
+
+  - name: "Scene"
+    type: "recall_slot"
+    address: "/recall_slot"

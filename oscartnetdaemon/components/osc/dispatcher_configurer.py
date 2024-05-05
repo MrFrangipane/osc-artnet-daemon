@@ -32,4 +32,10 @@ class OSCDispatcherConfigurer:
                     needs_reply_address=True
                 )
 
+            elif mapping['type'] == 'recall_slot':
+                self.dispatcher.map(
+                    mapping['address'] + '/*',
+                    self._message_handler.handle_recall_slot,
+                    needs_reply_address=True
+                )
         self.dispatcher.set_default_handler(self._message_handler.handle_default, needs_reply_address=True)

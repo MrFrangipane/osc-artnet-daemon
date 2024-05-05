@@ -34,3 +34,6 @@ class OSCMessageQueueItemSender:
                         client.send_message(message.address + '/encoder', message.value)
                         r, g, b = map(lambda x: int(x * 255), colorsys.hsv_to_rgb(message.value, 1.0, 1.0))
                         client.send_message(message.address + '/color', f"{r:02x}{g:02x}{b:02x}")
+
+                    elif message.type == 'recall_slot':
+                        client.send_message(message.address, message.value)
