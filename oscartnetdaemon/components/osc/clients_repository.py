@@ -14,13 +14,15 @@ class OSCClientsRepository:
         self.clients: dict[str, SimpleUDPClient] = dict()
         self._client_infos: dict[str, OSCClientInfo] = dict()
 
-    def register(self, info: OSCClientInfo):
+    def register(self, info: OSCClientInfo) -> SimpleUDPClient:
         address = bytes_as_ip(info.address)
         _logger.info(f"Registering client {info.name} ({address})")
         new_client = SimpleUDPClient(address, info.port)
 
         self.clients[info.name] = new_client
         self._client_infos[info.name] = info
+
+        return new_client
 
     def unregister(self, info: OSCClientInfo):
         address = bytes_as_ip(info.address)

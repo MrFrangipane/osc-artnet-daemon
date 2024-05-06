@@ -10,3 +10,7 @@ class AbstractOSCWidgetRepository(ABC):
     @abstractmethod
     def map_to_dispatcher(self, dispatcher: object):
         pass
+
+    @abstractmethod
+    def get_all_widget_update_messages(self) -> list[tuple[str, int | bool | float | str | list]]:
+        pass

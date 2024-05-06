@@ -37,7 +37,7 @@ class DiscoveryClients:
             if b'IID' not in info.properties:
                 return
 
-            Components().osc_service.clients_repository.register(OSCClientInfo(
+            Components().osc_service.register_client(OSCClientInfo(
                 address=info.addresses[0],
                 id=info.properties[b'IID'],
                 name=info.name.split('.')[0],
@@ -45,7 +45,7 @@ class DiscoveryClients:
             ))
 
         elif state_change is ServiceStateChange.Removed:
-            Components().osc_service.clients_repository.unregister(OSCClientInfo(
+            Components().osc_service.unregister_client(OSCClientInfo(
                 address=info.addresses[0],
                 id=info.properties[b'IID'],
                 name=info.name.split('.')[0],

@@ -6,6 +6,7 @@ from oscartnetdaemon.components.components_singleton import Components
 from oscartnetdaemon.components.osc.abstract_service import AbstractOSCService
 from oscartnetdaemon.components.osc.clients_repository import OSCClientsRepository
 from oscartnetdaemon.components.osc.widget_repository import OSCWidgetRepository
+from oscartnetdaemon.entities.osc.client_info import OSCClientInfo
 
 
 class OSCService(AbstractOSCService):
@@ -48,3 +49,11 @@ class OSCService(AbstractOSCService):
         clients = list(self.clients_repository.clients.values())  # avoid mutation during iteration (could be fixed ?)
         for client in clients:
             client.send_message(osc_address, osc_value)
+
+    def register_client(self, info: OSCClientInfo):
+        new_client = self.clients_repository.register(info)
+        for osc_address, osc_value in self.widget_repository.get_all_widget_update_messages():
+            new_client.send_message(osc_address, osc_value)
+
+    def unregister_client(self, info: OSCClientInfo):
+        self.clients_repository.unregister(info)

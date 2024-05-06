@@ -11,3 +11,7 @@ class OSCAbstractWidget(ABC):
     @abstractmethod
     def handle(self, client_address, osc_address, osc_value):
         pass
+
+    @abstractmethod
+    def get_update_messages(self) -> list[tuple[str, int | bool | float | str | list]]:
+        pass
