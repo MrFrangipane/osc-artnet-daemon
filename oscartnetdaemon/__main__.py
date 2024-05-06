@@ -1,6 +1,7 @@
 import logging
 import time
 
+from oscartnetdaemon.components.configuration.loader import ConfigurationLoader
 from oscartnetdaemon.components.discovery.service import DiscoveryService
 from oscartnetdaemon.components.osc.service import OSCService
 
@@ -8,7 +9,7 @@ from oscartnetdaemon.components.osc.service import OSCService
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
 
-    # fixme: load a configuration object from file(s), use a Singleton to access it from components
+    ConfigurationLoader.load_from_file('./resources/template-widgets-mapping.yml')
 
     discovery_service = DiscoveryService(
         server_name="Frangitron's OSC Artnet",
@@ -17,7 +18,6 @@ if __name__ == '__main__':
     discovery_service.start()
 
     osc_service = OSCService()
-    osc_service.initialize_from_file('./resources/template-widgets-mapping.yml')
     osc_service.start()
 
     try:

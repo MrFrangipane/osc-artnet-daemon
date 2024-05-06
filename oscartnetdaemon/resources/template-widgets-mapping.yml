@@ -1,21 +1,22 @@
 ---
-osc-server:
-  address: '0.0.0.0'
-  port: 8080
+osc:
+  server-ip-address: ""
+  server-ip-address-autodetect: True
+  server-port: 8080
 
-osc-mapping:
-  - name: "Fader"
-    type: "fader"
-    address: "/fader"
+  widgets:
+    - name: "Fader"
+      type: "Fader"
+      osc-address: "/fader"
 
-  - name: "Palette"
-    type: "palette_select"
-    address: "/palette_select"
+    - name: "Palette"
+      type: "PaletteSelect"
+      osc-address: "/palette_select"
 
-  - name: "Color"
-    type: "color_wheel"
-    address: "/color_wheel"
+    - name: "Color"
+      type: "ColorWheel"
+      osc-address: "/color_wheel"
 
-  - name: "Scene"
-    type: "recall_slot"
-    address: "/recall_slot"
+    - name: "Scene"
+      type: "RecallSlot"
+      osc-address: "/recall_slot"

@@ -1,5 +1,6 @@
 from queue import Queue
 from oscartnetdaemon.components.osc.message_queue_item import OSCMessageQueueItem
+from oscartnetdaemon.entities.osc.widget_type_enum import OSCWidgetTypeEnum
 
 
 class OSCMessageHandler:
@@ -11,7 +12,7 @@ class OSCMessageHandler:
         self.message_queue.put(OSCMessageQueueItem(
             client_ip=client_address[0],
             client_port=client_address[1],
-            type="fader",
+            type=OSCWidgetTypeEnum.Fader,
             address='/'.join(osc_address.split('/')[:-1]),
             value=osc_value
         ))
@@ -20,7 +21,7 @@ class OSCMessageHandler:
         self.message_queue.put(OSCMessageQueueItem(
             client_ip=client_address[0],
             client_port=client_address[1],
-            type="palette_select",
+            type=OSCWidgetTypeEnum.PaletteSelect,
             address='/'.join(osc_address.split('/')[:-1]),
             value=osc_value
         ))
@@ -29,7 +30,7 @@ class OSCMessageHandler:
         self.message_queue.put(OSCMessageQueueItem(
             client_ip=client_address[0],
             client_port=client_address[1],
-            type="color_wheel",
+            type=OSCWidgetTypeEnum.ColorWheel,
             address='/'.join(osc_address.split('/')[:-1]),
             value=osc_value
         ))
@@ -38,7 +39,7 @@ class OSCMessageHandler:
         self.message_queue.put(OSCMessageQueueItem(
             client_ip=client_address[0],
             client_port=client_address[1],
-            type="recall_slot",
+            type=OSCWidgetTypeEnum.RecallSlot,
             address=osc_address,
             value=osc_value
         ))

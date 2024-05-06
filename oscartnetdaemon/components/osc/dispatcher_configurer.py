@@ -1,6 +1,8 @@
 from pythonosc.dispatcher import Dispatcher
 
 from oscartnetdaemon.components.osc.message_handler import OSCMessageHandler
+from oscartnetdaemon.entities.osc.widget import OSCWidget
+from oscartnetdaemon.entities.osc.widget_type_enum import OSCWidgetTypeEnum
 
 
 class OSCDispatcherConfigurer:
@@ -9,32 +11,32 @@ class OSCDispatcherConfigurer:
         self.dispatcher: Dispatcher = Dispatcher()
         self._message_handler = message_handler
 
-    def load(self, mappings):
-        for mapping in mappings:
-            if mapping['type'] == 'fader':
+    def load(self, widgets: list[OSCWidget]):
+        for widget in widgets:
+            if widget.type == OSCWidgetTypeEnum.Fader:
                 self.dispatcher.map(
-                    mapping['address'] + '/*',
+                    widget.osc_address + '/*',
                     self._message_handler.handle_fader,
                     needs_reply_address=True
                 )
 
-            elif mapping['type'] == 'palette_select':
+            elif widget.type == OSCWidgetTypeEnum.PaletteSelect:
                 self.dispatcher.map(
-                    mapping['address'] + '/*',
+                    widget.osc_address + '/*',
                     self._message_handler.handle_palette_select,
                     needs_reply_address=True
                 )
 
-            elif mapping['type'] == 'color_wheel':
+            elif widget.type == OSCWidgetTypeEnum.ColorWheel:
                 self.dispatcher.map(
-                    mapping['address'] + '/*',
+                    widget.osc_address + '/*',
                     self._message_handler.handle_color_wheel,
                     needs_reply_address=True
                 )
 
-            elif mapping['type'] == 'recall_slot':
+            elif widget.type == OSCWidgetTypeEnum.RecallSlot:
                 self.dispatcher.map(
-                    mapping['address'] + '/*',
+                    widget.osc_address + '/*',
                     self._message_handler.handle_recall_slot,
                     needs_reply_address=True
                 )
