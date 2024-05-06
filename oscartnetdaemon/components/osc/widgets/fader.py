@@ -1,4 +1,5 @@
 import logging
+from typing import Any
 
 from oscartnetdaemon.components.components_singleton import Components
 from oscartnetdaemon.components.osc.widgets.abstract import OSCAbstractWidget
@@ -37,3 +38,17 @@ class OSCFaderWidget(OSCAbstractWidget):
             (self.info.osc_address + "/value", int(self.value * 255)),
             (self.info.osc_address + "/name", self.info.name)
         ]
+
+    def get_values(self) -> Any:
+        return {'value': self.value}
+
+    def set_values(self, values: Any):
+        self.value = values['value']
+        Components().osc_service.send_to_all_clients(
+            osc_address=self.info.osc_address + "/fader",
+            osc_value=self.value
+        )
+        Components().osc_service.send_to_all_clients(
+            osc_address=self.info.osc_address + "/value",
+            osc_value=int(self.value * 255)
+        )

@@ -1,5 +1,6 @@
 import colorsys
 import logging
+from typing import Any
 
 from oscartnetdaemon.components.components_singleton import Components
 from oscartnetdaemon.components.osc.widgets.abstract import OSCAbstractWidget
@@ -59,3 +60,36 @@ class OSCColorWheelWidget(OSCAbstractWidget):
             (self.info.osc_address + "/color", f"{r:02x}{g:02x}{b:02x}"),
             (self.info.osc_address + "/name", self.info.name)
         ]
+
+    def set_values(self, values: Any):
+        self.hue = values['hue']
+        self.saturation = values['saturation']
+        self.lightness = values['lightness']
+
+        Components().osc_service.send_to_all_clients(
+            osc_address=self.info.osc_address + '/hue',
+            osc_value=self.hue
+        )
+
+        Components().osc_service.send_to_all_clients(
+            osc_address=self.info.osc_address + '/saturation',
+            osc_value=self.saturation
+        )
+
+        Components().osc_service.send_to_all_clients(
+            osc_address=self.info.osc_address + '/lightness',
+            osc_value=self.lightness
+        )
+
+        r, g, b = map(lambda x: int(x * 255), colorsys.hls_to_rgb(self.hue, self.lightness, self.saturation))
+        Components().osc_service.send_to_all_clients(
+            osc_address=self.info.osc_address + '/color',
+            osc_value=f"{r:02x}{g:02x}{b:02x}"
+        )
+
+    def get_values(self) -> Any:
+        return {
+            'hue': self.hue,
+            'saturation': self.saturation,
+            'lightness': self.lightness
+        }

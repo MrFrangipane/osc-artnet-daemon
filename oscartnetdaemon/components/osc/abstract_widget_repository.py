@@ -1,10 +1,12 @@
 from abc import ABC, abstractmethod
 
+from oscartnetdaemon.components.osc.widgets.abstract import OSCAbstractWidget
+
 
 class AbstractOSCWidgetRepository(ABC):
 
     @abstractmethod
-    def create_widgets(self, widget_infos: list):
+    def create_widgets(self, widget_infos: list) -> list[OSCAbstractWidget]:
         pass
 
     @abstractmethod

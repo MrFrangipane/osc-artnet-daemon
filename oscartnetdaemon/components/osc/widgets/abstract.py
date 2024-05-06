@@ -1,4 +1,6 @@
+# fixme: move to entities ?
 from abc import ABC, abstractmethod
+from typing import Any
 
 from oscartnetdaemon.entities.osc.widget_info import OSCWidgetInfo
 
@@ -14,4 +16,12 @@ class OSCAbstractWidget(ABC):
 
     @abstractmethod
     def get_update_messages(self) -> list[tuple[str, int | bool | float | str | list]]:
+        pass
+
+    @abstractmethod
+    def get_values(self) -> Any:
+        pass
+
+    @abstractmethod
+    def set_values(self, values: Any):
         pass

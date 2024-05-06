@@ -7,6 +7,7 @@ from oscartnetdaemon.components.osc.abstract_service import AbstractOSCService
 from oscartnetdaemon.components.osc.clients_repository import OSCClientsRepository
 from oscartnetdaemon.components.osc.widget_repository import OSCWidgetRepository
 from oscartnetdaemon.entities.osc.client_info import OSCClientInfo
+from oscartnetdaemon.components.osc.recall_groups_repository import OSCRecallGroupsRepository
 
 
 class OSCService(AbstractOSCService):
@@ -22,7 +23,13 @@ class OSCService(AbstractOSCService):
         configuration = Components().osc_configuration
 
         self.widget_repository = OSCWidgetRepository()
-        self.widget_repository.create_widgets(configuration.widgets)
+        widgets = self.widget_repository.create_widgets(configuration.widgets)
+
+        self.recall_groups_repository = OSCRecallGroupsRepository()
+        self.recall_groups_repository.create_groups(
+            widgets=widgets,
+            recall_group_infos=configuration.recall_groups
+        )
 
         self.clients_repository = OSCClientsRepository()
 
@@ -57,3 +64,13 @@ class OSCService(AbstractOSCService):
 
     def unregister_client(self, info: OSCClientInfo):
         self.clients_repository.unregister(info)
+
+    def save_for_slot(self, slot_name: str):
+        # fixme: needs the recall group name !! (or uunique slot names, but not great)
+        self.recall_groups_repository.save_for_slot(slot_name)
+
+    def recall_for_slot(self, slot_name: str):
+        self.recall_groups_repository.recall_for_slot(slot_name)
+
+    def set_punch_for_slot(self, slot_name: str, is_punch: bool):
+        self.recall_groups_repository.set_punch_for_slot(slot_name, is_punch)
