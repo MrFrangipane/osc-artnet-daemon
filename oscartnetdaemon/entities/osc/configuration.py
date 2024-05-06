@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 from dataclasses_json import dataclass_json, LetterCase
 
-from oscartnetdaemon.entities.osc.widget import OSCWidget
+from oscartnetdaemon.entities.osc.widget_info import OSCWidgetInfo
 
 
 @dataclass_json(letter_case=LetterCase.KEBAB)
@@ -11,4 +11,4 @@ class OSCConfiguration:
     server_ip_address: str
     server_ip_address_autodetect: bool
     server_port: int
-    widgets: list[OSCWidget]
+    widgets: list[OSCWidgetInfo]

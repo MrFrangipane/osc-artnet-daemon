@@ -7,7 +7,7 @@ from oscartnetdaemon.entities.osc.widget_type_enum import OSCWidgetTypeEnum
 
 @dataclass_json(letter_case=LetterCase.KEBAB)
 @dataclass
-class OSCWidget:
+class OSCWidgetInfo:
     name: str
     type: OSCWidgetTypeEnum
     osc_address: str

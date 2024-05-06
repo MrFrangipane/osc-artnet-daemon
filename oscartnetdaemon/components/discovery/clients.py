@@ -2,7 +2,8 @@ import logging
 
 from zeroconf import ServiceBrowser, ServiceStateChange, Zeroconf
 
-from oscartnetdaemon.python_extensions.network import bytes_as_ip
+from oscartnetdaemon.components.components_singleton import Components
+from oscartnetdaemon.entities.osc.client_info import OSCClientInfo
 
 _logger = logging.getLogger(__name__)
 
@@ -33,12 +34,20 @@ class DiscoveryClients:
             return
 
         if state_change is ServiceStateChange.Added:
-            # fixme: check if IP and port are the same as Discovery Server
-            _logger.info(f"Registering Client '{info.name.split('.')[0]}' at {bytes_as_ip(info.addresses[0])}")
-            # info.addresses[0],  # FIXME compare to server address mask ?
-            # info.properties[b'IID'],
-            # info.name.split('.')[0],
-            # info.port
+            if b'IID' not in info.properties:
+                return
+
+            Components().osc_service.clients_repository.register(OSCClientInfo(
+                address=info.addresses[0],
+                id=info.properties[b'IID'],
+                name=info.name.split('.')[0],
+                port=info.port
+            ))
 
         elif state_change is ServiceStateChange.Removed:
-            _logger.info(f"Unregistering Client {info.name.split('.')[0]} at {info.addresses[0]}")
+            Components().osc_service.clients_repository.unregister(OSCClientInfo(
+                address=info.addresses[0],
+                id=info.properties[b'IID'],
+                name=info.name.split('.')[0],
+                port=info.port
+            ))

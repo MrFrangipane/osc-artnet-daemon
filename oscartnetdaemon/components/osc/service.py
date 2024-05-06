@@ -1,22 +1,17 @@
-from queue import Queue
 from threading import Thread
 
-from pythonosc.osc_server import ThreadingOSCUDPServer
+from pythonosc.osc_server import ThreadingOSCUDPServer, Dispatcher
 
 from oscartnetdaemon.components.components_singleton import Components
-from oscartnetdaemon.components.osc.dispatcher_configurer import OSCDispatcherConfigurer
-from oscartnetdaemon.components.osc.message_handler import OSCMessageHandler
-from oscartnetdaemon.components.osc.message_queue_item import OSCMessageQueueItem
-from oscartnetdaemon.components.osc.message_queue_item_sender import OSCMessageQueueItemSender
+from oscartnetdaemon.components.osc.abstract_service import AbstractOSCService
+from oscartnetdaemon.components.osc.clients_repository import OSCClientsRepository
+from oscartnetdaemon.components.osc.widget_repository import OSCWidgetRepository
 
 
-class OSCService:
+class OSCService(AbstractOSCService):
 
     def __init__(self):
-        self.clients_pool: OSCMessageQueueItemSender = None
-        self.message_queue: Queue[OSCMessageQueueItem] = Queue()
-        self.dispatcher_configurer: OSCDispatcherConfigurer = None
-        self.message_handler: OSCMessageHandler = None
+        super().__init__()
         self.server: ThreadingOSCUDPServer = None
 
         self._server_thread: Thread = None
@@ -25,17 +20,20 @@ class OSCService:
     def _initialize(self):
         configuration = Components().osc_configuration
 
-        self.message_handler = OSCMessageHandler(message_queue=self.message_queue)
-        self.dispatcher_configurer = OSCDispatcherConfigurer(self.message_handler)
-        self.dispatcher_configurer.load(configuration.widgets)
+        self.widget_repository = OSCWidgetRepository()
+        self.widget_repository.create_widgets(configuration.widgets)
+
+        self.clients_repository = OSCClientsRepository()
+
+        dispatcher = Dispatcher()
+        self.widget_repository.map_to_dispatcher(dispatcher)
 
         address = configuration.server_ip_address
         port = configuration.server_port
         self.server = ThreadingOSCUDPServer(
             server_address=(address, port),
-            dispatcher=self.dispatcher_configurer.dispatcher
+            dispatcher=dispatcher
         )
-        self.clients_pool = OSCMessageQueueItemSender(message_queue=self.message_queue)
 
     def start(self):
         self._initialize()
@@ -43,8 +41,10 @@ class OSCService:
         self._server_thread: Thread = Thread(target=self.server.serve_forever, daemon=True)
         self._server_thread.start()
 
-        self._clients_pool_thread: Thread = Thread(target=self.clients_pool.start, daemon=True)
-        self._clients_pool_thread.start()
-
     def stop(self):
         raise NotImplementedError()
+
+    def send_to_all_clients(self, osc_address: str, osc_value: str | bytes | bool | int | float | list):
+        clients = list(self.clients_repository.clients.values())  # avoid mutation during iteration (could be fixed ?)
+        for client in clients:
+            client.send_message(osc_address, osc_value)
