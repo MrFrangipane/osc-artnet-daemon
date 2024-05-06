@@ -34,5 +34,6 @@ class OSCFaderWidget(OSCAbstractWidget):
     def get_update_messages(self) -> list[tuple[str, int | bool | float | str | list]]:
         return [
             (self.info.osc_address + "/fader", self.value),
-            (self.info.osc_address + "/value", int(self.value * 255))
+            (self.info.osc_address + "/value", int(self.value * 255)),
+            (self.info.osc_address + "/name", self.info.name)
         ]

@@ -9,14 +9,14 @@ osc:
       type: "Fader"
       osc-address: "/fader"
 
-    - name: "Palette"
+    - name: "PaletteSelect"
       type: "PaletteSelect"
       osc-address: "/palette_select"
 
-    - name: "Color"
+    - name: "ColorWheel"
       type: "ColorWheel"
       osc-address: "/color_wheel"
 
-    - name: "Scene"
+    - name: "RecallSlot"
       type: "RecallSlot"
       osc-address: "/recall_slot"
