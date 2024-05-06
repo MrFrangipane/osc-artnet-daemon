@@ -10,7 +10,7 @@ from oscartnetdaemon.components.osc.message_queue_item import OSCMessageQueueIte
 from oscartnetdaemon.components.osc.message_queue_item_sender import OSCMessageQueueItemSender
 
 
-class OSCComponents:
+class OSCService:
 
     def __init__(self):
         self.clients_pool: OSCMessageQueueItemSender = None
@@ -46,3 +46,6 @@ class OSCComponents:
 
         self._clients_pool_thread: Thread = Thread(target=self.clients_pool.start, daemon=True)
         self._clients_pool_thread.start()
+
+    def stop(self):
+        raise NotImplementedError()
