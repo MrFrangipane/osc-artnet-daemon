@@ -492,7 +492,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>Fader</default>
+								<default>Fader A1</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -703,7 +703,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>127</default>
+								<default>220</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -4121,9 +4121,9 @@
 							<property type="c">
 								<key>color</key>
 								<value>
-									<r>1</r>
-									<g>0</g>
-									<b>0</b>
+									<r>0.411765</r>
+									<g>0.462745</g>
+									<b>0.109804</b>
 									<a>1</a>
 								</value>
 							</property>
@@ -4270,7 +4270,7 @@
 							</property>
 							<property type="i">
 								<key>cursorDisplay</key>
-								<value>1</value>
+								<value>0</value>
 							</property>
 							<property type="r">
 								<key>frame</key>
@@ -4532,7 +4532,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>ColorWheel</default>
+								<default>ColorWheel A</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -6068,7 +6068,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>RecallSlot</default>
+								<default>A1</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -7306,7 +7306,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>RecallSlot</default>
+								<default>A2</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -8544,7 +8544,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>RecallSlot</default>
+								<default>A3</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -10005,7 +10005,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>Fader</default>
+								<default>Fader A2</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -10216,7 +10216,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>127</default>
+								<default>174</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -10697,7 +10697,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>Fader</default>
+								<default>Fader A3</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -10908,7 +10908,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>127</default>
+								<default>40</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -11389,7 +11389,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>Fader</default>
+								<default>Fader B1</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -11600,7 +11600,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>127</default>
+								<default>167</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -15018,9 +15018,9 @@
 							<property type="c">
 								<key>color</key>
 								<value>
-									<r>1</r>
-									<g>0</g>
-									<b>0</b>
+									<r>0.588235</r>
+									<g>0.6</g>
+									<b>0.85098</b>
 									<a>1</a>
 								</value>
 							</property>
@@ -15167,7 +15167,7 @@
 							</property>
 							<property type="i">
 								<key>cursorDisplay</key>
-								<value>1</value>
+								<value>0</value>
 							</property>
 							<property type="r">
 								<key>frame</key>
@@ -15429,7 +15429,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>ColorWheel</default>
+								<default>ColorWheel B</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -16965,7 +16965,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>RecallSlot</default>
+								<default>B1</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -18203,7 +18203,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>RecallSlot</default>
+								<default>B2</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -19441,7 +19441,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>RecallSlot</default>
+								<default>B3</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -20902,7 +20902,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>Fader</default>
+								<default>Fader B2</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -21113,7 +21113,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>127</default>
+								<default>136</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -21594,7 +21594,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>Fader</default>
+								<default>Fader B3</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -21805,7 +21805,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>127</default>
+								<default>247</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
