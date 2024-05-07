@@ -431,7 +431,7 @@
 							</property>
 							<property type="s">
 								<key>name</key>
-								<value>name</value>
+								<value>caption</value>
 							</property>
 							<property type="i">
 								<key>orientation</key>
@@ -3862,7 +3862,7 @@
 							</property>
 							<property type="s">
 								<key>name</key>
-								<value>name</value>
+								<value>caption</value>
 							</property>
 							<property type="i">
 								<key>orientation</key>
@@ -4471,7 +4471,7 @@
 							</property>
 							<property type="s">
 								<key>name</key>
-								<value>name</value>
+								<value>caption</value>
 							</property>
 							<property type="i">
 								<key>orientation</key>
@@ -6007,7 +6007,7 @@
 							</property>
 							<property type="s">
 								<key>name</key>
-								<value>name</value>
+								<value>caption</value>
 							</property>
 							<property type="i">
 								<key>orientation</key>
@@ -7245,7 +7245,7 @@
 							</property>
 							<property type="s">
 								<key>name</key>
-								<value>name</value>
+								<value>caption</value>
 							</property>
 							<property type="i">
 								<key>orientation</key>

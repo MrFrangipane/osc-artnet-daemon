@@ -31,7 +31,7 @@ class OSCRecallSlotWidget(OSCAbstractWidget):
     # fixme: use a dataclass for messages ?
     def get_update_messages(self) -> list[tuple[str, int | bool | float | str | list]]:
         return [
-            (self.info.osc_address + "/name", self.info.caption)
+            (self.info.osc_address + "/caption", self.info.caption)
         ]
 
     def get_values(self) -> Any:
