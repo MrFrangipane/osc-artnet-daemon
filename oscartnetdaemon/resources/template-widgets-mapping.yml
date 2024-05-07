@@ -5,31 +5,91 @@ osc:
   server-port: 8080
 
   widgets:
-    - caption: "Fader"
-      type: "Fader"
-      osc-address: "/fader"
-
-    - caption: "PaletteSelect"
-      type: "PaletteSelect"
-      osc-address: "/palette_select"
-
-    - caption: "ColorWheel"
+    # A section
+    - caption: "ColorWheel A"
       type: "ColorWheel"
-      osc-address: "/color_wheel"
+      osc-address: "/color_wheel_a"
 
-    - caption: "Slot 1"
-      type: "RecallSlot"
-      osc-address: "/recall_slot_1"
+    - caption: "Fader A1"
+      type: "Fader"
+      osc-address: "/fader_a1"
 
-    - caption: "Slot 2"
+    - caption: "Fader A2"
+      type: "Fader"
+      osc-address: "/fader_a2"
+
+    - caption: "Fader A3"
+      type: "Fader"
+      osc-address: "/fader_a3"
+
+    - caption: "PaletteSelect A"
+      type: "PaletteSelect"
+      osc-address: "/palette_select_a"
+
+    - caption: "A1"
       type: "RecallSlot"
-      osc-address: "/recall_slot_2"
+      osc-address: "/recall_slot_a1"
+
+    - caption: "A2"
+      type: "RecallSlot"
+      osc-address: "/recall_slot_a2"
+
+    - caption: "A3"
+      type: "RecallSlot"
+      osc-address: "/recall_slot_a3"
+
+    # B section
+    - caption: "ColorWheel B"
+      type: "ColorWheel"
+      osc-address: "/color_wheel_b"
+
+    - caption: "Fader B1"
+      type: "Fader"
+      osc-address: "/fader_b1"
+
+    - caption: "Fader B2"
+      type: "Fader"
+      osc-address: "/fader_b2"
+
+    - caption: "Fader B3"
+      type: "Fader"
+      osc-address: "/fader_b3"
+
+    - caption: "PaletteSelect B"
+      type: "PaletteSelect"
+      osc-address: "/palette_select_b"
+
+    - caption: "B1"
+      type: "RecallSlot"
+      osc-address: "/recall_slot_b1"
+
+    - caption: "B2"
+      type: "RecallSlot"
+      osc-address: "/recall_slot_b2"
+
+    - caption: "B3"
+      type: "RecallSlot"
+      osc-address: "/recall_slot_b3"
 
   recall-groups:
-    - name: "Recall Group 1"
-      widget-osc-addresses:  # FIXME: split caption and id concepts
-        - "/fader"
-        # - "/palette_select" not yet implemented as widget
-        - "/color_wheel"
-        - "/recall_slot_1"
-        - "/recall_slot_2"
+    - name: "Recall Group A"
+      widget-osc-addresses:
+        - "/color_wheel_a"
+        - "/fader_a1"
+        - "/fader_a2"
+        - "/fader_a3"
+        # - "/palette_select_a" not yet implemented as widget
+        - "/recall_slot_a1"
+        - "/recall_slot_a2"
+        - "/recall_slot_a3"
+
+    - name: "Recall Group B"
+      widget-osc-addresses:
+        - "/color_wheel_b"
+        - "/fader_b1"
+        - "/fader_b2"
+        - "/fader_b3"
+        # - "/palette_select_b" not yet implemented as widget
+        - "/recall_slot_b1"
+        - "/recall_slot_b2"
+        - "/recall_slot_b3"
