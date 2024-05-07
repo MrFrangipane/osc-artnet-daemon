@@ -10,3 +10,7 @@
 - https://github.com/rppicomidi/pico-mc-display-bridge?tab=readme-ov-file
 - https://github.com/tttapa/Control-Surface
 - https://github.com/rppicomidi/usb_midi_host
+
+## TODO
+
+- fix "nested" recall groups issue

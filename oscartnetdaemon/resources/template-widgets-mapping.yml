@@ -85,6 +85,15 @@ osc:
 
     - name: "Recall Group B"
       widget-osc-addresses:
+        - "/color_wheel_a"
+        - "/fader_a1"
+        - "/fader_a2"
+        - "/fader_a3"
+        # - "/palette_select_a" not yet implemented as widget
+        - "/recall_slot_a1"
+        - "/recall_slot_a2"
+        - "/recall_slot_a3"
+
         - "/color_wheel_b"
         - "/fader_b1"
         - "/fader_b2"
