@@ -79,6 +79,7 @@ osc:
         - "/fader_a2"
         - "/fader_a3"
         # - "/palette_select_a" not yet implemented as widget
+
         - "/recall_slot_a1"
         - "/recall_slot_a2"
         - "/recall_slot_a3"
@@ -90,15 +91,13 @@ osc:
         - "/fader_a2"
         - "/fader_a3"
         # - "/palette_select_a" not yet implemented as widget
-        - "/recall_slot_a1"
-        - "/recall_slot_a2"
-        - "/recall_slot_a3"
 
         - "/color_wheel_b"
         - "/fader_b1"
         - "/fader_b2"
         - "/fader_b3"
         # - "/palette_select_b" not yet implemented as widget
+
         - "/recall_slot_b1"
         - "/recall_slot_b2"
         - "/recall_slot_b3"

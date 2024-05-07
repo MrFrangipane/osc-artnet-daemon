@@ -25,3 +25,6 @@ class OSCAbstractWidget(ABC):
     @abstractmethod
     def set_values(self, values: Any):
         pass
+
+    def __repr__(self):
+        return f"<{self.__class__.__name__}(info.osc_address={self.info.osc_address})>"

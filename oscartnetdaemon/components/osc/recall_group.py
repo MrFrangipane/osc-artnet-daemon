@@ -7,7 +7,7 @@ from oscartnetdaemon.components.osc.widgets.abstract import OSCAbstractWidget
 
 @dataclass
 class OSCMemorySlot:
-    name: str
+    osc_address: str
     widgets_values: dict[str, Any] = field(default_factory=dict)  # fixme create a OSCWidgetValues dataclass ?
 
 
