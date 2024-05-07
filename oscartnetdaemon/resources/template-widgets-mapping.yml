@@ -5,31 +5,31 @@ osc:
   server-port: 8080
 
   widgets:
-    - name: "Fader"
+    - caption: "Fader"
       type: "Fader"
       osc-address: "/fader"
 
-    - name: "PaletteSelect"
+    - caption: "PaletteSelect"
       type: "PaletteSelect"
       osc-address: "/palette_select"
 
-    - name: "ColorWheel"
+    - caption: "ColorWheel"
       type: "ColorWheel"
       osc-address: "/color_wheel"
 
-    - name: "Slot 1"
+    - caption: "Slot 1"
       type: "RecallSlot"
       osc-address: "/recall_slot_1"
 
-    - name: "Slot 2"
+    - caption: "Slot 2"
       type: "RecallSlot"
       osc-address: "/recall_slot_2"
 
   recall-groups:
     - name: "Recall Group 1"
-      widget-names:  # FIXME: split caption and id concepts
-        - "Fader"
-        # - "PaletteSelect" not yet implemented as widget
-        - "ColorWheel"
-        - "Slot 1"
-        - "Slot 2"
+      widget-osc-addresses:  # FIXME: split caption and id concepts
+        - "/fader"
+        # - "/palette_select" not yet implemented as widget
+        - "/color_wheel"
+        - "/recall_slot_1"
+        - "/recall_slot_2"

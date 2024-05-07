@@ -20,18 +20,18 @@ class OSCRecallSlotWidget(OSCAbstractWidget):
         subwidget = osc_address.split('/')[-1]
 
         if osc_value == 1 and subwidget == 'save':
-            Components().osc_service.save_for_slot(self.info.name)
+            Components().osc_service.save_for_slot(self.info.osc_address)
 
         elif osc_value == 1 and subwidget == 'recall':
-            Components().osc_service.recall_for_slot(self.info.name)
+            Components().osc_service.recall_for_slot(self.info.osc_address)
 
         elif subwidget == 'punch':
-            Components().osc_service.set_punch_for_slot(self.info.name, bool(osc_value))
+            Components().osc_service.set_punch_for_slot(self.info.osc_address, bool(osc_value))
 
     # fixme: use a dataclass for messages ?
     def get_update_messages(self) -> list[tuple[str, int | bool | float | str | list]]:
         return [
-            (self.info.osc_address + "/name", self.info.name)
+            (self.info.osc_address + "/name", self.info.caption)
         ]
 
     def get_values(self) -> Any:

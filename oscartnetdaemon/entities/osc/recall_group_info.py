@@ -9,4 +9,4 @@ from oscartnetdaemon.entities.osc.widget_info import OSCWidgetInfo
 @dataclass
 class OSCRecallGroupInfo:
     name: str
-    widget_names: list[str]
+    widget_osc_addresses: list[str]

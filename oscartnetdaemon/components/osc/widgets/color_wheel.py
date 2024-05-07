@@ -58,7 +58,7 @@ class OSCColorWheelWidget(OSCAbstractWidget):
             (self.info.osc_address + "/saturation", self.saturation),
             (self.info.osc_address + "/lightness", self.lightness),
             (self.info.osc_address + "/color", f"{r:02x}{g:02x}{b:02x}"),
-            (self.info.osc_address + "/name", self.info.name)
+            (self.info.osc_address + "/name", self.info.caption)
         ]
 
     def set_values(self, values: Any):

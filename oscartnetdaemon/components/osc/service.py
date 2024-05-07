@@ -65,12 +65,12 @@ class OSCService(AbstractOSCService):
     def unregister_client(self, info: OSCClientInfo):
         self.clients_repository.unregister(info)
 
-    def save_for_slot(self, slot_name: str):
+    def save_for_slot(self, osc_address: str):
         # fixme: needs the recall group name !! (or uunique slot names, but not great)
-        self.recall_groups_repository.save_for_slot(slot_name)
+        self.recall_groups_repository.save_for_slot(osc_address)
 
-    def recall_for_slot(self, slot_name: str):
-        self.recall_groups_repository.recall_for_slot(slot_name)
+    def recall_for_slot(self, osc_address: str):
+        self.recall_groups_repository.recall_for_slot(osc_address)
 
-    def set_punch_for_slot(self, slot_name: str, is_punch: bool):
-        self.recall_groups_repository.set_punch_for_slot(slot_name, is_punch)
+    def set_punch_for_slot(self, osc_address: str, is_punch: bool):
+        self.recall_groups_repository.set_punch_for_slot(osc_address, is_punch)

@@ -6,7 +6,13 @@ from oscartnetdaemon.components.osc.widgets.abstract import OSCAbstractWidget
 
 
 @dataclass
+class OSCMemorySlot:
+    name: str
+    widgets_values: dict[str, Any] = field(default_factory=dict)  # fixme create a OSCWidgetValues dataclass ?
+
+
+@dataclass
 class OSCRecallGroup:
     name: str
-    widgets: list[OSCAbstractWidget] = field(default_factory=list)
-    values: dict[str, Any] = field(default_factory=dict)
+    widgets: list[OSCAbstractWidget]
+    memory_slots: dict[str, OSCMemorySlot]

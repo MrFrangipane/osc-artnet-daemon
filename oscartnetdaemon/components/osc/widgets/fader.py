@@ -36,7 +36,7 @@ class OSCFaderWidget(OSCAbstractWidget):
         return [
             (self.info.osc_address + "/fader", self.value),
             (self.info.osc_address + "/value", int(self.value * 255)),
-            (self.info.osc_address + "/name", self.info.name)
+            (self.info.osc_address + "/name", self.info.caption)
         ]
 
     def get_values(self) -> Any:

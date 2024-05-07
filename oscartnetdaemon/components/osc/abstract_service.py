@@ -39,13 +39,13 @@ class AbstractOSCService(ABC):
         pass
 
     @abstractmethod
-    def save_for_slot(self, slot_name: str):
+    def save_for_slot(self, osc_address: str):
         pass
 
     @abstractmethod
-    def recall_for_slot(self, slot_name: str):
+    def recall_for_slot(self, osc_address: str):
         pass
 
     @abstractmethod
-    def set_punch_for_slot(self, slot_name: str, is_punch: bool):
+    def set_punch_for_slot(self, osc_address: str, is_punch: bool):
         pass
