@@ -15,7 +15,7 @@ def parse_args() -> Configuration:
     )
 
     parser.add_argument(
-        "-u", "--artnet-universe", type=int, default=0,
+        "-u", "--artnet-universe", type=int, default=1,
         help="Number of the Artnet universe"
     )
 

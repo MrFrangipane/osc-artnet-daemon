@@ -64,10 +64,8 @@ class MessageHandler:
         elif control_name == 'master_dimmer':
             Components().osc_state_model.mood.master_dimmer = value
 
-        elif control_name == 'palette':
-            Components().osc_state_model.mood.palette = value
-        elif control_name == 'animation':
-            Components().osc_state_model.mood.animation = value
+        elif control_name == 'hue':
+            Components().osc_state_model.mood.hue = value
         elif control_name == 'texture':
             Components().osc_state_model.mood.texture = value
         elif control_name == 'blinking':
@@ -75,6 +73,8 @@ class MessageHandler:
         elif control_name == 'bpm_scale':
             # fixme: we need an interop service between tosc and mood
             Components().osc_state_model.mood.bpm_scale = value
+        elif control_name == 'palette':
+            Components().osc_state_model.mood.palette = value
         elif control_name == 'pattern':
             Components().osc_state_model.mood.pattern = value
 

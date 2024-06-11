@@ -1,5 +1,5 @@
 python-osc
-stupidartnet
+stupidartnet==1.4.0
 zeroconf
 mido[ports-rtmidi]
 python-rtmidi

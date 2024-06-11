@@ -16,6 +16,8 @@ class BaseFixture(metaclass=AbstractFixtureMetaclass):
         self.address = address
         self.mood = Mood()
         self.group_position: float = 0.0
+        self.group_place: int = 0
+        self.group_size: int = 0
 
     @abstractmethod
     def map_to_channels(self, group_dimmer: float) -> list[int]:

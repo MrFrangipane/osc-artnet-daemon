@@ -64,6 +64,8 @@ class FixturesUpdater(AbstractFixturesUpdater):
                 for show_item in Components().show_store.show.items:
                     # fixme: better models please (ShowItem, Fixture, ...)
                     show_item.fixture.group_position = show_item.group_position
+                    show_item.fixture.group_place = show_item.group_place
+                    show_item.fixture.group_size = show_item.group_size
                     show_item.fixture.mood = mood
                     group_dimmer = Components().show_store.show.groups_dimmers[show_item.group_index]
                     channels = show_item.fixture.map_to_channels(group_dimmer)

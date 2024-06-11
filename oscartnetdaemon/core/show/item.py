@@ -35,7 +35,9 @@ class ShowItem:
     fixture_index: int
 
     group_index: int  # which group
-    group_position: float  # where in the group
+    group_position: float  # where in the group [0.0, 1.0]
+    group_place: int  # where in the group [1, len()]
+    group_size: int  # how many in the group in total
 
     channel_first: int
     channel_last: int

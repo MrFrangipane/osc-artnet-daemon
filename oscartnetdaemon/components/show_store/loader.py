@@ -13,6 +13,7 @@ class ShowLoader:
 
         self._channel_start_index = 0
         self._group_index = 1
+        self._group_size = 1
         self._fixture_index = 0
 
     def from_fixtures(self, title: str, fixtures: list[BaseFixture]) -> Show:
@@ -31,17 +32,19 @@ class ShowLoader:
             if not isinstance(fixture, FixtureGroup):
                 show_items.append(self._fixture_to_show_item(fixture, is_group=False, group_position=0.5))
             else:
+                self._group_size = len(fixture.fixtures)
                 for i, sub_fixture in enumerate(fixture.fixtures):
                     show_items.append(self._fixture_to_show_item(
                         sub_fixture,
                         is_group=True,
-                        group_position=float(i) / (len(fixture.fixtures) - 1)
+                        group_position=float(i) / (len(fixture.fixtures) - 1),
+                        group_place=i
                     ))
                 self._group_index += 1
 
         return show_items
 
-    def _fixture_to_show_item(self, fixture: BaseFixture, is_group, group_position) -> ShowItem:
+    def _fixture_to_show_item(self, fixture: BaseFixture, is_group, group_position, group_place) -> ShowItem:
         channel_count = len(fields(fixture.Mapping))
         new_item = ShowItem(
             name=type(fixture).__name__,
@@ -51,7 +54,9 @@ class ShowLoader:
             channel_last=self._channel_start_index + channel_count,
             channel_count=channel_count,
             group_index=self._group_index if is_group else 0,
-            group_position=group_position
+            group_size=self._group_size if is_group else 1,
+            group_position=group_position,
+            group_place=group_place
         )
 
         self._channel_start_index += new_item.channel_count
