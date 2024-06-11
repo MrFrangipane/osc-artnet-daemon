@@ -11812,7 +11812,7 @@ end</value>
 										<key>text</key>
 										<locked>0</locked>
 										<lockedDefaultCurrent>1</lockedDefaultCurrent>
-										<default />
+										<default>Octostrip</default>
 										<defaultPull>0</defaultPull>
 									</value>
 									<value>
@@ -12151,7 +12151,7 @@ end</value>
 										<key>text</key>
 										<locked>0</locked>
 										<lockedDefaultCurrent>1</lockedDefaultCurrent>
-										<default />
+										<default>Tristan 200</default>
 										<defaultPull>0</defaultPull>
 									</value>
 									<value>
@@ -12490,7 +12490,7 @@ end</value>
 										<key>text</key>
 										<locked>0</locked>
 										<lockedDefaultCurrent>1</lockedDefaultCurrent>
-										<default />
+										<default>2 Bright PAR</default>
 										<defaultPull>0</defaultPull>
 									</value>
 									<value>
@@ -14643,8 +14643,7 @@ end</value>
 										<key>text</key>
 										<locked>0</locked>
 										<lockedDefaultCurrent>1</lockedDefaultCurrent>
-										<default>255
-</default>
+										<default>255</default>
 										<defaultPull>0</defaultPull>
 									</value>
 									<value>
@@ -14990,8 +14989,7 @@ end</value>
 										<key>text</key>
 										<locked>0</locked>
 										<lockedDefaultCurrent>1</lockedDefaultCurrent>
-										<default>255
-</default>
+										<default>255</default>
 										<defaultPull>0</defaultPull>
 									</value>
 									<value>
@@ -15164,7 +15162,7 @@ end</value>
 										<key>text</key>
 										<locked>0</locked>
 										<lockedDefaultCurrent>1</lockedDefaultCurrent>
-										<default>255</default>
+										<default>000</default>
 										<defaultPull>0</defaultPull>
 									</value>
 									<value>
@@ -15337,8 +15335,7 @@ end</value>
 										<key>text</key>
 										<locked>0</locked>
 										<lockedDefaultCurrent>1</lockedDefaultCurrent>
-										<default>255
-</default>
+										<default>000</default>
 										<defaultPull>0</defaultPull>
 									</value>
 									<value>
@@ -15511,8 +15508,7 @@ end</value>
 										<key>text</key>
 										<locked>0</locked>
 										<lockedDefaultCurrent>1</lockedDefaultCurrent>
-										<default>255
-</default>
+										<default>000</default>
 										<defaultPull>0</defaultPull>
 									</value>
 									<value>
@@ -15685,8 +15681,7 @@ end</value>
 										<key>text</key>
 										<locked>0</locked>
 										<lockedDefaultCurrent>1</lockedDefaultCurrent>
-										<default>255
-</default>
+										<default>000</default>
 										<defaultPull>0</defaultPull>
 									</value>
 									<value>
@@ -15859,8 +15854,7 @@ end</value>
 										<key>text</key>
 										<locked>0</locked>
 										<lockedDefaultCurrent>1</lockedDefaultCurrent>
-										<default>255
-</default>
+										<default>000</default>
 										<defaultPull>0</defaultPull>
 									</value>
 									<value>
@@ -16033,8 +16027,7 @@ end</value>
 										<key>text</key>
 										<locked>0</locked>
 										<lockedDefaultCurrent>1</lockedDefaultCurrent>
-										<default>255
-</default>
+										<default>000</default>
 										<defaultPull>0</defaultPull>
 									</value>
 									<value>
