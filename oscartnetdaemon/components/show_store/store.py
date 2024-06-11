@@ -19,6 +19,7 @@ class ShowStore(AbstractShowStore):
             FixtureGroup([OSCArtnetFixturesAPI.get_fixture("OctostripBar")() for _ in range(8)]),
             FixtureGroup([OSCArtnetFixturesAPI.get_fixture("Tristan200")() for _ in range(2)]),
             FixtureGroup([OSCArtnetFixturesAPI.get_fixture("TwoBrightPar")() for _ in range(5)]),
+            OSCArtnetFixturesAPI.get_fixture("AlgamSpectrum500RGB")()
         ])
 
     def items_by_type(self, type_name):

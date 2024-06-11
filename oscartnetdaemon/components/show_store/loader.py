@@ -30,7 +30,7 @@ class ShowLoader:
 
         for fixture in fixtures:
             if not isinstance(fixture, FixtureGroup):
-                show_items.append(self._fixture_to_show_item(fixture, is_group=False, group_position=0.5))
+                show_items.append(self._fixture_to_show_item(fixture, is_group=False, group_position=0.5, group_place=1))
             else:
                 self._group_size = len(fixture.fixtures)
                 for i, sub_fixture in enumerate(fixture.fixtures):
