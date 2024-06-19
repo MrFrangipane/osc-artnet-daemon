@@ -4283,7 +4283,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>Tap </default>
+								<default>Tap</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -5622,7 +5622,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>label1</default>
+								<default>Only A</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -5795,7 +5795,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>label2</default>
+								<default>Half</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -5968,7 +5968,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>label3</default>
+								<default>Third</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -6141,7 +6141,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>label4</default>
+								<default>Alter</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -6314,7 +6314,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>label5</default>
+								<default>Single</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -6931,7 +6931,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>label1</default>
+								<default>A</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -7104,7 +7104,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>label2</default>
+								<default>B</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -7277,7 +7277,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>label3</default>
+								<default>C</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -7450,7 +7450,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>label4</default>
+								<default>D</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -7623,7 +7623,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>label5</default>
+								<default>E</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -8029,7 +8029,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>Time scale</default>
+								<default>Time Scale</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -8240,7 +8240,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>label1</default>
+								<default>x 4</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -8413,7 +8413,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>label2</default>
+								<default>x 2</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -8586,7 +8586,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>label3</default>
+								<default>x 1</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -8759,7 +8759,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>label4</default>
+								<default>x 0.50</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -8932,7 +8932,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>label5</default>
+								<default>x 0.25</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -18254,7 +18254,7 @@
 					</property>
 					<property type="s">
 						<key>name</key>
-						<value>toggle_whashes_narrow</value>
+						<value>toggle_washes_narrow</value>
 					</property>
 					<property type="i">
 						<key>orientation</key>
