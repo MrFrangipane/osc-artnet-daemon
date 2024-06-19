@@ -1,6 +1,7 @@
 import logging
 
 from oscartnetdaemon.components.osc.abstract_recall_groups_repository import AbstractOSCRecallGroupsRepository
+from oscartnetdaemon.components.osc.punch_pile import PunchPile
 from oscartnetdaemon.components.osc.recall_group import OSCRecallGroup, OSCMemorySlot
 from oscartnetdaemon.components.osc.widgets.abstract import OSCAbstractWidget
 
@@ -17,7 +18,7 @@ class OSCRecallGroupsRepository(AbstractOSCRecallGroupsRepository):
 
     def __init__(self):
         self._recall_groups: dict[str, OSCRecallGroup] = dict()
-        self._punch_piles = None
+        self._punch_piles: dict[bytes, PunchPile] = dict()
 
     def create_groups(self, widgets: list[OSCAbstractWidget], recall_group_infos: list[OSCRecallGroupInfo]):
         self._recall_groups = dict()
@@ -52,9 +53,11 @@ class OSCRecallGroupsRepository(AbstractOSCRecallGroupsRepository):
                 self._recall_groups[osc_address] = new_recall_group
 
     def register_client(self, client_info: OSCClientInfo):
-        pass
+        if self._punch_piles.get(client_info.id, None) is None:
+            self._punch_piles[client_info.id] = PunchPile(client_info)
 
     def unregister_client(self, client_info: OSCClientInfo):
+        # Do nothing to keep punches between registrations
         pass
 
     def save_for_slot(self, osc_address: str):
@@ -70,6 +73,10 @@ class OSCRecallGroupsRepository(AbstractOSCRecallGroupsRepository):
                 widget.set_values(values)
 
     def set_punch_for_slot(self, client_info: OSCClientInfo, osc_address: str, is_punch: bool):
+        if client_info is None:
+            _logger.warning(f"Trying to punch from an unregistered client, aborting")
+            return
+
         recall_group = self._recall_groups[osc_address]
-        self._punch_piles[client_info.id].set_punch(recall_group.name, is_punch)
-        _logger.info(f"punch {client_info} {osc_address} {is_punch}")
+        memory_slot = recall_group.memory_slots[osc_address]
+        self._punch_piles[client_info.id].set_punch(recall_group, memory_slot, is_punch)

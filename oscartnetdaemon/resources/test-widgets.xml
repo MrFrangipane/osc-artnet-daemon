@@ -492,7 +492,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>Fader A1</default>
+								<default>Fader a1</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -1274,7 +1274,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>ColorWheel A</default>
+								<default>ColorWheel a</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -2810,7 +2810,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>A1</default>
+								<default>a1</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -4048,7 +4048,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>A2</default>
+								<default>a2</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -5286,7 +5286,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>A3</default>
+								<default>a3</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -6747,7 +6747,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>Fader A2</default>
+								<default>Fader a2</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -7439,7 +7439,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>Fader A3</default>
+								<default>Fader a3</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -8131,7 +8131,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>Fader B1</default>
+								<default>Fader b1</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -8913,7 +8913,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>ColorWheel B</default>
+								<default>ColorWheel b</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -10449,7 +10449,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>B1</default>
+								<default>b1</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -11687,7 +11687,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>B2</default>
+								<default>b2</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -12925,7 +12925,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>B3</default>
+								<default>b3</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -14386,7 +14386,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>Fader B2</default>
+								<default>Fader b2</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -15078,7 +15078,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>Fader B3</default>
+								<default>Fader b3</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -15906,7 +15906,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>label1</default>
+								<default>Ra+2</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -16079,7 +16079,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>label2</default>
+								<default>Ra+1</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -16252,7 +16252,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>label3</default>
+								<default>Ra 0</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -16425,7 +16425,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>label4</default>
+								<default>Ra-1</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -16598,7 +16598,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>label5</default>
+								<default>Ra-2</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -17004,7 +17004,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>Radio B</default>
+								<default>Radio b</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -17215,7 +17215,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>label1</default>
+								<default>Rb+2</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -17388,7 +17388,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>label2</default>
+								<default>Rb+1</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -17561,7 +17561,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>label3</default>
+								<default>Rb 0</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -17734,7 +17734,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>label4</default>
+								<default>Rb-1</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -17907,7 +17907,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>label5</default>
+								<default>Rb-2</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -18165,7 +18165,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>B A1</default>
+								<default>B a1</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -18655,7 +18655,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>B A2</default>
+								<default>B a2</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -19145,7 +19145,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>B B1</default>
+								<default>B b1</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -19635,7 +19635,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>B B2</default>
+								<default>B b2</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -20125,7 +20125,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>T A</default>
+								<default>T a</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
@@ -20615,7 +20615,7 @@
 								<key>text</key>
 								<locked>0</locked>
 								<lockedDefaultCurrent>1</lockedDefaultCurrent>
-								<default>T B</default>
+								<default>T b</default>
 								<defaultPull>0</defaultPull>
 							</value>
 							<value>
