@@ -26,4 +26,4 @@ if __name__ == '__main__':
             time.sleep(.1)
     except KeyboardInterrupt:
         discovery_service.stop()
-        # osc_service.stop()
+        # Components().osc_service.stop()  Not implemented yet

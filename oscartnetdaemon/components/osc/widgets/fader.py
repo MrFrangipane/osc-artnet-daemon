@@ -13,6 +13,7 @@ class OSCFaderWidget(OSCAbstractWidget):
 
     def __init__(self, info: OSCWidgetInfo):
         super().__init__(info)
+        self.components_singleton = Components  # FIXME
         self.value: float = 0.5
 
     # fixme: return a list of message like in get_update_messages() ?
@@ -22,21 +23,15 @@ class OSCFaderWidget(OSCAbstractWidget):
 
         if address_items[-1] == 'fader':
             self.value = osc_value
-            Components().osc_service.send_to_all_clients(
-                osc_address=self.info.osc_address + "/fader",
-                osc_value=self.value
-            )
-            Components().osc_service.send_to_all_clients(
-                osc_address=self.info.osc_address + "/value",
-                osc_value=int(self.value * 255)
-            )
+            self.send_osc('/fader', self.value)
+            self.send_osc('/value', int(self.value * 255))
 
     # fixme: use a dataclass for messages ?
     def get_update_messages(self) -> list[tuple[str, int | bool | float | str | list]]:
         return [
-            (self.info.osc_address + "/fader", self.value),
-            (self.info.osc_address + "/value", int(self.value * 255)),
-            (self.info.osc_address + "/caption", self.info.caption)
+            ("/fader", self.value),
+            ("/value", int(self.value * 255)),
+            ("/caption", self.info.caption)
         ]
 
     def get_values(self) -> Any:
@@ -44,11 +39,5 @@ class OSCFaderWidget(OSCAbstractWidget):
 
     def set_values(self, values: Any):
         self.value = values['value']
-        Components().osc_service.send_to_all_clients(
-            osc_address=self.info.osc_address + "/fader",
-            osc_value=self.value
-        )
-        Components().osc_service.send_to_all_clients(
-            osc_address=self.info.osc_address + "/value",
-            osc_value=int(self.value * 255)
-        )
+        self.send_osc('/fader', self.value)
+        self.send_osc('/value', int(self.value * 255))

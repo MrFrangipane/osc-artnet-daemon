@@ -14,6 +14,7 @@ class OSCColorWheelWidget(OSCAbstractWidget):
 
     def __init__(self, info: OSCWidgetInfo):
         super().__init__(info)
+        self.components_singleton = Components  # FIXME
         self.hue = 0.0
         self.saturation = 1.0
         self.lightness = 0.5
@@ -25,40 +26,28 @@ class OSCColorWheelWidget(OSCAbstractWidget):
 
         if address_items[-1] == 'hue':
             self.hue = osc_value
-            Components().osc_service.send_to_all_clients(
-                osc_address=self.info.osc_address + '/hue',
-                osc_value=self.hue
-            )
+            self.send_osc('/hue', self.hue)
 
         elif address_items[-1] == 'saturation':
             self.saturation = osc_value
-            Components().osc_service.send_to_all_clients(
-                osc_address=self.info.osc_address + '/saturation',
-                osc_value=self.saturation
-            )
+            self.send_osc('/saturation', self.saturation)
 
         elif address_items[-1] == 'lightness':
             self.lightness = osc_value
-            Components().osc_service.send_to_all_clients(
-                osc_address=self.info.osc_address + '/lightness',
-                osc_value=self.lightness
-            )
+            self.send_osc('/lightness', self.lightness)
 
         r, g, b = map(lambda x: int(x * 255), colorsys.hls_to_rgb(self.hue, self.lightness, self.saturation))
-        Components().osc_service.send_to_all_clients(
-            osc_address=self.info.osc_address + '/color',
-            osc_value=f"{r:02x}{g:02x}{b:02x}"
-        )
+        self.send_osc('/color', f"{r:02x}{g:02x}{b:02x}")
 
     # fixme: use a dataclass for messages ?
     def get_update_messages(self) -> list[tuple[str, int | bool | float | str | list]]:
         r, g, b = map(lambda x: int(x * 255), colorsys.hls_to_rgb(self.hue, self.lightness, self.saturation))
         return [
-            (self.info.osc_address + "/hue", self.hue),
-            (self.info.osc_address + "/saturation", self.saturation),
-            (self.info.osc_address + "/lightness", self.lightness),
-            (self.info.osc_address + "/color", f"{r:02x}{g:02x}{b:02x}"),
-            (self.info.osc_address + "/caption", self.info.caption)
+            ("/hue", self.hue),
+            ("/saturation", self.saturation),
+            ("/lightness", self.lightness),
+            ("/color", f"{r:02x}{g:02x}{b:02x}"),
+            ("/caption", self.info.caption)
         ]
 
     def set_values(self, values: Any):
@@ -66,26 +55,11 @@ class OSCColorWheelWidget(OSCAbstractWidget):
         self.saturation = values['saturation']
         self.lightness = values['lightness']
 
-        Components().osc_service.send_to_all_clients(
-            osc_address=self.info.osc_address + '/hue',
-            osc_value=self.hue
-        )
-
-        Components().osc_service.send_to_all_clients(
-            osc_address=self.info.osc_address + '/saturation',
-            osc_value=self.saturation
-        )
-
-        Components().osc_service.send_to_all_clients(
-            osc_address=self.info.osc_address + '/lightness',
-            osc_value=self.lightness
-        )
-
+        self.send_osc('/hue', self.hue)
+        self.send_osc('/saturation', self.saturation)
+        self.send_osc('/lightness', self.lightness)
         r, g, b = map(lambda x: int(x * 255), colorsys.hls_to_rgb(self.hue, self.lightness, self.saturation))
-        Components().osc_service.send_to_all_clients(
-            osc_address=self.info.osc_address + '/color',
-            osc_value=f"{r:02x}{g:02x}{b:02x}"
-        )
+        self.send_osc('/color', f"{r:02x}{g:02x}{b:02x}")
 
     def get_values(self) -> Any:
         return {

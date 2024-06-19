@@ -9,6 +9,7 @@ class OSCAbstractWidget(ABC):
 
     def __init__(self, info: OSCWidgetInfo):
         self.info = info
+        self.components_singleton = None  # FIXME
 
     @abstractmethod
     def handle(self, client_address, osc_address, osc_value):
@@ -28,3 +29,9 @@ class OSCAbstractWidget(ABC):
 
     def __repr__(self):
         return f"<{self.__class__.__name__}(info.osc_address={self.info.osc_address})>"
+
+    def send_osc(self, address, value):
+        self.components_singleton().osc_service.send_message(
+            osc_address=self.info.osc_address + address,
+            osc_value=value
+        )

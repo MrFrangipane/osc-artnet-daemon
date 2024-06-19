@@ -9,34 +9,37 @@ from oscartnetdaemon.entities.osc.widget_info import OSCWidgetInfo
 _logger = logging.getLogger(__name__)
 
 
-class OSCRecallSlotWidget(OSCAbstractWidget):
+class OSCRadioWidget(OSCAbstractWidget):
 
     def __init__(self, info: OSCWidgetInfo):
         super().__init__(info)
+        self.components_singleton = Components  # FIXME
+        self.value: int = 0
 
     # fixme: return a list of message like in get_update_messages() ?
     # fixme: use a dataclass for messages ?
     def handle(self, client_address, osc_address, osc_value):
-        subwidget = osc_address.split('/')[-1]
+        address_items = osc_address.split('/')
 
-        if osc_value == 1 and subwidget == 'save':
-            Components().osc_service.save_for_slot(self.info.osc_address)
-
-        elif osc_value == 1 and subwidget == 'recall':
-            Components().osc_service.recall_for_slot(self.info.osc_address)
-
-        elif subwidget == 'punch':
-            client_info = Components().osc_service.client_info_from_ip(client_address[0])
-            Components().osc_service.set_punch_for_slot(client_info, self.info.osc_address, bool(osc_value))
+        if address_items[-1] == 'radio':
+            self.value = osc_value
+            self.send_osc('/radio', self.value)
 
     # fixme: use a dataclass for messages ?
     def get_update_messages(self) -> list[tuple[str, int | bool | float | str | list]]:
         return [
-            ("/caption", self.info.caption)
+            ("/radio", self.value),
+            ("/caption", self.info.caption),
+            ("/label1", self.info.labels[0]),
+            ("/label2", self.info.labels[1]),
+            ("/label3", self.info.labels[2]),
+            ("/label4", self.info.labels[3]),
+            ("/label5", self.info.labels[4])
         ]
 
     def get_values(self) -> Any:
-        pass
+        return {'value': self.value}
 
     def set_values(self, values: Any):
-        pass
+        self.value = values['value']
+        self.send_osc('/radio', self.value)

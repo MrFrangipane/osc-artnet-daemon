@@ -5,9 +5,12 @@ from oscartnetdaemon.components.osc.widgets.abstract import OSCAbstractWidget
 from oscartnetdaemon.entities.osc.widget_info import OSCWidgetInfo
 from oscartnetdaemon.entities.osc.widget_type_enum import OSCWidgetTypeEnum
 
+from oscartnetdaemon.components.osc.widgets.button import OSCButtonWidget
 from oscartnetdaemon.components.osc.widgets.color_wheel import OSCColorWheelWidget
 from oscartnetdaemon.components.osc.widgets.fader import OSCFaderWidget
+from oscartnetdaemon.components.osc.widgets.radio import OSCRadioWidget
 from oscartnetdaemon.components.osc.widgets.recall_slot import OSCRecallSlotWidget
+from oscartnetdaemon.components.osc.widgets.toggle import OSCToggleWidget
 
 
 class OSCWidgetRepository(AbstractOSCWidgetRepository):
@@ -17,17 +20,19 @@ class OSCWidgetRepository(AbstractOSCWidgetRepository):
 
     def create_widgets(self, widget_infos: list[OSCWidgetInfo]) -> list[OSCAbstractWidget]:
         for widget_info in widget_infos:
-            if widget_info.type == OSCWidgetTypeEnum.ColorWheel:
-                new_widget = OSCColorWheelWidget(widget_info)
-                self._widgets.append(new_widget)
+            new_widget_type = {
+                OSCWidgetTypeEnum.Button: OSCButtonWidget,
+                OSCWidgetTypeEnum.ColorWheel: OSCColorWheelWidget,
+                OSCWidgetTypeEnum.Fader: OSCFaderWidget,
+                OSCWidgetTypeEnum.Radio: OSCRadioWidget,
+                OSCWidgetTypeEnum.RecallSlot: OSCRecallSlotWidget,
+                OSCWidgetTypeEnum.Toggle: OSCToggleWidget
+            }.get(widget_info.type, None)
 
-            elif widget_info.type == OSCWidgetTypeEnum.Fader:
-                new_widget = OSCFaderWidget(widget_info)
-                self._widgets.append(new_widget)
-
-            elif widget_info.type == OSCWidgetTypeEnum.RecallSlot:
-                new_widget = OSCRecallSlotWidget(widget_info)
-                self._widgets.append(new_widget)
+            if new_widget_type is None:
+                raise ValueError(f"Widget of type '{widget_info.type.name}' does not exists")
+            else:
+                self._widgets.append(new_widget_type(widget_info))
 
         return self._widgets
 
@@ -42,5 +47,6 @@ class OSCWidgetRepository(AbstractOSCWidgetRepository):
     def get_all_widget_update_messages(self) -> list[tuple[str, int | bool | float | str | list]]:
         messages = list()
         for widget in self._widgets:
-            messages += widget.get_update_messages()
+            for address, value in widget.get_update_messages():
+                messages.append((widget.info.osc_address + address, value))
         return messages

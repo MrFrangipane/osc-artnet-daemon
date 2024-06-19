@@ -17,7 +17,6 @@ class OSCService(AbstractOSCService):
         self.server: ThreadingOSCUDPServer = None
 
         self._server_thread: Thread = None
-        self._clients_pool_thread: Thread = None
 
     def _initialize(self):
         configuration = Components().osc_configuration
@@ -52,25 +51,29 @@ class OSCService(AbstractOSCService):
     def stop(self):
         raise NotImplementedError()
 
-    def send_to_all_clients(self, osc_address: str, osc_value: str | bytes | bool | int | float | list):
+    def send_message(self, osc_address: str, osc_value: str | bytes | bool | int | float | list):
         clients = list(self.clients_repository.clients.values())  # avoid mutation during iteration (could be fixed ?)
         for client in clients:
             client.send_message(osc_address, osc_value)
 
-    def register_client(self, info: OSCClientInfo):
-        new_client = self.clients_repository.register(info)
+    def register_client(self, client_info: OSCClientInfo):
+        new_client = self.clients_repository.register(client_info)
         for osc_address, osc_value in self.widget_repository.get_all_widget_update_messages():
             new_client.send_message(osc_address, osc_value)
+        self.recall_groups_repository.register_client(client_info)
 
-    def unregister_client(self, info: OSCClientInfo):
-        self.clients_repository.unregister(info)
+    def unregister_client(self, client_info: OSCClientInfo):
+        self.clients_repository.unregister(client_info)
+        self.recall_groups_repository.unregister_client(client_info)
 
     def save_for_slot(self, osc_address: str):
-        # fixme: needs the recall group name !! (or uunique slot names, but not great)
         self.recall_groups_repository.save_for_slot(osc_address)
 
     def recall_for_slot(self, osc_address: str):
         self.recall_groups_repository.recall_for_slot(osc_address)
 
-    def set_punch_for_slot(self, osc_address: str, is_punch: bool):
-        self.recall_groups_repository.set_punch_for_slot(osc_address, is_punch)
+    def set_punch_for_slot(self, client_info: OSCClientInfo, osc_address: str, is_punch: bool):
+        self.recall_groups_repository.set_punch_for_slot(client_info, osc_address, is_punch)
+
+    def client_info_from_ip(self, client_ip_address: str) -> OSCClientInfo:
+        return self.clients_repository.get_client_info_by_ip(client_ip_address)

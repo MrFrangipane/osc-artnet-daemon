@@ -27,7 +27,7 @@ class AbstractOSCService(ABC):
         pass
 
     @abstractmethod
-    def send_to_all_clients(self, osc_address: str, osc_value: str | bytes | bool | int | float | list):
+    def send_message(self, osc_address: str, osc_value: str | bytes | bool | int | float | list):
         pass
 
     @abstractmethod
@@ -47,5 +47,9 @@ class AbstractOSCService(ABC):
         pass
 
     @abstractmethod
-    def set_punch_for_slot(self, osc_address: str, is_punch: bool):
+    def set_punch_for_slot(self, client_ip_address: str, osc_address: str, is_punch: bool):
+        pass
+
+    @abstractmethod
+    def client_info_from_ip(self, client_ip_address: str) -> OSCClientInfo:
         pass

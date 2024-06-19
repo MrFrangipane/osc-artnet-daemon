@@ -2,18 +2,22 @@ import logging
 
 from oscartnetdaemon.components.osc.abstract_recall_groups_repository import AbstractOSCRecallGroupsRepository
 from oscartnetdaemon.components.osc.recall_group import OSCRecallGroup, OSCMemorySlot
-from oscartnetdaemon.entities.osc.recall_group_info import OSCRecallGroupInfo
 from oscartnetdaemon.components.osc.widgets.abstract import OSCAbstractWidget
+
+from oscartnetdaemon.entities.osc.client_info import OSCClientInfo
+from oscartnetdaemon.entities.osc.recall_group_info import OSCRecallGroupInfo
 from oscartnetdaemon.entities.osc.widget_type_enum import OSCWidgetTypeEnum
 
 
 _logger = logging.getLogger(__name__)
 
 
+# fixme: move work to OSCRecallGroup objects ?
 class OSCRecallGroupsRepository(AbstractOSCRecallGroupsRepository):
 
     def __init__(self):
         self._recall_groups: dict[str, OSCRecallGroup] = dict()
+        self._punch_piles = None
 
     def create_groups(self, widgets: list[OSCAbstractWidget], recall_group_infos: list[OSCRecallGroupInfo]):
         self._recall_groups = dict()
@@ -47,6 +51,12 @@ class OSCRecallGroupsRepository(AbstractOSCRecallGroupsRepository):
             for osc_address in memory_slots:
                 self._recall_groups[osc_address] = new_recall_group
 
+    def register_client(self, client_info: OSCClientInfo):
+        pass
+
+    def unregister_client(self, client_info: OSCClientInfo):
+        pass
+
     def save_for_slot(self, osc_address: str):
         recall_group = self._recall_groups[osc_address]
         for widget in recall_group.widgets:
@@ -59,5 +69,7 @@ class OSCRecallGroupsRepository(AbstractOSCRecallGroupsRepository):
             if values is not None:
                 widget.set_values(values)
 
-    def set_punch_for_slot(self, osc_address: str, is_punch: bool):
-        _logger.info(f"punch {osc_address} {is_punch}")
+    def set_punch_for_slot(self, client_info: OSCClientInfo, osc_address: str, is_punch: bool):
+        recall_group = self._recall_groups[osc_address]
+        self._punch_piles[client_info.id].set_punch(recall_group.name, is_punch)
+        _logger.info(f"punch {client_info} {osc_address} {is_punch}")

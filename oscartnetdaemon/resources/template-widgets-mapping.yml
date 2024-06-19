@@ -6,70 +6,106 @@ osc:
 
   widgets:
     # A section
-    - caption: "ColorWheel A"
+    - caption: "ColorWheel a"
       type: "ColorWheel"
       osc-address: "/color_wheel_a"
 
-    - caption: "Fader A1"
+    - caption: "Fader a1"
       type: "Fader"
       osc-address: "/fader_a1"
 
-    - caption: "Fader A2"
+    - caption: "Fader a2"
       type: "Fader"
       osc-address: "/fader_a2"
 
-    - caption: "Fader A3"
+    - caption: "Fader a3"
       type: "Fader"
       osc-address: "/fader_a3"
 
-    - caption: "PaletteSelect A"
-      type: "PaletteSelect"
-      osc-address: "/palette_select_a"
+    - caption: "Radio A"
+      type: "Radio"
+      osc-address: "/radio_a"
+      labels:
+        - "Ra+2"
+        - "Ra+1"
+        - "Ra 0"
+        - "Ra-1"
+        - "Ra-2"
 
-    - caption: "A1"
+    - caption: "a1"
       type: "RecallSlot"
       osc-address: "/recall_slot_a1"
 
-    - caption: "A2"
+    - caption: "a2"
       type: "RecallSlot"
       osc-address: "/recall_slot_a2"
 
-    - caption: "A3"
+    - caption: "a3"
       type: "RecallSlot"
       osc-address: "/recall_slot_a3"
 
+    - caption: "B a1"
+      type: "Button"
+      osc-address: "/button_a1"
+
+    - caption: "B a2"
+      type: "Button"
+      osc-address: "/button_a2"
+
+    - caption: "T a"
+      type: "Toggle"
+      osc-address: "/toggle_a"
+
     # B section
-    - caption: "ColorWheel B"
+    - caption: "ColorWheel b"
       type: "ColorWheel"
       osc-address: "/color_wheel_b"
 
-    - caption: "Fader B1"
+    - caption: "Fader b1"
       type: "Fader"
       osc-address: "/fader_b1"
 
-    - caption: "Fader B2"
+    - caption: "Fader b2"
       type: "Fader"
       osc-address: "/fader_b2"
 
-    - caption: "Fader B3"
+    - caption: "Fader b3"
       type: "Fader"
       osc-address: "/fader_b3"
 
-    - caption: "PaletteSelect B"
-      type: "PaletteSelect"
-      osc-address: "/palette_select_b"
+    - caption: "Radio b"
+      type: "Radio"
+      osc-address: "/radio_b"
+      labels:
+        - "Rb+2"
+        - "Rb+1"
+        - "Rb 0"
+        - "Rb-1"
+        - "Rb-2"
 
-    - caption: "B1"
+    - caption: "b1"
       type: "RecallSlot"
       osc-address: "/recall_slot_b1"
 
-    - caption: "B2"
+    - caption: "b2"
       type: "RecallSlot"
       osc-address: "/recall_slot_b2"
 
-    - caption: "B3"
+    - caption: "b3"
       type: "RecallSlot"
       osc-address: "/recall_slot_b3"
+
+    - caption: "B b1"
+      type: "Button"
+      osc-address: "/button_b1"
+
+    - caption: "B b2"
+      type: "Button"
+      osc-address: "/button_b2"
+
+    - caption: "T b"
+      type: "Toggle"
+      osc-address: "/toggle_b"
 
   recall-groups:
     - name: "Recall Group A"
@@ -78,7 +114,8 @@ osc:
         - "/fader_a1"
         - "/fader_a2"
         - "/fader_a3"
-        # - "/palette_select_a" not yet implemented as widget
+        - "/radio_a"
+        - "/toggle_a"
 
         - "/recall_slot_a1"
         - "/recall_slot_a2"
@@ -90,13 +127,15 @@ osc:
         - "/fader_a1"
         - "/fader_a2"
         - "/fader_a3"
-        # - "/palette_select_a" not yet implemented as widget
+        - "/radio_a"
+        - "/toggle_a"
 
         - "/color_wheel_b"
         - "/fader_b1"
         - "/fader_b2"
         - "/fader_b3"
-        # - "/palette_select_b" not yet implemented as widget
+        - "/radio_b"
+        - "/toggle_b"
 
         - "/recall_slot_b1"
         - "/recall_slot_b2"

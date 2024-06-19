@@ -2,7 +2,9 @@ from enum import Enum
 
 
 class OSCWidgetTypeEnum(Enum):
-    Fader = 'Fader'
-    PaletteSelect = 'PaletteSelect'
+    Button = 'Button'
     ColorWheel = 'ColorWheel'
+    Fader = 'Fader'
+    Radio = 'Radio'
     RecallSlot = 'RecallSlot'
+    Toggle = 'Toggle'

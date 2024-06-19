@@ -3,7 +3,7 @@ import logging
 from pythonosc.udp_client import SimpleUDPClient
 
 from oscartnetdaemon.entities.osc.client_info import OSCClientInfo
-from oscartnetdaemon.python_extensions.network import bytes_as_ip
+from oscartnetdaemon.python_extensions.network import bytes_as_ip, ip_as_bytes
 
 
 _logger = logging.getLogger(__name__)
@@ -29,3 +29,9 @@ class OSCClientsRepository:
         _logger.info(f"Unregistering client {info.name} ({address})")
         self.clients.pop(info.name)
         self._client_infos.pop(info.name)
+
+    def get_client_info_by_ip(self, client_ip_address: str) -> OSCClientInfo:
+        client_ip_address = ip_as_bytes(client_ip_address)
+        for client_info in self._client_infos.values():
+            if client_info.address == client_ip_address:
+                return client_info
