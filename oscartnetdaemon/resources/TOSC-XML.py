@@ -1,3 +1,5 @@
+import os
+
 from oscartnetdaemon.components.touchosc.file_processor import TouchOSCFileProcessor
 
 
@@ -8,5 +10,8 @@ def process_file(filename):
 
 
 if __name__ == '__main__':
-    process_file("template-widgets")
-    process_file("test-widgets")
+    for filename in os.listdir(os.path.dirname(__file__)):
+        file, ext = os.path.splitext(filename)
+        if ext == '.tosc':
+            print(f"Processing {filename}")
+            process_file(file)
