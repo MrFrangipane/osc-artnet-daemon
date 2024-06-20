@@ -1,0 +1,40 @@
+---
+schema_version: 1
+devices:
+
+  - name: X-Touch
+    midi_port_pattern: "X-Touch "
+    controls:
+      - name: MasterFader
+        type: Absolute
+        feedback_messages: true
+        midi: { channel: 1, type: "pitch" }
+
+      - name: LayerB
+        type: Button
+        midi: { channel: 1, type: pitch }
+
+      - name: LayerA
+        type: Button
+        midi: { channel: 1, type: pitch }
+
+      - name: Fader01
+        type: Absolute
+        feedback_messages: true
+        midi: {channel: 1, type: pitch}
+
+      - name: Fader02
+        type: Absolute
+        feedback_messages: true
+        midi: {channel: 1, type: pitch}
+
+layer-groups:
+  - name: "Faders"
+    layers:
+    - name: "Layer A"
+      trigger: LayerA
+    - name: "Layer B"
+      trigger: LayerB
+    controls:
+    - Fader01
+    - Fader02

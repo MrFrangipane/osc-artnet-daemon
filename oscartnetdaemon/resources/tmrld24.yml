@@ -7,3 +7,5 @@ osc:
   server-port: 8080
   widgets:
     - "tmrld24.osc.yml"
+midi-devices:
+  - "tmrld24.xtouch.yml"
