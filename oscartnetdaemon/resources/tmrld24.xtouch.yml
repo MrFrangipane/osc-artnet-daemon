@@ -18,15 +18,28 @@ devices:
         type: Button
         midi: { channel: 0, type: note_on, note: 55 }
 
-      - name: Fader01
+      - name: Fader09
         type: Absolute
         feedback_messages: true
         midi: { channel: 0, type: pitchwheel }
 
-      - name: Fader02
+      - name: Fader10
         type: Absolute
         feedback_messages: true
         midi: { channel: 1, type: pitchwheel }
+
+  - name: X-Touch-Ext
+    midi_port_pattern: "X-Touch-Ext "
+    controls:
+      - name: Fader07
+        type: Absolute
+        feedback_messages: true
+        midi: { channel: 6, type: pitchwheel }
+
+      - name: Fader08
+        type: Absolute
+        feedback_messages: true
+        midi: { channel: 7, type: pitchwheel }
 
 layer-groups:
   - name: "Faders"
@@ -36,5 +49,7 @@ layer-groups:
     - name: "Layer B"
       trigger: LayerB
     controls:
-    - Fader01
-    - Fader02
+    - Fader07
+    - Fader08
+    - Fader09
+    - Fader10
