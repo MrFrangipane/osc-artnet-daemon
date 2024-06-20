@@ -6,6 +6,7 @@ from oscartnetdaemon.components.configuration.loader import ConfigurationLoader
 from oscartnetdaemon.components.control.service import ControlsService
 from oscartnetdaemon.components.discovery.service import DiscoveryService
 from oscartnetdaemon.components.osc.service import OSCService
+from oscartnetdaemon.components.midi.service import MidiService
 
 
 if __name__ == '__main__':
@@ -19,6 +20,9 @@ if __name__ == '__main__':
     Components().osc_service = OSCService()
     Components().osc_service.start()
 
+    Components().midi_service = MidiService()
+    Components().midi_service.start()
+
     discovery_service = DiscoveryService(
         server_name="Frangitron's OSC Artnet",
         server_port=8080
@@ -30,4 +34,5 @@ if __name__ == '__main__':
             time.sleep(.1)
     except KeyboardInterrupt:
         discovery_service.stop()
+        Components().midi_service.stop()
         # Components().osc_service.stop()  Not implemented yet

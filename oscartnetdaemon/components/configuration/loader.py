@@ -43,6 +43,8 @@ class ConfigurationLoader:
         self._osc()
         self._midi()
 
+        _logger.info(f"Done")
+
     def _controls(self):
         controls = dict()
         for filename in self._yaml_content['controls']:
