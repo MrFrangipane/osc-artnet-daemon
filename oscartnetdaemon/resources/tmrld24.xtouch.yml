@@ -18,6 +18,11 @@ devices:
         type: Button
         midi: { channel: 0, type: note_on, note: 55 }
 
+      - name: Autopilot
+        type: Toggle
+        midi: { channel: 0, type: note_on, note: 56 }
+        mapped_to: toggle_autopilot
+
       - name: Fader09
         type: Absolute
         feedback_messages: true
@@ -49,7 +54,11 @@ layer-groups:
     - name: "Layer B"
       trigger: LayerB
     controls:
-    - Fader07
+    - name: Fader07
+      mapped_to:
+        - toggle_autopilot
+        -
+
     - Fader08
     - Fader09
     - Fader10

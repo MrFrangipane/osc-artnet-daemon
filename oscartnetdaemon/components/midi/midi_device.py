@@ -47,6 +47,7 @@ def receive(queue_in: Queue, queue_out: Queue, port_name: str, configuration: MI
         for control in configuration.controls.values():
             control_update = midi_to_control_update(control, message, control.midi)
             if control_update is not None:
+                print(">", control_update)
                 if control.feedback_messages:
                     queue_out.put(control_update)
                 queue_in.put(control_update)
