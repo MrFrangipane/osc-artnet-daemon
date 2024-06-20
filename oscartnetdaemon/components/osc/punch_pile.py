@@ -32,6 +32,8 @@ class PunchPile:
                 values = memory_slot.widgets_values.get(widget.info.osc_address, None)
                 if values is not None:
                     widget.set_values(values)
+                    # FIXME should this be done here ?
+                    widget.notify_control()
 
         else:
             self.pile.remove(memory_slot.osc_address)
@@ -41,3 +43,5 @@ class PunchPile:
                 values = previous_memory_slot.widgets_values.get(widget.info.osc_address, None)
                 if values is not None:
                     widget.set_values(values)
+                    # FIXME should this be done here ?
+                    widget.notify_control()

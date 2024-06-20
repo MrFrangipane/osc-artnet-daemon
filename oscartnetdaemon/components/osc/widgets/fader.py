@@ -18,7 +18,7 @@ class OSCFaderWidget(OSCAbstractWidget):
 
     # fixme: return a list of message like in get_update_messages() ?
     # fixme: use a dataclass for messages ?
-    def handle(self, client_address, osc_address, osc_value):
+    def on_change(self, client_address, osc_address, osc_value):
         address_items = osc_address.split('/')
 
         if address_items[-1] == 'fader':

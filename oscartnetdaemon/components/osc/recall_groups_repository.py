@@ -7,7 +7,7 @@ from oscartnetdaemon.components.osc.widgets.abstract import OSCAbstractWidget
 
 from oscartnetdaemon.entities.osc.client_info import OSCClientInfo
 from oscartnetdaemon.entities.osc.recall_group_info import OSCRecallGroupInfo
-from oscartnetdaemon.entities.osc.widget_type_enum import OSCWidgetTypeEnum
+from oscartnetdaemon.entities.osc.widget_type_enum import OSCWidgetType
 
 
 _logger = logging.getLogger(__name__)
@@ -29,12 +29,12 @@ class OSCRecallGroupsRepository(AbstractOSCRecallGroupsRepository):
             group_widgets = [
                 all_widgets_indexed[osc_address]
                 for osc_address in group_info.widget_osc_addresses
-                if not all_widgets_indexed[osc_address].info.type == OSCWidgetTypeEnum.RecallSlot
+                if not all_widgets_indexed[osc_address].info.type == OSCWidgetType.RecallSlot
             ]
 
             memory_slots: {str: OSCMemorySlot} = dict()
             for osc_address in group_info.widget_osc_addresses:
-                if all_widgets_indexed[osc_address].info.type != OSCWidgetTypeEnum.RecallSlot:
+                if all_widgets_indexed[osc_address].info.type != OSCWidgetType.RecallSlot:
                     continue
 
                 if osc_address in assigned_memory_slots_addresses:

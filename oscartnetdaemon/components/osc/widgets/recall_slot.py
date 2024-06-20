@@ -16,7 +16,7 @@ class OSCRecallSlotWidget(OSCAbstractWidget):
 
     # fixme: return a list of message like in get_update_messages() ?
     # fixme: use a dataclass for messages ?
-    def handle(self, client_address, osc_address, osc_value):
+    def on_change(self, client_address, osc_address, osc_value):
         subwidget = osc_address.split('/')[-1]
 
         if osc_value == 1 and subwidget == 'save':

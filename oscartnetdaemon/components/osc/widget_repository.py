@@ -3,7 +3,7 @@ from pythonosc.osc_server import Dispatcher
 from oscartnetdaemon.components.osc.abstract_widget_repository import AbstractOSCWidgetRepository
 from oscartnetdaemon.components.osc.widgets.abstract import OSCAbstractWidget
 from oscartnetdaemon.entities.osc.widget_info import OSCWidgetInfo
-from oscartnetdaemon.entities.osc.widget_type_enum import OSCWidgetTypeEnum
+from oscartnetdaemon.entities.osc.widget_type_enum import OSCWidgetType
 
 from oscartnetdaemon.components.osc.widgets.button import OSCButtonWidget
 from oscartnetdaemon.components.osc.widgets.color_wheel import OSCColorWheelWidget
@@ -18,15 +18,15 @@ class OSCWidgetRepository(AbstractOSCWidgetRepository):
     def __init__(self):
         self._widgets: list[OSCAbstractWidget] = list()
 
-    def create_widgets(self, widget_infos: list[OSCWidgetInfo]) -> list[OSCAbstractWidget]:
-        for widget_info in widget_infos:
+    def create_widgets(self, widgets_infos: list[OSCWidgetInfo]) -> list[OSCAbstractWidget]:
+        for widget_info in widgets_infos:
             new_widget_type = {
-                OSCWidgetTypeEnum.Button: OSCButtonWidget,
-                OSCWidgetTypeEnum.ColorWheel: OSCColorWheelWidget,
-                OSCWidgetTypeEnum.Fader: OSCFaderWidget,
-                OSCWidgetTypeEnum.Radio: OSCRadioWidget,
-                OSCWidgetTypeEnum.RecallSlot: OSCRecallSlotWidget,
-                OSCWidgetTypeEnum.Toggle: OSCToggleWidget
+                OSCWidgetType.Button: OSCButtonWidget,
+                OSCWidgetType.ColorWheel: OSCColorWheelWidget,
+                OSCWidgetType.Fader: OSCFaderWidget,
+                OSCWidgetType.Radio: OSCRadioWidget,
+                OSCWidgetType.RecallSlot: OSCRecallSlotWidget,
+                OSCWidgetType.Toggle: OSCToggleWidget
             }.get(widget_info.type, None)
 
             if new_widget_type is None:

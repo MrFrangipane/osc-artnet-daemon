@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class OSCWidgetTypeEnum(Enum):
+class OSCWidgetType(Enum):
     Button = 'Button'
     ColorWheel = 'ColorWheel'
     Fader = 'Fader'

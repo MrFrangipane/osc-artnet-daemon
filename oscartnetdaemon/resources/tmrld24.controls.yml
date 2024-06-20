@@ -1,0 +1,79 @@
+---
+controls:
+  - name: "color_a"
+    type: "Color"
+
+  - name: "color_b"
+    type: "Color"
+
+  - name: "octostrip"
+    type: "Float"
+
+  - name: "pars"
+    type: "Float"
+
+  - name: "spots"
+    type: "Float"
+
+  - name: "washes"
+    type: "Float"
+
+  - name: "palette"
+    type: "String"
+    values:
+      - "only_a"
+      - "half"
+      - "third"
+      - "alter"
+      - "single"
+
+  - name: "pattern"
+    type: "String"
+    values:
+      - "a"
+      - "b"
+      - "c"
+      - "d"
+      - "e"
+
+  - name: "time_scale"
+    type: "Float"
+    values:
+      - 4.0
+      - 2.0
+      - 1.0
+      - 0.5
+      - 0.25
+
+  - name: "toggle_octostrip_smooth"
+    type: "Bool"
+
+  - name: "toggle_octostrip_strobe"
+    type: "Bool"
+
+  - name: "toggle_pars_smooth"
+    type: "Bool"
+
+  - name: "toggle_pars_strobe"
+    type: "Bool"
+
+  - name: "toggle_spots_narrow"
+    type: "Bool"
+
+  - name: "toggle_spots_smooth"
+    type: "Bool"
+
+  - name: "toggle_spots_strobe"
+    type: "Bool"
+
+  - name: "toggle_washes_narrow"
+    type: "Bool"
+
+  - name: "toggle_washes_smooth"
+    type: "Bool"
+
+  - name: "toggle_washes_strobe"
+    type: "Bool"
+
+  - name: "toggle_autopilot"
+    type: "Bool"

@@ -1,18 +1,31 @@
-# fixme: move to entities ?
 from abc import ABC, abstractmethod
 from typing import Any
 
 from oscartnetdaemon.entities.osc.widget_info import OSCWidgetInfo
+from oscartnetdaemon.entities.control.control_update_origin_enum import ControlUpdateOrigin
 
 
 class OSCAbstractWidget(ABC):
 
     def __init__(self, info: OSCWidgetInfo):
         self.info = info
-        self.components_singleton = None  # FIXME
+        self.value = None
+        self.components_singleton = None  # FIXME: WTF is that ?!
+
+    def handle(self, client_address, osc_address, osc_value):
+        self.on_change(client_address, osc_address, osc_value)
+        self.notify_control()
+
+    def notify_control(self):
+        if self.info.mapped_to:
+            self.components_singleton().controls_service.send_control_update(
+                origin=ControlUpdateOrigin.OSC,
+                control_name=self.info.mapped_to,
+                value=self.value
+            )
 
     @abstractmethod
-    def handle(self, client_address, osc_address, osc_value):
+    def on_change(self, client_address, osc_address, osc_value):
         pass
 
     @abstractmethod

@@ -1,0 +1,176 @@
+---
+widgets:
+  #
+  # RECALLABLES
+
+  # Color wheels
+  - caption: "Color A"
+    type: "ColorWheel"
+    osc-address: "/color_wheel_a"
+    mapped_to: "color_a"
+
+  - caption: "Color B"
+    type: "ColorWheel"
+    osc-address: "/color_wheel_b"
+    mapped_to: "color_b"
+
+  # Faders
+  - caption: "Octostrip"
+    type: "Fader"
+    osc-address: "/fader_octostrip"
+    mapped_to: "octostrip"
+
+  - caption: "PARs"
+    type: "Fader"
+    osc-address: "/fader_pars"
+    mapped_to: "pars"
+
+  - caption: "Spots"
+    type: "Fader"
+    osc-address: "/fader_spots"
+    mapped_to: "spots"
+
+  - caption: "Washes"
+    type: "Fader"
+    osc-address: "/fader_washes"
+    mapped_to: "washes"
+
+  # Radios
+  - caption: "Palette"
+    type: "Radio"
+    osc-address: "/radio_palette"
+    labels:
+      - "Only A"
+      - "Half"
+      - "Third"
+      - "Alter"
+      - "Single"
+    mapped_to: "palette"
+
+  - caption: "Pattern"
+    type: "Radio"
+    osc-address: "/radio_pattern"
+    labels:
+      - "A"
+      - "B"
+      - "C"
+      - "D"
+      - "E"
+    mapped_to: "pattern"
+
+  - caption: "Time Scale"
+    type: "Radio"
+    osc-address: "/radio_time_scale"
+    labels:
+      - "x 4"
+      - "x 2"
+      - "x 1"
+      - "x 0.50"
+      - "x 0.25"
+    mapped_to: "time_scale"
+
+  # Toggles
+  - caption: "Smooth"
+    type: "Toggle"
+    osc-address: "/toggle_octostrip_smooth"
+    mapped_to: "toggle_octostrip_smooth"
+
+  - caption: "Strobe"
+    type: "Toggle"
+    osc-address: "/toggle_octostrip_strobe"
+    mapped_to: "toggle_octostrip_strobe"
+
+  - caption: "Smooth"
+    type: "Toggle"
+    osc-address: "/toggle_pars_smooth"
+    mapped_to: "toggle_pars_smooth"
+
+  - caption: "Strobe"
+    type: "Toggle"
+    osc-address: "/toggle_pars_strobe"
+    mapped_to: "toggle_pars_strobe"
+
+  - caption: "Narrow"
+    type: "Toggle"
+    osc-address: "/toggle_spots_narrow"
+    mapped_to: "toggle_spots_narrow"
+
+  - caption: "Smooth"
+    type: "Toggle"
+    osc-address: "/toggle_spots_smooth"
+    mapped_to: "toggle_spots_smooth"
+
+  - caption: "Strobe"
+    type: "Toggle"
+    osc-address: "/toggle_spots_strobe"
+    mapped_to: "toggle_spots_strobe"
+
+  - caption: "Narrow"
+    type: "Toggle"
+    osc-address: "/toggle_washes_narrow"
+    mapped_to: "toggle_washes_narrow"
+
+  - caption: "Smooth"
+    type: "Toggle"
+    osc-address: "/toggle_washes_smooth"
+    mapped_to: "toggle_washes_smooth"
+
+  - caption: "Strobe"
+    type: "Toggle"
+    osc-address: "/toggle_washes_strobe"
+    mapped_to: "toggle_washes_strobe"
+
+  # Recall Slots
+  - caption: "A"
+    type: "RecallSlot"
+    osc-address: "/recall_slot_a"
+
+  - caption: "B"
+    type: "RecallSlot"
+    osc-address: "/recall_slot_b"
+
+  - caption: "C"
+    type: "RecallSlot"
+    osc-address: "/recall_slot_c"
+
+  - caption: "D"
+    type: "RecallSlot"
+    osc-address: "/recall_slot_d"
+  #
+  # TEMPO & AUTOPILOT
+  - caption: "Tap"
+    type: "Button"
+    osc-address: "/button_tap"
+
+  - caption: "Autopilot"
+    type: "Toggle"
+    osc-address: "/toggle_autopilot"
+    mapped_to: "toggle_autopilot"
+
+recall-groups:
+  - name: "Recall Group"
+    widget-osc-addresses:
+      - "/color_wheel_a"
+      - "/color_wheel_b"
+      - "/fader_octostrip"
+      - "/fader_pars"
+      - "/fader_spots"
+      - "/fader_washes"
+      - "/radio_palette"
+      - "/radio_pattern"
+      - "/radio_time_scale"
+      - "/toggle_octostrip_smooth"
+      - "/toggle_octostrip_strobe"
+      - "/toggle_pars_smooth"
+      - "/toggle_pars_strobe"
+      - "/toggle_spots_narrow"
+      - "/toggle_spots_smooth"
+      - "/toggle_spots_strobe"
+      - "/toggle_washes_narrow"
+      - "/toggle_washes_smooth"
+      - "/toggle_washes_strobe"
+
+      - "/recall_slot_a"
+      - "/recall_slot_b"
+      - "/recall_slot_c"
+      - "/recall_slot_d"

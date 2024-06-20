@@ -15,7 +15,6 @@ class OSCService(AbstractOSCService):
     def __init__(self):
         super().__init__()
         self.server: ThreadingOSCUDPServer = None
-
         self._server_thread: Thread = None
 
     def _initialize(self):
