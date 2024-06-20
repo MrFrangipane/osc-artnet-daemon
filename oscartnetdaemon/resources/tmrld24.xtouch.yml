@@ -8,25 +8,25 @@ devices:
       - name: MasterFader
         type: Absolute
         feedback_messages: true
-        midi: { channel: 1, type: "pitch" }
-
-      - name: LayerB
-        type: Button
-        midi: { channel: 1, type: pitch }
+        midi: { channel: 8, type: pitchwheel }
 
       - name: LayerA
         type: Button
-        midi: { channel: 1, type: pitch }
+        midi: { channel: 0, type: note_on, note: 54 }
+
+      - name: LayerB
+        type: Button
+        midi: { channel: 0, type: note_on, note: 55 }
 
       - name: Fader01
         type: Absolute
         feedback_messages: true
-        midi: {channel: 1, type: pitch}
+        midi: { channel: 0, type: pitchwheel }
 
       - name: Fader02
         type: Absolute
         feedback_messages: true
-        midi: {channel: 1, type: pitch}
+        midi: { channel: 1, type: pitchwheel }
 
 layer-groups:
   - name: "Faders"
