@@ -37,6 +37,14 @@ def control_update_to_midi(control_update: MIDIControlUpdateInfo, configuration:
             pitch=int(control_update.value * 16380.0 - 8192)
         )
 
+    if control.midi.type == MIDIMessageType.NoteOn:
+        return mido.Message(
+            type=MIDIMessageType.NoteOn.value,
+            channel=control.midi.channel,
+            note=control.midi.note,
+            velocity=int(control_update.value * 127)
+        )
+
 
 def receive(queue_in: Queue, queue_out: Queue, port_name: str, configuration: MIDIConfiguration):
     midi_in = mido.open_input(port_name)
@@ -45,6 +53,10 @@ def receive(queue_in: Queue, queue_out: Queue, port_name: str, configuration: MI
         print(">", message)
 
         for control in configuration.controls.values():
+            # FIXME: find a more elegant way to check device ?
+            if control.device.in_port_name != port_name:
+                continue
+
             control_update = midi_to_control_update(control, message, control.midi)
             if control_update is not None:
                 print(">", control_update)

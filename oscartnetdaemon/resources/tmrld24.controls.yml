@@ -51,7 +51,7 @@ controls:
   - name: toggle_octostrip_strobe
     type: Bool
 
-  - name: toggle_pars_smoot
+  - name: toggle_pars_smooth
     type: Bool
 
   - name: toggle_pars_strobe

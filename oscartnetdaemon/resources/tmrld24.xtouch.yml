@@ -5,11 +5,8 @@ devices:
   - name: X-Touch
     midi_port_pattern: "X-Touch "
     controls:
-      - name: MasterFader
-        type: Absolute
-        feedback_messages: true
-        midi: { channel: 8, type: pitchwheel }
-
+      #
+      # Layers Triggers
       - name: LayerA
         type: Button
         midi: { channel: 0, type: note_on, note: 54 }
@@ -17,11 +14,21 @@ devices:
       - name: LayerB
         type: Button
         midi: { channel: 0, type: note_on, note: 55 }
+      #
+      # Fader Banks
+      - name: FaderBankLeft
+        type: Button
+        midi: { channel: 0, type: note_on, note: 46 }
 
-      - name: Autopilot
-        type: Toggle
-        midi: { channel: 0, type: note_on, note: 56 }
-        mapped_to: toggle_autopilot
+      - name: FaderBankRight
+        type: Button
+        midi: { channel: 0, type: note_on, note: 47 }
+      #
+      # Faders
+      - name: MasterFader
+        type: Absolute
+        feedback_messages: true
+        midi: { channel: 8, type: pitchwheel }
 
       - name: Fader09
         type: Absolute
@@ -36,6 +43,8 @@ devices:
   - name: X-Touch-Ext
     midi_port_pattern: "X-Touch-Ext "
     controls:
+      #
+      # Faders
       - name: Fader07
         type: Absolute
         feedback_messages: true
@@ -46,19 +55,47 @@ devices:
         feedback_messages: true
         midi: { channel: 7, type: pitchwheel }
 
+pagination:
+  - name: "Faders"
+    left: FaderBankLeft
+    right: FaderBankRight
+    page_count: 4
+    controls:
+      - Fader07
+      - Fader08
+      - Fader09
+      - Fader10
+
 layer-groups:
   - name: "Faders"
     layers:
-    - name: "Layer A"
+    - name: Dimmers
       trigger: LayerA
-    - name: "Layer B"
+      controls:
+        - name: Octostrip
+          control: Fader07:0
+          mapped_to: octostrip
+        - name: Pars
+          control: Fader08:0
+          mapped_to: pars
+        - name: Spots
+          control: Fader09:0
+          mapped_to: spots
+        - name: Washes
+          control: Fader10:0
+          mapped_to: washes
+    - name: Toggles
       trigger: LayerB
-    controls:
-    - name: Fader07
-      mapped_to:
-        - toggle_autopilot
-        -
-
-    - Fader08
-    - Fader09
-    - Fader10
+      controls:
+        - name: OctostripSmooth
+          control: Fader07:1
+          mapped_to: toggle_octostrip_smooth
+        - name: ParsStrobe
+          control: Fader08:1
+          mapped_to: toggle_octostrip_strobe
+        - name: SpotsSmooth
+          control: Fader09:1
+          mapped_to: toggle_pars_smooth
+        - name: WashesStrobe
+          control: Fader10:1
+          mapped_to: toggle_pars_strobe
