@@ -6,9 +6,9 @@ import yaml
 from oscartnetdaemon.entities.control.control_info import ControlInfo
 
 
-def load_controls_configuration(controls_files: list[str], root_folder: str):
+def load_controls_configuration(filenames: list[str], root_folder: str):
     controls = dict()
-    for filename in controls_files:
+    for filename in filenames:
         filepath = os.path.join(root_folder, filename)
         with open(filepath, 'r') as yaml_controls_file:
             yaml_content = yaml.safe_load(yaml_controls_file)

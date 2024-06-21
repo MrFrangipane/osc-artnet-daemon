@@ -2,13 +2,14 @@ from dataclasses import dataclass, field
 
 from dataclasses_json import dataclass_json, LetterCase
 
-
 from oscartnetdaemon.entities.midi.control_info import MIDIControlInfo
 
 
 @dataclass_json(letter_case=LetterCase.KEBAB)
 @dataclass
-class MIDIControlLayerInfo:
+class MIDIPaginationInfo:
     name: str
-    trigger: MIDIControlInfo
+    left: MIDIControlInfo
+    right: MIDIControlInfo
+    page_count: int
     controls: list[MIDIControlInfo] = field(default_factory=list)

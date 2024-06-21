@@ -23,7 +23,7 @@ class ConfigurationLoader:
             yaml_content = yaml.safe_load(yaml_file)
 
         Components().controls_infos = load_controls_configuration(
-            controls_files=yaml_content['controls'],
+            filenames=yaml_content['controls'],
             root_folder=root_folder
         )
         Components().osc_configuration = load_osc_configuration(
@@ -31,7 +31,7 @@ class ConfigurationLoader:
             root_folder=root_folder
         )
         Components().midi_configuration = load_midi_configuration(
-            midi_devices=yaml_content['midi-devices'],
+            filenames=yaml_content['midi-devices'],
             root_folder=root_folder
         )
 

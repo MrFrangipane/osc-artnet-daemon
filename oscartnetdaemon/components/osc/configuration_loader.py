@@ -8,10 +8,10 @@ from oscartnetdaemon.entities.osc.configuration import OSCConfiguration
 
 def load_osc_configuration(osc: dict, root_folder: str) -> OSCConfiguration:
     config: dict = deepcopy(osc)
-    widget_definition_files = deepcopy(config['widgets'])
+    filenames = config['widgets']
     config.pop("widgets")
 
-    for filename in widget_definition_files:
+    for filename in filenames:
         filepath = os.path.join(root_folder, filename)
         with open(filepath, 'r') as yaml_osc_file:
             yaml_content = yaml.safe_load(yaml_osc_file)

@@ -12,4 +12,3 @@ from oscartnetdaemon.entities.midi.layer_info import MIDIControlLayerInfo
 class MIDIControlLayerGroupInfo:
     name: str
     layers: dict[str, MIDIControlLayerInfo]
-    controls: list[MIDIControlInfo]

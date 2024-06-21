@@ -55,6 +55,8 @@ devices:
         feedback_messages: true
         midi: { channel: 7, type: pitchwheel }
 
+#
+# This will convert FaderXX -> FaderXX:0, FaderXX:1, FaderXX:2, ...
 pagination:
   - name: "Faders"
     left: FaderBankLeft
@@ -66,8 +68,10 @@ pagination:
       - Fader09
       - Fader10
 
+#
+# This will convert Fader07:0 -> Octostrip, OctostripSmooth
 layer-groups:
-  - name: "Faders"
+  - name: Faders
     layers:
     - name: Dimmers
       trigger: LayerA
@@ -88,14 +92,14 @@ layer-groups:
       trigger: LayerB
       controls:
         - name: OctostripSmooth
-          control: Fader07:1
+          control: Fader07:0
           mapped_to: toggle_octostrip_smooth
         - name: ParsStrobe
-          control: Fader08:1
+          control: Fader08:0
           mapped_to: toggle_octostrip_strobe
         - name: SpotsSmooth
-          control: Fader09:1
+          control: Fader07:1
           mapped_to: toggle_pars_smooth
         - name: WashesStrobe
-          control: Fader10:1
+          control: Fader08:1
           mapped_to: toggle_pars_strobe
