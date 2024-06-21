@@ -4,6 +4,7 @@ devices:
 
   - name: X-Touch
     midi_port_pattern: "X-Touch "
+    feedback_messages: true
     controls:
       #
       # Layers Triggers
@@ -27,32 +28,28 @@ devices:
       # Faders
       - name: MasterFader
         type: Absolute
-        feedback_messages: true
         midi: { channel: 8, type: pitchwheel }
 
       - name: Fader09
         type: Absolute
-        feedback_messages: true
         midi: { channel: 0, type: pitchwheel }
 
       - name: Fader10
         type: Absolute
-        feedback_messages: true
         midi: { channel: 1, type: pitchwheel }
 
   - name: X-Touch-Ext
     midi_port_pattern: "X-Touch-Ext "
+    feedback_messages: true
     controls:
       #
       # Faders
       - name: Fader07
         type: Absolute
-        feedback_messages: true
         midi: { channel: 6, type: pitchwheel }
 
       - name: Fader08
         type: Absolute
-        feedback_messages: true
         midi: { channel: 7, type: pitchwheel }
 
 #

@@ -7,5 +7,6 @@ from dataclasses_json import dataclass_json, LetterCase
 @dataclass
 class MIDIDeviceInfo:
     name: str
+    feedback_messages: bool
     in_port_name: str
     out_port_name: str

@@ -14,7 +14,6 @@ class MIDIControlInfo:
     name: str
     type: MIDIControlType
     device: MIDIDeviceInfo
-    feedback_messages: bool = False
     layer_name: str = ""
     page: int = -1
     mapped_to: str = ""
