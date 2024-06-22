@@ -53,3 +53,7 @@ class AbstractOSCService(ABC):
     @abstractmethod
     def client_info_from_ip(self, client_ip_address: str) -> OSCClientInfo:
         pass
+
+    @abstractmethod
+    def notify_update(self, control_name, value):
+        pass

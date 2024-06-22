@@ -14,5 +14,5 @@ class AbstractControlsService(ABC):
         pass
 
     @abstractmethod
-    def send_control_update(self, origin: ControlUpdateOrigin, control_name: str, value: Any):
+    def notify_update(self, origin: ControlUpdateOrigin, control_name: str, value: Any):
         pass

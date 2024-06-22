@@ -13,14 +13,11 @@ class ControlsService(AbstractControlsService):
         self.control_repository = ControlRepository()
         self.control_repository.create_controls(Components().controls_infos)
 
-    def send_control_update(self, origin: ControlUpdateOrigin, control_name: str, value: Any):
+    def notify_update(self, origin: ControlUpdateOrigin, control_name: str, value: Any):
         self.control_repository.controls[control_name].set_value(value)
 
         if origin == ControlUpdateOrigin.OSC:
             pass
-            # FIXME do it later
-            # Components().midi_service.send_control_update(control_name, value)
+            # Components().midi_service.notify_update()
         else:
-            pass
-            # FIXME do it later
-            # Components().osc_service.send_control_update(control_name, value)
+            Components().osc_service.notify_update(control_name, value)

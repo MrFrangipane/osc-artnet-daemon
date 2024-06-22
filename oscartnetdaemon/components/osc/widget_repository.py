@@ -50,3 +50,8 @@ class OSCWidgetRepository(AbstractOSCWidgetRepository):
             for address, value in widget.get_update_messages():
                 messages.append((widget.info.osc_address + address, value))
         return messages
+
+    def widget_from_mapping(self, control_name: str) -> None | OSCAbstractWidget:
+        for widget in self._widgets:
+            if widget.info.mapped_to == control_name:
+                return widget

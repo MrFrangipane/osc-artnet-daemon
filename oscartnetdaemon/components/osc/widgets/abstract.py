@@ -18,7 +18,7 @@ class OSCAbstractWidget(ABC):
 
     def notify_control(self):
         if self.info.mapped_to:
-            self.components_singleton().controls_service.send_control_update(
+            self.components_singleton().controls_service.notify_update(
                 origin=ControlUpdateOrigin.OSC,
                 control_name=self.info.mapped_to,
                 value=self.value

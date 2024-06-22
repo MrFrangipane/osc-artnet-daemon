@@ -58,10 +58,11 @@ class MidiService(AbstractMidiService):
             self.message_handler.handle(message, self.context)
 
     def notify_update(self, update_info: MIDIControlUpdateInfo):
-        print(update_info)
-
+        #
+        # TODO : page and layer changes
+        #
         if update_info.mapped_to:
-            Components().controls_service.send_control_update(
+            Components().controls_service.notify_update(
                 origin=ControlUpdateOrigin.MIDI,
                 control_name=update_info.mapped_to,
                 value=update_info.value

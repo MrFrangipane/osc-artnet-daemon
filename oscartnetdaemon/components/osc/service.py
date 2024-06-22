@@ -76,3 +76,8 @@ class OSCService(AbstractOSCService):
 
     def client_info_from_ip(self, client_ip_address: str) -> OSCClientInfo:
         return self.clients_repository.get_client_info_by_ip(client_ip_address)
+
+    def notify_update(self, control_name, value):
+        widget = self.widget_repository.widget_from_mapping(control_name)
+        if widget is not None:
+            widget.set_values()
