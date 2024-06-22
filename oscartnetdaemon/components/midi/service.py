@@ -6,7 +6,9 @@ from oscartnetdaemon.components.midi.abstract_service import AbstractMidiService
 from oscartnetdaemon.components.midi.control_repository import MIDIControlRepository
 from oscartnetdaemon.components.midi.message_handler import MIDIMessageHandler
 from oscartnetdaemon.components.midi.midi_device import MIDIDevice
+from oscartnetdaemon.entities.control.control_update_origin_enum import ControlUpdateOrigin
 from oscartnetdaemon.entities.midi.context import MIDIContext
+from oscartnetdaemon.entities.midi.control_update_info import MIDIControlUpdateInfo
 from oscartnetdaemon.entities.midi.message import MIDIMessage
 
 
@@ -54,3 +56,13 @@ class MidiService(AbstractMidiService):
         while self.is_running:
             message = self.queue_in.get()
             self.message_handler.handle(message, self.context)
+
+    def notify_update(self, update_info: MIDIControlUpdateInfo):
+        print(update_info)
+
+        if update_info.mapped_to:
+            Components().controls_service.send_control_update(
+                origin=ControlUpdateOrigin.MIDI,
+                control_name=update_info.mapped_to,
+                value=update_info.value
+            )

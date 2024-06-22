@@ -15,7 +15,6 @@ class ControlsService(AbstractControlsService):
 
     def send_control_update(self, origin: ControlUpdateOrigin, control_name: str, value: Any):
         self.control_repository.controls[control_name].set_value(value)
-        print(f"send_control_update {origin} {control_name} {value}")
 
         if origin == ControlUpdateOrigin.OSC:
             pass

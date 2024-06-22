@@ -8,4 +8,5 @@ from dataclasses_json import dataclass_json, LetterCase
 @dataclass
 class MIDIControlUpdateInfo:
     control_name: str
+    mapped_to: str
     value: Any

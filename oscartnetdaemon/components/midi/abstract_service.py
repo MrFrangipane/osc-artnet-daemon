@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 
 from oscartnetdaemon.components.midi.midi_device import MIDIDevice
+from oscartnetdaemon.entities.midi.control_update_info import MIDIControlUpdateInfo
 
 
 class AbstractMidiService(ABC):
@@ -14,4 +15,8 @@ class AbstractMidiService(ABC):
 
     @abstractmethod
     def stop(self):
+        pass
+
+    @abstractmethod
+    def notify_update(self, update_info: MIDIControlUpdateInfo):
         pass

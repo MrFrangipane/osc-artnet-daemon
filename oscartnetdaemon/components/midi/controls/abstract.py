@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
+from typing import Any
 
 from oscartnetdaemon.entities.midi.context import MIDIContext
 from oscartnetdaemon.entities.midi.control_info import MIDIControlInfo
-from oscartnetdaemon.entities.midi.control_update_info import MIDIControlUpdateInfo
 from oscartnetdaemon.entities.midi.message import MIDIMessage
 from oscartnetdaemon.entities.midi.message_type_enum import MIDIMessageType
 
@@ -11,6 +11,7 @@ class MIDIAbstractControl(ABC):
 
     def __init__(self, info: MIDIControlInfo):
         self.info = info
+        self.value: Any = 0.0
 
     def complies_with(self, message: MIDIMessage, context: MIDIContext):
         channel_ok = self.info.midi.channel == message.channel
@@ -29,5 +30,5 @@ class MIDIAbstractControl(ABC):
         return compliant[message.type]
 
     @abstractmethod
-    def handle_message(self, message: MIDIMessage, context: MIDIContext) -> None | MIDIControlUpdateInfo:
+    def handle_message(self, message: MIDIMessage, context: MIDIContext) -> bool:
         pass
