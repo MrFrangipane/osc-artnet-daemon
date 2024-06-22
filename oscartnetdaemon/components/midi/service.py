@@ -3,8 +3,11 @@ from threading import Thread
 
 from oscartnetdaemon.components.components_singleton import Components
 from oscartnetdaemon.components.midi.abstract_service import AbstractMidiService
-from oscartnetdaemon.components.midi.message_parser import *  # TODO
+from oscartnetdaemon.components.midi.control_repository import MIDIControlRepository
+from oscartnetdaemon.components.midi.message_handler import MIDIMessageHandler
 from oscartnetdaemon.components.midi.midi_device import MIDIDevice
+from oscartnetdaemon.entities.midi.context import MIDIContext
+from oscartnetdaemon.entities.midi.message import MIDIMessage
 
 
 class MidiService(AbstractMidiService):
@@ -12,21 +15,31 @@ class MidiService(AbstractMidiService):
     def __init__(self):
         super().__init__()
         self.is_running = False
-        self.queue_in: Queue[Message] = Queue()
-        self.queues_out: dict[str, Queue[Message]] = dict()
+        self.control_repository: MIDIControlRepository = None
+        self.message_handler: MIDIMessageHandler = None
+        self.queue_in: Queue[MIDIMessage] = Queue()
+        self.queues_out: dict[str, Queue[MIDIMessage]] = dict()
         self._thread: Thread = None
+        self.context: MIDIContext = None
 
     def start(self):
-        self.devices = dict()
+        self.control_repository = MIDIControlRepository()
+        self.control_repository.create_controls(Components().midi_configuration.controls.values())
 
-        #
-        # CONTROLS REPOSITORY HERE ?
-        #
-
+        self.devices = dict()  # FIXME make a device repository
         for device_info in Components().midi_configuration.devices.values():
             self.devices[device_info.name] = MIDIDevice(device_info, self.queue_in)
             self.devices[device_info.name].components_singleton = Components
             self.devices[device_info.name].start()
+
+        self.message_handler = MIDIMessageHandler(
+            control_repository=self.control_repository
+        )
+
+        self.context = MIDIContext(
+            current_page=0,
+            current_layer=list(list(Components().midi_configuration.layer_groups.values())[0].layers.values())[0]
+        )
 
         self.is_running = True
         self._thread = Thread(target=self.loop, daemon=True)
@@ -40,7 +53,4 @@ class MidiService(AbstractMidiService):
     def loop(self):
         while self.is_running:
             message = self.queue_in.get()
-            #
-            # CONTROLS AND DATA UPDATE HERE
-            #
-            print(">", message)
+            self.message_handler.handle(message, self.context)

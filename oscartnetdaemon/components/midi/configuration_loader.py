@@ -47,8 +47,7 @@ def load_midi_configuration(filenames: list[str], root_folder: str) -> MIDIConfi
             new_device = MIDIDeviceInfo(
                 name=name,
                 in_port_name=in_port_name,
-                out_port_name=out_port_name,
-                feedback_messages=device_content.get('feedback_messages', False)
+                out_port_name=out_port_name
             )
             devices[name] = new_device
 
