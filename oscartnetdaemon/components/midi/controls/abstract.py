@@ -1,10 +1,10 @@
 from abc import ABC, abstractmethod
 from typing import Any
 
-from oscartnetdaemon.entities.midi.context import MIDIContext
-from oscartnetdaemon.entities.midi.control_info import MIDIControlInfo
-from oscartnetdaemon.entities.midi.message import MIDIMessage
-from oscartnetdaemon.entities.midi.message_type_enum import MIDIMessageType
+from oscartnetdaemon.components.midi.entities.context import MIDIContext
+from oscartnetdaemon.components.midi.entities.control_info import MIDIControlInfo
+from oscartnetdaemon.components.midi.entities.message import MIDIMessage
+from oscartnetdaemon.components.midi.entities.message_type_enum import MIDIMessageType
 
 
 class MIDIAbstractControl(ABC):

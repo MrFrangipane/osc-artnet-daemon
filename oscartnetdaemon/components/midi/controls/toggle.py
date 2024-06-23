@@ -1,7 +1,7 @@
 from oscartnetdaemon.components.midi.controls.abstract import MIDIAbstractControl
-from oscartnetdaemon.entities.midi.context import MIDIContext
-from oscartnetdaemon.entities.midi.control_info import MIDIControlInfo
-from oscartnetdaemon.entities.midi.message import MIDIMessage
+from oscartnetdaemon.components.midi.entities.context import MIDIContext
+from oscartnetdaemon.components.midi.entities.control_info import MIDIControlInfo
+from oscartnetdaemon.components.midi.entities.message import MIDIMessage
 
 
 class MIDIToggleControl(MIDIAbstractControl):

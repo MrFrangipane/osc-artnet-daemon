@@ -1,5 +1,5 @@
 ---
-widgets:
+controls:
   #
   # RECALLABLES
 
@@ -149,7 +149,7 @@ widgets:
 
 recall-groups:
   - name: "Recall Group"
-    widget-osc-addresses:
+    controls-osc-addresses:
       - "/color_wheel_a"
       - "/color_wheel_b"
       - "/fader_octostrip"

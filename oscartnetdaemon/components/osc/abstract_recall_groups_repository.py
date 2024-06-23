@@ -1,15 +1,15 @@
 # fixme: seems not to be needed ?
 from abc import ABC, abstractmethod
 
-from oscartnetdaemon.entities.osc.client_info import OSCClientInfo
-from oscartnetdaemon.entities.osc.recall_group_info import OSCRecallGroupInfo
-from oscartnetdaemon.components.osc.widgets.abstract import OSCAbstractWidget
+from oscartnetdaemon.components.osc.entities.client_info import OSCClientInfo
+from oscartnetdaemon.components.osc.entities.recall_group_info import OSCRecallGroupInfo
+from oscartnetdaemon.components.osc.controls.abstract import OSCAbstractControl
 
 
 class AbstractOSCRecallGroupsRepository(ABC):
 
     @abstractmethod
-    def create_groups(self, widgets: list[OSCAbstractWidget], recall_group_infos: list[OSCRecallGroupInfo]):
+    def create_groups(self, controls: list[OSCAbstractControl], recall_group_infos: list[OSCRecallGroupInfo]):
         pass
 
     @abstractmethod

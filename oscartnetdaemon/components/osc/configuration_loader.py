@@ -3,13 +3,13 @@ import os.path
 
 import yaml
 
-from oscartnetdaemon.entities.osc.configuration import OSCConfiguration
+from oscartnetdaemon.components.osc.entities.configuration import OSCConfiguration
 
 
 def load_osc_configuration(osc: dict, root_folder: str) -> OSCConfiguration:
     config: dict = deepcopy(osc)
-    filenames = config['widgets']
-    config.pop("widgets")
+    filenames = config['controls']
+    config.pop("controls")
 
     for filename in filenames:
         filepath = os.path.join(root_folder, filename)

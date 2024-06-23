@@ -2,14 +2,14 @@ from multiprocessing import Queue
 from threading import Thread
 
 from oscartnetdaemon.components.components_singleton import Components
+from oscartnetdaemon.components.domain.entities.control_update_origin_enum import DomainControlUpdateOrigin
 from oscartnetdaemon.components.midi.abstract_service import AbstractMidiService
 from oscartnetdaemon.components.midi.control_repository import MIDIControlRepository
+from oscartnetdaemon.components.midi.device import MIDIDevice
+from oscartnetdaemon.components.midi.entities.context import MIDIContext
+from oscartnetdaemon.components.midi.entities.control_update_info import MIDIControlUpdateInfo
+from oscartnetdaemon.components.midi.entities.message import MIDIMessage
 from oscartnetdaemon.components.midi.message_handler import MIDIMessageHandler
-from oscartnetdaemon.components.midi.midi_device import MIDIDevice
-from oscartnetdaemon.entities.control.control_update_origin_enum import ControlUpdateOrigin
-from oscartnetdaemon.entities.midi.context import MIDIContext
-from oscartnetdaemon.entities.midi.control_update_info import MIDIControlUpdateInfo
-from oscartnetdaemon.entities.midi.message import MIDIMessage
 
 
 class MidiService(AbstractMidiService):
@@ -63,7 +63,7 @@ class MidiService(AbstractMidiService):
         #
         if update_info.mapped_to:
             Components().controls_service.notify_update(
-                origin=ControlUpdateOrigin.MIDI,
+                origin=DomainControlUpdateOrigin.MIDI,
                 control_name=update_info.mapped_to,
                 value=update_info.value
             )

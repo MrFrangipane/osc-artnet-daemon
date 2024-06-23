@@ -3,7 +3,7 @@ import logging
 from zeroconf import ServiceBrowser, ServiceStateChange, Zeroconf
 
 from oscartnetdaemon.components.components_singleton import Components
-from oscartnetdaemon.entities.osc.client_info import OSCClientInfo
+from oscartnetdaemon.components.osc.entities.client_info import OSCClientInfo
 
 _logger = logging.getLogger(__name__)
 

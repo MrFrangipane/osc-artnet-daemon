@@ -1,8 +1,8 @@
 from oscartnetdaemon.components.components_singleton import Components
 from oscartnetdaemon.components.midi.control_repository import MIDIControlRepository
-from oscartnetdaemon.entities.midi.context import MIDIContext
-from oscartnetdaemon.entities.midi.control_update_info import MIDIControlUpdateInfo
-from oscartnetdaemon.entities.midi.message import MIDIMessage
+from oscartnetdaemon.components.midi.entities.context import MIDIContext
+from oscartnetdaemon.components.midi.entities.control_update_info import MIDIControlUpdateInfo
+from oscartnetdaemon.components.midi.entities.message import MIDIMessage
 
 
 class MIDIMessageHandler:

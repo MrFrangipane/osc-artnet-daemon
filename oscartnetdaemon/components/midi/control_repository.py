@@ -2,8 +2,8 @@ from oscartnetdaemon.components.midi.controls.absolute import MIDIAbsoluteContro
 from oscartnetdaemon.components.midi.controls.abstract import MIDIAbstractControl
 from oscartnetdaemon.components.midi.controls.button import MIDIButtonControl
 from oscartnetdaemon.components.midi.controls.toggle import MIDIToggleControl
-from oscartnetdaemon.entities.midi.control_info import MIDIControlInfo
-from oscartnetdaemon.entities.midi.control_type_enum import MIDIControlType
+from oscartnetdaemon.components.midi.entities.control_info import MIDIControlInfo
+from oscartnetdaemon.components.midi.entities.control_type_enum import MIDIControlType
 
 
 class MIDIControlRepository:

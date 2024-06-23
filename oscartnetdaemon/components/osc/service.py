@@ -5,8 +5,8 @@ from pythonosc.osc_server import ThreadingOSCUDPServer, Dispatcher
 from oscartnetdaemon.components.components_singleton import Components
 from oscartnetdaemon.components.osc.abstract_service import AbstractOSCService
 from oscartnetdaemon.components.osc.clients_repository import OSCClientsRepository
-from oscartnetdaemon.components.osc.widget_repository import OSCWidgetRepository
-from oscartnetdaemon.entities.osc.client_info import OSCClientInfo
+from oscartnetdaemon.components.osc.control_repository import OSCControlRepository
+from oscartnetdaemon.components.osc.entities.client_info import OSCClientInfo
 from oscartnetdaemon.components.osc.recall_groups_repository import OSCRecallGroupsRepository
 
 
@@ -20,19 +20,19 @@ class OSCService(AbstractOSCService):
     def _initialize(self):
         configuration = Components().osc_configuration
 
-        self.widget_repository = OSCWidgetRepository()
-        widgets = self.widget_repository.create_widgets(configuration.widgets)
+        self.control_repository = OSCControlRepository()
+        controls = self.control_repository.create_controls(configuration.controls)
 
         self.recall_groups_repository = OSCRecallGroupsRepository()
         self.recall_groups_repository.create_groups(
-            widgets=widgets,
+            controls=controls,
             recall_group_infos=configuration.recall_groups
         )
 
         self.clients_repository = OSCClientsRepository()
 
         dispatcher = Dispatcher()
-        self.widget_repository.map_to_dispatcher(dispatcher)
+        self.control_repository.map_to_dispatcher(dispatcher)
 
         address = configuration.server_ip_address
         port = configuration.server_port
@@ -57,7 +57,7 @@ class OSCService(AbstractOSCService):
 
     def register_client(self, client_info: OSCClientInfo):
         new_client = self.clients_repository.register(client_info)
-        for osc_address, osc_value in self.widget_repository.get_all_widget_update_messages():
+        for osc_address, osc_value in self.control_repository.get_all_controls_update_messages():
             new_client.send_message(osc_address, osc_value)
         self.recall_groups_repository.register_client(client_info)
 
@@ -78,6 +78,7 @@ class OSCService(AbstractOSCService):
         return self.clients_repository.get_client_info_by_ip(client_ip_address)
 
     def notify_update(self, control_name, value):
-        widget = self.widget_repository.widget_from_mapping(control_name)
-        if widget is not None:
-            widget.set_values()
+        control = self.control_repository.control_from_mapping(control_name)
+        if control is not None:
+            pass
+            # control.set_values()

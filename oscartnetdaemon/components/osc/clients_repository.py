@@ -2,7 +2,7 @@ import logging
 
 from pythonosc.udp_client import SimpleUDPClient
 
-from oscartnetdaemon.entities.osc.client_info import OSCClientInfo
+from oscartnetdaemon.components.osc.entities.client_info import OSCClientInfo
 from oscartnetdaemon.python_extensions.network import bytes_as_ip, ip_as_bytes
 
 

@@ -1,5 +1,5 @@
-from oscartnetdaemon.components.osc.recall_group import OSCRecallGroup, OSCMemorySlot
-from oscartnetdaemon.entities.osc.client_info import OSCClientInfo
+from oscartnetdaemon.components.osc.entities.recall_group import OSCRecallGroup, OSCMemorySlot
+from oscartnetdaemon.components.osc.entities.client_info import OSCClientInfo
 
 
 class PunchPile:
@@ -20,28 +20,28 @@ class PunchPile:
 
                 # Save state to slot
                 base_memory_slot = self.memory_slots[self._base_slot_name]
-                for widget in recall_group.widgets:
-                    base_memory_slot.widgets_values[widget.info.osc_address] = widget.get_values()
+                for control in recall_group.controls:
+                    base_memory_slot.controls_values[control.info.osc_address] = control.get_values()
 
             # Other punches, save new punch
             self.pile.append(memory_slot.osc_address)
             self.memory_slots[memory_slot.osc_address] = memory_slot
 
             # Apply
-            for widget in recall_group.widgets:
-                values = memory_slot.widgets_values.get(widget.info.osc_address, None)
+            for control in recall_group.controls:
+                values = memory_slot.controls_values.get(control.info.osc_address, None)
                 if values is not None:
-                    widget.set_values(values)
+                    control.set_values(values)
                     # FIXME should this be done here ?
-                    widget.notify_control()
+                    control.notify_domain_control()
 
         else:
             self.pile.remove(memory_slot.osc_address)
             previous_punch = self.pile[-1]
             previous_memory_slot = self.memory_slots[previous_punch]
-            for widget in recall_group.widgets:
-                values = previous_memory_slot.widgets_values.get(widget.info.osc_address, None)
+            for control in recall_group.controls:
+                values = previous_memory_slot.controls_values.get(control.info.osc_address, None)
                 if values is not None:
-                    widget.set_values(values)
+                    control.set_values(values)
                     # FIXME should this be done here ?
-                    widget.notify_control()
+                    control.notify_domain_control()

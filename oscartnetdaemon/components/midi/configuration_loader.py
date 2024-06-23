@@ -4,12 +4,12 @@ from copy import copy
 import mido
 import yaml
 
-from oscartnetdaemon.entities.midi.configuration import MIDIConfiguration
-from oscartnetdaemon.entities.midi.control_info import MIDIControlInfo
-from oscartnetdaemon.entities.midi.device_info import MIDIDeviceInfo
-from oscartnetdaemon.entities.midi.layer_group_info import MIDIControlLayerGroupInfo
-from oscartnetdaemon.entities.midi.layer_info import MIDIControlLayerInfo
-from oscartnetdaemon.entities.midi.pagination_info import MIDIPaginationInfo
+from oscartnetdaemon.components.midi.entities.configuration import MIDIConfiguration
+from oscartnetdaemon.components.midi.entities.control_info import MIDIControlInfo
+from oscartnetdaemon.components.midi.entities.device_info import MIDIDeviceInfo
+from oscartnetdaemon.components.midi.entities.layer_group_info import MIDIControlLayerGroupInfo
+from oscartnetdaemon.components.midi.entities.layer_info import MIDIControlLayerInfo
+from oscartnetdaemon.components.midi.entities.pagination_info import MIDIPaginationInfo
 
 
 def _find_in_list(item, items):

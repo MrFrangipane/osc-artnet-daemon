@@ -2,12 +2,12 @@ import logging
 
 from oscartnetdaemon.components.osc.abstract_recall_groups_repository import AbstractOSCRecallGroupsRepository
 from oscartnetdaemon.components.osc.punch_pile import PunchPile
-from oscartnetdaemon.components.osc.recall_group import OSCRecallGroup, OSCMemorySlot
-from oscartnetdaemon.components.osc.widgets.abstract import OSCAbstractWidget
+from oscartnetdaemon.components.osc.entities.recall_group import OSCRecallGroup, OSCMemorySlot
+from oscartnetdaemon.components.osc.controls.abstract import OSCAbstractControl
 
-from oscartnetdaemon.entities.osc.client_info import OSCClientInfo
-from oscartnetdaemon.entities.osc.recall_group_info import OSCRecallGroupInfo
-from oscartnetdaemon.entities.osc.widget_type_enum import OSCWidgetType
+from oscartnetdaemon.components.osc.entities.client_info import OSCClientInfo
+from oscartnetdaemon.components.osc.entities.recall_group_info import OSCRecallGroupInfo
+from oscartnetdaemon.components.osc.entities.control_type_enum import OSCControlType
 
 
 _logger = logging.getLogger(__name__)
@@ -20,21 +20,21 @@ class OSCRecallGroupsRepository(AbstractOSCRecallGroupsRepository):
         self._recall_groups: dict[str, OSCRecallGroup] = dict()
         self._punch_piles: dict[bytes, PunchPile] = dict()
 
-    def create_groups(self, widgets: list[OSCAbstractWidget], recall_group_infos: list[OSCRecallGroupInfo]):
+    def create_groups(self, controls: list[OSCAbstractControl], recall_group_infos: list[OSCRecallGroupInfo]):
         self._recall_groups = dict()
-        all_widgets_indexed: dict[str: OSCAbstractWidget] = {widget.info.osc_address: widget for widget in widgets}
+        all_controls_indexed: dict[str: OSCAbstractControl] = {control.info.osc_address: control for control in controls}
         assigned_memory_slots_addresses: list[str] = list()
 
         for group_info in recall_group_infos:
-            group_widgets = [
-                all_widgets_indexed[osc_address]
-                for osc_address in group_info.widget_osc_addresses
-                if not all_widgets_indexed[osc_address].info.type == OSCWidgetType.RecallSlot
+            group_controls = [
+                all_controls_indexed[osc_address]
+                for osc_address in group_info.controls_osc_addresses
+                if not all_controls_indexed[osc_address].info.type == OSCControlType.RecallSlot
             ]
 
             memory_slots: {str: OSCMemorySlot} = dict()
-            for osc_address in group_info.widget_osc_addresses:
-                if all_widgets_indexed[osc_address].info.type != OSCWidgetType.RecallSlot:
+            for osc_address in group_info.controls_osc_addresses:
+                if all_controls_indexed[osc_address].info.type != OSCControlType.RecallSlot:
                     continue
 
                 if osc_address in assigned_memory_slots_addresses:
@@ -45,7 +45,7 @@ class OSCRecallGroupsRepository(AbstractOSCRecallGroupsRepository):
 
             new_recall_group = OSCRecallGroup(
                 name=group_info.name,
-                widgets=group_widgets,
+                controls=group_controls,
                 memory_slots=memory_slots
             )
 
@@ -62,15 +62,15 @@ class OSCRecallGroupsRepository(AbstractOSCRecallGroupsRepository):
 
     def save_for_slot(self, osc_address: str):
         recall_group = self._recall_groups[osc_address]
-        for widget in recall_group.widgets:
-            recall_group.memory_slots[osc_address].widgets_values[widget.info.osc_address] = widget.get_values()
+        for control in recall_group.controls:
+            recall_group.memory_slots[osc_address].controls_values[control.info.osc_address] = control.get_values()
 
     def recall_for_slot(self, osc_address: str):
         recall_group = self._recall_groups[osc_address]
-        for widget in recall_group.widgets:
-            values = recall_group.memory_slots[osc_address].widgets_values.get(widget.info.osc_address, None)
+        for control in recall_group.controls:
+            values = recall_group.memory_slots[osc_address].controls_values.get(control.info.osc_address, None)
             if values is not None:
-                widget.set_values(values)
+                control.set_values(values)
 
     def set_punch_for_slot(self, client_info: OSCClientInfo, osc_address: str, is_punch: bool):
         if client_info is None:

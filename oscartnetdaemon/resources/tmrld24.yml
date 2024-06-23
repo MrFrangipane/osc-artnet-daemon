@@ -5,7 +5,7 @@ osc:
   server-ip-address: ""
   server-ip-address-autodetect: True
   server-port: 8080
-  widgets:
+  controls:
     - "tmrld24.osc.yml"
 midi-devices:
   - "tmrld24.xtouch.yml"

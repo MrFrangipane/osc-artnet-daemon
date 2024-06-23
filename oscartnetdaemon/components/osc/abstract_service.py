@@ -4,10 +4,9 @@ from oscartnetdaemon.components.osc.clients_repository import OSCClientsReposito
 from oscartnetdaemon.components.osc.abstract_recall_groups_repository import AbstractOSCRecallGroupsRepository
 
 # fixme: test to see if abstract is necessary
-from oscartnetdaemon.components.osc.recall_groups_repository import OSCRecallGroupsRepository
 
-from oscartnetdaemon.components.osc.abstract_widget_repository import AbstractOSCWidgetRepository
-from oscartnetdaemon.entities.osc.client_info import OSCClientInfo
+from oscartnetdaemon.components.osc.abstract_control_repository import AbstractOSCControlRepository
+from oscartnetdaemon.components.osc.entities.client_info import OSCClientInfo
 
 
 class AbstractOSCService(ABC):
@@ -15,7 +14,7 @@ class AbstractOSCService(ABC):
     @abstractmethod
     def __init__(self):
         self.clients_repository: OSCClientsRepository = None
-        self.widget_repository: AbstractOSCWidgetRepository = None
+        self.control_repository: AbstractOSCControlRepository = None
         self.recall_groups_repository: AbstractOSCRecallGroupsRepository = None
 
     @abstractmethod

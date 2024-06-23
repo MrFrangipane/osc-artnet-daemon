@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
-from oscartnetdaemon.components.midi.midi_device import MIDIDevice
-from oscartnetdaemon.entities.midi.control_update_info import MIDIControlUpdateInfo
+from oscartnetdaemon.components.midi.device import MIDIDevice
+from oscartnetdaemon.components.midi.entities.control_update_info import MIDIControlUpdateInfo
 
 
 class AbstractMidiService(ABC):
