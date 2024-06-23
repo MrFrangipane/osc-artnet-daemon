@@ -5,7 +5,7 @@ from oscartnetdaemon.components.components_singleton import Components
 from oscartnetdaemon.components.configuration.loader import ConfigurationLoader
 from oscartnetdaemon.components.discovery.service import DiscoveryService
 from oscartnetdaemon.components.domain.service import DomainService
-from oscartnetdaemon.components.midi.service import MidiService
+from oscartnetdaemon.components.midi.service import MIDIService
 from oscartnetdaemon.components.osc.service import OSCService
 
 
@@ -20,7 +20,7 @@ if __name__ == '__main__':
     Components().osc_service = OSCService()
     Components().osc_service.start()
 
-    Components().midi_service = MidiService()
+    Components().midi_service = MIDIService()
     Components().midi_service.start()
 
     discovery_service = DiscoveryService(

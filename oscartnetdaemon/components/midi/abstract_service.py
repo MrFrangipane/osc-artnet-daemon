@@ -4,7 +4,7 @@ from oscartnetdaemon.components.midi.device import MIDIDevice
 from oscartnetdaemon.components.midi.entities.control_update_info import MIDIControlUpdateInfo
 
 
-class AbstractMidiService(ABC):
+class AbstractMIDIService(ABC):
 
     def __init__(self):
         self.devices: dict[str, MIDIDevice] = dict()

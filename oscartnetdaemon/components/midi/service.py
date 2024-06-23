@@ -3,7 +3,7 @@ from threading import Thread
 
 from oscartnetdaemon.components.components_singleton import Components
 from oscartnetdaemon.components.domain.entities.control_update_origin_enum import DomainControlUpdateOrigin
-from oscartnetdaemon.components.midi.abstract_service import AbstractMidiService
+from oscartnetdaemon.components.midi.abstract_service import AbstractMIDIService
 from oscartnetdaemon.components.midi.control_repository import MIDIControlRepository
 from oscartnetdaemon.components.midi.device import MIDIDevice
 from oscartnetdaemon.components.midi.entities.context import MIDIContext
@@ -12,7 +12,7 @@ from oscartnetdaemon.components.midi.entities.message import MIDIMessage
 from oscartnetdaemon.components.midi.message_handler import MIDIMessageHandler
 
 
-class MidiService(AbstractMidiService):
+class MIDIService(AbstractMIDIService):
 
     def __init__(self):
         super().__init__()
