@@ -39,7 +39,7 @@ class OSCService(AbstractImplementation):
 
     def handle_change_notification(self, change_notification: ChangeNotification):
         for client_ip, client in self.clients.items():
-            if client_ip == change_notification.origin.remote_ip:
+            if isinstance(change_notification.origin, OSCNotificationOrigin) and client_ip == change_notification.origin.remote_ip:
                 continue
 
             client.send_message(self.ADDRESS, value=change_notification.value)

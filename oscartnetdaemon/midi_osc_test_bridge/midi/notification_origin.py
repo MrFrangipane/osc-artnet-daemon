@@ -4,6 +4,5 @@ from oscartnetdaemon.midi_osc_test_bridge.domain.abstract_change_notificaton_ori
 
 
 @dataclass
-class OSCNotificationOrigin(AbstractChangeNotificationOrigin):
-    remote_ip: tuple[int]
-    implementation_name: str = 'OSC'
+class MIDINotificationOrigin(AbstractChangeNotificationOrigin):
+    implementation_name: str = 'MIDI'

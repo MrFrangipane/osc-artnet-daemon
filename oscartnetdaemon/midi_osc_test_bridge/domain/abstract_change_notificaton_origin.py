@@ -3,4 +3,4 @@ from dataclasses import dataclass
 
 @dataclass
 class AbstractChangeNotificationOrigin:
-    pass
+    implementation_name = None
