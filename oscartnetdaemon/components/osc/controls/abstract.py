@@ -18,7 +18,7 @@ class OSCAbstractControl(ABC):
 
     def notify_domain_control(self):
         if self.info.mapped_to:
-            self.components_singleton().controls_service.notify_update(
+            self.components_singleton().domain_service.notify_update(
                 origin=DomainControlUpdateOrigin.OSC,
                 control_name=self.info.mapped_to,
                 value=self.value

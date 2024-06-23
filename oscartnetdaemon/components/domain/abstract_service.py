@@ -5,7 +5,7 @@ from oscartnetdaemon.components.domain.entities.control_update_origin_enum impor
 from oscartnetdaemon.components.domain.repository import DomainControlRepository
 
 
-class AbstractDomainControlsService(ABC):
+class AbstractDomainService(ABC):
     def __init__(self):
         self.control_repository: DomainControlRepository = None
 

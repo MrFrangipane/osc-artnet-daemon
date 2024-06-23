@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from oscartnetdaemon.components.domain.abstract_service import AbstractDomainControlsService
+from oscartnetdaemon.components.domain.abstract_service import AbstractDomainService
 from oscartnetdaemon.components.midi.abstract_service import AbstractMidiService
 from oscartnetdaemon.components.midi.entities.configuration import MIDIConfiguration
 from oscartnetdaemon.components.osc.abstract_service import AbstractOSCService
@@ -12,7 +12,7 @@ from oscartnetdaemon.components.domain.entities.control_info import DomainContro
 @dataclass
 class Components(metaclass=SingletonMetaclass):
     domain_controls_infos: dict[str, DomainControlInfo] = None
-    controls_service: AbstractDomainControlsService = None
+    domain_service: AbstractDomainService = None
     midi_configuration: MIDIConfiguration = None
     midi_service: AbstractMidiService = None
     osc_configuration: OSCConfiguration = None

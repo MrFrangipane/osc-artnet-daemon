@@ -3,10 +3,10 @@ import time
 
 from oscartnetdaemon.components.components_singleton import Components
 from oscartnetdaemon.components.configuration.loader import ConfigurationLoader
-from oscartnetdaemon.components.domain.service import DomainControlsService
 from oscartnetdaemon.components.discovery.service import DiscoveryService
-from oscartnetdaemon.components.osc.service import OSCService
+from oscartnetdaemon.components.domain.service import DomainService
 from oscartnetdaemon.components.midi.service import MidiService
+from oscartnetdaemon.components.osc.service import OSCService
 
 
 if __name__ == '__main__':
@@ -14,8 +14,8 @@ if __name__ == '__main__':
 
     ConfigurationLoader.load_from_file('./resources/tmrld24.yml')
 
-    Components().controls_service = DomainControlsService()
-    Components().controls_service.start()
+    Components().domain_service = DomainService()
+    Components().domain_service.start()
 
     Components().osc_service = OSCService()
     Components().osc_service.start()
@@ -36,3 +36,4 @@ if __name__ == '__main__':
         discovery_service.stop()
         Components().midi_service.stop()
         # Components().osc_service.stop()  Not implemented yet
+        # Components().domain_service.stop()  Not implemented yet

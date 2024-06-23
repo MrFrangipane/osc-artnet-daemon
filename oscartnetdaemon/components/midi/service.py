@@ -62,7 +62,7 @@ class MidiService(AbstractMidiService):
         # TODO : page and layer changes
         #
         if update_info.mapped_to:
-            Components().controls_service.notify_update(
+            Components().domain_service.notify_update(
                 origin=DomainControlUpdateOrigin.MIDI,
                 control_name=update_info.mapped_to,
                 value=update_info.value

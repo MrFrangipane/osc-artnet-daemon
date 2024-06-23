@@ -1,12 +1,12 @@
 from typing import Any
 
 from oscartnetdaemon.components.components_singleton import Components
-from oscartnetdaemon.components.domain.abstract_service import AbstractDomainControlsService
+from oscartnetdaemon.components.domain.abstract_service import AbstractDomainService
 from oscartnetdaemon.components.domain.entities.control_update_origin_enum import DomainControlUpdateOrigin
 from oscartnetdaemon.components.domain.repository import DomainControlRepository
 
 
-class DomainControlsService(AbstractDomainControlsService):
+class DomainService(AbstractDomainService):
     def __init__(self):
         super().__init__()
 
