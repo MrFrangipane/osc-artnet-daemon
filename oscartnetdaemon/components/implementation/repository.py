@@ -1,9 +1,9 @@
 from typing import Type
 from multiprocessing import log_to_stderr, Process, Queue
 
-from oscartnetdaemon.midi_osc_test_bridge.implementation.abstract import AbstractImplementation
-from oscartnetdaemon.midi_osc_test_bridge.implementation.pack import ImplementationPack
-from oscartnetdaemon.midi_osc_test_bridge.domain.change_notification import ChangeNotification
+from oscartnetdaemon.components.implementation.abstract import AbstractImplementation
+from oscartnetdaemon.components.implementation.pack import ImplementationPack
+from oscartnetdaemon.components.domain.change_notification import ChangeNotification
 
 
 class ImplementationRepository:

@@ -4,8 +4,8 @@ import os.path
 import yaml
 
 from oscartnetdaemon.components.components_singleton import Components
-from oscartnetdaemon.components.midi.configuration_loader import load_midi_configuration
-from oscartnetdaemon.components.osc.configuration_loader import load_osc_configuration
+# from oscartnetdaemon.components.midi.configuration_loader import load_midi_configuration
+# from oscartnetdaemon.components.osc.configuration_loader import load_osc_configuration
 from oscartnetdaemon.components.domain.configuration_loader import load_controls_configuration
 
 
@@ -26,13 +26,13 @@ class ConfigurationLoader:
             filenames=yaml_content['controls'],
             root_folder=root_folder
         )
-        Components().osc_configuration = load_osc_configuration(
-            osc=yaml_content['osc'],
-            root_folder=root_folder
-        )
-        Components().midi_configuration = load_midi_configuration(
-            filenames=yaml_content['midi-devices'],
-            root_folder=root_folder
-        )
+        # Components().osc_configuration = load_osc_configuration(
+        #     osc=yaml_content['osc'],
+        #     root_folder=root_folder
+        # )
+        # Components().midi_configuration = load_midi_configuration(
+        #     filenames=yaml_content['midi-devices'],
+        #     root_folder=root_folder
+        # )
 
         _logger.info(f"Done")

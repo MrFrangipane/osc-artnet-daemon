@@ -1,4 +1,6 @@
-from oscartnetdaemon.components.domain.controls.abstract_control import AbstractDomainControl
+from oscartnetdaemon.components.domain.control.abstract import AbstractDomainControl
+from oscartnetdaemon.components.domain.control.color import ColorControl
+from oscartnetdaemon.components.domain.control.float import FloatControl
 from oscartnetdaemon.components.domain.entities.control_info import DomainControlInfo
 from oscartnetdaemon.components.domain.entities.control_type_enum import DomainControlType
 
@@ -14,8 +16,8 @@ class DomainControlRepository:
         for control_info in controls_infos.values():
             new_control_type = {
                 DomainControlType.Bool: AbstractDomainControl,
-                DomainControlType.Color: AbstractDomainControl,
-                DomainControlType.Float: AbstractDomainControl,
+                DomainControlType.Color: ColorControl,
+                DomainControlType.Float: FloatControl,
                 DomainControlType.String: AbstractDomainControl
             }.get(control_info.type, None)
 

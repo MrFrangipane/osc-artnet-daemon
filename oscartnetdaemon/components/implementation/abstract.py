@@ -2,7 +2,7 @@ import sys
 from abc import ABC, abstractmethod
 from multiprocessing import Queue
 
-from oscartnetdaemon.midi_osc_test_bridge.domain.change_notification import ChangeNotification
+from oscartnetdaemon.components.domain.change_notification import ChangeNotification
 
 
 class AbstractImplementation(ABC):
@@ -16,6 +16,8 @@ class AbstractImplementation(ABC):
 
         self.in_notifications = in_notifications_queue
         self.out_notifications = out_notifications_queue
+        # TODO gracefully exit
+        # https://stackoverflow.com/questions/26627382/python-multiprocessing-killing-a-process-gracefully ?
         try:
             self.exec()
         except KeyboardInterrupt:

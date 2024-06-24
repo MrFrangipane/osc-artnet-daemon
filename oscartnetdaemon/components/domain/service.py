@@ -1,24 +1,30 @@
-from typing import Any
+from typing import Type
 
-from oscartnetdaemon.components.components_singleton import Components
-from oscartnetdaemon.components.domain.abstract_service import AbstractDomainService
-from oscartnetdaemon.components.domain.entities.control_update_origin_enum import DomainControlUpdateOrigin
-from oscartnetdaemon.components.domain.repository import DomainControlRepository
+from oscartnetdaemon.components.domain.control.repository import DomainControlRepository
+from oscartnetdaemon.components.domain.entities.control_info import DomainControlInfo
+from oscartnetdaemon.components.implementation.abstract import AbstractImplementation
+from oscartnetdaemon.components.implementation.repository import ImplementationRepository
 
 
-class DomainService(AbstractDomainService):
+class DomainService:
+
     def __init__(self):
-        super().__init__()
-
-    def start(self):
         self.control_repository = DomainControlRepository()
-        self.control_repository.create_controls(Components().domain_controls_infos)
+        self.implementation_repository = ImplementationRepository()
 
-    def notify_update(self, origin: DomainControlUpdateOrigin, control_name: str, value: Any):
-        self.control_repository.controls[control_name].set_value(value)
+    def register_implementation_type(self, implementation_type: Type[AbstractImplementation]):
+        self.implementation_repository.register_implementation_type(implementation_type)
 
-        if origin == DomainControlUpdateOrigin.OSC:
-            pass
-            # Components().midi_service.notify_update()
-        else:
-            Components().osc_service.notify_update(control_name, value)
+    def create_controls(self, infos: dict[str, DomainControlInfo]):
+        self.control_repository.create_controls(infos)
+
+    def run_forever(self):
+        self.implementation_repository.start_all()
+
+        while True:
+            for notification in self.implementation_repository.get_notifications():
+                self.control_repository.controls[notification.control_name].value = notification.value
+                self.implementation_repository.put_notification(notification)
+
+    def stop(self):
+        self.implementation_repository.terminate_all()

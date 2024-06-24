@@ -1,69 +1,61 @@
-from multiprocessing import Queue
-from threading import Thread
+from queue import Empty, Queue
 
-from oscartnetdaemon.components.components_singleton import Components
-from oscartnetdaemon.components.domain.entities.control_update_origin_enum import DomainControlUpdateOrigin
-from oscartnetdaemon.components.midi.abstract_service import AbstractMIDIService
-from oscartnetdaemon.components.midi.control_repository import MIDIControlRepository
-from oscartnetdaemon.components.midi.device import MIDIDevice
-from oscartnetdaemon.components.midi.entities.context import MIDIContext
-from oscartnetdaemon.components.midi.entities.control_update_info import MIDIControlUpdateInfo
-from oscartnetdaemon.components.midi.entities.message import MIDIMessage
-from oscartnetdaemon.components.midi.message_handler import MIDIMessageHandler
+import mido
+
+from oscartnetdaemon.components.domain.change_notification import ChangeNotification
+from oscartnetdaemon.components.domain.control.float import FloatValue
+from oscartnetdaemon.components.implementation.abstract import AbstractImplementation
+from oscartnetdaemon.components.midi.notification_origin import MIDINotificationOrigin
 
 
-class MIDIService(AbstractMIDIService):
+class MIDIService(AbstractImplementation):
 
     def __init__(self):
         super().__init__()
-        self.is_running = False
-        self.control_repository: MIDIControlRepository = None
-        self.message_handler: MIDIMessageHandler = None
-        self.queue_in: Queue[MIDIMessage] = Queue()
-        self.queues_out: dict[str, Queue[MIDIMessage]] = dict()
-        self._thread: Thread = None
-        self.context: MIDIContext = None
+        self.input: mido.ports.BaseInput = None
+        self.output: mido.ports.BaseOutput = None
 
-    def start(self):
-        self.control_repository = MIDIControlRepository()
-        self.control_repository.create_controls(Components().midi_configuration.controls.values())
+        self.out_messages = None
 
-        self.devices = dict()  # FIXME make a device repository
-        for device_info in Components().midi_configuration.devices.values():
-            self.devices[device_info.name] = MIDIDevice(device_info, self.queue_in)
-            self.devices[device_info.name].components_singleton = Components
-            self.devices[device_info.name].start()
+    def initialize(self):
+        print(mido.get_input_names())
+        print(mido.get_output_names())
 
-        self.message_handler = MIDIMessageHandler(
-            control_repository=self.control_repository
-        )
+        self.input = mido.open_input('X-Touch 4')
+        self.output = mido.open_output('X-Touch 5')
 
-        self.context = MIDIContext(
-            current_page=0,
-            current_layer=list(list(Components().midi_configuration.layer_groups.values())[0].layers.values())[0]
-        )
+        self.out_messages = Queue()
 
-        self.is_running = True
-        self._thread = Thread(target=self.loop, daemon=True)
-        self._thread.start()
+    def poll_change_notification(self):
+        while not self.in_notifications.empty():
+            change_notification = self.in_notifications.get()
+            value = int(change_notification.value.value * 16380.0 - 8192)
+            self.out_messages.put(mido.Message('pitchwheel', channel=8, pitch=value))
 
-    def stop(self):
-        self.is_running = False
-        for device in self.devices.values():
-            device.stop()
+    def exec(self):
+        self.initialize()
 
-    def loop(self):
-        while self.is_running:
-            message = self.queue_in.get()
-            self.message_handler.handle(message, self.context)
+        while True:
+            in_message = self.input.receive(block=False)
+            if in_message is not None:
+                if in_message.channel == 8 and in_message.type == 'pitchwheel':
+                    value = float(in_message.pitch + 8192) / 16380.0
+                    self.out_notifications.put(ChangeNotification(
+                        origin=MIDINotificationOrigin(),
+                        control_name='octostrip',
+                        value=FloatValue(value)
+                    ))
 
-    def notify_update(self, update_info: MIDIControlUpdateInfo):
-        #
-        # TODO : page and layer changes
-        #
-        if update_info.mapped_to:
-            Components().domain_service.notify_update(
-                origin=DomainControlUpdateOrigin.MIDI,
-                control_name=update_info.mapped_to,
-                value=update_info.value
-            )
+            self.poll_change_notification()
+
+            while True:
+                try:
+                    message = self.out_messages.get(block=False)
+                    if message is not None:
+                        self.output.send(message)
+                except Empty:
+                    break
+
+    def handle_termination(self):
+        self.input.close()
+        self.output.close()
