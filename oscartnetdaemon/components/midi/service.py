@@ -16,11 +16,15 @@ class MIDIService(AbstractImplementation):
         super().__init__(configuration_info)
         self.midi_configuration = load_midi_configuration(self.configuration_info)
 
-        self.queue_in: Queue[MIDIMessage] = Queue()
+        self.queue_midi_in: Queue[MIDIMessage] = Queue()
 
         self.control_repository: MIDIControlRepository = None
         self.devices: dict[str, MIDIDevice] = None  # FIXME make a device repository ?
         self.message_handler: MIDIMessageHandler = None
+
+    def exec(self):
+        self.initialize()
+        self.loop()
 
     def initialize(self):
         self.control_repository = MIDIControlRepository()
@@ -28,14 +32,15 @@ class MIDIService(AbstractImplementation):
 
         self.devices = dict()
         for device_info in self.midi_configuration.devices.values():
-            self.devices[device_info.name] = MIDIDevice(device_info, self.queue_in, self.midi_configuration)
+            self.devices[device_info.name] = MIDIDevice(device_info, self.queue_midi_in, self.midi_configuration)
             self.devices[device_info.name].start()
 
         self.message_handler = MIDIMessageHandler(
             control_repository=self.control_repository,
-            notification_queue=self.out_notifications
+            notification_queue=self.notifications_queue_out
         )
 
+        # TODO: implement real pages and layers
         self.context = MIDIContext(
             current_page=0,
             current_layer=list(list(self.midi_configuration.layer_groups.values())[0].layers.values())[0]
@@ -43,13 +48,15 @@ class MIDIService(AbstractImplementation):
 
     def loop(self):
         while True:
-            message = self.queue_in.get()
-            self.message_handler.handle(message, self.context)
+            while not self.queue_midi_in.empty():
+                message = self.queue_midi_in.get()
+                self.message_handler.handle(message, self.context)
+
             self.poll_change_notification()
 
     def poll_change_notification(self):
-        while not self.in_notifications.empty():
-            change_notification = self.in_notifications.get()
+        while not self.notification_queue_in.empty():
+            change_notification = self.notification_queue_in.get()
             compliant_midi_controls = self.control_repository.controls_from_mapping(
                 mapped_to=change_notification.control_name,
                 context=self.context
@@ -58,10 +65,6 @@ class MIDIService(AbstractImplementation):
                 midi_control.value = change_notification.value
                 message = midi_control.make_message(midi_control.info.device)
                 self.devices[midi_control.info.device.name].queue_out.put(message)
-
-    def exec(self):
-        self.initialize()
-        self.loop()
 
     def handle_termination(self):
         for device in self.devices.values():

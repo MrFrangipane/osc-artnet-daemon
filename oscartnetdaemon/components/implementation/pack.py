@@ -8,6 +8,6 @@ from oscartnetdaemon.components.implementation.abstract import AbstractImplement
 @dataclass
 class ImplementationPack:
     implementation: AbstractImplementation
-    in_queue: "Queue[ChangeNotification]"
-    out_queue: "Queue[ChangeNotification]"
+    notifications_queue_in: "Queue[ChangeNotification]"
+    notifications_queue_out: "Queue[ChangeNotification]"
     process: Process | None = None

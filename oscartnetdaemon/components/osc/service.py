@@ -35,7 +35,7 @@ class OSCService(AbstractImplementation):
         if remote[0] not in self.clients:
             self.clients[remote[0]] = SimpleUDPClient(address=remote[0], port=remote[1])
 
-        self.out_notifications.put(ChangeNotification(
+        self.notifications_queue_out.put(ChangeNotification(
             origin=OSCNotificationOrigin(remote_ip=remote[0]),
             control_name='octostrip',
             value=FloatValue(value)
@@ -43,7 +43,7 @@ class OSCService(AbstractImplementation):
 
     def loop(self):
         while True:
-            change_notification = self.in_notifications.get()
+            change_notification = self.notification_queue_in.get()
             for client_ip, client in self.clients.items():
                 if isinstance(change_notification.origin, OSCNotificationOrigin) and client_ip == change_notification.origin.remote_ip:
                     continue

@@ -21,15 +21,18 @@ class ImplementationRepository:
             raise ValueError(f"Implementation type {implementation_type.__name__} already registered")
 
         new_pack = ImplementationPack(
-            implementation_type(self._configuration_info),
-            Queue(),
-            Queue()
+            implementation=implementation_type(self._configuration_info),
+            notifications_queue_in=Queue(),
+            notifications_queue_out=Queue()
         )
         self._implementation_packs.append(new_pack)
 
     def start_all(self):
         for pack in self._implementation_packs:
-            pack.process = Process(target=pack.implementation.exec_bootstrap, args=(pack.in_queue, pack.out_queue))
+            pack.process = Process(
+                target=pack.implementation.exec_bootstrap,
+                args=(pack.notifications_queue_in, pack.notifications_queue_out)
+            )
             pack.process.start()
 
     def terminate_all(self):
@@ -42,11 +45,11 @@ class ImplementationRepository:
     def get_notifications(self) -> list[ChangeNotification]:
         notifications = []
         for pack in self._implementation_packs:
-            while not pack.out_queue.empty():
-                notification = pack.out_queue.get()
+            while not pack.notifications_queue_out.empty():
+                notification = pack.notifications_queue_out.get()
                 notifications.append(notification)
         return notifications
 
     def put_notification(self, notification: ChangeNotification):
         for pack in self._implementation_packs:
-            pack.in_queue.put(notification)
+            pack.notifications_queue_in.put(notification)

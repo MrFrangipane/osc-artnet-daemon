@@ -22,4 +22,4 @@ class MIDIMessageHandler:
                         origin=MIDINotificationOrigin()
                     ))
                 else:
-                    print(midi_control)
+                    print(midi_control.info)

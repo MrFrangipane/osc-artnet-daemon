@@ -9,16 +9,14 @@ class AbstractImplementation(ABC):
 
     def __init__(self, configuration_info: ConfigurationInfo):
         self.configuration_info = configuration_info
-        self.in_notifications: Queue[ChangeNotification] = None
-        self.out_notifications: Queue[ChangeNotification] = None
+        self.notification_queue_in: Queue[ChangeNotification] = None
+        self.notifications_queue_out: Queue[ChangeNotification] = None
 
-    def exec_bootstrap(self, in_notifications_queue: Queue, out_notifications_queue: Queue):
+    def exec_bootstrap(self, notification_queue_in: Queue, notifications_queue_out: Queue):
         print(f"Bootstraping {self.__class__.__name__}")
 
-        self.in_notifications = in_notifications_queue
-        self.out_notifications = out_notifications_queue
-        # TODO gracefully exit
-        # https://stackoverflow.com/questions/26627382/python-multiprocessing-killing-a-process-gracefully ?
+        self.notification_queue_in = notification_queue_in
+        self.notifications_queue_out = notifications_queue_out
         try:
             self.exec()
             pass

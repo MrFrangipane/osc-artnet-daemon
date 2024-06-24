@@ -1,4 +1,5 @@
 from multiprocessing import Process, Queue
+from queue import Empty
 
 import mido
 
@@ -8,11 +9,13 @@ from oscartnetdaemon.components.midi.entities.message import MIDIMessage
 from oscartnetdaemon.components.midi.entities.message_type_enum import MIDIMessageType
 
 
-def receive(queue_in: Queue, queue_out: Queue, device_info: MIDIDeviceInfo, configuration: MIDIConfiguration):
+def receive(queue_in: "Queue[MIDIMessage]", device_info: MIDIDeviceInfo, configuration: MIDIConfiguration):
     midi_in = mido.open_input(device_info.in_port_name)
     try:
         while True:
-            mido_message = midi_in.receive()
+            mido_message = midi_in.receive(block=False)  # don't block, we want the KeyboardInterrupt to work
+            if mido_message is None:
+                continue
             mido_message_vars = vars(mido_message)
             # print(mido_message_vars)
             mido_message_vars['device'] = device_info
@@ -55,7 +58,7 @@ class MIDIDevice:
         self.process_out: Process = None
 
     def start(self):
-        self.process_in = Process(target=receive, args=(self.queue_in, self.queue_out, self.info, self.configuration))
+        self.process_in = Process(target=receive, args=(self.queue_in, self.info, self.configuration))
         self.process_out = Process(target=send, args=(self.queue_out, self.info, self.configuration))
 
         self.process_in.start()
