@@ -53,12 +53,12 @@ class OSCService(AbstractOSCService):
     def send_message(self, osc_address: str, osc_value: str | bytes | bool | int | float | list):
         clients = list(self.clients_repository.clients.values())  # avoid mutation during iteration (could be fixed ?)
         for client in clients:
-            client.send_message(osc_address, osc_value)
+            client.make_message(osc_address, osc_value)
 
     def register_client(self, client_info: OSCClientInfo):
         new_client = self.clients_repository.register(client_info)
         for osc_address, osc_value in self.control_repository.get_all_controls_update_messages():
-            new_client.send_message(osc_address, osc_value)
+            new_client.make_message(osc_address, osc_value)
         self.recall_groups_repository.register_client(client_info)
 
     def unregister_client(self, client_info: OSCClientInfo):
@@ -78,7 +78,7 @@ class OSCService(AbstractOSCService):
         return self.clients_repository.get_client_info_by_ip(client_ip_address)
 
     def notify_update(self, control_name, value):
-        control = self.control_repository.control_from_mapping(control_name)
+        control = self.control_repository.controls_from_mapping(control_name)
         if control is not None:
             pass
             # control.set_values()

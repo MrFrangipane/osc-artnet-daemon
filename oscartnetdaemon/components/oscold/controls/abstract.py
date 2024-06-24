@@ -44,7 +44,7 @@ class OSCAbstractControl(ABC):
         return f"<{self.__class__.__name__}(info.osc_address={self.info.osc_address})>"
 
     def send_osc(self, address, value):
-        self.components_singleton().osc_service.send_message(
+        self.components_singleton().osc_service.make_message(
             osc_address=self.info.osc_address + address,
             osc_value=value
         )

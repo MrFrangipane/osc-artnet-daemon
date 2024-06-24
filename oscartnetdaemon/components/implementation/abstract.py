@@ -21,6 +21,7 @@ class AbstractImplementation(ABC):
         # https://stackoverflow.com/questions/26627382/python-multiprocessing-killing-a-process-gracefully ?
         try:
             self.exec()
+            pass
         except KeyboardInterrupt:
             self.handle_termination()
             print(f"Terminated {self.__class__.__name__}")

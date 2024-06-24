@@ -12,7 +12,6 @@ from oscartnetdaemon.components.midi.entities.message_type_enum import MIDIMessa
 class MIDIMessage:
     channel: int
     device: MIDIDeviceInfo
-    raw_message: Any  # Used by implementation, will probably disappear when implementing midi out
     type: MIDIMessageType
     note: int | None = None
     pitch: int | None = None

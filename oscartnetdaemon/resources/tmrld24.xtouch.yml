@@ -39,9 +39,15 @@ devices:
 
       #
       # Toggle test
-      - name: Toggle
+      - name: ToggleF3
         type: Toggle
         midi: { channel: 0, type: note_on, note: 56 }
+        mapped_to: toggle_octostrip_smooth
+
+      - name: ToggleF4
+        type: Toggle
+        midi: { channel: 0, type: note_on, note: 57 }
+        mapped_to: toggle_octostrip_smooth
 
   - name: X-Touch-Ext
     midi_port_pattern: "X-Touch-Ext "
