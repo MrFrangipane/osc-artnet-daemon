@@ -20,10 +20,10 @@ class MIDIToggleControl(MIDIAbstractControl):
 
         return False
 
-    def make_message(self, device_info: MIDIDeviceInfo) -> MIDIMessage:
+    def make_message(self) -> MIDIMessage:
         return MIDIMessage(
             channel=self.info.midi.channel,
-            device=device_info,
+            device=self.info.device,
             type=MIDIMessageType.NoteOn,
             note=self.info.midi.note,
             velocity=int(self.value.value * 127)

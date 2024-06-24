@@ -7,9 +7,9 @@ from oscartnetdaemon.components.midi.configuration_loader import load_midi_confi
 from oscartnetdaemon.components.midi.control_repository import MIDIControlRepository
 from oscartnetdaemon.components.midi.device import MIDIDevice
 from oscartnetdaemon.components.midi.entities.context import MIDIContext
+from oscartnetdaemon.components.midi.entities.control_role_enum import MIDIControlRole
 from oscartnetdaemon.components.midi.entities.message import MIDIMessage
 from oscartnetdaemon.components.midi.notification_origin import MIDINotificationOrigin
-from oscartnetdaemon.components.midi.entities.control_role_enum import MIDIControlRole
 
 
 class MIDIService(AbstractImplementation):
@@ -44,6 +44,12 @@ class MIDIService(AbstractImplementation):
             current_layer=first_layer
         )
 
+        self.send_all_messages()
+
+    def send_all_messages(self):
+        for control in self.control_repository.controls.values():
+            self.devices[control.info.device.name].queue_out.put(control.make_message())
+
     def loop(self):
         while True:
             while not self.queue_midi_in.empty():
@@ -63,7 +69,7 @@ class MIDIService(AbstractImplementation):
             )
             for midi_control in mapped_midi_controls:
                 midi_control.value = change_notification.value
-                message = midi_control.make_message(midi_control.info.device)
+                message = midi_control.make_message()
                 self.devices[midi_control.info.device.name].queue_out.put(message)
 
     def handle_termination(self):
@@ -87,7 +93,7 @@ class MIDIService(AbstractImplementation):
             elif midi_control.info.role == MIDIControlRole.PageSelector:
                 if midi_control.complies_with(message, self.context) and midi_control.handle_message(message, self.context):
                     # FIXME: this is terrible and should be dealt with classes
-                    self.devices[midi_control.info.device.name].queue_out.put(midi_control.make_message(midi_control.info.device))
+                    self.devices[midi_control.info.device.name].queue_out.put(midi_control.make_message())
                     handled = True
                     page_changed = False
                     for pagination in self.midi_configuration.paginations.values():
@@ -102,26 +108,34 @@ class MIDIService(AbstractImplementation):
                         if page_changed:
                             for page_midi_control_info in pagination.controls[self.context.current_page].values():
                                 page_midi_control = self.control_repository.controls[page_midi_control_info.name]
-                                message = page_midi_control.make_message(page_midi_control.info.device)
+                                message = page_midi_control.make_message()
                                 self.devices[page_midi_control.info.device.name].queue_out.put(message)
 
             elif midi_control.info.role == MIDIControlRole.LayerTrigger:
                 if midi_control.complies_with(message, self.context) and midi_control.handle_message(message, self.context):
                     # FIXME: this is terrible and should be dealt with classes
-                    self.devices[midi_control.info.device.name].queue_out.put(midi_control.make_message(midi_control.info.device))
                     handled = True
                     layer_changed = False
                     for layer_group in self.midi_configuration.layer_groups.values():
                         for layer in layer_group.layers.values():
-                            if layer != self.context.current_layer and midi_control.value.value and midi_control.info == layer.trigger:
+                            if not midi_control.value.value:
+                                continue
+
+                            if layer != self.context.current_layer and midi_control.info == layer.trigger:
                                 self.context.current_layer = layer
                                 layer_changed = True
                                 break
 
                         if layer_changed:
+                            for layer in layer_group.layers.values():
+                                trigger = self.control_repository.controls[layer.trigger.name]
+                                trigger.value.value = float(layer == self.context.current_layer)
+                                message = trigger.make_message()
+                                self.devices[trigger.info.device.name].queue_out.put(message)
+
                             for layer_midi_control_info in self.context.current_layer.controls:
                                 layer_midi_control = self.control_repository.controls[layer_midi_control_info.name]
-                                message = layer_midi_control.make_message(layer_midi_control.info.device)
+                                message = layer_midi_control.make_message()
                                 self.devices[layer_midi_control.info.device.name].queue_out.put(message)
 
             elif midi_control.info.role == MIDIControlRole.Unused:

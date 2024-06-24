@@ -35,5 +35,5 @@ class MIDIAbstractControl(ABC):
         pass
 
     @abstractmethod
-    def make_message(self, device_info: MIDIDeviceInfo) -> MIDIMessage:
+    def make_message(self) -> MIDIMessage:
         pass

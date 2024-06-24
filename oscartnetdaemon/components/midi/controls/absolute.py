@@ -16,10 +16,10 @@ class MIDIAbsoluteControl(MIDIAbstractControl):
         self.value.value = float(message.pitch + 8192) / 16380.0
         return True
 
-    def make_message(self, device_info: MIDIDeviceInfo) -> MIDIMessage:
+    def make_message(self) -> MIDIMessage:
         return MIDIMessage(
             channel=self.info.midi.channel,
-            device=device_info,
+            device=self.info.device,
             type=self.info.midi.type,
             pitch=int(self.value.value * 16380.0 - 8192)
         )
