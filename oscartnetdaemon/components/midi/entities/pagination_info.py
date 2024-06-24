@@ -12,4 +12,4 @@ class MIDIPaginationInfo:
     left: MIDIControlInfo
     right: MIDIControlInfo
     page_count: int
-    controls: list[MIDIControlInfo] = field(default_factory=list)
+    controls: list[dict[str, MIDIControlInfo]] = field(default_factory=list)

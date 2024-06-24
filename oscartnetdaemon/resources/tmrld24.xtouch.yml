@@ -90,23 +90,23 @@ layer-groups:
           control: Fader08:0
           mapped_to: pars
         - name: Spots
-          control: Fader09:0
+          control: Fader09:1
           mapped_to: spots
         - name: Washes
-          control: Fader10:0
+          control: Fader10:1
           mapped_to: washes
     - name: Toggles
       trigger: LayerB
       controls:
         - name: OctostripSmooth
-          control: Fader07:0
+          control: Fader07:2
           mapped_to: toggle_octostrip_smooth
         - name: ParsStrobe
-          control: Fader08:0
+          control: Fader08:2
           mapped_to: toggle_octostrip_strobe
         - name: SpotsSmooth
-          control: Fader07:1
+          control: Fader07:3
           mapped_to: toggle_pars_smooth
         - name: WashesStrobe
-          control: Fader08:1
+          control: Fader08:3
           mapped_to: toggle_pars_strobe

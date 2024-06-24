@@ -7,10 +7,13 @@ import yaml
 from oscartnetdaemon.components.configuration.entities.configuration import ConfigurationInfo
 from oscartnetdaemon.components.midi.entities.configuration import MIDIConfiguration
 from oscartnetdaemon.components.midi.entities.control_info import MIDIControlInfo
+from oscartnetdaemon.components.midi.entities.control_role_enum import MIDIControlRole
 from oscartnetdaemon.components.midi.entities.device_info import MIDIDeviceInfo
 from oscartnetdaemon.components.midi.entities.layer_group_info import MIDIControlLayerGroupInfo
 from oscartnetdaemon.components.midi.entities.layer_info import MIDIControlLayerInfo
 from oscartnetdaemon.components.midi.entities.pagination_info import MIDIPaginationInfo
+
+from pprint import pprint
 
 
 def _find_in_list(item, items):
@@ -19,6 +22,13 @@ def _find_in_list(item, items):
             return item_
 
     raise ValueError(f"Not found '{item}'")
+
+
+def role_ensured(control_info: MIDIControlInfo) -> MIDIControlInfo:
+    if control_info.mapped_to:
+        control_info.role = MIDIControlRole.Mapped
+
+    return control_info
 
 
 def load_midi_configuration(configuration_info: ConfigurationInfo) -> MIDIConfiguration:
@@ -58,7 +68,7 @@ def load_midi_configuration(configuration_info: ConfigurationInfo) -> MIDIConfig
                     raise ValueError(f"MIDI control with name '{name}' already defined")
 
                 control_content['device'] = new_device
-                controls[name] = MIDIControlInfo.from_dict(control_content)
+                controls[name] = role_ensured(MIDIControlInfo.from_dict(control_content))
 
         #
         # Pagination
@@ -74,26 +84,34 @@ def load_midi_configuration(configuration_info: ConfigurationInfo) -> MIDIConfig
                     f"MIDI pagination '{name}': control(s) already paginated: {', '.join(already_paginated_controls)}"
                 )
 
-            pagination['left'] = controls[pagination['left']]
-            pagination['right'] = controls[pagination['right']]
+            control_left = controls[pagination['left']]
+            control_left.role = MIDIControlRole.PageSelector
+            pagination['left'] = control_left
+
+            control_right = controls[pagination['right']]
+            control_right.role = MIDIControlRole.PageSelector
+            pagination['right'] = control_right
+
             paginated_control_names += pagination['controls']
             paginated_controls = list()
             for control_name in pagination['controls']:
                 paginated_controls.append(controls[control_name])
                 controls.pop(control_name)
-            pagination['controls'] = paginated_controls
+            pagination.pop('controls')
 
-            new_pagination_info = MIDIPaginationInfo.from_dict(pagination)
+            new_pagination_info: MIDIPaginationInfo = MIDIPaginationInfo.from_dict(pagination)
 
-            controls_ = [dict() for _ in range(new_pagination_info.page_count)]
+            controls_: list[dict[str, MIDIControlInfo]] = [dict() for _ in range(new_pagination_info.page_count)]
             for page in range(new_pagination_info.page_count):
-                for control in new_pagination_info.controls:
+                for control in paginated_controls:
                     paginated_control = copy(control)
                     paginated_control.name = paginated_control.name + ":" + str(page)
                     paginated_control.page = page
+                    paginated_control.pagination_name = new_pagination_info.name
+                    controls[paginated_control.name] = paginated_control
                     controls_[page][paginated_control.name] = paginated_control
-
             new_pagination_info.controls = controls_
+
             paginations[name] = new_pagination_info
 
         #
@@ -131,8 +149,10 @@ def load_midi_configuration(configuration_info: ConfigurationInfo) -> MIDIConfig
                     layered_control.name = name_control
                     layered_control.layer_name = new_layer.name
                     layered_control.mapped_to = layered_control_content.get('mapped_to', '')
-                    layered_controls.append(layered_control)
+                    layered_controls.append(role_ensured(layered_control))
                     controls[layered_control.name] = layered_control
+                    paginations[layered_control.pagination_name].controls[layered_control.page].pop(source_name)
+                    paginations[layered_control.pagination_name].controls[layered_control.page][layered_control.name] = layered_control
 
                 new_layer.controls = layered_controls
                 layers[name_layer] = new_layer
@@ -153,7 +173,7 @@ def load_midi_configuration(configuration_info: ConfigurationInfo) -> MIDIConfig
         layer_groups=layer_groups
     )
 
-    from pprint import pprint
+
     pprint(configuration)
 
     return configuration

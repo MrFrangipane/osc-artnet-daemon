@@ -25,12 +25,12 @@ class MIDIControlRepository:
                 raise ValueError(f"Control of type '{control_info.type.name}' does not exists")
             else:
                 new_control = new_control_type(control_info)
-                self.controls[control_info.name] = new_control
                 if control_info.mapped_to:
                     if control_info.mapped_to not in self.mappings:
                         self.mappings[control_info.mapped_to] = [new_control]
                     else:
                         self.mappings[control_info.mapped_to].append(new_control)
+                self.controls[control_info.name] = new_control
 
         return self.controls
 

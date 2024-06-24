@@ -9,6 +9,7 @@ from oscartnetdaemon.components.midi.device import MIDIDevice
 from oscartnetdaemon.components.midi.entities.context import MIDIContext
 from oscartnetdaemon.components.midi.entities.message import MIDIMessage
 from oscartnetdaemon.components.midi.notification_origin import MIDINotificationOrigin
+from oscartnetdaemon.components.midi.entities.control_role_enum import MIDIControlRole
 
 
 class MIDIService(AbstractImplementation):
@@ -70,21 +71,24 @@ class MIDIService(AbstractImplementation):
             device.stop()
 
     def handle_message(self, message: MIDIMessage):
+        # FIXME: use classes to deal with pages and layers (and get rid of all the nested info)
+        handled = False
         for midi_control in self.control_repository.controls.values():
-            if midi_control.complies_with(message, self.context) and midi_control.handle_message(message, self.context):
-                print(midi_control.info, midi_control.value)
 
-                #
-                # Mapped to domain
-                if midi_control.info.mapped_to:
+            if midi_control.info.role == MIDIControlRole.Mapped:
+                if midi_control.complies_with(message, self.context) and midi_control.handle_message(message, self.context):
+                    handled = True
+                    print(midi_control.info, midi_control.value)
+
                     self.notifications_queue_out.put(ChangeNotification(
                         control_name=midi_control.info.mapped_to,
                         value=midi_control.value,
                         origin=MIDINotificationOrigin()
                     ))
-                else:
-                    #
-                    # Pagination
+
+            elif midi_control.info.role == MIDIControlRole.PageSelector:
+                if midi_control.complies_with(message, self.context) and midi_control.handle_message(message, self.context):
+                    handled = True
                     page_changed = False
                     for pagination in self.midi_configuration.paginations.values():
                         if midi_control.value.value and midi_control.info == pagination.right:
@@ -96,7 +100,15 @@ class MIDIService(AbstractImplementation):
                             page_changed = True
 
                         if page_changed:
-                            pass
-                            # for page_midi_control in pagination.controls[self.context.current_page]:
-                            #     message = page_midi_control.make_message(page_midi_control.info.device)
-                            #     self.devices[page_midi_control.info.device.name].queue_out.put(message)
+                            for page_midi_control_info in pagination.controls[self.context.current_page].values():
+                                page_midi_control = self.control_repository.controls[page_midi_control_info.name]
+                                message = page_midi_control.make_message(page_midi_control.info.device)
+                                self.devices[page_midi_control.info.device.name].queue_out.put(message)
+
+            elif midi_control.info.role == MIDIControlRole.Unused:
+                if midi_control.complies_with(message, self.context) and midi_control.handle_message(message, self.context):
+                    handled = True
+                    print(midi_control.info, midi_control.value)
+
+        if not handled:
+            print(message)
