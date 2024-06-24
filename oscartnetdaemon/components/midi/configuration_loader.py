@@ -85,13 +85,15 @@ def load_midi_configuration(configuration_info: ConfigurationInfo) -> MIDIConfig
 
             new_pagination_info = MIDIPaginationInfo.from_dict(pagination)
 
+            controls_ = [dict() for _ in range(new_pagination_info.page_count)]
             for page in range(new_pagination_info.page_count):
                 for control in new_pagination_info.controls:
                     paginated_control = copy(control)
                     paginated_control.name = paginated_control.name + ":" + str(page)
                     paginated_control.page = page
-                    controls[paginated_control.name] = paginated_control
+                    controls_[page][paginated_control.name] = paginated_control
 
+            new_pagination_info.controls = controls_
             paginations[name] = new_pagination_info
 
         #
