@@ -7,4 +7,4 @@ from oscartnetdaemon.components.domain.entities.control_info import DomainContro
 @dataclass
 class AbstractDomainControl:
     info: DomainControlInfo
-    value: AbstractValue = field(default_factory=AbstractValue)
+    value: AbstractValue = field(default_factory=AbstractValue)  # FIXME implement Bool and String and remove field

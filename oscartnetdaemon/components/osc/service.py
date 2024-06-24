@@ -3,17 +3,18 @@ from threading import Thread
 from pythonosc.osc_server import ThreadingOSCUDPServer, Dispatcher
 from pythonosc.udp_client import SimpleUDPClient
 
-from oscartnetdaemon.components.implementation.abstract import AbstractImplementation
+from oscartnetdaemon.components.configuration.entities.configuration import ConfigurationInfo
 from oscartnetdaemon.components.domain.change_notification import ChangeNotification
-from oscartnetdaemon.components.osc.notification_origin import OSCNotificationOrigin
 from oscartnetdaemon.components.domain.control.float import FloatValue
+from oscartnetdaemon.components.implementation.abstract import AbstractImplementation
+from oscartnetdaemon.components.osc.notification_origin import OSCNotificationOrigin
 
 
 class OSCService(AbstractImplementation):
     ADDRESS = '/fader_pars/fader'
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, configuration_info: ConfigurationInfo):
+        super().__init__(configuration_info)
         self.clients: dict[tuple[int], SimpleUDPClient] = dict()
 
     def exec(self):

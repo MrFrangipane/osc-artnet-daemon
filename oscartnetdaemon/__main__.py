@@ -19,8 +19,8 @@ if __name__ == '__main__':
     # )
     # discovery_service.start()
 
-    Components().domain_service = DomainService()
-    Components().domain_service.create_controls(Components().domain_controls_infos)
+    Components().domain_service = DomainService(Components().configuration_info)  # FIXME: use a configuration singleton ?
+    Components().domain_service.create_controls(Components().domain_control_infos)
     Components().domain_service.register_implementation_type(MIDIService)
     Components().domain_service.register_implementation_type(OSCService)
 

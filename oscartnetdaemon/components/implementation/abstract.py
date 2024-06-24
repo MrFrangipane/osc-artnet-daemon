@@ -1,13 +1,14 @@
-import sys
 from abc import ABC, abstractmethod
 from multiprocessing import Queue
 
+from oscartnetdaemon.components.configuration.entities.configuration import ConfigurationInfo
 from oscartnetdaemon.components.domain.change_notification import ChangeNotification
 
 
 class AbstractImplementation(ABC):
 
-    def __init__(self):
+    def __init__(self, configuration_info: ConfigurationInfo):
+        self.configuration_info = configuration_info
         self.in_notifications: Queue[ChangeNotification] = None
         self.out_notifications: Queue[ChangeNotification] = None
 

@@ -4,6 +4,7 @@ from copy import copy
 import mido
 import yaml
 
+from oscartnetdaemon.components.configuration.entities.configuration import ConfigurationInfo
 from oscartnetdaemon.components.midi.entities.configuration import MIDIConfiguration
 from oscartnetdaemon.components.midi.entities.control_info import MIDIControlInfo
 from oscartnetdaemon.components.midi.entities.device_info import MIDIDeviceInfo
@@ -20,7 +21,7 @@ def _find_in_list(item, items):
     raise ValueError(f"Not found '{item}'")
 
 
-def load_midi_configuration(filenames: list[str], root_folder: str) -> MIDIConfiguration:
+def load_midi_configuration(configuration_info: ConfigurationInfo) -> MIDIConfiguration:
     in_port_names = mido.get_input_names()
     out_port_names = mido.get_output_names()
 
@@ -29,8 +30,8 @@ def load_midi_configuration(filenames: list[str], root_folder: str) -> MIDIConfi
     layer_groups: dict[str, MIDIControlLayerGroupInfo] = dict()
     paginations: dict[str, MIDIPaginationInfo] = dict()
 
-    for filename in filenames:
-        filepath = os.path.join(root_folder, filename)
+    for filename in configuration_info.midi_filenames:
+        filepath = os.path.join(configuration_info.root_folder, filename)
         with open(filepath, 'r') as yaml_controls_file:
             yaml_content = yaml.safe_load(yaml_controls_file)
 

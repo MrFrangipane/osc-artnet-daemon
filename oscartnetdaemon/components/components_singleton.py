@@ -7,11 +7,13 @@ from oscartnetdaemon.components.midi.service import MIDIService
 # from oscartnetdaemon.components.osc.service import OSCService
 # from oscartnetdaemon.components.osc.entities.configuration import OSCConfiguration
 from oscartnetdaemon.python_extensions.singleton_metaclass import SingletonMetaclass
+from oscartnetdaemon.components.configuration.entities.configuration import ConfigurationInfo
 
 
 @dataclass
 class Components(metaclass=SingletonMetaclass):
-    domain_controls_infos: dict[str, DomainControlInfo] = None  # FIXME: make a DomainConfiguration dataclass ?
+    configuration_info: ConfigurationInfo = None
+    domain_control_infos: dict[str, DomainControlInfo] = None  # FIXME: make a DomainConfiguration dataclass ?
     domain_service: DomainService = None
     # midi_configuration: MIDIConfiguration = None
     # midi_service: MIDIService = None

@@ -7,5 +7,5 @@ osc:
   server-port: 8080
   controls:
     - "tmrld24.osc.yml"
-midi-devices:
+midi-filenames:
   - "tmrld24.xtouch.yml"

@@ -1,14 +1,16 @@
 from typing import Type
-from multiprocessing import log_to_stderr, Process, Queue
+from multiprocessing import Process, Queue
 
 from oscartnetdaemon.components.implementation.abstract import AbstractImplementation
 from oscartnetdaemon.components.implementation.pack import ImplementationPack
 from oscartnetdaemon.components.domain.change_notification import ChangeNotification
+from oscartnetdaemon.components.configuration.entities.configuration import ConfigurationInfo
 
 
 class ImplementationRepository:
 
-    def __init__(self):
+    def __init__(self, configuration_info: ConfigurationInfo):
+        self._configuration_info = configuration_info
         self._registered_types: list[Type[AbstractImplementation]] = list()
         self._implementation_packs: list[ImplementationPack] = list()
 
@@ -19,7 +21,7 @@ class ImplementationRepository:
             raise ValueError(f"Implementation type {implementation_type.__name__} already registered")
 
         new_pack = ImplementationPack(
-            implementation_type(),
+            implementation_type(self._configuration_info),
             Queue(),
             Queue()
         )
