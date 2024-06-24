@@ -7,11 +7,11 @@ devices:
     controls:
       #
       # Layers Triggers
-      - name: LayerA
+      - name: LayerA.Trigger
         type: Button
         midi: { channel: 0, type: note_on, note: 54 }
 
-      - name: LayerB
+      - name: LayerB.Trigger
         type: Button
         midi: { channel: 0, type: note_on, note: 55 }
       #
@@ -36,6 +36,14 @@ devices:
       - name: Fader10
         type: Absolute
         midi: { channel: 1, type: pitchwheel }
+
+      - name: Fader11
+        type: Absolute
+        midi: { channel: 2, type: pitchwheel }
+
+      - name: Fader12
+        type: Absolute
+        midi: { channel: 3, type: pitchwheel }
 
       #
       # Toggle test
@@ -81,32 +89,21 @@ layer-groups:
   - name: Faders
     layers:
     - name: Dimmers
-      trigger: LayerA
+      trigger: LayerA.Trigger
       controls:
-        - name: Octostrip
-          control: Fader07:0
+        - name: LayerA.Fader11
+          control: Fader11
           mapped_to: octostrip
-        - name: Pars
-          control: Fader08:0
+        - name: LayerA.Fader12
+          control: Fader12
           mapped_to: pars
-        - name: Spots
-          control: Fader09:1
-          mapped_to: spots
-        - name: Washes
-          control: Fader10:1
-          mapped_to: washes
+
     - name: Toggles
-      trigger: LayerB
+      trigger: LayerB.Trigger
       controls:
-        - name: OctostripSmooth
-          control: Fader07:2
-          mapped_to: toggle_octostrip_smooth
-        - name: ParsStrobe
-          control: Fader08:2
-          mapped_to: toggle_octostrip_strobe
-        - name: SpotsSmooth
-          control: Fader07:3
-          mapped_to: toggle_pars_smooth
-        - name: WashesStrobe
-          control: Fader08:3
-          mapped_to: toggle_pars_strobe
+        - name: LayerB.Fader11
+          control: Fader11
+          mapped_to: spots
+        - name: LayerB.Fader12
+          control: Fader12
+          mapped_to: washes

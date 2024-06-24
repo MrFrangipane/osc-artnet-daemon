@@ -129,9 +129,11 @@ def load_midi_configuration(configuration_info: ConfigurationInfo) -> MIDIConfig
                 if name_layer in layers:
                     raise ValueError(f"MIDI control layer group name '{name_layer}' already defined")
 
+                trigger = controls[layer_content['trigger']]
+                trigger.role = MIDIControlRole.LayerTrigger
                 new_layer = MIDIControlLayerInfo(
                     name=name_layer,
-                    trigger=controls[layer_content['trigger']]
+                    trigger=trigger
                 )
 
                 layered_controls = list()
@@ -151,8 +153,9 @@ def load_midi_configuration(configuration_info: ConfigurationInfo) -> MIDIConfig
                     layered_control.mapped_to = layered_control_content.get('mapped_to', '')
                     layered_controls.append(role_ensured(layered_control))
                     controls[layered_control.name] = layered_control
-                    paginations[layered_control.pagination_name].controls[layered_control.page].pop(source_name)
-                    paginations[layered_control.pagination_name].controls[layered_control.page][layered_control.name] = layered_control
+                    if layered_control.pagination_name:
+                        paginations[layered_control.pagination_name].controls[layered_control.page].pop(source_name)
+                        paginations[layered_control.pagination_name].controls[layered_control.page][layered_control.name] = layered_control
 
                 new_layer.controls = layered_controls
                 layers[name_layer] = new_layer
@@ -172,7 +175,6 @@ def load_midi_configuration(configuration_info: ConfigurationInfo) -> MIDIConfig
         paginations=paginations,
         layer_groups=layer_groups
     )
-
 
     pprint(configuration)
 

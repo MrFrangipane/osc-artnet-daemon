@@ -78,8 +78,6 @@ class MIDIService(AbstractImplementation):
             if midi_control.info.role == MIDIControlRole.Mapped:
                 if midi_control.complies_with(message, self.context) and midi_control.handle_message(message, self.context):
                     handled = True
-                    print(midi_control.info, midi_control.value)
-
                     self.notifications_queue_out.put(ChangeNotification(
                         control_name=midi_control.info.mapped_to,
                         value=midi_control.value,
@@ -88,6 +86,8 @@ class MIDIService(AbstractImplementation):
 
             elif midi_control.info.role == MIDIControlRole.PageSelector:
                 if midi_control.complies_with(message, self.context) and midi_control.handle_message(message, self.context):
+                    # FIXME: this is terrible and should be dealt with classes
+                    self.devices[midi_control.info.device.name].queue_out.put(midi_control.make_message(midi_control.info.device))
                     handled = True
                     page_changed = False
                     for pagination in self.midi_configuration.paginations.values():
@@ -105,10 +105,28 @@ class MIDIService(AbstractImplementation):
                                 message = page_midi_control.make_message(page_midi_control.info.device)
                                 self.devices[page_midi_control.info.device.name].queue_out.put(message)
 
+            elif midi_control.info.role == MIDIControlRole.LayerTrigger:
+                if midi_control.complies_with(message, self.context) and midi_control.handle_message(message, self.context):
+                    # FIXME: this is terrible and should be dealt with classes
+                    self.devices[midi_control.info.device.name].queue_out.put(midi_control.make_message(midi_control.info.device))
+                    handled = True
+                    layer_changed = False
+                    for layer_group in self.midi_configuration.layer_groups.values():
+                        for layer in layer_group.layers.values():
+                            if layer != self.context.current_layer and midi_control.value.value and midi_control.info == layer.trigger:
+                                self.context.current_layer = layer
+                                layer_changed = True
+                                break
+
+                        if layer_changed:
+                            for layer_midi_control_info in self.context.current_layer.controls:
+                                layer_midi_control = self.control_repository.controls[layer_midi_control_info.name]
+                                message = layer_midi_control.make_message(layer_midi_control.info.device)
+                                self.devices[layer_midi_control.info.device.name].queue_out.put(message)
+
             elif midi_control.info.role == MIDIControlRole.Unused:
                 if midi_control.complies_with(message, self.context) and midi_control.handle_message(message, self.context):
                     handled = True
-                    print(midi_control.info, midi_control.value)
 
         if not handled:
             print(message)

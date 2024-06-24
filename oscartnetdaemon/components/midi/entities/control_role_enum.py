@@ -5,3 +5,4 @@ class MIDIControlRole(Enum):
     Unused = 'Unused'
     Mapped = 'Mapped'
     PageSelector = 'PageSelector'
+    LayerTrigger = 'LayerTrigger'

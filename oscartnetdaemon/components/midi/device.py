@@ -1,5 +1,4 @@
 from multiprocessing import Process, Queue
-from queue import Empty
 
 import mido
 
@@ -19,8 +18,11 @@ def receive(queue_in: "Queue[MIDIMessage]", device_info: MIDIDeviceInfo, configu
             mido_message_vars = vars(mido_message)
             # print(mido_message_vars)
             mido_message_vars['device'] = device_info
-            message = MIDIMessage.from_dict(mido_message_vars)
-            queue_in.put(message)
+            try:
+                message = MIDIMessage.from_dict(mido_message_vars)
+                queue_in.put(message)
+            except ValueError:
+                print(f'Midi device cant deal with <{mido_message}>')
 
     except KeyboardInterrupt:
         midi_in.close()
