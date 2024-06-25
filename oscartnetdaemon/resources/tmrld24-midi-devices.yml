@@ -44,6 +44,10 @@ devices:
         type: Button
         midi: { channel: 0, type: note_on, note: 56 }  # F3
 
+      - name: Mode.Audio.Trigger
+        type: Button
+        midi: { channel: 0, type: note_on, note: 57 }  # F4
+
       - name: Pagination.Left
         type: Button
         midi: { channel: 0, type: note_on, note: 46 }  # < FADER BANK
@@ -78,7 +82,7 @@ devices:
 #
 # This will convert Fader.XX -> Fader.XX:0, Fader.XX:1, Fader.XX:2, ...
 pagination:
-  - name: Faders
+  - name: Pages
     left: Pagination.Left
     right: Pagination.Right
     page_count: 3

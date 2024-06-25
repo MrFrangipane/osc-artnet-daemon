@@ -120,3 +120,40 @@ layer-groups:
         - {control: Fader.02:0, mapped_to: PARS}
         - {control: Fader.03:0, mapped_to: SPOTS}
         - {control: Fader.04:0, mapped_to: WASHES}
+
+    - name: Audio
+      trigger: Mode.Audio.Trigger
+      controls:
+        - {control: Fader.01:0, mapped_to: AUDIO_01}
+        - {control: Fader.02:0, mapped_to: AUDIO_02}
+        - {control: Fader.03:0, mapped_to: AUDIO_03}
+        - {control: Fader.04:0, mapped_to: AUDIO_04}
+        - {control: Fader.05:0, mapped_to: AUDIO_05}
+        - {control: Fader.06:0, mapped_to: AUDIO_06}
+        - {control: Fader.07:0, mapped_to: AUDIO_07}
+        - {control: Fader.08:0, mapped_to: AUDIO_08}
+        - {control: Fader.09:0, mapped_to: AUDIO_09}
+        - {control: Fader.10:0, mapped_to: AUDIO_10}
+        - {control: Fader.11:0, mapped_to: AUDIO_11}
+        - {control: Fader.12:0, mapped_to: AUDIO_12}
+        - {control: Fader.13:0, mapped_to: AUDIO_13}
+        - {control: Fader.14:0, mapped_to: AUDIO_14}
+        - {control: Fader.15:0, mapped_to: AUDIO_15}
+        - {control: Fader.16:0, mapped_to: AUDIO_16}
+        - {control: Fader.01:1, mapped_to: AUDIO_17}
+        - {control: Fader.02:1, mapped_to: AUDIO_18}
+        - {control: Fader.03:1, mapped_to: AUDIO_19}
+        - {control: Fader.04:1, mapped_to: AUDIO_20}
+        - {control: Fader.05:1, mapped_to: AUDIO_21}
+        - {control: Fader.06:1, mapped_to: AUDIO_22}
+        - {control: Fader.07:1, mapped_to: AUDIO_23}
+        - {control: Fader.08:1, mapped_to: AUDIO_24}
+        - {control: Fader.09:1, mapped_to: AUDIO_25}
+        - {control: Fader.10:1, mapped_to: AUDIO_26}
+        - {control: Fader.11:1, mapped_to: AUDIO_27}
+        - {control: Fader.12:1, mapped_to: AUDIO_28}
+        - {control: Fader.13:1, mapped_to: AUDIO_29}
+        - {control: Fader.14:1, mapped_to: AUDIO_30}
+        - {control: Fader.15:1, mapped_to: AUDIO_31}
+        - {control: Fader.16:1, mapped_to: AUDIO_32}
+        - {control: Fader.Master, mapped_to: AUDIO_MASTER}

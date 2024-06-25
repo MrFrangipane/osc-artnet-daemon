@@ -1,0 +1,101 @@
+---
+controls:
+  #
+  # FOR "AUDIO" MODE
+  - {name: AUDIO_MASTER, type: Float}
+
+  - {name: AUDIO_01, type: Float}
+  - {name: AUDIO_01_NAME, type: String}
+
+  - {name: AUDIO_02, type: Float}
+  - {name: AUDIO_02_NAME, type: String}
+
+  - {name: AUDIO_03, type: Float}
+  - {name: AUDIO_03_NAME, type: String}
+
+  - {name: AUDIO_04, type: Float}
+  - {name: AUDIO_04_NAME, type: String}
+
+  - {name: AUDIO_05, type: Float}
+  - {name: AUDIO_05_NAME, type: String}
+
+  - {name: AUDIO_06, type: Float}
+  - {name: AUDIO_06_NAME, type: String}
+
+  - {name: AUDIO_07, type: Float}
+  - {name: AUDIO_07_NAME, type: String}
+
+  - {name: AUDIO_08, type: Float}
+  - {name: AUDIO_08_NAME, type: String}
+
+  - {name: AUDIO_09, type: Float}
+  - {name: AUDIO_09_NAME, type: String}
+
+  - {name: AUDIO_10, type: Float}
+  - {name: AUDIO_10_NAME, type: String}
+
+  - {name: AUDIO_11, type: Float}
+  - {name: AUDIO_11_NAME, type: String}
+
+  - {name: AUDIO_12, type: Float}
+  - {name: AUDIO_12_NAME, type: String}
+
+  - {name: AUDIO_13, type: Float}
+  - {name: AUDIO_13_NAME, type: String}
+
+  - {name: AUDIO_14, type: Float}
+  - {name: AUDIO_14_NAME, type: String}
+
+  - {name: AUDIO_15, type: Float}
+  - {name: AUDIO_15_NAME, type: String}
+
+  - {name: AUDIO_16, type: Float}
+  - {name: AUDIO_16_NAME, type: String}
+
+  - {name: AUDIO_17, type: Float}
+  - {name: AUDIO_17_NAME, type: String}
+
+  - {name: AUDIO_18, type: Float}
+  - {name: AUDIO_18_NAME, type: String}
+
+  - {name: AUDIO_19, type: Float}
+  - {name: AUDIO_19_NAME, type: String}
+
+  - {name: AUDIO_20, type: Float}
+  - {name: AUDIO_20_NAME, type: String}
+
+  - {name: AUDIO_21, type: Float}
+  - {name: AUDIO_21_NAME, type: String}
+
+  - {name: AUDIO_22, type: Float}
+  - {name: AUDIO_22_NAME, type: String}
+
+  - {name: AUDIO_23, type: Float}
+  - {name: AUDIO_23_NAME, type: String}
+
+  - {name: AUDIO_24, type: Float}
+  - {name: AUDIO_24_NAME, type: String}
+
+  - {name: AUDIO_25, type: Float}
+  - {name: AUDIO_25_NAME, type: String}
+
+  - {name: AUDIO_26, type: Float}
+  - {name: AUDIO_26_NAME, type: String}
+
+  - {name: AUDIO_27, type: Float}
+  - {name: AUDIO_27_NAME, type: String}
+
+  - {name: AUDIO_28, type: Float}
+  - {name: AUDIO_28_NAME, type: String}
+
+  - {name: AUDIO_29, type: Float}
+  - {name: AUDIO_29_NAME, type: String}
+
+  - {name: AUDIO_30, type: Float}
+  - {name: AUDIO_30_NAME, type: String}
+
+  - {name: AUDIO_31, type: Float}
+  - {name: AUDIO_31_NAME, type: String}
+
+  - {name: AUDIO_32, type: Float}
+  - {name: AUDIO_32_NAME, type: String}
