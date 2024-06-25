@@ -28,6 +28,7 @@ class OSCService(AbstractImplementation):
         self._server_thread: Thread = None
 
     def initialize(self):
+        # !! Called before process creation, don't create non-pickleable members here !!
         self.control_repository = OSCControlRepository()
         controls = self.control_repository.create_controls(self.osc_configuration.controls)
 
@@ -39,6 +40,7 @@ class OSCService(AbstractImplementation):
 
         self.clients_repository = OSCClientsRepository()
 
+    def exec(self):
         dispatcher = Dispatcher()
         self.control_repository.map_to_dispatcher(dispatcher)
 
@@ -48,9 +50,6 @@ class OSCService(AbstractImplementation):
             server_address=(address, port),
             dispatcher=dispatcher
         )
-
-    def exec(self):
-        pass
 
     def handle_termination(self):
         pass
