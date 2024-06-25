@@ -142,10 +142,16 @@ class MIDIService(AbstractImplementation):
 
             elif midi_control.info.role == MIDIControlRole.Unused:
                 if midi_control.complies_with(message, self.context) and midi_control.handle_message(message, self.context):
+                    # FIXME: why is this never called ?
                     handled = True
 
         if not handled:
             print(message)
 
     def post_message_for_control(self, midi_control: MIDIAbstractControl):
+        page_ok = midi_control.info.page == -1 or midi_control.info.page == self.context.current_page
+        layer_ok = midi_control.info.layer_name == "" or midi_control.info.layer_name == self.context.current_layer.name
+        if not page_ok or not layer_ok:
+            return
+
         self.devices[midi_control.info.device.name].queue_out.put(midi_control.make_message())

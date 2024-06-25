@@ -118,6 +118,7 @@ def load_midi_configuration(configuration_info: ConfigurationInfo) -> MIDIConfig
         # Layers
         layered_control_names = list()
         controls_to_pop_names = list()
+        paginated_controls_to_pop_names = list()
         for layer_group_content in yaml_content['layer-groups']:
             name_group = layer_group_content['name']
             if name_group in layer_groups:
@@ -154,11 +155,15 @@ def load_midi_configuration(configuration_info: ConfigurationInfo) -> MIDIConfig
                     layered_controls.append(role_ensured(layered_control))
                     controls[layered_control.name] = layered_control
                     if layered_control.pagination_name:
-                        paginations[layered_control.pagination_name].controls[layered_control.page].pop(source_name)
+                        if source_name not in paginated_controls_to_pop_names:
+                            paginated_controls_to_pop_names.append(source_name)
                         paginations[layered_control.pagination_name].controls[layered_control.page][layered_control.name] = layered_control
 
                 new_layer.controls = layered_controls
                 layers[name_layer] = new_layer
+
+            for name_ in paginated_controls_to_pop_names:
+                paginations[controls[name_].pagination_name].controls[controls[name_].page].pop(name_)
 
             for name_ in controls_to_pop_names:
                 controls.pop(name_)
