@@ -12,21 +12,21 @@ class DomainService:
     def __init__(self, configuration_info: ConfigurationInfo):
         self._configuration_info = configuration_info
         self._control_repository = DomainControlRepository()
-        self._implementation_repository = ImplementationRepository(self._configuration_info)
+        self.implementation_repository = ImplementationRepository(self._configuration_info)
 
     def register_implementation_type(self, implementation_type: Type[AbstractImplementation]):
-        self._implementation_repository.register_implementation_type(implementation_type)
+        self.implementation_repository.register_implementation_type(implementation_type)
 
     def create_controls(self, infos: dict[str, DomainControlInfo]):
         self._control_repository.create_controls(infos)
 
     def run_forever(self):
-        self._implementation_repository.start_all()
+        self.implementation_repository.start_all()
 
         while True:
-            for notification in self._implementation_repository.get_notifications():
+            for notification in self.implementation_repository.get_notifications():
                 self._control_repository.controls[notification.control_name].value = notification.value
-                self._implementation_repository.put_notification(notification)
+                self.implementation_repository.put_notification(notification)
 
     def stop(self):
-        self._implementation_repository.terminate_all()
+        self.implementation_repository.terminate_all()

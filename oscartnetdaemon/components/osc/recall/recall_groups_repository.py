@@ -1,7 +1,7 @@
 import logging
 
-from oscartnetdaemon.components.osc.abstract_recall_groups_repository import AbstractOSCRecallGroupsRepository
-from oscartnetdaemon.components.osc.punch_pile import PunchPile
+from oscartnetdaemon.components.osc.recall.abstract_recall_groups_repository import AbstractOSCRecallGroupsRepository
+from oscartnetdaemon.components.osc.recall.punch_pile import PunchPile
 from oscartnetdaemon.components.osc.entities.recall_group import OSCRecallGroup, OSCMemorySlot
 from oscartnetdaemon.components.osc.controls.abstract import OSCAbstractControl
 

@@ -23,7 +23,8 @@ class ConfigurationLoader:
 
         Components().configuration_info = ConfigurationInfo(
             root_folder=os.path.dirname(filepath),
-            midi_filenames=yaml_content['midi-filenames']
+            midi_filenames=yaml_content['midi-filenames'],
+            osc_raw_configuration=yaml_content['osc']  # FIXME: a bit hacky
         )
 
         Components().domain_control_infos = load_controls_configuration(

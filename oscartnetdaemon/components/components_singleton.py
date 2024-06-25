@@ -8,6 +8,7 @@ from oscartnetdaemon.components.midi.service import MIDIService
 # from oscartnetdaemon.components.osc.entities.configuration import OSCConfiguration
 from oscartnetdaemon.python_extensions.singleton_metaclass import SingletonMetaclass
 from oscartnetdaemon.components.configuration.entities.configuration import ConfigurationInfo
+from oscartnetdaemon.components.implementation.abstract import AbstractImplementation
 
 
 @dataclass
@@ -18,4 +19,4 @@ class Components(metaclass=SingletonMetaclass):
     # midi_configuration: MIDIConfiguration = None
     # midi_service: MIDIService = None
     # osc_configuration: OSCConfiguration = None
-    # osc_service: OSCService = None
+    osc_service: AbstractImplementation = None

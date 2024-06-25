@@ -8,4 +8,4 @@ from dataclasses_json import dataclass_json, LetterCase
 class ConfigurationInfo:
     root_folder: str
     midi_filenames: list[str]
-
+    osc_raw_configuration: dict

@@ -1,54 +1,68 @@
 from threading import Thread
 
-from pythonosc.osc_server import ThreadingOSCUDPServer, Dispatcher
-from pythonosc.udp_client import SimpleUDPClient
+from pythonosc.dispatcher import Dispatcher
+from pythonosc.osc_server import ThreadingOSCUDPServer
 
 from oscartnetdaemon.components.configuration.entities.configuration import ConfigurationInfo
-from oscartnetdaemon.components.domain.change_notification import ChangeNotification
-from oscartnetdaemon.components.domain.control.float import FloatValue
 from oscartnetdaemon.components.implementation.abstract import AbstractImplementation
-from oscartnetdaemon.components.osc.notification_origin import OSCNotificationOrigin
+from oscartnetdaemon.components.osc.clients_repository import OSCClientsRepository
+from oscartnetdaemon.components.osc.configuration_loader import load_osc_configuration
+from oscartnetdaemon.components.osc.controls.abstract_repository import AbstractOSCControlRepository
+from oscartnetdaemon.components.osc.controls.repository import OSCControlRepository
+from oscartnetdaemon.components.osc.entities.client_info import OSCClientInfo
+from oscartnetdaemon.components.osc.recall.abstract_recall_groups_repository import AbstractOSCRecallGroupsRepository
+from oscartnetdaemon.components.osc.recall.recall_groups_repository import OSCRecallGroupsRepository
 
 
 class OSCService(AbstractImplementation):
-    ADDRESS = '/fader_pars/fader'
 
     def __init__(self, configuration_info: ConfigurationInfo):
         super().__init__(configuration_info)
-        self.clients: dict[tuple[int], SimpleUDPClient] = dict()
+        self.osc_configuration = load_osc_configuration(self.configuration_info)
 
-    def exec(self):
+        self.clients_repository: OSCClientsRepository = None
+        self.control_repository: AbstractOSCControlRepository = None
+        self.recall_groups_repository: AbstractOSCRecallGroupsRepository = None
+
+        self.server: ThreadingOSCUDPServer = None
+        self._server_thread: Thread = None
+
+    def initialize(self):
+        self.control_repository = OSCControlRepository()
+        controls = self.control_repository.create_controls(self.osc_configuration.controls)
+
+        self.recall_groups_repository = OSCRecallGroupsRepository()
+        self.recall_groups_repository.create_groups(
+            controls=controls,
+            recall_group_infos=self.osc_configuration.recall_groups
+        )
+
+        self.clients_repository = OSCClientsRepository()
+
         dispatcher = Dispatcher()
-        dispatcher.map(self.ADDRESS, self._handle, needs_reply_address=True)
+        self.control_repository.map_to_dispatcher(dispatcher)
 
-        server = ThreadingOSCUDPServer(
-            server_address=("192.168.20.7", 8080),
+        address = self.osc_configuration.server_ip_address
+        port = self.osc_configuration.server_port
+        self.server = ThreadingOSCUDPServer(
+            server_address=(address, port),
             dispatcher=dispatcher
         )
 
-        server_thread = Thread(target=server.serve_forever, daemon=True)
-        server_thread.start()
-
-        self.loop()
-
-    def _handle(self, remote, address, value):
-        if remote[0] not in self.clients:
-            self.clients[remote[0]] = SimpleUDPClient(address=remote[0], port=remote[1])
-
-        self.notifications_queue_out.put(ChangeNotification(
-            origin=OSCNotificationOrigin(remote_ip=remote[0]),
-            control_name='octostrip',
-            value=FloatValue(value)
-        ))
-
-    def loop(self):
-        while True:
-            change_notification = self.notification_queue_in.get()
-            for client_ip, client in self.clients.items():
-                if isinstance(change_notification.origin, OSCNotificationOrigin) and client_ip == change_notification.origin.remote_ip:
-                    continue
-
-                client.send_message(self.ADDRESS, value=change_notification.value.value)
+    def exec(self):
+        pass
 
     def handle_termination(self):
         pass
+
+    #
+    # CLIENTS
+    def register_client(self, client_info: OSCClientInfo):
+        new_client = self.clients_repository.register(client_info)
+        for osc_address, osc_value in self.control_repository.get_all_controls_update_messages():
+            new_client.send_message(osc_address, osc_value)
+        self.recall_groups_repository.register_client(client_info)
+
+    def unregister_client(self, client_info: OSCClientInfo):
+        self.clients_repository.unregister(client_info)
+        self.recall_groups_repository.unregister_client(client_info)
