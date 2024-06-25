@@ -1,0 +1,53 @@
+---
+controls:
+  #
+  # FOR "EDIT" MODE
+  - {name: DMX_MASTER, type: Float}
+  - {name: DMX_01, type: Float}
+  - {name: DMX_02, type: Float}
+  - {name: DMX_03, type: Float}
+  - {name: DMX_04, type: Float}
+  - {name: DMX_05, type: Float}
+  - {name: DMX_06, type: Float}
+  - {name: DMX_07, type: Float}
+  - {name: DMX_08, type: Float}
+  - {name: DMX_09, type: Float}
+  - {name: DMX_10, type: Float}
+  - {name: DMX_11, type: Float}
+  - {name: DMX_12, type: Float}
+  - {name: DMX_13, type: Float}
+  - {name: DMX_14, type: Float}
+  - {name: DMX_15, type: Float}
+  - {name: DMX_16, type: Float}
+  - {name: DMX_17, type: Float}
+  - {name: DMX_18, type: Float}
+  - {name: DMX_19, type: Float}
+  - {name: DMX_20, type: Float}
+  - {name: DMX_21, type: Float}
+  - {name: DMX_22, type: Float}
+  - {name: DMX_23, type: Float}
+  - {name: DMX_24, type: Float}
+  - {name: DMX_25, type: Float}
+  - {name: DMX_26, type: Float}
+  - {name: DMX_27, type: Float}
+  - {name: DMX_28, type: Float}
+  - {name: DMX_29, type: Float}
+  - {name: DMX_30, type: Float}
+  - {name: DMX_31, type: Float}
+  - {name: DMX_32, type: Float}
+  - {name: DMX_33, type: Float}
+  - {name: DMX_34, type: Float}
+  - {name: DMX_35, type: Float}
+  - {name: DMX_36, type: Float}
+  - {name: DMX_37, type: Float}
+  - {name: DMX_38, type: Float}
+  - {name: DMX_39, type: Float}
+  - {name: DMX_40, type: Float}
+  - {name: DMX_41, type: Float}
+  - {name: DMX_42, type: Float}
+  - {name: DMX_43, type: Float}
+  - {name: DMX_44, type: Float}
+  - {name: DMX_45, type: Float}
+  - {name: DMX_46, type: Float}
+  - {name: DMX_47, type: Float}
+  - {name: DMX_48, type: Float}

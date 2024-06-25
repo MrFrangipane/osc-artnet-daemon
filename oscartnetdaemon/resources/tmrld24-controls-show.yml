@@ -1,0 +1,149 @@
+---
+controls:
+  #
+  # FOR "SHOW" MODE
+  - {name: SHOW_MASTER, type: Float}
+
+  - {name: SHOW_01_SELECT, type: Bool}
+  - {name: SHOW_01_NAME, type: String}
+
+  - {name: SHOW_02_SELECT, type: Bool}
+  - {name: SHOW_02_NAME, type: String}
+
+  - {name: SHOW_03_SELECT, type: Bool}
+  - {name: SHOW_03_NAME, type: String}
+
+  - {name: SHOW_04_SELECT, type: Bool}
+  - {name: SHOW_04_NAME, type: String}
+
+  - {name: SHOW_05_SELECT, type: Bool}
+  - {name: SHOW_05_NAME, type: String}
+
+  - {name: SHOW_06_SELECT, type: Bool}
+  - {name: SHOW_06_NAME, type: String}
+
+  - {name: SHOW_07_SELECT, type: Bool}
+  - {name: SHOW_07_NAME, type: String}
+
+  - {name: SHOW_08_SELECT, type: Bool}
+  - {name: SHOW_08_NAME, type: String}
+
+  - {name: SHOW_09_SELECT, type: Bool}
+  - {name: SHOW_09_NAME, type: String}
+
+  - {name: SHOW_10_SELECT, type: Bool}
+  - {name: SHOW_10_NAME, type: String}
+
+  - {name: SHOW_11_SELECT, type: Bool}
+  - {name: SHOW_11_NAME, type: String}
+
+  - {name: SHOW_12_SELECT, type: Bool}
+  - {name: SHOW_12_NAME, type: String}
+
+  - {name: SHOW_13_SELECT, type: Bool}
+  - {name: SHOW_13_NAME, type: String}
+
+  - {name: SHOW_14_SELECT, type: Bool}
+  - {name: SHOW_14_NAME, type: String}
+
+  - {name: SHOW_15_SELECT, type: Bool}
+  - {name: SHOW_15_NAME, type: String}
+
+  - {name: SHOW_16_SELECT, type: Bool}
+  - {name: SHOW_16_NAME, type: String}
+
+  - {name: SHOW_17_SELECT, type: Bool}
+  - {name: SHOW_17_NAME, type: String}
+
+  - {name: SHOW_18_SELECT, type: Bool}
+  - {name: SHOW_18_NAME, type: String}
+
+  - {name: SHOW_19_SELECT, type: Bool}
+  - {name: SHOW_19_NAME, type: String}
+
+  - {name: SHOW_20_SELECT, type: Bool}
+  - {name: SHOW_20_NAME, type: String}
+
+  - {name: SHOW_21_SELECT, type: Bool}
+  - {name: SHOW_21_NAME, type: String}
+
+  - {name: SHOW_22_SELECT, type: Bool}
+  - {name: SHOW_22_NAME, type: String}
+
+  - {name: SHOW_23_SELECT, type: Bool}
+  - {name: SHOW_23_NAME, type: String}
+
+  - {name: SHOW_24_SELECT, type: Bool}
+  - {name: SHOW_24_NAME, type: String}
+
+  - {name: SHOW_25_SELECT, type: Bool}
+  - {name: SHOW_25_NAME, type: String}
+
+  - {name: SHOW_26_SELECT, type: Bool}
+  - {name: SHOW_26_NAME, type: String}
+
+  - {name: SHOW_27_SELECT, type: Bool}
+  - {name: SHOW_27_NAME, type: String}
+
+  - {name: SHOW_28_SELECT, type: Bool}
+  - {name: SHOW_28_NAME, type: String}
+
+  - {name: SHOW_29_SELECT, type: Bool}
+  - {name: SHOW_29_NAME, type: String}
+
+  - {name: SHOW_30_SELECT, type: Bool}
+  - {name: SHOW_30_NAME, type: String}
+
+  - {name: SHOW_31_SELECT, type: Bool}
+  - {name: SHOW_31_NAME, type: String}
+
+  - {name: SHOW_32_SELECT, type: Bool}
+  - {name: SHOW_32_NAME, type: String}
+
+  - {name: SHOW_33_SELECT, type: Bool}
+  - {name: SHOW_33_NAME, type: String}
+
+  - {name: SHOW_34_SELECT, type: Bool}
+  - {name: SHOW_34_NAME, type: String}
+
+  - {name: SHOW_35_SELECT, type: Bool}
+  - {name: SHOW_35_NAME, type: String}
+
+  - {name: SHOW_36_SELECT, type: Bool}
+  - {name: SHOW_36_NAME, type: String}
+
+  - {name: SHOW_37_SELECT, type: Bool}
+  - {name: SHOW_37_NAME, type: String}
+
+  - {name: SHOW_38_SELECT, type: Bool}
+  - {name: SHOW_38_NAME, type: String}
+
+  - {name: SHOW_39_SELECT, type: Bool}
+  - {name: SHOW_39_NAME, type: String}
+
+  - {name: SHOW_40_SELECT, type: Bool}
+  - {name: SHOW_40_NAME, type: String}
+
+  - {name: SHOW_41_SELECT, type: Bool}
+  - {name: SHOW_41_NAME, type: String}
+
+  - {name: SHOW_42_SELECT, type: Bool}
+  - {name: SHOW_42_NAME, type: String}
+
+  - {name: SHOW_43_SELECT, type: Bool}
+  - {name: SHOW_43_NAME, type: String}
+
+  - {name: SHOW_44_SELECT, type: Bool}
+  - {name: SHOW_44_NAME, type: String}
+
+  - {name: SHOW_45_SELECT, type: Bool}
+  - {name: SHOW_45_NAME, type: String}
+
+  - {name: SHOW_46_SELECT, type: Bool}
+  - {name: SHOW_46_NAME, type: String}
+
+  - {name: SHOW_47_SELECT, type: Bool}
+  - {name: SHOW_47_NAME, type: String}
+
+  - {name: SHOW_48_SELECT, type: Bool}
+  - {name: SHOW_48_NAME, type: String}

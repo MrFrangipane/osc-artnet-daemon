@@ -1,11 +1,14 @@
 ---
 controls:
-  - "tmrld24.controls.yml"
+  - tmrld24-controls-edit.yml
+  - tmrld24-controls-party.yml
+  - tmrld24-controls-show.yml
 osc:
   server-ip-address: ""
   server-ip-address-autodetect: True
   server-port: 8080
   controls:
-    - "tmrld24.osc.yml"
+    - tmrld24-party-osc.yml
 midi-filenames:
-  - "tmrld24.xtouch.yml"
+  - tmrld24-midi-devices.yml
+  - tmrld24-midi-layers.yml

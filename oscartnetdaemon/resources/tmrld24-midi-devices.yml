@@ -1,0 +1,120 @@
+---
+schema_version: 1
+devices:
+
+  - name: X-Touch-Ext
+    midi_port_pattern: "X-Touch-Ext "
+    controls:
+      #
+      # Selects
+      - { name: Select.01, type: Button, midi: { channel: 0, type: note_on, note: 24 }}
+      - { name: Select.02, type: Button, midi: { channel: 0, type: note_on, note: 25 }}
+      - { name: Select.03, type: Button, midi: { channel: 0, type: note_on, note: 26 }}
+      - { name: Select.04, type: Button, midi: { channel: 0, type: note_on, note: 27 }}
+      - { name: Select.05, type: Button, midi: { channel: 0, type: note_on, note: 28 }}
+      - { name: Select.06, type: Button, midi: { channel: 0, type: note_on, note: 29 }}
+      - { name: Select.07, type: Button, midi: { channel: 0, type: note_on, note: 30 }}
+      - { name: Select.08, type: Button, midi: { channel: 0, type: note_on, note: 31 }}
+
+      #
+      # Faders
+      - { name: Fader.01, type: Absolute, midi: { channel: 0, type: pitchwheel }}
+      - { name: Fader.02, type: Absolute, midi: { channel: 1, type: pitchwheel }}
+      - { name: Fader.03, type: Absolute, midi: { channel: 2, type: pitchwheel }}
+      - { name: Fader.04, type: Absolute, midi: { channel: 3, type: pitchwheel }}
+      - { name: Fader.05, type: Absolute, midi: { channel: 4, type: pitchwheel }}
+      - { name: Fader.06, type: Absolute, midi: { channel: 5, type: pitchwheel }}
+      - { name: Fader.07, type: Absolute, midi: { channel: 6, type: pitchwheel }}
+      - { name: Fader.08, type: Absolute, midi: { channel: 7, type: pitchwheel }}
+
+  - name: X-Touch
+    midi_port_pattern: "X-Touch "
+    controls:
+      #
+      # Pages and Layers
+      - name: Mode.Show.Trigger
+        type: Button
+        midi: { channel: 0, type: note_on, note: 54 }  # F1
+
+      - name: Mode.Edit.Trigger
+        type: Button
+        midi: { channel: 0, type: note_on, note: 55 }  # F2
+
+      - name: Mode.Party.Trigger
+        type: Button
+        midi: { channel: 0, type: note_on, note: 56 }  # F3
+
+      - name: Pagination.Left
+        type: Button
+        midi: { channel: 0, type: note_on, note: 46 }  # < FADER BANK
+
+      - name: Pagination.Right
+        type: Button
+        midi: { channel: 0, type: note_on, note: 47 }  # FADER BANK >
+
+      #
+      # Selects
+      - { name: Select.09, type: Button, midi: { channel: 0, type: note_on, note: 24 }}
+      - { name: Select.10, type: Button, midi: { channel: 0, type: note_on, note: 25 }}
+      - { name: Select.11, type: Button, midi: { channel: 0, type: note_on, note: 26 }}
+      - { name: Select.12, type: Button, midi: { channel: 0, type: note_on, note: 27 }}
+      - { name: Select.13, type: Button, midi: { channel: 0, type: note_on, note: 28 }}
+      - { name: Select.14, type: Button, midi: { channel: 0, type: note_on, note: 29 }}
+      - { name: Select.15, type: Button, midi: { channel: 0, type: note_on, note: 30 }}
+      - { name: Select.16, type: Button, midi: { channel: 0, type: note_on, note: 31 }}
+
+      #
+      # Faders
+      - { name: Fader.09, type: Absolute, midi: { channel: 0, type: pitchwheel }}
+      - { name: Fader.10, type: Absolute, midi: { channel: 1, type: pitchwheel }}
+      - { name: Fader.11, type: Absolute, midi: { channel: 2, type: pitchwheel }}
+      - { name: Fader.12, type: Absolute, midi: { channel: 3, type: pitchwheel }}
+      - { name: Fader.13, type: Absolute, midi: { channel: 4, type: pitchwheel }}
+      - { name: Fader.14, type: Absolute, midi: { channel: 5, type: pitchwheel }}
+      - { name: Fader.15, type: Absolute, midi: { channel: 6, type: pitchwheel }}
+      - { name: Fader.16, type: Absolute, midi: { channel: 7, type: pitchwheel }}
+      - { name: Fader.Master, type: Absolute, midi: { channel: 8, type: pitchwheel }}
+
+#
+# This will convert Fader.XX -> Fader.XX:0, Fader.XX:1, Fader.XX:2, ...
+pagination:
+  - name: Faders
+    left: Pagination.Left
+    right: Pagination.Right
+    page_count: 3
+    controls:
+      - Select.01
+      - Select.02
+      - Select.03
+      - Select.04
+      - Select.05
+      - Select.06
+      - Select.07
+      - Select.08
+      - Select.09
+      - Select.10
+      - Select.11
+      - Select.12
+      - Select.13
+      - Select.14
+      - Select.15
+      - Select.16
+
+      - Fader.01
+      - Fader.02
+      - Fader.03
+      - Fader.04
+      - Fader.05
+      - Fader.06
+      - Fader.07
+      - Fader.08
+      - Fader.09
+      - Fader.10
+      - Fader.11
+      - Fader.12
+      - Fader.13
+      - Fader.14
+      - Fader.15
+      - Fader.16
+
+layer-groups: []  # Defined in tmrld24-layers-midi.yml

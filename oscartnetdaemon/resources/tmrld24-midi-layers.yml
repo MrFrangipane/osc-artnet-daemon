@@ -1,0 +1,122 @@
+---
+schema_version: 1
+devices: []  # Already defined in tmrld24-edit-midi.yml
+pagination: []  # Already defined in tmrld24-edit-midi.yml
+#
+# This will convert Fader07:0 -> Octostrip, OctostripSmooth
+layer-groups:
+  - name: Modes
+    layers:
+
+    - name: Show
+      trigger: Mode.Show.Trigger
+      controls:
+        - {control: Select.01:0, mapped_to: SHOW_01_SELECT}
+        - {control: Select.02:0, mapped_to: SHOW_02_SELECT}
+        - {control: Select.03:0, mapped_to: SHOW_03_SELECT}
+        - {control: Select.04:0, mapped_to: SHOW_04_SELECT}
+        - {control: Select.05:0, mapped_to: SHOW_05_SELECT}
+        - {control: Select.06:0, mapped_to: SHOW_06_SELECT}
+        - {control: Select.07:0, mapped_to: SHOW_07_SELECT}
+        - {control: Select.08:0, mapped_to: SHOW_08_SELECT}
+        - {control: Select.09:0, mapped_to: SHOW_09_SELECT}
+        - {control: Select.10:0, mapped_to: SHOW_10_SELECT}
+        - {control: Select.11:0, mapped_to: SHOW_11_SELECT}
+        - {control: Select.12:0, mapped_to: SHOW_12_SELECT}
+        - {control: Select.13:0, mapped_to: SHOW_13_SELECT}
+        - {control: Select.14:0, mapped_to: SHOW_14_SELECT}
+        - {control: Select.15:0, mapped_to: SHOW_15_SELECT}
+        - {control: Select.16:0, mapped_to: SHOW_16_SELECT}
+        - {control: Select.01:1, mapped_to: SHOW_17_SELECT}
+        - {control: Select.02:1, mapped_to: SHOW_18_SELECT}
+        - {control: Select.03:1, mapped_to: SHOW_19_SELECT}
+        - {control: Select.04:1, mapped_to: SHOW_20_SELECT}
+        - {control: Select.05:1, mapped_to: SHOW_21_SELECT}
+        - {control: Select.06:1, mapped_to: SHOW_22_SELECT}
+        - {control: Select.07:1, mapped_to: SHOW_23_SELECT}
+        - {control: Select.08:1, mapped_to: SHOW_24_SELECT}
+        - {control: Select.09:1, mapped_to: SHOW_25_SELECT}
+        - {control: Select.10:1, mapped_to: SHOW_26_SELECT}
+        - {control: Select.11:1, mapped_to: SHOW_27_SELECT}
+        - {control: Select.12:1, mapped_to: SHOW_28_SELECT}
+        - {control: Select.13:1, mapped_to: SHOW_29_SELECT}
+        - {control: Select.14:1, mapped_to: SHOW_30_SELECT}
+        - {control: Select.15:1, mapped_to: SHOW_31_SELECT}
+        - {control: Select.16:1, mapped_to: SHOW_32_SELECT}
+        - {control: Select.01:2, mapped_to: SHOW_33_SELECT}
+        - {control: Select.02:2, mapped_to: SHOW_34_SELECT}
+        - {control: Select.03:2, mapped_to: SHOW_35_SELECT}
+        - {control: Select.04:2, mapped_to: SHOW_36_SELECT}
+        - {control: Select.05:2, mapped_to: SHOW_37_SELECT}
+        - {control: Select.06:2, mapped_to: SHOW_38_SELECT}
+        - {control: Select.07:2, mapped_to: SHOW_39_SELECT}
+        - {control: Select.08:2, mapped_to: SHOW_40_SELECT}
+        - {control: Select.09:2, mapped_to: SHOW_41_SELECT}
+        - {control: Select.10:2, mapped_to: SHOW_42_SELECT}
+        - {control: Select.11:2, mapped_to: SHOW_43_SELECT}
+        - {control: Select.12:2, mapped_to: SHOW_44_SELECT}
+        - {control: Select.13:2, mapped_to: SHOW_45_SELECT}
+        - {control: Select.14:2, mapped_to: SHOW_46_SELECT}
+        - {control: Select.15:2, mapped_to: SHOW_47_SELECT}
+        - {control: Select.16:2, mapped_to: SHOW_48_SELECT}
+
+    - name: Edit
+      trigger: Mode.Edit.Trigger
+      controls:
+        - {control: Fader.01:0, mapped_to: DMX_01}
+        - {control: Fader.02:0, mapped_to: DMX_02}
+        - {control: Fader.03:0, mapped_to: DMX_03}
+        - {control: Fader.04:0, mapped_to: DMX_04}
+        - {control: Fader.05:0, mapped_to: DMX_05}
+        - {control: Fader.06:0, mapped_to: DMX_06}
+        - {control: Fader.07:0, mapped_to: DMX_07}
+        - {control: Fader.08:0, mapped_to: DMX_08}
+        - {control: Fader.09:0, mapped_to: DMX_09}
+        - {control: Fader.10:0, mapped_to: DMX_10}
+        - {control: Fader.11:0, mapped_to: DMX_11}
+        - {control: Fader.12:0, mapped_to: DMX_12}
+        - {control: Fader.13:0, mapped_to: DMX_13}
+        - {control: Fader.14:0, mapped_to: DMX_14}
+        - {control: Fader.15:0, mapped_to: DMX_15}
+        - {control: Fader.16:0, mapped_to: DMX_16}
+        - {control: Fader.01:1, mapped_to: DMX_17}
+        - {control: Fader.02:1, mapped_to: DMX_18}
+        - {control: Fader.03:1, mapped_to: DMX_19}
+        - {control: Fader.04:1, mapped_to: DMX_20}
+        - {control: Fader.05:1, mapped_to: DMX_21}
+        - {control: Fader.06:1, mapped_to: DMX_22}
+        - {control: Fader.07:1, mapped_to: DMX_23}
+        - {control: Fader.08:1, mapped_to: DMX_24}
+        - {control: Fader.09:1, mapped_to: DMX_25}
+        - {control: Fader.10:1, mapped_to: DMX_26}
+        - {control: Fader.11:1, mapped_to: DMX_27}
+        - {control: Fader.12:1, mapped_to: DMX_28}
+        - {control: Fader.13:1, mapped_to: DMX_29}
+        - {control: Fader.14:1, mapped_to: DMX_30}
+        - {control: Fader.15:1, mapped_to: DMX_31}
+        - {control: Fader.16:1, mapped_to: DMX_32}
+        - {control: Fader.01:2, mapped_to: DMX_33}
+        - {control: Fader.02:2, mapped_to: DMX_34}
+        - {control: Fader.03:2, mapped_to: DMX_35}
+        - {control: Fader.04:2, mapped_to: DMX_36}
+        - {control: Fader.05:2, mapped_to: DMX_37}
+        - {control: Fader.06:2, mapped_to: DMX_38}
+        - {control: Fader.07:2, mapped_to: DMX_39}
+        - {control: Fader.08:2, mapped_to: DMX_40}
+        - {control: Fader.09:2, mapped_to: DMX_41}
+        - {control: Fader.10:2, mapped_to: DMX_42}
+        - {control: Fader.11:2, mapped_to: DMX_43}
+        - {control: Fader.12:2, mapped_to: DMX_44}
+        - {control: Fader.13:2, mapped_to: DMX_45}
+        - {control: Fader.14:2, mapped_to: DMX_46}
+        - {control: Fader.15:2, mapped_to: DMX_47}
+        - {control: Fader.16:2, mapped_to: DMX_48}
+        - {control: Fader.Master, mapped_to: DMX_MASTER}
+
+    - name: Party
+      trigger: Mode.Party.Trigger
+      controls:
+        - {control: Fader.01:0, mapped_to: OCTOSTRIP}
+        - {control: Fader.02:0, mapped_to: PARS}
+        - {control: Fader.03:0, mapped_to: SPOTS}
+        - {control: Fader.04:0, mapped_to: WASHES}

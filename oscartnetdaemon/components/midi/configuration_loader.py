@@ -5,6 +5,7 @@ import mido
 import yaml
 
 from oscartnetdaemon.components.configuration.entities.configuration import ConfigurationInfo
+from oscartnetdaemon.components.midi.configuration_hacker import hack_layer_groups
 from oscartnetdaemon.components.midi.entities.configuration import MIDIConfiguration
 from oscartnetdaemon.components.midi.entities.control_info import MIDIControlInfo
 from oscartnetdaemon.components.midi.entities.control_role_enum import MIDIControlRole
@@ -12,8 +13,6 @@ from oscartnetdaemon.components.midi.entities.device_info import MIDIDeviceInfo
 from oscartnetdaemon.components.midi.entities.layer_group_info import MIDIControlLayerGroupInfo
 from oscartnetdaemon.components.midi.entities.layer_info import MIDIControlLayerInfo
 from oscartnetdaemon.components.midi.entities.pagination_info import MIDIPaginationInfo
-
-from pprint import pprint
 
 
 def _find_in_list(item, items):
@@ -119,7 +118,9 @@ def load_midi_configuration(configuration_info: ConfigurationInfo) -> MIDIConfig
         layered_control_names = list()
         controls_to_pop_names = list()
         paginated_controls_to_pop_names = list()
-        for layer_group_content in yaml_content['layer-groups']:
+        # FIXME: rewrite all of this
+        hacked_layer_groups = hack_layer_groups(yaml_content['layer-groups'])
+        for layer_group_content in hacked_layer_groups:
             name_group = layer_group_content['name']
             if name_group in layer_groups:
                 raise ValueError(f"MIDI control layer group with name '{name_group}' already defined")
@@ -180,7 +181,5 @@ def load_midi_configuration(configuration_info: ConfigurationInfo) -> MIDIConfig
         paginations=paginations,
         layer_groups=layer_groups
     )
-
-    pprint(configuration)
 
     return configuration

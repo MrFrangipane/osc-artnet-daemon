@@ -1,24 +1,26 @@
 ---
 controls:
-  - name: color_a
+  #
+  # FOR "PARTY" MODE
+  - name: COLOR_A
     type: Color
 
-  - name: color_b
+  - name: COLOR_B
     type: Color
 
-  - name: octostrip
+  - name: OCTOSTRIP
     type: Float
 
-  - name: pars
+  - name: PARS
     type: Float
 
-  - name: spots
+  - name: SPOTS
     type: Float
 
-  - name: washes
+  - name: WASHES
     type: Float
 
-  - name: palette
+  - name: PALETTE
     type: String
     values:
       - only_a
@@ -27,7 +29,7 @@ controls:
       - alter
       - single
 
-  - name: pattern
+  - name: PATTERN
     type: String
     values:
       - a
@@ -36,7 +38,7 @@ controls:
       - d
       - e
 
-  - name: time_scale
+  - name: TIME_SCALE
     type: Float
     values:
       - 4.0
@@ -45,35 +47,38 @@ controls:
       - 0.5
       - 0.25
 
-  - name: toggle_octostrip_smooth
+  - name: TOGGLE_OCTOSTRIP_SMOOTH
     type: Bool
 
-  - name: toggle_octostrip_strobe
+  - name: TOGGLE_OCTOSTRIP_STROBE
     type: Bool
 
-  - name: toggle_pars_smooth
+  - name: TOGGLE_PARS_SMOOTH
     type: Bool
 
-  - name: toggle_pars_strobe
+  - name: TOGGLE_PARS_STROBE
     type: Bool
 
-  - name: toggle_spots_narrow
+  - name: TOGGLE_SPOTS_NARROW
     type: Bool
 
-  - name: toggle_spots_smooth
+  - name: TOGGLE_SPOTS_SMOOTH
     type: Bool
 
-  - name: toggle_spots_strobe
+  - name: TOGGLE_SPOTS_STROBE
     type: Bool
 
-  - name: toggle_washes_narrow
+  - name: TOGGLE_WASHES_NARROW
     type: Bool
 
-  - name: toggle_washes_smooth
+  - name: TOGGLE_WASHES_SMOOTH
     type: Bool
 
-  - name: toggle_washes_strobe
+  - name: TOGGLE_WASHES_STROBE
     type: Bool
 
-  - name: toggle_autopilot
+  - name: TOGGLE_AUTOPILOT
+    type: Bool
+
+  - name: TAP_TEMPO
     type: Bool
