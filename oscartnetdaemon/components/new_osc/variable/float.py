@@ -12,7 +12,6 @@ class OSCFloat(VariableFloat):
         if message.osc_address == self.info.osc_address + '/fader':
             self.value.value = message.osc_value
             self.io_message_queue_out.put(OSCMessage(
-                info=self.info,
                 osc_address=self.info.osc_address + '/value',
                 osc_value=int(self.value.value * 127)
             ))

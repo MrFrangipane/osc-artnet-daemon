@@ -1,8 +1,12 @@
 from dataclasses import dataclass
 
-from oscartnetdaemon.domain_contract.variable_info import VariableInfo
+from dataclasses_json import dataclass_json, LetterCase
 
 
+@dataclass_json(letter_case=LetterCase.KEBAB)
 @dataclass
 class AbstractIOMessage:
-    info: VariableInfo
+    """
+    Inherit for each IO implementation, to store relevant IO data
+    """
+    pass

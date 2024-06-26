@@ -4,9 +4,9 @@ from pythonosc.dispatcher import Dispatcher
 from pythonosc.osc_server import ThreadingOSCUDPServer
 from pythonosc.udp_client import SimpleUDPClient
 
+from oscartnetdaemon.components.new_osc.io.message import OSCMessage
 from oscartnetdaemon.domain_contract.abstract_io import AbstractIO
 from oscartnetdaemon.domain_contract.service_components import ServiceComponents
-from oscartnetdaemon.components.new_osc.io.message import OSCMessage
 
 
 class OSCIO(AbstractIO):
@@ -40,7 +40,7 @@ class OSCIO(AbstractIO):
             self.clients[client_address[0]] = SimpleUDPClient(*client_address)
 
         for control in self.components.variable_repository.variables.values():
-            control.handle_io_message(OSCMessage(info=control.info, osc_address=osc_address, osc_value=osc_value))
+            control.handle_io_message(OSCMessage(osc_address=osc_address, osc_value=osc_value))
 
     def send_message(self, message: OSCMessage):
         for client in self.clients.values():
