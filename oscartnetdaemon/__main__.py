@@ -11,7 +11,7 @@ from oscartnetdaemon.components.osc.service import OSCService
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
 
-    ConfigurationLoader.load_from_file('./resources/tmrld24.yml')
+    ConfigurationLoader.load_from_file('./resources/develop/configuration.yml')
 
     discovery_service = DiscoveryService(
         server_name="Frangitron's OSC Artnet",

@@ -1,0 +1,5 @@
+---
+schema_version: 1
+controls:
+  - {name: FADER_A, type: Float}
+  - {name: FADER_B, type: Float}

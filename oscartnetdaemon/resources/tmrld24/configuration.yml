@@ -1,0 +1,14 @@
+---
+controls:
+  - controls-edit.yml
+  - controls-party.yml
+  - controls-show.yml
+osc:
+  server-ip-address: ""
+  server-ip-address-autodetect: True
+  server-port: 8080
+  controls:
+    - osc-party.yml
+midi-filenames:
+  - midi-devices.yml
+  - midi-layers.yml

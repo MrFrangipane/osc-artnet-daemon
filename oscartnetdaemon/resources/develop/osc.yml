@@ -1,0 +1,14 @@
+---
+schema_version: 1
+controls:
+  - caption: "Fader1"
+    type: Fader
+    osc-address: "/fader1"
+    mapped_to: FADER_A
+
+  - caption: "Fader2"
+    type: Fader
+    osc-address: "/fader2"
+    mapped_to: FADER_B
+
+recall-groups: []

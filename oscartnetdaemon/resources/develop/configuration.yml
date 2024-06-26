@@ -1,0 +1,12 @@
+---
+schema_version: 1
+controls:
+  - controls.yml
+osc:
+  server-ip-address: ""
+  server-ip-address-autodetect: True
+  server-port: 8080
+  controls:
+    - osc.yml
+midi-filenames:
+  - midi.yml

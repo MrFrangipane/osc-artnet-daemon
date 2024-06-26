@@ -1,0 +1,11 @@
+---
+schema_version: 1
+devices:
+  - name: X-Touch
+    midi_port_pattern: "X-Touch "
+    controls:
+      - { name: Fader.01, type: Absolute, midi: { channel: 0, type: pitchwheel }, mapped_to: FADER_A}
+      - { name: Fader.02, type: Absolute, midi: { channel: 1, type: pitchwheel }, mapped_to: FADER_B}
+
+pagination: []
+layer-groups: []
