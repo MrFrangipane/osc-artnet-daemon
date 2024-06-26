@@ -1,0 +1,52 @@
+---
+schema_version: 1
+devices:
+  - name: 'X-Touch'
+    midi-port-pattern: "X-Touch "
+    variables:
+      #
+      # BUTTONS
+      - name: FaderBank.Left
+        type: Button
+        midi-parsing: { channel: 0, type: note_on, note: 46 }
+
+      - name: FaderBank.Right
+        type: Button
+        midi-parsing: { channel: 0, type: note_on, note: 47 }
+
+      - name: F1
+        type: Button
+        midi-parsing: { channel: 0, type: note_on, note: 54 }
+
+      - name: F2
+        type: Button
+        midi-parsing: { channel: 0, type: note_on, note: 55 }
+
+      - name: F3
+        type: Button
+        midi-parsing: { channel: 0, type: note_on, note: 56 }
+
+      - name: F4
+        type: Button
+        midi-parsing: { channel: 0, type: note_on, note: 57 }
+
+      #
+      # FADERS
+      - name: Fader09
+        type: Fader
+        midi-parsing: { channel: 6, type: pitchwheel }
+
+      - name: Fader10
+        type: Fader
+        midi-parsing: { channel: 7, type: pitchwheel }
+
+  - name: 'X-Touch-Ext'
+    midi-port-pattern: "X-Touch-Ext "
+    variables:
+      - name: Fader07
+        type: Fader
+        midi-parsing: { channel: 6, type: pitchwheel }
+
+      - name: Fader08
+        type: Fader
+        midi-parsing: { channel: 7, type: pitchwheel }

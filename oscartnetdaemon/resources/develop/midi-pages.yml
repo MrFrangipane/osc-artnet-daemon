@@ -1,0 +1,12 @@
+---
+schema_version: 1
+pages:
+  - name: Pages
+    left: FaderBank.Left
+    right: FaderBank.Right
+    page_count: 2
+    controls:
+      - Fader07
+      - Fader08
+      - Fader09
+      - Fader10

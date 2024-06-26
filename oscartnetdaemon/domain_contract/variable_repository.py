@@ -19,6 +19,11 @@ class VariableRepository:
             if variable_info.name in self.variables:
                 raise NameError(f"Variable '{variable_info.name}' already exists")
 
+            if variable_info.type not in self.variable_types:
+                raise ValueError(
+                    f"Variable type '{variable_info.type.name}' not registered for {configuration.__class__.__name__}"
+                )
+
             new_variable = self.variable_types[variable_info.type](
                 info=variable_info,
                 io_message_queue_out=message_queue_out,

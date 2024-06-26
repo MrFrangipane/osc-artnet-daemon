@@ -3,7 +3,7 @@ from oscartnetdaemon.domain_contract.change_notification import ChangeNotificati
 from oscartnetdaemon.domain_contract.variable.float import VariableFloat
 
 
-class OSCFloat(VariableFloat):
+class OSCFader(VariableFloat):
 
     def handle_change_notification(self, notification: ChangeNotification):
         """

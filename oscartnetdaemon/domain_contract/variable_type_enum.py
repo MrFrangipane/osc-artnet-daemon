@@ -2,4 +2,5 @@ from enum import Enum
 
 
 class VariableType(Enum):
-    Float = "Float"
+    Fader = "Fader"
+    Button = "Button"

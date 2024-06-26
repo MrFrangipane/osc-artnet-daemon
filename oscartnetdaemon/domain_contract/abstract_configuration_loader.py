@@ -5,8 +5,8 @@ from oscartnetdaemon.domain_contract.base_configuration import BaseConfiguration
 
 class AbstractConfigurationLoader(ABC):
 
-    def __init__(self, filepath: str):
-        self.filepath = filepath
+    def __init__(self, filepaths: list[str]):
+        self.filepaths = filepaths
 
     @abstractmethod
     def load(self) -> BaseConfiguration:

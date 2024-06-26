@@ -5,7 +5,7 @@ from oscartnetdaemon.components.new_midi.variable_info import MIDIVariableInfo
 from oscartnetdaemon.components.new_midi.io.message_type_enum import MIDIMessageType
 
 
-class MIDIFloat(VariableFloat):
+class MIDIFader(VariableFloat):
 
     def handle_change_notification(self, notification: ChangeNotification):
         """

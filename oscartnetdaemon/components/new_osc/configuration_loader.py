@@ -7,20 +7,23 @@ from oscartnetdaemon.components.new_osc.configuration import OSCConfiguration
 
 class OSCConfigurationLoader(AbstractConfigurationLoader):
 
-    def __init__(self, filepath):
-        super().__init__(filepath)
+    def __init__(self, filepaths):
+        super().__init__(filepaths)
+        self.content = dict()
 
     def load(self) -> OSCConfiguration:
-        with open(self.filepath, 'r') as file:
-            content = yaml.safe_load(file)
-
         variable_infos = list()
-        for variable_dict in content['variables']:
-            variable_infos.append(OSCVariableInfo.from_dict(variable_dict))
+
+        for filepath in self.filepaths:
+            with open(filepath, 'r') as file:
+                self.content = yaml.safe_load(file)
+
+            for variable_dict in self.content['variables']:
+                variable_infos.append(OSCVariableInfo.from_dict(variable_dict))
 
         return OSCConfiguration(
-            server_ip_address=content['server-ip-address'],
-            server_ip_address_autodetect=content['server-ip-address-autodetect'],
-            server_port=content['server-port'],
+            server_ip_address=self.content['server-ip-address'],
+            server_ip_address_autodetect=self.content['server-ip-address-autodetect'],
+            server_port=self.content['server-port'],
             variable_infos=variable_infos
         )

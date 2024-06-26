@@ -6,10 +6,10 @@ server-port: 8080
 variables:
   - name: FADER_A
     caption: "Fader A"
-    type: Float
+    type: Fader
     osc-address: "/fader1"
 
   - name: FADER_B
     caption: "Fader B"
-    type: Float
+    type: Fader
     osc-address: "/fader2"
