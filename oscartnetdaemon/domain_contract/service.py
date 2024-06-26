@@ -18,7 +18,7 @@ class Service:
         self.variable_repository = VariableRepository(registration_info.variable_types)
 
         self.notification_queue_in: Queue[ChangeNotification] = Queue()
-        self.notifications_queue_out: Queue[ChangeNotification] = Queue()
+        self.notification_queue_out: Queue[ChangeNotification] = Queue()
 
         self.io: AbstractIO | None = None
         self.io_type = registration_info.io_type
@@ -27,28 +27,35 @@ class Service:
 
     def initialize(self):
         self.configuration = self.configuration_loader.load()
-        self.variable_repository.create_variables(self.configuration, self.io_message_queue_out)
-
+        self.variable_repository.create_variables(
+            self.configuration,
+            self.io_message_queue_out,
+            self.notification_queue_out
+        )
         self.components.configuration = self.configuration
         self.components.io_message_queue_in = self.io_message_queue_in
         self.components.io_message_queue_out = self.io_message_queue_out
         self.components.notification_queue_in = self.notification_queue_in
-        self.components.notification_queue_out = self.notifications_queue_out
+        self.components.notification_queue_out = self.notification_queue_out
         self.components.variable_repository = self.variable_repository
 
         self.io = self.io_type(self.components)
 
     def exec(self):
+        self.initialize()
         self.io.start()
 
         while True:
+            #
+            # Notifications
             while not self.notification_queue_in.empty():
                 notification = self.notification_queue_in.get()
                 self.variable_repository.forward_change_notification(notification)
-
+            #
+            # IO
             while not self.io_message_queue_in.empty():
                 message = self.io_message_queue_in.get()
-                self.variable_repository.forward_io_message(message)
+                self.variable_repository.broadcast_io_message(message)
 
             while not self.io_message_queue_out.empty():
                 message = self.io_message_queue_out.get()

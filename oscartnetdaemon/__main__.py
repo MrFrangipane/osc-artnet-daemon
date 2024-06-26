@@ -1,5 +1,8 @@
 from oscartnetdaemon.components.main import Main
 
+from oscartnetdaemon.components.new_midi.configuration_loader import MIDIConfigurationLoader
+from oscartnetdaemon.components.new_midi.io.io import MIDIIO
+from oscartnetdaemon.components.new_midi.variable.float import MIDIFloat
 from oscartnetdaemon.components.new_osc.configuration_loader import OSCConfigurationLoader
 from oscartnetdaemon.components.new_osc.io.io import OSCIO
 from oscartnetdaemon.components.new_osc.variable.float import OSCFloat
@@ -16,6 +19,15 @@ if __name__ == '__main__':
         io_type=OSCIO,
         variable_types={
             VariableType.Float: OSCFloat
+        }
+    ))
+
+    midi_configuration_loader = MIDIConfigurationLoader(filepath="resources/develop/midi.yml")
+    main.register_io_service(ServiceRegistrationInfo(
+        configuration_loader=midi_configuration_loader,
+        io_type=MIDIIO,
+        variable_types={
+            VariableType.Float: MIDIFloat
         }
     ))
 

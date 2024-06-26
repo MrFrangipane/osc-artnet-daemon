@@ -39,8 +39,7 @@ class OSCIO(AbstractIO):
         if client_address[0] not in self.clients:
             self.clients[client_address[0]] = SimpleUDPClient(*client_address)
 
-        for control in self.components.variable_repository.variables.values():
-            control.handle_io_message(OSCMessage(osc_address=osc_address, osc_value=osc_value))
+        self.components.io_message_queue_in.put(OSCMessage(osc_address=osc_address, osc_value=osc_value))
 
     def send_message(self, message: OSCMessage):
         for client in self.clients.values():
