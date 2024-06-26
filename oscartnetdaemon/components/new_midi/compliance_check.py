@@ -12,10 +12,14 @@ def check_io_message(info: MIDIVariableInfo, message: MIDIMessage) -> bool:
     channel_ok = info.midi_parsing.channel == message.channel
     device_ok = info.device_name == message.device_name
     # layer_ok = self.info.layer_name == "" or self.info.layer_name == context.current_layer.name
-    page_ok = info.page_number == -1 or info.page_number == MIDIContext().current_pages[info.pagination_name]
+    page_ok = (
+        info.pagination_name == "" or
+        info.page_number == -1 or
+        info.page_number == MIDIContext().current_pages[info.pagination_name]
+    )
     type_ok = message.type == info.midi_parsing.type
 
-    if not device_ok or not type_ok or not channel_ok:
+    if not device_ok or not type_ok or not channel_ok or not page_ok:
         return False
 
     compliant = {

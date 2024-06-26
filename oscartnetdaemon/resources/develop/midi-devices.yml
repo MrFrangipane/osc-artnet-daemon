@@ -51,3 +51,7 @@ devices:
       - name: Fader16
         type: Fader
         midi-parsing: { channel: 7, type: pitchwheel }
+
+      - name: FADER_A  # Master Fader
+        type: Fader
+        midi-parsing: { channel: 8, type: pitchwheel }

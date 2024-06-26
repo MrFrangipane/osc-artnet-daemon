@@ -9,6 +9,7 @@ from oscartnetdaemon.components.new_midi.pagination_info import MIDIPaginationIn
 from oscartnetdaemon.components.new_midi.variable_info import MIDIVariableInfo
 from oscartnetdaemon.domain_contract.abstract_configuration_loader import AbstractConfigurationLoader
 from oscartnetdaemon.components.new_midi.page_direction_enum import MIDIPageDirection
+from oscartnetdaemon.components.new_midi.context import MIDIContext
 
 
 def _find_in_list(item: str, items: list[str]) -> str:
@@ -126,6 +127,10 @@ class MIDIConfigurationLoader(AbstractConfigurationLoader):
             variable_infos=self.variable_infos,
             pagination_infos=self.pagination_infos
         )
+
+        # Init all pages to first
+        for pagination_name in self.pagination_infos.keys():
+            MIDIContext().current_pages[pagination_name] = 0
 
         from pprint import pp
         pp(configuration, width=500)
