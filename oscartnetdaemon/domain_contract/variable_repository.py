@@ -29,4 +29,4 @@ class VariableRepository:
         self.variables[notification.info.name].handle_change_notification(notification)
 
     def forward_io_message(self, message: AbstractIOMessage):
-        self.variables[message.info.name].handle_implementation_message(message)
+        self.variables[message.info.name].handle_io_message(message)

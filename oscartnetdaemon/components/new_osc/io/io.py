@@ -2,18 +2,22 @@ from threading import Thread
 
 from pythonosc.dispatcher import Dispatcher
 from pythonosc.osc_server import ThreadingOSCUDPServer
-from pythonosc.udp_client import UDPClient
+from pythonosc.udp_client import SimpleUDPClient
 
 from oscartnetdaemon.domain_contract.abstract_io import AbstractIO
 from oscartnetdaemon.domain_contract.service_components import ServiceComponents
+from oscartnetdaemon.components.new_osc.io.message import OSCMessage
 
 
 class OSCIO(AbstractIO):
 
     def __init__(self, components: ServiceComponents):
         super().__init__(components)
+        self.components: ServiceComponents = components  # FIXME: circular import forbids type hinting
         self.server: ThreadingOSCUDPServer | None = None
         self.server_thread: Thread | None = None
+
+        self.clients: dict[tuple[int], SimpleUDPClient] = dict()
 
     def start(self):
         """
@@ -32,8 +36,15 @@ class OSCIO(AbstractIO):
         self.server_thread.start()
 
     def handle_osc(self, client_address, osc_address, osc_value):
-        # self.components.io_message_queue_in.put()
-        print(client_address, osc_address, osc_value)
+        if client_address[0] not in self.clients:
+            self.clients[client_address[0]] = SimpleUDPClient(*client_address)
+
+        for control in self.components.variable_repository.variables.values():
+            control.handle_io_message(OSCMessage(info=control.info, osc_address=osc_address, osc_value=osc_value))
+
+    def send_message(self, message: OSCMessage):
+        for client in self.clients.values():
+            client.send_message(message.osc_address, message.osc_value)
 
     def shutdown(self):
         """

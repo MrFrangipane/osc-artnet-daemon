@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 
 # FIXME: circular import
 # from oscartnetdaemon.domain_contract.service_components import ServiceComponents
+from oscartnetdaemon.domain_contract.abstract_io_message import AbstractIOMessage
 
 
 class AbstractIO(ABC):
@@ -21,4 +22,8 @@ class AbstractIO(ABC):
         """
         Gracefully shutdown all IO
         """
+        pass
+
+    @abstractmethod
+    def send_message(self, message: AbstractIOMessage):
         pass

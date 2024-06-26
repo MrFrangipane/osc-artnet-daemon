@@ -50,5 +50,9 @@ class Service:
                 message = self.io_message_queue_in.get()
                 self.variable_repository.forward_io_message(message)
 
+            while not self.io_message_queue_out.empty():
+                message = self.io_message_queue_out.get()
+                self.io.send_message(message)
+
     def shutdown(self):
         self.io.shutdown()

@@ -19,5 +19,5 @@ class AbstractVariable(ABC):
         pass
 
     @abstractmethod
-    def handle_implementation_message(self, message: AbstractIOMessage):
+    def handle_io_message(self, message: AbstractIOMessage):
         pass
