@@ -1,4 +1,4 @@
-from copy import deepcopy
+from copy import copy, deepcopy
 
 import mido
 import yaml
@@ -188,6 +188,14 @@ class MIDIConfigurationLoader(AbstractConfigurationLoader):
                         layer_name=layer['name'],
                         layer_group_name=layer_group['name']
                     )
+
+                    if new_layered_variable.pagination_name:
+                        page_variables = self.paginations[new_layered_variable.pagination_name].variables[new_layered_variable.page_number]
+                        for i, page_variable in enumerate(copy(page_variables)):
+                            if page_variable.name == source_name:
+                                page_variables.pop(i)
+                        page_variables.append(new_layered_variable)
+
                     new_layer.variables.append(new_layered_variable)
                     self.variables[new_layered_variable.name] = new_layered_variable
 
