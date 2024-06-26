@@ -7,33 +7,33 @@ controls:
   - caption: "Color A"
     type: ColorWheel
     osc-address: "/color_wheel_a"
-    mapped_to: color_a
+    mapped_to: COLOR_A
 
   - caption: "Color B"
     type: ColorWheel
     osc-address: "/color_wheel_b"
-    mapped_to: color_b
+    mapped_to: COLOR_B
 
   # Faders
   - caption: "Octostrip"
     type: Fader
     osc-address: "/fader_octostrip"
-    mapped_to: octostrip
+    mapped_to: OCTOSTRIP
 
   - caption: "PARs"
     type: Fader
     osc-address: "/fader_pars"
-    mapped_to: pars
+    mapped_to: PARS
 
   - caption: "Spots"
     type: Fader
     osc-address: "/fader_spots"
-    mapped_to: spots
+    mapped_to: SPOTS
 
   - caption: "Washes"
     type: Fader
     osc-address: "/fader_washes"
-    mapped_to: washes
+    mapped_to: WASHES
 
   # Radios
   - caption: "Palette"
@@ -45,7 +45,7 @@ controls:
       - "Third"
       - "Alter"
       - "Single"
-    mapped_to: palette
+    mapped_to: PALETTE
 
   - caption: "Pattern"
     type: Radio
@@ -56,7 +56,7 @@ controls:
       - "C"
       - "D"
       - "E"
-    mapped_to: pattern
+    mapped_to: PATTERN
 
   - caption: "Time Scale"
     type: Radio
@@ -67,58 +67,58 @@ controls:
       - "x 1"
       - "x 0.50"
       - "x 0.25"
-    mapped_to: time_scale
+    mapped_to: TIME_SCALE
 
   # Toggles
   - caption: "Smooth"
     type: Toggle
     osc-address: "/toggle_octostrip_smooth"
-    mapped_to: toggle_octostrip_smooth
+    mapped_to: TOGGLE_OCTOSTRIP_SMOOTH
 
   - caption: Strobe
     type: "Toggle"
     osc-address: "/toggle_octostrip_strobe"
-    mapped_to: toggle_octostrip_strobe
+    mapped_to: TOGGLE_OCTOSTRIP_STROBE
 
   - caption: "Smooth"
     type: Toggle
     osc-address: "/toggle_pars_smooth"
-    mapped_to: toggle_pars_smooth
+    mapped_to: TOGGLE_PARS_SMOOTH
 
   - caption: "Strobe"
     type: Toggle
     osc-address: "/toggle_pars_strobe"
-    mapped_to: toggle_pars_strobe
+    mapped_to: TOGGLE_PARS_STROBE
 
   - caption: "Narrow"
     type: Toggle
     osc-address: "/toggle_spots_narrow"
-    mapped_to: toggle_spots_narrow
+    mapped_to: TOGGLE_SPOTS_NARROW
 
   - caption: "Smooth"
     type: Toggle
     osc-address: "/toggle_spots_smooth"
-    mapped_to: toggle_spots_smooth
+    mapped_to: TOGGLE_SPOTS_SMOOTH
 
   - caption: "Strobe"
     type: Toggle
     osc-address: "/toggle_spots_strobe"
-    mapped_to: toggle_spots_strobe
+    mapped_to: TOGGLE_SPOTS_STROBE
 
   - caption: "Narrow"
     type: Toggle
     osc-address: "/toggle_washes_narrow"
-    mapped_to: toggle_washes_narrow
+    mapped_to: TOGGLE_WASHES_NARROW
 
   - caption: "Smooth"
     type: Toggle
     osc-address: "/toggle_washes_smooth"
-    mapped_to: toggle_washes_smooth
+    mapped_to: TOGGLE_WASHES_SMOOTH
 
   - caption: "Strobe"
     type: Toggle
     osc-address: "/toggle_washes_strobe"
-    mapped_to: toggle_washes_strobe
+    mapped_to: TOGGLE_WASHES_STROBE
 
   # Recall Slots
   - caption: "A"

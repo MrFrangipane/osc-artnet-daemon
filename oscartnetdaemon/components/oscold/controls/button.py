@@ -16,14 +16,8 @@ class OSCButtonControl(OSCAbstractControl):
         self.components_singleton = Components  # FIXME
         self.value: bool = False
 
-    # fixme: return a list of message like in get_update_messages() ?
-    # fixme: use a dataclass for messages ?
-    def on_change(self, client_address, osc_address, osc_value):
+    def handle_osc(self, client_address, osc_address, osc_value):
         address_items = osc_address.split('/')
-
-        if address_items[-1] == 'button':
-            self.value = osc_value
-            self.send_osc('/button', self.value)
 
     # fixme: use a dataclass for messages ?
     def get_update_messages(self) -> list[tuple[str, int | bool | float | str | list]]:

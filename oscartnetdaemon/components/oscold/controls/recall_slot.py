@@ -16,7 +16,7 @@ class OSCRecallSlotControl(OSCAbstractControl):
 
     # fixme: return a list of message like in get_update_messages() ?
     # fixme: use a dataclass for messages ?
-    def on_change(self, client_address, osc_address, osc_value):
+    def handle_osc(self, client_address, osc_address, osc_value):
         subcontrol = osc_address.split('/')[-1]
 
         if osc_value == 1 and subcontrol == 'save':

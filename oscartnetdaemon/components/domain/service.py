@@ -25,8 +25,11 @@ class DomainService:
 
         while True:
             for notification in self.implementation_repository.get_notifications():
-                self._control_repository.controls[notification.control_name].value = notification.value
-                self.implementation_repository.put_notification(notification)
+                try:
+                    self._control_repository.controls[notification.control_name].value = notification.value
+                    self.implementation_repository.put_notification(notification)
+                except KeyError:
+                    raise ValueError(f"Control not found '{notification.control_name}', {notification.origin}")
 
     def stop(self):
         self.implementation_repository.terminate_all()

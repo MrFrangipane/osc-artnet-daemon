@@ -43,14 +43,14 @@ class MIDIService(AbstractImplementation):
 
     def activate_first_page_first_layer(self):
         # FIXME: don't assume there's only one pagination and one layer group
-        first_layer = list(list(self.midi_configuration.layer_groups.values())[0].layers.values())[0]
-        self.context = MIDIContext(
-            current_page=0,
-            current_layer=first_layer
-        )
-        trigger = self.control_repository.controls[first_layer.trigger.name]
-        trigger.value.value = 1.0
-        # self.post_message_for_control(trigger)
+        if self.midi_configuration.layer_groups:
+            third_layer = list(list(self.midi_configuration.layer_groups.values())[0].layers.values())[2]
+            self.context = MIDIContext(
+                current_page=0,
+                current_layer=third_layer
+            )
+            trigger = self.control_repository.controls[third_layer.trigger.name]
+            trigger.value.value = 1.0
 
     def send_all_messages(self):
         for control in self.control_repository.controls.values():

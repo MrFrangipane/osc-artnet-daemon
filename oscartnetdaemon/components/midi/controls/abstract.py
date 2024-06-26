@@ -3,7 +3,6 @@ from abc import ABC, abstractmethod
 from oscartnetdaemon.components.domain.value.abstract import AbstractValue
 from oscartnetdaemon.components.midi.entities.context import MIDIContext
 from oscartnetdaemon.components.midi.entities.control_info import MIDIControlInfo
-from oscartnetdaemon.components.midi.entities.device_info import MIDIDeviceInfo
 from oscartnetdaemon.components.midi.entities.message import MIDIMessage
 from oscartnetdaemon.components.midi.entities.message_type_enum import MIDIMessageType
 

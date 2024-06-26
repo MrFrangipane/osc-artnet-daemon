@@ -40,7 +40,7 @@ class OSCControlRepository(AbstractOSCControlRepository):
         for control in self._controls:
             dispatcher.map(
                 control.info.osc_address + '/*',
-                control.handle,
+                control.handle_osc,
                 needs_reply_address=True
             )
 

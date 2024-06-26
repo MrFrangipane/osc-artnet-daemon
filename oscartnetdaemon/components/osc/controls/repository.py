@@ -4,18 +4,19 @@ from oscartnetdaemon.components.osc.controls.abstract_repository import Abstract
 from oscartnetdaemon.components.osc.controls.abstract import OSCAbstractControl
 from oscartnetdaemon.components.osc.entities.control_info import OSCControlInfo
 from oscartnetdaemon.components.osc.entities.control_type_enum import OSCControlType
-
 from oscartnetdaemon.components.osc.controls.button import OSCButtonControl
 from oscartnetdaemon.components.osc.controls.color_wheel import OSCColorWheelControl
 from oscartnetdaemon.components.osc.controls.fader import OSCFaderControl
 from oscartnetdaemon.components.osc.controls.radio import OSCRadioControl
 from oscartnetdaemon.components.osc.controls.recall_slot import OSCRecallSlotControl
 from oscartnetdaemon.components.osc.controls.toggle import OSCToggleControl
+from oscartnetdaemon.components.domain.change_notification import ChangeNotification
 
 
 class OSCControlRepository(AbstractOSCControlRepository):
 
-    def __init__(self):
+    def __init__(self, service: "OSCService"):
+        self.service = service
         self._controls: list[OSCAbstractControl] = list()
 
     def create_controls(self, controls_infos: list[OSCControlInfo]) -> list[OSCAbstractControl]:
@@ -32,7 +33,7 @@ class OSCControlRepository(AbstractOSCControlRepository):
             if new_control_type is None:
                 raise ValueError(f"Control of type '{control_info.type.name}' does not exists")
             else:
-                self._controls.append(new_control_type(control_info))
+                self._controls.append(new_control_type(control_info, self.service))
 
         return self._controls
 
@@ -40,7 +41,7 @@ class OSCControlRepository(AbstractOSCControlRepository):
         for control in self._controls:
             dispatcher.map(
                 control.info.osc_address + '/*',
-                control.handle,
+                control.handle_osc,
                 needs_reply_address=True
             )
 
@@ -55,3 +56,8 @@ class OSCControlRepository(AbstractOSCControlRepository):
         for control in self._controls:
             if control.info.mapped_to == control_name:
                 return control
+
+    def forward_notification(self, change_notification: ChangeNotification):
+        for control in self._controls:
+            if control.info.mapped_to == change_notification.control_name:
+                control.handle_notification(change_notification)

@@ -1,3 +1,4 @@
+from multiprocessing import Queue
 from threading import Thread
 
 from pythonosc.dispatcher import Dispatcher
@@ -7,7 +8,6 @@ from oscartnetdaemon.components.configuration.entities.configuration import Conf
 from oscartnetdaemon.components.implementation.abstract import AbstractImplementation
 from oscartnetdaemon.components.osc.clients_repository import OSCClientsRepository
 from oscartnetdaemon.components.osc.configuration_loader import load_osc_configuration
-from oscartnetdaemon.components.osc.controls.abstract_repository import AbstractOSCControlRepository
 from oscartnetdaemon.components.osc.controls.repository import OSCControlRepository
 from oscartnetdaemon.components.osc.entities.client_info import OSCClientInfo
 from oscartnetdaemon.components.osc.recall.abstract_recall_groups_repository import AbstractOSCRecallGroupsRepository
@@ -21,15 +21,17 @@ class OSCService(AbstractImplementation):
         self.osc_configuration = load_osc_configuration(self.configuration_info)
 
         self.clients_repository: OSCClientsRepository = None
-        self.control_repository: AbstractOSCControlRepository = None
+        self.control_repository: OSCControlRepository = None
         self.recall_groups_repository: AbstractOSCRecallGroupsRepository = None
 
         self.server: ThreadingOSCUDPServer = None
         self._server_thread: Thread = None
 
+        self.osc_messages_queue = Queue()
+
     def initialize(self):
         # !! Called before process creation, don't create non-pickleable members here !!
-        self.control_repository = OSCControlRepository()
+        self.control_repository = OSCControlRepository(service=self)
         controls = self.control_repository.create_controls(self.osc_configuration.controls)
 
         self.recall_groups_repository = OSCRecallGroupsRepository()
@@ -51,6 +53,18 @@ class OSCService(AbstractImplementation):
             dispatcher=dispatcher
         )
 
+        self._server_thread: Thread = Thread(target=self.server.serve_forever, daemon=True)
+        self._server_thread.start()
+
+        while True:
+            while not self.notification_queue_in.empty():
+                change_notification = self.notification_queue_in.get()
+                self.control_repository.forward_notification(change_notification)
+
+            while not self.osc_messages_queue.empty():
+                address, value = self.osc_messages_queue.get()
+                self.send_message(address, value)
+
     def handle_termination(self):
         pass
 
@@ -65,3 +79,8 @@ class OSCService(AbstractImplementation):
     def unregister_client(self, client_info: OSCClientInfo):
         self.clients_repository.unregister(client_info)
         self.recall_groups_repository.unregister_client(client_info)
+
+    def send_message(self, osc_address: str, osc_value: str | bytes | bool | int | float | list):
+        clients = list(self.clients_repository.clients.values())  # avoid mutation during iteration (could be fixed ?)
+        for client in clients:
+            client.send_message(osc_address, osc_value)

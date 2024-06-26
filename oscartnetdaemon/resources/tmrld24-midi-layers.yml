@@ -9,7 +9,7 @@ layer-groups:
     layers:
 
     - name: Show
-      trigger: Mode.Show.Trigger
+      trigger: Mode.Show.Trigger  # F1
       controls:
         - {control: Select.01:0, mapped_to: SHOW_01_SELECT}
         - {control: Select.02:0, mapped_to: SHOW_02_SELECT}
@@ -61,7 +61,7 @@ layer-groups:
         - {control: Select.16:2, mapped_to: SHOW_48_SELECT}
 
     - name: Edit
-      trigger: Mode.Edit.Trigger
+      trigger: Mode.Edit.Trigger  # F2
       controls:
         - {control: Fader.01:0, mapped_to: DMX_01}
         - {control: Fader.02:0, mapped_to: DMX_02}
@@ -114,7 +114,7 @@ layer-groups:
         - {control: Fader.Master, mapped_to: DMX_MASTER}
 
     - name: Party
-      trigger: Mode.Party.Trigger
+      trigger: Mode.Party.Trigger  # F3
       controls:
         - {control: Fader.01:0, mapped_to: OCTOSTRIP}
         - {control: Fader.02:0, mapped_to: PARS}
@@ -122,7 +122,7 @@ layer-groups:
         - {control: Fader.04:0, mapped_to: WASHES}
 
     - name: Audio
-      trigger: Mode.Audio.Trigger
+      trigger: Mode.Audio.Trigger  #F4
       controls:
         - {control: Fader.01:0, mapped_to: AUDIO_01}
         - {control: Fader.02:0, mapped_to: AUDIO_02}

@@ -35,7 +35,12 @@ class MIDIControlRepository:
         return self.controls
 
     def controls_from_mapping(self, mapped_to: str, context: MIDIContext) -> list[MIDIAbstractControl]:
-        for control in self.mappings[mapped_to]:
+        try:
+            controls = self.mappings[mapped_to]
+        except KeyError:
+            raise ValueError(f"No MIDIControl mapped to '{mapped_to}', {context}")
+
+        for control in controls:
             page_ok = control.info.page == -1 or control.info.page == context.current_page
             layer_ok = control.info.layer_name == "" or control.info.layer_name == context.current_layer.name
             if page_ok and layer_ok:
