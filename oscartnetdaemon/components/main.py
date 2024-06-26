@@ -1,4 +1,4 @@
-import logging
+import time
 from multiprocessing import Process
 
 from oscartnetdaemon.domain_contract.service import Service
@@ -27,6 +27,8 @@ class Main:
                         notification = source_bundle.service.notification_queue_out.get()
                         for target_bundle in self.service_bundles.values():
                             target_bundle.service.notification_queue_in.put(notification)
+
+                time.sleep(0.01)
 
         except KeyboardInterrupt:
             self.shutdown()

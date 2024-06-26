@@ -1,3 +1,4 @@
+import time
 from multiprocessing import Queue
 
 from oscartnetdaemon.domain_contract.abstract_io import AbstractIO
@@ -60,6 +61,8 @@ class Service:
             while not self.io_message_queue_out.empty():
                 message = self.io_message_queue_out.get()
                 self.io.send_message(message)
+
+            time.sleep(0.01)
 
     def shutdown(self):
         self.io.shutdown()

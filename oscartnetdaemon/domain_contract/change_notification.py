@@ -8,4 +8,4 @@ from oscartnetdaemon.domain_contract.variable_info import VariableInfo
 class ChangeNotification:
     info: VariableInfo
     value: BaseValue | None
-    ignore_value: bool = False
+    ignore_value: bool = False  # FIXME: could this be more elegant ? (two subclasses of a BaseNotification ?)
