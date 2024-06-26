@@ -64,10 +64,11 @@ class MIDIConfigurationLoader(AbstractConfigurationLoader):
         button.page_direction = direction
         return button
 
-    def make_paginated_variable_info(self, variable_name, page_number):
+    def make_paginated_variable_info(self, variable_name, page_number, pagination_name):
         new_variable_info = deepcopy(self.variable_infos[variable_name])
         new_variable_name = f"{variable_name}:{page_number}"
         new_variable_info.name = new_variable_name
+        new_variable_info.pagination_name = pagination_name
         new_variable_info.page_number = page_number
 
         return new_variable_info
@@ -95,7 +96,11 @@ class MIDIConfigurationLoader(AbstractConfigurationLoader):
                         continue
 
                     variable_to_pop_names.append(variable_name)
-                    new_paginated_variable_info = self.make_paginated_variable_info(variable_name, page_number)
+                    new_paginated_variable_info = self.make_paginated_variable_info(
+                        variable_name=variable_name,
+                        page_number=page_number,
+                        pagination_name=new_pagination.name
+                    )
                     new_pagination.variables[page_number].append(new_paginated_variable_info)
                     self.variable_infos[new_paginated_variable_info.name] = new_paginated_variable_info
 
@@ -128,9 +133,8 @@ class MIDIConfigurationLoader(AbstractConfigurationLoader):
             pagination_infos=self.pagination_infos
         )
 
-        # Init all pages to first
-        for pagination_name in self.pagination_infos.keys():
-            MIDIContext().current_pages[pagination_name] = 0
+        # Install PaginationInfos in MIDIContext
+        MIDIContext().pagination_infos = self.pagination_infos
 
         from pprint import pp
         pp(configuration, width=500)

@@ -5,17 +5,22 @@ from oscartnetdaemon.components.new_midi.variable_info import MIDIVariableInfo
 
 
 def check_notification(info: MIDIVariableInfo) -> bool:
-    return info.page_number == -1 or info.page_number == MIDIContext().current_pages[info.pagination_name]
+    page_ok = (
+        info.pagination_name == "" or
+        info.page_number == -1 or
+        info.page_number == MIDIContext().pagination_infos[info.pagination_name].current_page
+    )
+
+    return page_ok
 
 
 def check_io_message(info: MIDIVariableInfo, message: MIDIMessage) -> bool:
     channel_ok = info.midi_parsing.channel == message.channel
     device_ok = info.device_name == message.device_name
-    # layer_ok = self.info.layer_name == "" or self.info.layer_name == context.current_layer.name
     page_ok = (
         info.pagination_name == "" or
         info.page_number == -1 or
-        info.page_number == MIDIContext().current_pages[info.pagination_name]
+        info.page_number == MIDIContext().pagination_infos[info.pagination_name].current_page
     )
     type_ok = message.type == info.midi_parsing.type
 

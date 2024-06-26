@@ -1,7 +1,7 @@
+from oscartnetdaemon.components.new_midi.pagination_info import MIDIPaginationInfo
 from oscartnetdaemon.python_extensions.singleton_metaclass import SingletonMetaclass
 
 
 class MIDIContext(metaclass=SingletonMetaclass):
     def __init__(self):
-        self.current_pages: dict[str, int] = dict()
-        self.current_layer_names: dict[str, str] = dict()
+        self.pagination_infos: dict[str, MIDIPaginationInfo] = dict()

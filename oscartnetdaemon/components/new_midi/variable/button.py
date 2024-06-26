@@ -4,6 +4,8 @@ from oscartnetdaemon.components.new_midi.variable_info import MIDIVariableInfo
 from oscartnetdaemon.domain_contract.change_notification import ChangeNotification
 from oscartnetdaemon.domain_contract.variable.float import VariableFloat
 from oscartnetdaemon.components.new_midi.compliance_check import check_io_message, check_notification
+from oscartnetdaemon.components.new_midi.context import MIDIContext
+from oscartnetdaemon.components.new_midi.page_direction_enum import MIDIPageDirection
 
 
 class MIDIButton(VariableFloat):
@@ -13,7 +15,16 @@ class MIDIButton(VariableFloat):
         From ChangeNotification to IO
         """
         info: MIDIVariableInfo = self.info  # FIXME type hint for autocompletion
-        if check_notification(info):
+
+        if info.is_page_button and self.value.value == 1:
+            if info.page_direction == MIDIPageDirection.Up:
+                MIDIContext().pagination_infos[info.pagination_name].up()
+            else:
+                MIDIContext().pagination_infos[info.pagination_name].down()
+
+            print(MIDIContext().pagination_infos[info.pagination_name].current_page)
+
+        elif check_notification(info):
             self.io_message_queue_out.put(MIDIMessage(
                 channel=info.midi_parsing.channel,
                 device_name=info.device_name,
