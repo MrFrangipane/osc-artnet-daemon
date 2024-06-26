@@ -1,14 +1,15 @@
 ---
 schema_version: 1
-controls:
-  - caption: "Fader1"
-    type: Fader
+server-ip-address: ""
+server-ip-address-autodetect: True
+server-port: 8080
+variables:
+  - name: FADER_A
+    caption: "Fader A"
+    type: Float
     osc-address: "/fader1"
-    mapped_to: FADER_A
 
-  - caption: "Fader2"
-    type: Fader
+  - name: FADER_B
+    caption: "Fader B"
+    type: Float
     osc-address: "/fader2"
-    mapped_to: FADER_B
-
-recall-groups: []

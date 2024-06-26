@@ -1,14 +1,13 @@
 from abc import ABC, abstractmethod
-from multiprocessing import Queue
 
-from oscartnetdaemon.domain_contract.abstract_io_message import AbstractIOMessage
+# FIXME: circular import
+# from oscartnetdaemon.domain_contract.service_components import ServiceComponents
 
 
 class AbstractIO(ABC):
 
-    def __init__(self, io_message_queue_in: "Queue[AbstractIOMessage]", io_message_queue_out: "Queue[AbstractIOMessage]"):
-        self.io_message_queue_in = io_message_queue_in
-        self.io_message_queue_out = io_message_queue_out
+    def __init__(self, components: "ServiceComponents"):
+        self.components = components
 
     @abstractmethod
     def start(self):

@@ -1,8 +1,8 @@
 from multiprocessing import Process
 
-from oscartnetdaemon.domain_contract.service_registration_info import ServiceRegistrationInfo
 from oscartnetdaemon.domain_contract.service import Service
 from oscartnetdaemon.domain_contract.service_bundle import ServiceBundle
+from oscartnetdaemon.domain_contract.service_registration_info import ServiceRegistrationInfo
 
 
 class Main:
@@ -19,9 +19,7 @@ class Main:
             bundle.service.initialize()
 
         for bundle in self.service_bundles.values():
-            bundle.process = Process(
-                target=bundle.service.exec
-            )
+            bundle.process = Process(target=bundle.service.exec)
             bundle.process.start()
 
         try:
