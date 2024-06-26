@@ -4,8 +4,8 @@
 schema_version: 1
 pages:
   - name: Pages
-    up: FaderBank.Up
-    down: FaderBank.Down
+    button-up: FaderBank.Up
+    button-down: FaderBank.Down
     page-count: 2
     variables:
       - Fader07

@@ -1,3 +1,28 @@
 ---
 schema_version: 1
-layer-groups: []
+layer-groups:
+  - name: Modes
+    layers:
+    - name: Show
+      button-activate: Button.F1
+      variables:
+        - { source: Fader07:0, target: SHOW_07 }
+        - { source: Fader08:0, target: SHOW_08 }
+        - { source: Fader15:0, target: SHOW_15 }
+        - { source: Fader16:0, target: SHOW_16 }
+        - { source: Fader07:1, target: SHOW_23 }
+        - { source: Fader08:1, target: SHOW_24 }
+        - { source: Fader15:1, target: SHOW_31 }
+        - { source: Fader16:1, target: SHOW_32 }
+
+    - name: Edit
+      button-activate: Button.F2
+      variables:
+        - { source: Fader07:0, target: DMX_07 }
+        - { source: Fader08:0, target: DMX_08 }
+        - { source: Fader15:0, target: DMX_15 }
+        - { source: Fader16:0, target: DMX_16 }
+        - { source: Fader07:1, target: DMX_23 }
+        - { source: Fader08:1, target: DMX_24 }
+        - { source: Fader15:1, target: DMX_31 }
+        - { source: Fader16:1, target: DMX_32 }

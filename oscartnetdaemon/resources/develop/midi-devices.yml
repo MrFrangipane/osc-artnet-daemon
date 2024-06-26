@@ -26,19 +26,19 @@ devices:
         type: Button
         midi-parsing: { channel: 0, type: note_on, note: 47 }
 
-      - name: F1
+      - name: Button.F1
         type: Button
         midi-parsing: { channel: 0, type: note_on, note: 54 }
 
-      - name: F2
+      - name: Button.F2
         type: Button
         midi-parsing: { channel: 0, type: note_on, note: 55 }
 
-      - name: F3
+      - name: Button.F3
         type: Button
         midi-parsing: { channel: 0, type: note_on, note: 56 }
 
-      - name: F4
+      - name: Button.F4
         type: Button
         midi-parsing: { channel: 0, type: note_on, note: 57 }
 

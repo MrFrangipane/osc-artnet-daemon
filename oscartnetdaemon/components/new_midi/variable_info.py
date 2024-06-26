@@ -11,7 +11,12 @@ from oscartnetdaemon.components.new_midi.page_direction_enum import MIDIPageDire
 class MIDIVariableInfo(VariableInfo):
     device_name: str
     midi_parsing: MIDIParsingInfo
-    page_number: int = -1
+
     is_page_button: bool = False
     pagination_name: str = ""
+    page_number: int = -1
     page_direction: MIDIPageDirection = MIDIPageDirection.Up
+
+    is_layer_button: bool = False
+    layer_name: str = ""
+    layer_group_name: str = ""
