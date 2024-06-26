@@ -28,3 +28,9 @@ class AbstractVariable(ABC):
         From IO to ChangeNotification
         """
         pass
+
+    def notify_change(self):
+        self.notification_queue_out.put(ChangeNotification(
+            info=self.info,
+            value=self.value
+        ))
