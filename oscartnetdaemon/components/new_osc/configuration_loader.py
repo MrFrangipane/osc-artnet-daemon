@@ -12,14 +12,14 @@ class OSCConfigurationLoader(AbstractConfigurationLoader):
         self.content = dict()
 
     def load(self) -> OSCConfiguration:
-        variable_infos = list()
+        variable_infos = dict()
 
         for filepath in self.filepaths:
             with open(filepath, 'r') as file:
                 self.content = yaml.safe_load(file)
 
             for variable_dict in self.content['variables']:
-                variable_infos.append(OSCVariableInfo.from_dict(variable_dict))
+                variable_infos[variable_dict['name']] = OSCVariableInfo.from_dict(variable_dict)
 
         return OSCConfiguration(
             server_ip_address=self.content['server-ip-address'],

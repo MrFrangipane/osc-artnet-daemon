@@ -48,6 +48,6 @@ class MIDIConfigurationLoader(AbstractConfigurationLoader):
                 variable_infos.append(MIDIVariableInfo.from_dict(variable_dict))
 
         return MIDIConfiguration(
-            devices=device_infos,
+            device_infos=device_infos,
             variable_infos=variable_infos
         )

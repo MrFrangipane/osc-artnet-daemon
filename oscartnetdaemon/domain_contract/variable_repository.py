@@ -15,7 +15,7 @@ class VariableRepository:
         self.variables: dict[str, AbstractVariable] = dict()
 
     def create_variables(self, configuration: BaseConfiguration, message_queue_out: "Queue[AbstractIOMessage]", notification_queue_out: "Queue[ChangeNotification]"):
-        for variable_info in configuration.variable_infos:
+        for variable_info in configuration.variable_infos.values():
             if variable_info.name in self.variables:
                 raise NameError(f"Variable '{variable_info.name}' already exists")
 
@@ -32,7 +32,9 @@ class VariableRepository:
             self.variables[variable_info.name] = new_variable
 
     def forward_change_notification(self, notification: ChangeNotification):
-        self.variables[notification.info.name].handle_change_notification(notification)
+        variable = self.variables.get(notification.info.name, None)
+        if variable is not None:
+            variable.handle_change_notification(notification)
 
     def broadcast_io_message(self, message: AbstractIOMessage):
         """

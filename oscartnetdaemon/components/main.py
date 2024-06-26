@@ -1,4 +1,5 @@
-from multiprocessing import Process, Queue
+import logging
+from multiprocessing import Process
 
 from oscartnetdaemon.domain_contract.service import Service
 from oscartnetdaemon.domain_contract.service_bundle import ServiceBundle

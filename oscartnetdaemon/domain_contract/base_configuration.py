@@ -5,4 +5,4 @@ from oscartnetdaemon.domain_contract.variable_info import VariableInfo
 
 @dataclass
 class BaseConfiguration:
-    variable_infos: list[VariableInfo]
+    variable_infos: dict[str, VariableInfo]

@@ -18,7 +18,7 @@ class MIDIIO(AbstractIO):
         Start IO loop without blocking, deal with in and out queues
         """
         self.devices = dict()
-        for device_info in self.components.configuration.devices.values():
+        for device_info in self.components.configuration.device_infos.values():
             self.devices[device_info.name] = MIDIDevice(device_info, self.components.io_message_queue_in)
             self.devices[device_info.name].start()
 

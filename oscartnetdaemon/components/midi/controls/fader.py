@@ -2,7 +2,6 @@ from oscartnetdaemon.components.domain.value.float import FloatValue
 from oscartnetdaemon.components.midi.controls.abstract import MIDIAbstractControl
 from oscartnetdaemon.components.midi.entities.context import MIDIContext
 from oscartnetdaemon.components.midi.entities.control_info import MIDIControlInfo
-from oscartnetdaemon.components.midi.entities.device_info import MIDIDeviceInfo
 from oscartnetdaemon.components.midi.entities.message import MIDIMessage
 
 
