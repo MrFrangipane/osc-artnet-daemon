@@ -17,12 +17,7 @@ class MIDIButton(VariableFloat):
         info: MIDIVariableInfo = self.info  # FIXME type hint for autocompletion
 
         if info.is_page_button and self.value.value == 1:
-            if info.page_direction == MIDIPageDirection.Up:
-                MIDIContext().pagination_infos[info.pagination_name].up()
-            else:
-                MIDIContext().pagination_infos[info.pagination_name].down()
-
-            print(MIDIContext().pagination_infos[info.pagination_name].current_page)
+            self._handle_pagination_change(info)
 
         elif check_notification(info):
             self.io_message_queue_out.put(MIDIMessage(
@@ -42,3 +37,19 @@ class MIDIButton(VariableFloat):
 
         self.value.value = float(message.velocity / 127.0)
         self.notify_change()
+
+    def _handle_pagination_change(self, info: MIDIVariableInfo):
+        pagination_info = MIDIContext().pagination_infos[info.pagination_name]
+
+        if info.page_direction == MIDIPageDirection.Up:
+            page_changed = pagination_info.up()
+        else:
+            page_changed = pagination_info.down()
+
+        if page_changed:
+            for variable_info in pagination_info.variables[pagination_info.current_page]:
+                self.notification_queue_out.put(ChangeNotification(
+                    info=variable_info,
+                    value=None,
+                    ignore_value=True
+                ))

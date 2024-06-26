@@ -9,7 +9,7 @@ variables:
     type: Fader
     osc-address: "/fader1"
 
-  - name: FADER_B
-    caption: "Fader B"
+  - name: Fader16:1
+    caption: "Fader16:1"
     type: Fader
     osc-address: "/fader2"

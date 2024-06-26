@@ -20,6 +20,10 @@ class OSCFader(VariableFloat):
             osc_address=info.osc_address + '/fader',
             osc_value=self.value.value
         ))
+        self.io_message_queue_out.put(OSCMessage(
+            osc_address=info.osc_address + '/caption',
+            osc_value=info.caption
+        ))
 
     def handle_io_message(self, message: OSCMessage):
         """

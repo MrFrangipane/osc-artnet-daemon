@@ -7,4 +7,5 @@ from oscartnetdaemon.domain_contract.variable_info import VariableInfo
 @dataclass
 class ChangeNotification:
     info: VariableInfo
-    value: BaseValue
+    value: BaseValue | None
+    ignore_value: bool = False

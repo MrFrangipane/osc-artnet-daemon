@@ -34,7 +34,8 @@ class VariableRepository:
     def forward_change_notification(self, notification: ChangeNotification):
         variable = self.variables.get(notification.info.name, None)
         if variable is not None:
-            variable.value = notification.value
+            if not notification.ignore_value:
+                variable.value = notification.value
             variable.handle_change_notification(notification)
 
     def broadcast_io_message(self, message: AbstractIOMessage):
