@@ -67,6 +67,7 @@ class MIDIConfigurationLoader(AbstractConfigurationLoader):
 
         # Install PaginationInfos in MIDIContext
         MIDIContext().pagination_infos = self.paginations
+        MIDIContext().layer_group_infos = self.layer_groups
 
         from pprint import pp
         pp(configuration, width=500)
@@ -154,8 +155,9 @@ class MIDIConfigurationLoader(AbstractConfigurationLoader):
     #
     # LAYER GROUPS
     def load_layer_groups(self):
+        content = unify_layer_groups(self.content.get('layer-groups', list()))
         variable_to_pop_names: list[str] = list()
-        for layer_group in self.content.get('layer-groups', list()):
+        for layer_group in content:
             ignored_variable_names: list[str] = list()
 
             new_layer_group = MIDILayerGroupInfo(
@@ -175,7 +177,7 @@ class MIDIConfigurationLoader(AbstractConfigurationLoader):
                     variables=list()
                 )
 
-                for mapping_dict in layer['variables']:
+                for mapping_dict in layer['mappings']:
                     source_name = mapping_dict['source']
                     if source_name not in self.variables:
                         ignored_variable_names.append(source_name)
@@ -223,3 +225,36 @@ class MIDIConfigurationLoader(AbstractConfigurationLoader):
         new_variable.layer_group_name = layer_group_name
 
         return new_variable
+
+
+def unify_layer_groups(layer_groups: list):
+    """Ensure all concerned Variables are mapped in all groups"""
+    for group in layer_groups:
+        all_sources = list()
+        all_mappings = list()
+        for layer in group['layers']:
+            for mapping in layer['mappings']:
+                if mapping['source'] not in all_sources:
+                    all_sources.append(mapping['source'])  # FIXME a bit hacky ?
+                    all_mappings.append({'source': mapping['source'], 'target': mapping['source']})
+
+        for layer in group['layers']:
+            layer['mappings'] = _updated_mappings(
+                layer_name=layer['name'],
+                original_mappings=layer['mappings'],
+                all_mappings=all_mappings
+            )
+
+    return layer_groups
+
+
+def _updated_mappings(layer_name:str, original_mappings: list, all_mappings: list) -> list:
+    copied_originals = deepcopy(original_mappings)
+
+    for mapping in all_mappings:
+        if mapping not in copied_originals:
+            new_mapping = deepcopy(mapping)
+            new_mapping['target'] = f"{layer_name}.{new_mapping['target']}"
+            copied_originals.append(new_mapping)
+
+    return copied_originals
