@@ -1,19 +1,13 @@
 from pythonosc.osc_server import Dispatcher
 
-from oscartnetdaemon.components.osc.controls.abstract_repository import AbstractOSCControlRepository
+from oscartnetdaemon.components.domain.change_notification import ChangeNotification
 from oscartnetdaemon.components.osc.controls.abstract import OSCAbstractControl
+from oscartnetdaemon.components.osc.controls.fader import OSCFaderControl
 from oscartnetdaemon.components.osc.entities.control_info import OSCControlInfo
 from oscartnetdaemon.components.osc.entities.control_type_enum import OSCControlType
-from oscartnetdaemon.components.osc.controls.button import OSCButtonControl
-from oscartnetdaemon.components.osc.controls.color_wheel import OSCColorWheelControl
-from oscartnetdaemon.components.osc.controls.fader import OSCFaderControl
-from oscartnetdaemon.components.osc.controls.radio import OSCRadioControl
-from oscartnetdaemon.components.osc.controls.recall_slot import OSCRecallSlotControl
-from oscartnetdaemon.components.osc.controls.toggle import OSCToggleControl
-from oscartnetdaemon.components.domain.change_notification import ChangeNotification
 
 
-class OSCControlRepository(AbstractOSCControlRepository):
+class OSCControlRepository:
 
     def __init__(self, service: "OSCService"):
         self.service = service
@@ -22,12 +16,7 @@ class OSCControlRepository(AbstractOSCControlRepository):
     def create_controls(self, controls_infos: list[OSCControlInfo]) -> list[OSCAbstractControl]:
         for control_info in controls_infos:
             new_control_type = {
-                OSCControlType.Button: OSCButtonControl,
-                OSCControlType.ColorWheel: OSCColorWheelControl,
-                OSCControlType.Fader: OSCFaderControl,
-                OSCControlType.Radio: OSCRadioControl,
-                OSCControlType.RecallSlot: OSCRecallSlotControl,
-                OSCControlType.Toggle: OSCToggleControl
+                OSCControlType.Fader: OSCFaderControl
             }.get(control_info.type, None)
 
             if new_control_type is None:

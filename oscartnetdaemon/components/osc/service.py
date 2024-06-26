@@ -59,7 +59,7 @@ class OSCService(AbstractImplementation):
         while True:
             while not self.notification_queue_in.empty():
                 change_notification = self.notification_queue_in.get()
-                self.control_repository.forward_notification(change_notification)
+                self.control_repository.forward_change_notification(change_notification)
 
             while not self.osc_messages_queue.empty():
                 address, value = self.osc_messages_queue.get()
