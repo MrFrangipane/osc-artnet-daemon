@@ -69,8 +69,8 @@ class MIDIConfigurationLoader(AbstractConfigurationLoader):
         MIDIContext().pagination_infos = self.paginations
         MIDIContext().layer_group_infos = self.layer_groups
 
-        from pprint import pp
-        pp(configuration, width=500)
+        # from pprint import pp
+        # pp(configuration, width=500)
         return configuration
 
     #

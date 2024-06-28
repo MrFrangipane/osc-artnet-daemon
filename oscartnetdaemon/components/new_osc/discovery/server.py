@@ -1,5 +1,4 @@
 import logging
-import socket
 
 from zeroconf import ServiceInfo, Zeroconf
 
@@ -8,7 +7,7 @@ from oscartnetdaemon.python_extensions.network import detect_local_ip, ip_as_byt
 _logger = logging.getLogger(__name__)
 
 
-class DiscoveryServer:
+class OSCDiscoveryServer:
     _zeroconf_service_type = "_osc._udp.local."
 
     def __init__(self, name: str, port: int):

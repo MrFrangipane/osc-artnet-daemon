@@ -2,17 +2,19 @@ import logging
 
 from zeroconf import ServiceBrowser, ServiceStateChange, Zeroconf
 
-from oscartnetdaemon.components.components_singleton import Components
-from oscartnetdaemon.components.osc.entities.client_info import OSCClientInfo
+from oscartnetdaemon.components.new_osc.client_info import OSCClientInfo
+# FIXME circular import
+# from oscartnetdaemon.components.new_osc.io.io import OSCIO
 
 _logger = logging.getLogger(__name__)
 
 
-class DiscoveryClients:
+class OSCDiscoveryClients:
     _zeroconf_service = "_osc._udp.local."
 
-    def __init__(self):
-        self._browser: ServiceBrowser = None
+    def __init__(self, io):
+        self._io = io
+        self._browser: ServiceBrowser | None = None
         self._zeroconf = Zeroconf()
 
     def start(self):
@@ -27,8 +29,7 @@ class DiscoveryClients:
         self._zeroconf.close()
         _logger.info("Clients discovery stopped")
 
-    @staticmethod
-    def _on_service_change(zeroconf: Zeroconf, service_type: str, name: str, state_change: ServiceStateChange):
+    def _on_service_change(self, zeroconf: Zeroconf, service_type: str, name: str, state_change: ServiceStateChange):
         info = zeroconf.get_service_info(service_type, name)
         if info is None:
             return
@@ -37,7 +38,7 @@ class DiscoveryClients:
             if b'IID' not in info.properties:
                 return
 
-            Components().osc_service.register_client(OSCClientInfo(
+            self._io.register_client(OSCClientInfo(
                 address=info.addresses[0],
                 id=info.properties[b'IID'],
                 name=info.name.split('.')[0],
@@ -45,7 +46,7 @@ class DiscoveryClients:
             ))
 
         elif state_change is ServiceStateChange.Removed:
-            Components().osc_service.unregister_client(OSCClientInfo(
+            self._io.unregister_client(OSCClientInfo(
                 address=info.addresses[0],
                 id=info.properties[b'IID'],
                 name=info.name.split('.')[0],
