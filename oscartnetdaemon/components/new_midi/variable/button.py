@@ -5,6 +5,7 @@ from oscartnetdaemon.components.new_midi.io.message_type_enum import MIDIMessage
 from oscartnetdaemon.components.new_midi.page_direction_enum import MIDIPageDirection
 from oscartnetdaemon.components.new_midi.variable_info import MIDIVariableInfo
 from oscartnetdaemon.domain_contract.change_notification import ChangeNotification
+from oscartnetdaemon.domain_contract.value.float import ValueFloat
 from oscartnetdaemon.domain_contract.variable.float import VariableFloat
 
 
@@ -35,7 +36,12 @@ class MIDIButton(VariableFloat):
         """
         From IO to ChangeNotification
         """
-        if not MIDIComplianceChecker.with_io_message(self.info, message):
+        info: MIDIVariableInfo = self.info  # FIXME type hint for autocompletion
+
+        if not MIDIComplianceChecker.with_io_message(info, message):
+            return
+
+        if info.is_layer_button and message.velocity == 0:
             return
 
         self.value.value = float(message.velocity / 127.0)
@@ -66,8 +72,14 @@ class MIDIButton(VariableFloat):
         if layer_info.name != layer_group_info.current_layer_name:
             layer_group_info.current_layer_name = layer_info.name
 
-            # TODO find a way to radio-illuminate layer group's buttons
+            # radio-illuminate
+            for layer in layer_group_info.layers.values():
+                self.notification_queue_out.put(ChangeNotification(
+                    info=layer.button_activate,
+                    value=ValueFloat(float(layer.name == layer_info.name))
+                ))
 
+            # send variable updates
             for variable_info in layer_info.variables:
                 self.notification_queue_out.put(ChangeNotification(
                     info=variable_info,

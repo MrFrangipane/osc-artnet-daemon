@@ -1,6 +1,8 @@
+from dataclasses import dataclass
 from oscartnetdaemon.domain_contract.value.base import BaseValue
 
 
+@dataclass
 class ValueFloat(BaseValue):
     value: float = 0.0
 
