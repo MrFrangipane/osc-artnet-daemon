@@ -54,23 +54,33 @@ class Service:
         # FIXME: should happen after all services are started, once per unique variable
         self.variable_repository.notify_all_variables()
 
-        while True:
-            #
-            # Notifications
-            while not self.notification_queue_in.empty():
-                notification = self.notification_queue_in.get()
-                self.variable_repository.forward_change_notification(notification)
-            #
-            # IO
-            while not self.io_message_queue_in.empty():
-                message = self.io_message_queue_in.get()
-                self.variable_repository.broadcast_io_message(message)
+        try:
+            while True:
+                #
+                # Notifications
+                while not self.notification_queue_in.empty():
+                    notification = self.notification_queue_in.get()
+                    self.variable_repository.forward_change_notification(notification)
+                #
+                # IO
+                while not self.io_message_queue_in.empty():
+                    message = self.io_message_queue_in.get()
+                    self.variable_repository.broadcast_io_message(message)
 
-            while not self.io_message_queue_out.empty():
-                message = self.io_message_queue_out.get()
-                self.io.send_message(message)
+                while not self.io_message_queue_out.empty():
+                    message = self.io_message_queue_out.get()
+                    self.io.send_message(message)
 
-            time.sleep(0.01)
+                time.sleep(0.01)
+
+        except KeyboardInterrupt:
+            print("Service KeyboardInterrupt")
+
+        except Exception as e:
+            raise
+
+        finally:
+            self.shutdown()
 
     def shutdown(self):
         self.io.shutdown()

@@ -106,6 +106,9 @@ class MIDIConfigurationLoader(AbstractConfigurationLoader):
             button_up = self.make_page_button(pagination, MIDIPageDirection.Up)
             button_down = self.make_page_button(pagination, MIDIPageDirection.Down)
 
+            if button_up is None or button_down is None:
+                continue
+
             new_pagination = MIDIPaginationInfo(
                 name=pagination['name'],
                 page_count=pagination['page-count'],
@@ -136,9 +139,12 @@ class MIDIConfigurationLoader(AbstractConfigurationLoader):
         for variable_to_pop_name in set(variable_to_pop_names):
             self.variables.pop(variable_to_pop_name)
 
-    def make_page_button(self, pagination, direction: MIDIPageDirection) -> MIDIVariableInfo:
+    def make_page_button(self, pagination, direction: MIDIPageDirection) -> MIDIVariableInfo | None:
         button_name = pagination['button-up' if direction == MIDIPageDirection.Up else 'button-down']
-        button = self.variables[button_name]
+        button = self.variables.get(button_name, None)
+        if button is None:
+            print(f"Pagination '{pagination['name']}': unable to find Button '{button_name}'")
+            return
         button.is_page_button = True
         button.pagination_name = pagination['name']
         button.page_direction = direction
@@ -172,6 +178,9 @@ class MIDIConfigurationLoader(AbstractConfigurationLoader):
                     layer_name=layer['name'],
                     layer_group_name=layer_group['name']
                 )
+                if button_activate is None:
+                    continue
+
                 new_layer = MIDILayerInfo(
                     name=layer['name'],
                     button_activate=button_activate,
@@ -204,16 +213,24 @@ class MIDIConfigurationLoader(AbstractConfigurationLoader):
 
                 new_layer_group.layers[new_layer.name] = new_layer
 
-            self.layer_groups[new_layer_group.name] = new_layer_group
-            print(f"Layer Group '{new_layer_group.name}' not found Variables: {', '.join(set(ignored_variable_names))}")
+            if new_layer_group.layers:
+                self.layer_groups[new_layer_group.name] = new_layer_group
+                print(f"Layer Group '{new_layer_group.name}' not found Variables: {', '.join(set(ignored_variable_names))}")
+            else:
+                print(f"Layer Group ignored '{new_layer_group.name}': unable to create any layer for it")
 
         for variable_to_pop_name in set(variable_to_pop_names):
             self.variables.pop(variable_to_pop_name)
 
-    def make_layer_button(self, button_name: str, layer_name: str, layer_group_name: str) -> MIDIVariableInfo:
-        button = self.variables[button_name]
+    def make_layer_button(self, button_name: str, layer_name: str, layer_group_name: str) -> MIDIVariableInfo | None:
+        button = self.variables.get(button_name, None)
+        if button is None:
+            print(f"Layer group '{layer_group_name}': unable to find button '{button_name}'")
+            return
+
         if button.is_page_button:
-            raise AttributeError(f"Button '{button_name}' is already used for Pagination '{button.pagination_name}'")
+            print(f"Button '{button_name}' is already used for Pagination '{button.pagination_name}'")
+            return
 
         button.is_layer_button = True
         button.layer_name = layer_name

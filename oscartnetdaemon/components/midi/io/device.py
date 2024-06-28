@@ -1,4 +1,5 @@
-from multiprocessing import Process, Queue
+import time
+from multiprocessing import Event, Process, Queue
 
 import mido
 
@@ -7,10 +8,10 @@ from oscartnetdaemon.components.midi.io.message import MIDIMessage
 from oscartnetdaemon.components.midi.io.message_type_enum import MIDIMessageType
 
 
-def receive(queue_in: "Queue[MIDIMessage]", device_info: MIDIDeviceInfo):
+def receive(queue_in: "Queue[MIDIMessage]", device_info: MIDIDeviceInfo, should_exit: Event):
     midi_in = mido.open_input(device_info.in_port_name)
     try:
-        while True:
+        while not should_exit.is_set():
             mido_message = midi_in.receive(block=False)  # don't block, we want the KeyboardInterrupt to work
             if mido_message is None:
                 continue
@@ -22,29 +23,48 @@ def receive(queue_in: "Queue[MIDIMessage]", device_info: MIDIDeviceInfo):
             except ValueError:
                 print(f'Midi device cant deal with <{mido_message}>')
 
+            time.sleep(0.01)
+
     except KeyboardInterrupt:
+        print("MIDI receive loop KeyboardInterrupt")
+
+    except Exception as e:
+        raise
+
+    finally:
         midi_in.close()
 
 
-def send(queue_out: "Queue[MIDIMessage]", device_info: MIDIDeviceInfo):
+def send(queue_out: "Queue[MIDIMessage]", device_info: MIDIDeviceInfo, should_exit: Event):
     midi_out = mido.open_output(device_info.out_port_name)
     try:
-        while True:
-            message = queue_out.get()
-            if message.type == MIDIMessageType.PitchWheel:
-                midi_out.send(mido.Message(
-                    type=message.type.value,
-                    channel=message.channel,
-                    pitch=message.pitch
-                ))
-            elif message.type == MIDIMessageType.NoteOn:
-                midi_out.send(mido.Message(
-                    type=message.type.value,
-                    channel=message.channel,
-                    note=message.note,
-                    velocity=message.velocity
-                ))
+        while not should_exit.is_set():
+            while not queue_out.empty():
+                message = queue_out.get()
+                if message.type == MIDIMessageType.PitchWheel:
+                    midi_out.send(mido.Message(
+                        type=message.type.value,
+                        channel=message.channel,
+                        pitch=message.pitch
+                    ))
+
+                elif message.type == MIDIMessageType.NoteOn:
+                    midi_out.send(mido.Message(
+                        type=message.type.value,
+                        channel=message.channel,
+                        note=message.note,
+                        velocity=message.velocity
+                    ))
+
+                    time.sleep(0.01)
+
     except KeyboardInterrupt:
+        print("MIDI send loop KeyboardInterrupt")
+
+    except Exception as e:
+        raise
+
+    finally:
         midi_out.close()
 
 
@@ -53,16 +73,18 @@ class MIDIDevice:
         self.info = info
         self.queue_in: Queue[MIDIMessage] = queue_in
         self.queue_out: Queue[MIDIMessage] = Queue()
+        self.process_should_exit = Event()
         self.process_in: Process = None
         self.process_out: Process = None
 
     def start(self):
-        self.process_in = Process(target=receive, args=(self.queue_in, self.info))
-        self.process_out = Process(target=send, args=(self.queue_out, self.info))
+        self.process_in = Process(target=receive, args=(self.queue_in, self.info, self.process_should_exit))
+        self.process_out = Process(target=send, args=(self.queue_out, self.info, self.process_should_exit))
 
         self.process_in.start()
         self.process_out.start()
 
     def stop(self):
-        self.process_in.kill()
-        self.process_out.kill()
+        self.process_should_exit.set()
+        while self.process_in.is_alive() or self.process_out.is_alive():
+            time.sleep(0.01)

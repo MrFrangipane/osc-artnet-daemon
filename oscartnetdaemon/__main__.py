@@ -1,4 +1,4 @@
-from oscartnetdaemon.components.main import Main
+from oscartnetdaemon.components.service_repository import ServiceRepository
 
 from oscartnetdaemon.domain_contract.service_registration_info import ServiceRegistrationInfo
 from oscartnetdaemon.domain_contract.variable_type_enum import VariableType
@@ -14,7 +14,7 @@ from oscartnetdaemon.components.new_osc.variable.fader import OSCFader
 
 
 if __name__ == '__main__':
-    main = Main()
+    service_repository = ServiceRepository()
 
     # TODO create an interface to allow implementation of this in one line
     midi_configuration_loader = MIDIConfigurationLoader(filepaths=[
@@ -22,7 +22,7 @@ if __name__ == '__main__':
         "resources/develop/midi-pages.yml",
         "resources/develop/midi-layer-groups.yml"
     ])
-    main.register_io_service(ServiceRegistrationInfo(
+    service_repository.register(ServiceRegistrationInfo(
         configuration_loader=midi_configuration_loader,
         io_type=MIDIIO,
         variable_types={
@@ -35,7 +35,7 @@ if __name__ == '__main__':
     osc_configuration_loader = OSCConfigurationLoader(filepaths=[
         "resources/develop/osc.yml"
     ])
-    main.register_io_service(ServiceRegistrationInfo(
+    service_repository.register(ServiceRegistrationInfo(
         configuration_loader=osc_configuration_loader,
         io_type=OSCIO,
         variable_types={
@@ -43,4 +43,4 @@ if __name__ == '__main__':
         }
     ))
 
-    main.exec()
+    service_repository.exec()
