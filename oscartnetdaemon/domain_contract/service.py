@@ -5,9 +5,9 @@ from oscartnetdaemon.domain_contract.abstract_io import AbstractIO
 from oscartnetdaemon.domain_contract.abstract_io_message import AbstractIOMessage
 from oscartnetdaemon.domain_contract.base_configuration import BaseConfiguration
 from oscartnetdaemon.domain_contract.change_notification import ChangeNotification
+from oscartnetdaemon.domain_contract.service_components import ServiceComponents
 from oscartnetdaemon.domain_contract.service_registration_info import ServiceRegistrationInfo
 from oscartnetdaemon.domain_contract.variable_repository import VariableRepository
-from oscartnetdaemon.domain_contract.service_components import ServiceComponents
 
 
 class Service:
@@ -16,10 +16,13 @@ class Service:
         self.configuration_loader = registration_info.configuration_loader
         self.configuration: BaseConfiguration | None = None
 
-        self.variable_repository = VariableRepository(registration_info.variable_types)
-
         self.notification_queue_in: Queue[ChangeNotification] = Queue()
         self.notification_queue_out: Queue[ChangeNotification] = Queue()
+
+        self.variable_repository = VariableRepository(
+            variable_types=registration_info.variable_types,
+            notification_queue_out=self.notification_queue_out
+        )
 
         self.io: AbstractIO | None = None
         self.io_type = registration_info.io_type
@@ -29,9 +32,8 @@ class Service:
     def initialize(self):
         self.configuration = self.configuration_loader.load()
         self.variable_repository.create_variables(
-            self.configuration,
-            self.io_message_queue_out,
-            self.notification_queue_out
+            configuration=self.configuration,
+            io_message_queue_out=self.io_message_queue_out
         )
         self.components.configuration = self.configuration
         self.components.io_message_queue_in = self.io_message_queue_in
@@ -43,8 +45,14 @@ class Service:
         self.io = self.io_type(self.components)
 
     def exec(self):
+        """
+        Entry point for Service's dedicated multiprocessing.Process
+        """
         self.initialize()
         self.io.start()
+
+        # FIXME: should happen after all services are started, once per unique variable
+        self.variable_repository.notify_all_variables()
 
         while True:
             #

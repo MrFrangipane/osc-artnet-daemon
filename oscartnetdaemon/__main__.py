@@ -3,10 +3,10 @@ from oscartnetdaemon.components.main import Main
 from oscartnetdaemon.domain_contract.service_registration_info import ServiceRegistrationInfo
 from oscartnetdaemon.domain_contract.variable_type_enum import VariableType
 
-from oscartnetdaemon.components.new_midi.configuration_loader import MIDIConfigurationLoader
-from oscartnetdaemon.components.new_midi.io.io import MIDIIO
-from oscartnetdaemon.components.new_midi.variable.button import MIDIButton
-from oscartnetdaemon.components.new_midi.variable.fader import MIDIFader
+from oscartnetdaemon.components.midi.configuration_loader import MIDIConfigurationLoader
+from oscartnetdaemon.components.midi.io.io import MIDIIO
+from oscartnetdaemon.components.midi.variable.button import MIDIButton
+from oscartnetdaemon.components.midi.variable.fader import MIDIFader
 
 from oscartnetdaemon.components.new_osc.configuration_loader import OSCConfigurationLoader
 from oscartnetdaemon.components.new_osc.io.io import OSCIO

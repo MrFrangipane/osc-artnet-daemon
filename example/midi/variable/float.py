@@ -1,8 +1,8 @@
-from oscartnetdaemon.components.new_midi.io.message import MIDIMessage
+from oscartnetdaemon.components.midi.io.message import MIDIMessage
 from oscartnetdaemon.domain_contract.change_notification import ChangeNotification
 from oscartnetdaemon.domain_contract.variable.float import VariableFloat
-from oscartnetdaemon.components.new_midi.variable_info import MIDIVariableInfo
-from oscartnetdaemon.components.new_midi.io.message_type_enum import MIDIMessageType
+from oscartnetdaemon.components.midi.variable_info import MIDIVariableInfo
+from oscartnetdaemon.components.midi.io.message_type_enum import MIDIMessageType
 
 
 class MIDIFloat(VariableFloat):

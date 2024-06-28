@@ -2,9 +2,9 @@ import mido
 import yaml
 
 from oscartnetdaemon.domain_contract.abstract_configuration_loader import AbstractConfigurationLoader
-from oscartnetdaemon.components.new_midi.variable_info import MIDIVariableInfo
-from oscartnetdaemon.components.new_midi.configuration import MIDIConfiguration
-from oscartnetdaemon.components.new_midi.io.device_info import MIDIDeviceInfo
+from oscartnetdaemon.components.midi.variable_info import MIDIVariableInfo
+from oscartnetdaemon.components.midi.configuration import MIDIConfiguration
+from oscartnetdaemon.components.midi.io.device_info import MIDIDeviceInfo
 
 
 def _find_in_list(item: str, items: list[str]) -> str:

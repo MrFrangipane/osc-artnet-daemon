@@ -10,11 +10,12 @@ from oscartnetdaemon.domain_contract.variable_type_enum import VariableType
 
 class VariableRepository:
 
-    def __init__(self, variable_types: dict[VariableType, Type[AbstractVariable]]):
+    def __init__(self, variable_types: dict[VariableType, Type[AbstractVariable]], notification_queue_out: "Queue[ChangeNotification]"):
         self.variable_types = variable_types
         self.variables: dict[str, AbstractVariable] = dict()
+        self.notification_queue_out: Queue[ChangeNotification] = notification_queue_out
 
-    def create_variables(self, configuration: BaseConfiguration, message_queue_out: "Queue[AbstractIOMessage]", notification_queue_out: "Queue[ChangeNotification]"):
+    def create_variables(self, configuration: BaseConfiguration, io_message_queue_out: "Queue[AbstractIOMessage]"):
         for variable_info in configuration.variable_infos.values():
             if variable_info.name in self.variables:
                 raise NameError(f"Variable '{variable_info.name}' already exists")
@@ -26,12 +27,16 @@ class VariableRepository:
 
             new_variable = self.variable_types[variable_info.type](
                 info=variable_info,
-                io_message_queue_out=message_queue_out,
-                notification_queue_out=notification_queue_out,
+                io_message_queue_out=io_message_queue_out,
+                notification_queue_out=self.notification_queue_out,
             )
             self.variables[variable_info.name] = new_variable
 
     def forward_change_notification(self, notification: ChangeNotification):
+        """
+        Forwards ChangeNotification to it's associated Variable
+        Updates Variable's value if pertinent
+        """
         variable = self.variables.get(notification.info.name, None)
         if variable is not None:
             if not notification.ignore_value:
@@ -44,3 +49,14 @@ class VariableRepository:
         """
         for variable in self.variables.values():
             variable.handle_io_message(message)
+
+    def notify_all_variables(self):
+        """
+        Send a notification to all variables
+        Useful when app starts or when new client connects
+        """
+        for variable in self.variables.values():
+            self.notification_queue_out.put(ChangeNotification(
+                info=variable.info,
+                value=variable.value
+            ))
