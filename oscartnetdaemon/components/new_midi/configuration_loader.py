@@ -169,7 +169,8 @@ class MIDIConfigurationLoader(AbstractConfigurationLoader):
             for layer in layer_group['layers']:
                 button_activate = self.make_layer_button(
                     button_name=layer['button-activate'],
-                    layer_name=layer['name']
+                    layer_name=layer['name'],
+                    layer_group_name=layer_group['name']
                 )
                 new_layer = MIDILayerInfo(
                     name=layer['name'],
@@ -209,13 +210,14 @@ class MIDIConfigurationLoader(AbstractConfigurationLoader):
         for variable_to_pop_name in set(variable_to_pop_names):
             self.variables.pop(variable_to_pop_name)
 
-    def make_layer_button(self, button_name: str, layer_name: str) -> MIDIVariableInfo:
+    def make_layer_button(self, button_name: str, layer_name: str, layer_group_name: str) -> MIDIVariableInfo:
         button = self.variables[button_name]
         if button.is_page_button:
             raise AttributeError(f"Button '{button_name}' is already used for Pagination '{button.pagination_name}'")
 
         button.is_layer_button = True
         button.layer_name = layer_name
+        button.layer_group_name = layer_group_name
         return button
 
     def make_layered_variable(self, source_name, target_name, layer_name, layer_group_name) -> MIDIVariableInfo:

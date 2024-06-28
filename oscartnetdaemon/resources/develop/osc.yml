@@ -9,7 +9,7 @@ variables:
     type: Fader
     osc-address: "/fader1"
 
-  - name: Fader16:1
-    caption: "Fader16:1"
+  - name: Edit.Fader15:0
+    caption: "E.F15.0"
     type: Fader
     osc-address: "/fader2"
