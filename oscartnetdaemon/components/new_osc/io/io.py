@@ -47,6 +47,6 @@ class OSCIO(AbstractIO):
 
     def shutdown(self):
         """
-        Gracefully shutdown all IO
+        Gracefully shutdown all IO, Thread, Process, ... that start() may have opened
         """
         pass

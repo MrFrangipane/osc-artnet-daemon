@@ -26,7 +26,7 @@ def receive(queue_in: "Queue[MIDIMessage]", device_info: MIDIDeviceInfo, should_
             time.sleep(0.01)
 
     except KeyboardInterrupt:
-        print("MIDI receive loop KeyboardInterrupt")
+        pass
 
     except Exception as e:
         raise
@@ -59,7 +59,7 @@ def send(queue_out: "Queue[MIDIMessage]", device_info: MIDIDeviceInfo, should_ex
                     time.sleep(0.01)
 
     except KeyboardInterrupt:
-        print("MIDI send loop KeyboardInterrupt")
+        pass
 
     except Exception as e:
         raise

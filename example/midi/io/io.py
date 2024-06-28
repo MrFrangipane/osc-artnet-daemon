@@ -10,8 +10,7 @@ class MIDIIO(AbstractIO):
         super().__init__(components)
         self.components: ServiceComponents = components  # FIXME: circular import forbids type hinting
 
-        self.devices: dict[str, MIDIDevice] = dict()  # FIXME make a device repository ?
-        # self.context: MIDIContext = None
+        self.devices: dict[str, MIDIDevice] = dict()
 
     def start(self):
         """

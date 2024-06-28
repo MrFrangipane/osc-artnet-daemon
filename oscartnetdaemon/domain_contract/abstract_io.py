@@ -18,12 +18,12 @@ class AbstractIO(ABC):
         pass
 
     @abstractmethod
-    def shutdown(self):
-        """
-        Gracefully shutdown all IO
-        """
+    def send_message(self, message: AbstractIOMessage):
         pass
 
     @abstractmethod
-    def send_message(self, message: AbstractIOMessage):
+    def shutdown(self):
+        """
+        Gracefully shutdown all IO, Thread, Process, ... that start() may have opened
+        """
         pass

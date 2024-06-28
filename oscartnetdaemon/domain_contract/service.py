@@ -74,7 +74,7 @@ class Service:
                 time.sleep(0.01)
 
         except KeyboardInterrupt:
-            print("Service KeyboardInterrupt")
+            pass
 
         except Exception as e:
             raise

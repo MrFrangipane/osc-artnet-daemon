@@ -45,7 +45,7 @@ class ServiceRepository:
                 time.sleep(0.01)
 
         except KeyboardInterrupt:
-            print("ServiceRepository KeyboardInterrupt")
+            pass
 
         except Exception:
             raise

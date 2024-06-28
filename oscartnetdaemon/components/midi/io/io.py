@@ -26,7 +26,7 @@ class MIDIIO(AbstractIO):
 
     def shutdown(self):
         """
-        Gracefully shutdown all IO
+        Gracefully shutdown all IO, Thread, Process, ... that start() may have opened
         """
         for device in self.devices.values():
             device.stop()
