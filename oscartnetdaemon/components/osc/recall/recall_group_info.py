@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 from dataclasses_json import dataclass_json, LetterCase
 
-from oscartnetdaemon.components.new_osc.variable_info import OSCVariableInfo
+from oscartnetdaemon.components.osc.variable_info import OSCVariableInfo
 
 
 @dataclass_json(letter_case=LetterCase.KEBAB)

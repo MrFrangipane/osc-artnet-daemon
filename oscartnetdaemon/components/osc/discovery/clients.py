@@ -2,7 +2,7 @@ import logging
 
 from zeroconf import ServiceBrowser, ServiceStateChange, Zeroconf
 
-from oscartnetdaemon.components.new_osc.client_info import OSCClientInfo
+from oscartnetdaemon.components.osc.client_info import OSCClientInfo
 # FIXME circular import
 # from oscartnetdaemon.components.new_osc.io.io import OSCIO
 

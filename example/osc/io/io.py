@@ -4,7 +4,7 @@ from pythonosc.dispatcher import Dispatcher
 from pythonosc.osc_server import ThreadingOSCUDPServer
 from pythonosc.udp_client import SimpleUDPClient
 
-from oscartnetdaemon.components.new_osc.io.message import OSCMessage
+from oscartnetdaemon.components.osc.io.message import OSCMessage
 from oscartnetdaemon.domain_contract.abstract_io import AbstractIO
 from oscartnetdaemon.domain_contract.service_components import ServiceComponents
 

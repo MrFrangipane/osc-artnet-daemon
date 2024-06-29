@@ -1,8 +1,8 @@
 import yaml
 
 from oscartnetdaemon.domain_contract.abstract_configuration_loader import AbstractConfigurationLoader
-from oscartnetdaemon.components.new_osc.variable_info import OSCVariableInfo
-from oscartnetdaemon.components.new_osc.configuration import OSCConfiguration
+from oscartnetdaemon.components.osc.variable_info import OSCVariableInfo
+from oscartnetdaemon.components.osc.configuration import OSCConfiguration
 
 
 class OSCConfigurationLoader(AbstractConfigurationLoader):

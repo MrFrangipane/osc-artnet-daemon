@@ -1,5 +1,5 @@
-from oscartnetdaemon.components.new_osc.discovery.clients import OSCDiscoveryClients
-from oscartnetdaemon.components.new_osc.discovery.server import OSCDiscoveryServer
+from oscartnetdaemon.components.osc.discovery.clients import OSCDiscoveryClients
+from oscartnetdaemon.components.osc.discovery.server import OSCDiscoveryServer
 
 
 class OSCDiscoveryService:

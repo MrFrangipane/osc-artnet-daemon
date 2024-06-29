@@ -1,7 +1,7 @@
-from oscartnetdaemon.components.new_osc.io.message import OSCMessage
+from oscartnetdaemon.components.osc.io.message import OSCMessage
 from oscartnetdaemon.domain_contract.change_notification import ChangeNotification
 from oscartnetdaemon.domain_contract.variable.float import VariableFloat
-from oscartnetdaemon.components.new_osc.variable_info import OSCVariableInfo
+from oscartnetdaemon.components.osc.variable_info import OSCVariableInfo
 
 
 class OSCFader(VariableFloat):

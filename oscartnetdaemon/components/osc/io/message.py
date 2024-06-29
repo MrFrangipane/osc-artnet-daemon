@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 from oscartnetdaemon.domain_contract.abstract_io_message import AbstractIOMessage
-from oscartnetdaemon.components.new_osc.client_info import OSCClientInfo
+from oscartnetdaemon.components.osc.client_info import OSCClientInfo
 
 
 @dataclass

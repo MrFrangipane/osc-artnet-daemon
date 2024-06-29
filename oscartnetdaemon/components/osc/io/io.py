@@ -3,13 +3,13 @@ from threading import Thread
 from pythonosc.dispatcher import Dispatcher
 from pythonosc.osc_server import ThreadingOSCUDPServer
 
-from oscartnetdaemon.components.new_osc.client_info import OSCClientInfo
-from oscartnetdaemon.components.new_osc.clients_repository import OSCClientsRepository
-from oscartnetdaemon.components.new_osc.discovery.service import OSCDiscoveryService
-from oscartnetdaemon.components.new_osc.io.message import OSCMessage
+from oscartnetdaemon.components.osc.client_info import OSCClientInfo
+from oscartnetdaemon.components.osc.clients_repository import OSCClientsRepository
+from oscartnetdaemon.components.osc.discovery.service import OSCDiscoveryService
+from oscartnetdaemon.components.osc.io.message import OSCMessage
 from oscartnetdaemon.domain_contract.abstract_io import AbstractIO
 from oscartnetdaemon.domain_contract.service_components import ServiceComponents
-from oscartnetdaemon.components.new_osc.recall.recall_group_repository import OSCRecallGroupRepository
+from oscartnetdaemon.components.osc.recall.recall_group_repository import OSCRecallGroupRepository
 
 
 class OSCIO(AbstractIO):

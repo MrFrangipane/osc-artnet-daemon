@@ -1,11 +1,19 @@
-from oscartnetdaemon.components.osc.entities.recall_group import OSCRecallGroup, OSCMemorySlot
-from oscartnetdaemon.components.osc.entities.client_info import OSCClientInfo
+from copy import copy
+from multiprocessing import Queue
+
+from oscartnetdaemon.components.osc.recall.memory_slot import OSCMemorySlot
+from oscartnetdaemon.components.osc.recall.recall_group import OSCRecallGroup
+from oscartnetdaemon.domain_contract.variable_repository import VariableRepository
+from oscartnetdaemon.domain_contract.change_notification import ChangeNotification
 
 
-class PunchPile:
+class OSCPunchPile:
     _base_slot_name = "###$$$"  # FIXME: make this name reserved (warn user if present in mapping YML file)
 
-    def __init__(self, info: OSCClientInfo):
+    def __init__(self, notification_queue_out: "Queue[ChangeNotification]", variable_repository: VariableRepository):
+        # FIXME create an API for variable repository and notification broadcasting
+        self.notification_queue_out = notification_queue_out
+        self.variable_repository = variable_repository
         self.memory_slots: dict[str, OSCMemorySlot] = dict()
         self.pile: list[str] = [self._base_slot_name]
 
@@ -20,28 +28,31 @@ class PunchPile:
 
                 # Save state to slot
                 base_memory_slot = self.memory_slots[self._base_slot_name]
-                for control in recall_group.controls:
-                    base_memory_slot.controls_values[control.info.osc_address] = control.get_values()
+                for variable_info in recall_group.info.target_variables.values():
+                    variable = self.variable_repository.variables[variable_info.name]
+                    base_memory_slot.values[variable_info.name] = copy(variable.value)
 
             # Other punches, save new punch
-            self.pile.append(memory_slot.osc_address)
-            self.memory_slots[memory_slot.osc_address] = memory_slot
+            self.pile.append(memory_slot.name)
+            self.memory_slots[memory_slot.name] = memory_slot
 
             # Apply
-            for control in recall_group.controls:
-                values = memory_slot.controls_values.get(control.info.osc_address, None)
-                if values is not None:
-                    control.set_values(values)
-                    # FIXME should this be done here ?
-                    control.notify_domain_control()
+            for variable_info in recall_group.info.target_variables.values():
+                value = memory_slot.values.get(variable_info.name, None)
+                if value is not None:
+                    self.notification_queue_out.put(ChangeNotification(
+                        info=variable_info,
+                        value=copy(value)
+                    ))
 
         else:
-            self.pile.remove(memory_slot.osc_address)
+            self.pile.remove(memory_slot.name)
             previous_punch = self.pile[-1]
             previous_memory_slot = self.memory_slots[previous_punch]
-            for control in recall_group.controls:
-                values = previous_memory_slot.controls_values.get(control.info.osc_address, None)
-                if values is not None:
-                    control.set_values(values)
-                    # FIXME should this be done here ?
-                    control.notify_domain_control()
+            for variable_info in recall_group.info.target_variables.values():
+                value = previous_memory_slot.values.get(variable_info.name, None)
+                if value is not None:
+                    self.notification_queue_out.put(ChangeNotification(
+                        info=variable_info,
+                        value=copy(value)
+                    ))

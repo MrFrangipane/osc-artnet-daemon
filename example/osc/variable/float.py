@@ -1,4 +1,4 @@
-from oscartnetdaemon.components.new_osc.io.message import OSCMessage
+from oscartnetdaemon.components.osc.io.message import OSCMessage
 from oscartnetdaemon.domain_contract.change_notification import ChangeNotification
 from oscartnetdaemon.domain_contract.variable.float import VariableFloat
 

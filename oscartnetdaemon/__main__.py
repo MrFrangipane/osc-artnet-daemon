@@ -1,5 +1,5 @@
 from oscartnetdaemon.components.midi.service_registerer import MIDIServiceRegisterer
-from oscartnetdaemon.components.new_osc.service_registerer import OSCServiceRegisterer
+from oscartnetdaemon.components.osc.service_registerer import OSCServiceRegisterer
 from oscartnetdaemon.components.service_repository import ServiceRepository
 
 
