@@ -1,9 +1,11 @@
 from oscartnetdaemon.components.new_osc.io.message import OSCMessage
+from oscartnetdaemon.components.new_osc.recall.recall_group_repository import OSCRecallGroupRepository
+from oscartnetdaemon.components.new_osc.variable_info import OSCVariableInfo
 from oscartnetdaemon.domain_contract.change_notification import ChangeNotification
 from oscartnetdaemon.domain_contract.variable.float import VariableFloat
-from oscartnetdaemon.components.new_osc.variable_info import OSCVariableInfo
 
 
+# FIXME: RecallSlot concept exists in domain contract's VariableType enum, should it ?
 class OSCRecallSlot(VariableFloat):
 
     def handle_change_notification(self, notification: ChangeNotification):
@@ -16,4 +18,21 @@ class OSCRecallSlot(VariableFloat):
         """
         From IO to ChangeNotification
         """
-        pass
+        info: OSCVariableInfo = self.info  # FIXME type hint for autocompletion
+        if not info.is_recall_slot or not message.osc_address.startswith(info.osc_address):
+            return
+
+        subcontrol = message.osc_address.split('/')[-1]
+
+        if message.osc_value == 1 and subcontrol == 'save':
+            OSCRecallGroupRepository().save_for_slot(info)
+
+        elif message.osc_value == 1 and subcontrol == 'recall':
+            OSCRecallGroupRepository().recall_for_slot(info)
+
+        elif subcontrol == 'punch':
+            OSCRecallGroupRepository().set_punch_for_slot(
+                info,
+                message.client_info,
+                bool(message.osc_value)
+            )

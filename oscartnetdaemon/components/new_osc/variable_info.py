@@ -9,3 +9,5 @@ from oscartnetdaemon.domain_contract.variable_info import VariableInfo
 class OSCVariableInfo(VariableInfo):
     caption: str
     osc_address: str
+    is_recall_slot: bool = False
+    recall_group_name: str = ""

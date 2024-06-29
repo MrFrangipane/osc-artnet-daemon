@@ -15,6 +15,7 @@
 
 - fix "nested" recall groups issue
 - fix error messages on recall empty slot
+- move MIDIPagination, MIDILayerGroup, OSCRecallGroup to domain contract ?
 
 ## To read
 - https://stackoverflow.com/questions/59402568/python-multiprocessing-queue-not-receiving-puts-from-forked-processes

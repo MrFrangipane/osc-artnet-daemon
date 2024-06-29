@@ -9,13 +9,14 @@ from oscartnetdaemon.components.new_osc.discovery.service import OSCDiscoverySer
 from oscartnetdaemon.components.new_osc.io.message import OSCMessage
 from oscartnetdaemon.domain_contract.abstract_io import AbstractIO
 from oscartnetdaemon.domain_contract.service_components import ServiceComponents
+from oscartnetdaemon.components.new_osc.recall.recall_group_repository import OSCRecallGroupRepository
 
 
 class OSCIO(AbstractIO):
 
     def __init__(self, components: ServiceComponents):
         super().__init__(components)
-        self.components: ServiceComponents = components  # FIXME: circular import forbids type hinting
+        self.components: ServiceComponents = components  # FIXME: circular import forbids type hinting, maybe a singleton ?
 
         self.discovery = OSCDiscoveryService(self, server_name="Frangitron's Oscarnet", server_port=8081)
 
@@ -28,6 +29,9 @@ class OSCIO(AbstractIO):
         """
         Start IO loop without blocking, deal with in and out queues
         """
+        OSCRecallGroupRepository().variable_repository = self.components.variable_repository
+        OSCRecallGroupRepository().notification_queue_out = self.components.notification_queue_out
+
         dispatcher = Dispatcher()
         dispatcher.set_default_handler(self.handle_osc, needs_reply_address=True)
 
@@ -51,7 +55,12 @@ class OSCIO(AbstractIO):
     #
     # IO
     def handle_osc(self, client_address, osc_address, osc_value):
-        self.components.io_message_queue_in.put(OSCMessage(osc_address=osc_address, osc_value=osc_value))
+        self.components.io_message_queue_in.put(
+            OSCMessage(
+                osc_address=osc_address,
+                osc_value=osc_value,
+                client_info=self.clients_repository.get_client_info_by_ip(client_address[0])
+            ))
 
     def send_message(self, message: OSCMessage):
         clients = list(self.clients_repository.clients.values())  # avoid mutation during iteration (could be fixed ?)
@@ -63,8 +72,8 @@ class OSCIO(AbstractIO):
     def register_client(self, client_info: OSCClientInfo):
         new_client = self.clients_repository.register(client_info)
         self.components.variable_repository.notify_all_variables()
-        # self.recall_groups_repository.register_client(client_info)
+        OSCRecallGroupRepository().register_client(client_info)
 
     def unregister_client(self, client_info: OSCClientInfo):
         self.clients_repository.unregister(client_info)
-        # self.recall_groups_repository.unregister_client(client_info)
+        OSCRecallGroupRepository().unregister_client(client_info)

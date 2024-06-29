@@ -13,6 +13,7 @@ class OSCClientsRepository:
     def __init__(self):
         self.clients: dict[str, SimpleUDPClient] = dict()
         self._client_infos: dict[str, OSCClientInfo] = dict()
+        self._client_infos_by_ip: dict[str, OSCClientInfo] = dict()
 
     def register(self, info: OSCClientInfo) -> SimpleUDPClient:
         address = bytes_as_ip(info.address)
@@ -21,6 +22,7 @@ class OSCClientsRepository:
 
         self.clients[info.name] = new_client
         self._client_infos[info.name] = info
+        self._client_infos_by_ip[bytes_as_ip(info.address)] = info
 
         return new_client
 
@@ -29,9 +31,7 @@ class OSCClientsRepository:
         _logger.info(f"Unregistering client {info.name} ({address})")
         self.clients.pop(info.name)
         self._client_infos.pop(info.name)
+        self._client_infos_by_ip.pop(bytes_as_ip(info.address))
 
     def get_client_info_by_ip(self, client_ip_address: str) -> OSCClientInfo:
-        client_ip_address = ip_as_bytes(client_ip_address)
-        for client_info in self._client_infos.values():
-            if client_info.address == client_ip_address:
-                return client_info
+        return self._client_infos_by_ip[client_ip_address]

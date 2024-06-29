@@ -1,9 +1,11 @@
 import yaml
 
 from oscartnetdaemon.components.new_osc.configuration import OSCConfiguration
+from oscartnetdaemon.components.new_osc.recall.recall_group_info import OSCRecallGroupInfo
 from oscartnetdaemon.components.new_osc.variable_info import OSCVariableInfo
 from oscartnetdaemon.domain_contract.abstract_configuration_loader import AbstractConfigurationLoader
-from oscartnetdaemon.components.new_osc.recall.recall_group_info import OSCRecallGroupInfo
+from oscartnetdaemon.domain_contract.variable_type_enum import VariableType
+from oscartnetdaemon.components.new_osc.recall.recall_group_repository import OSCRecallGroupRepository
 
 
 class OSCConfigurationLoader(AbstractConfigurationLoader):
@@ -20,11 +22,6 @@ class OSCConfigurationLoader(AbstractConfigurationLoader):
         self.recall_groups: dict[str, OSCRecallGroupInfo] = dict()
 
     def load(self) -> OSCConfiguration:
-        self.files_content = list()
-        self.root_params = dict()
-        self.variables = dict()
-        self.recall_groups = dict()
-
         self.load_files_content()
         self.load_variables()
         self.load_recall_groups()
@@ -38,6 +35,9 @@ class OSCConfigurationLoader(AbstractConfigurationLoader):
         )
 
     def load_files_content(self):
+        self.files_content = list()
+        self.root_params = dict()
+
         for filepath in self.filepaths:
             with open(filepath, 'r') as file:
                 content = yaml.safe_load(file)
@@ -47,9 +47,9 @@ class OSCConfigurationLoader(AbstractConfigurationLoader):
         self.root_params.pop('variables')
         self.root_params.pop('recall-groups')
 
-        print(self.root_params)
-
     def load_variables(self):
+        self.variables = dict()
+
         for content in self.files_content:
             for variable_dict in content['variables']:
                 if variable_dict['name'] in self.variables:
@@ -57,4 +57,31 @@ class OSCConfigurationLoader(AbstractConfigurationLoader):
                 self.variables[variable_dict['name']] = OSCVariableInfo.from_dict(variable_dict)
 
     def load_recall_groups(self):
-        pass
+        self.recall_groups = dict()
+
+        for content in self.files_content:
+            for recall_group_dict in content['recall-groups']:
+                if recall_group_dict['name'] in self.recall_groups:
+                    raise ValueError(f"Recall group '{recall_group_dict['name']}' already assigned")
+
+                new_recall_group = OSCRecallGroupInfo(
+                    name=recall_group_dict['name'],
+                    target_variables=dict(),
+                    recall_slots=dict()
+                )
+
+                for variable_name in recall_group_dict['variables']:
+                    if variable_name not in self.variables:
+                        raise ValueError(f"Variable '{variable_name}' not found")
+
+                    variable = self.variables[variable_name]
+                    if variable.type == VariableType.RecallSlot:
+                        variable.is_recall_slot = True
+                        variable.recall_group_name = new_recall_group.name
+                        new_recall_group.recall_slots[variable_name] = variable
+                    else:
+                        new_recall_group.target_variables[variable_name] = variable
+
+                self.recall_groups[new_recall_group.name] = new_recall_group
+
+        OSCRecallGroupRepository().create_groups(self.recall_groups)
