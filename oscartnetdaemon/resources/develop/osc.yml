@@ -3,13 +3,36 @@ schema_version: 1
 server-ip-address: ""
 server-ip-address-autodetect: True
 server-port: 8080
+
 variables:
   - name: FADER_A
     caption: "Fader A"
     type: Fader
-    osc-address: "/fader1"
+    osc-address: /fader1
 
   - name: Edit.Fader15:0
     caption: "E.F15.0"
     type: Fader
-    osc-address: "/fader2"
+    osc-address: /fader2
+
+  - name: RECALL_A
+    caption: "A"
+    type: RecallSlot
+    osc-address: /recall_slot_a
+
+  - name: RECALL_B
+    caption: "B"
+    type: RecallSlot
+    osc-address: /recall_slot_b
+
+recall-groups:
+  - name: "RecallGroup A"
+    variables:
+      - FADER_A
+      - RECALL_A
+
+  - name: "RecallGroup B"
+    variables:
+      - FADER_A
+      - Edit.Fader15:0
+      - RECALL_B

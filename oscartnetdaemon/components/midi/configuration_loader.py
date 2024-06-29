@@ -23,6 +23,10 @@ def _find_in_list(item: str, items: list[str]) -> str:
 
 
 class MIDIConfigurationLoader(AbstractConfigurationLoader):
+    """
+    At least returns a BaseConfiguration object ()
+    Subtype of BaseConfiguration can be created to load additional IO specific configuration
+    """
 
     def __init__(self, filepaths):
         super().__init__(filepaths)

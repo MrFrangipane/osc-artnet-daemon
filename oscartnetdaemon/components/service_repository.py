@@ -1,9 +1,11 @@
+from typing import Type
 from multiprocessing import Process
 import time
 
 from oscartnetdaemon.domain_contract.service import Service
 from oscartnetdaemon.domain_contract.service_bundle import ServiceBundle
 from oscartnetdaemon.domain_contract.service_registration_info import ServiceRegistrationInfo
+from oscartnetdaemon.domain_contract.abstract_service_registerer import AbstractServiceRegisterer
 
 
 class ServiceRepository:
@@ -11,7 +13,8 @@ class ServiceRepository:
     def __init__(self):
         self.service_bundles: dict[str, ServiceBundle] = dict()
 
-    def register(self, registration_info: ServiceRegistrationInfo):
+    def register(self, registerer: Type[AbstractServiceRegisterer]):
+        registration_info = registerer.make_registration_info()
         new_bundle = ServiceBundle(service=Service(registration_info))
         self.service_bundles[registration_info.io_type.__name__] = new_bundle
 
