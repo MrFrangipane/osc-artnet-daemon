@@ -5,6 +5,8 @@ devices:
   - name: 'X-Touch-Ext'
     midi-port-pattern: "X-Touch-Ext "
     variables:
+      #
+      # FADERS
       - name: Fader07
         type: Fader
         midi-parsing: { channel: 6, type: pitchwheel }
@@ -16,6 +18,32 @@ devices:
   - name: 'X-Touch'
     midi-port-pattern: "X-Touch "
     variables:
+      #
+      # TEXTS
+      - name: ScribbleTop.09
+        type: Text
+        midi-parsing: { type: sysex, bytes: [
+          "00", "00", "66", "14", "12", "00", "{0}", "{1}", "{2}", "{3}", "{4}", "{5}", "{6}"
+        ]}
+
+      - name: ScribbleBottom.09
+        type: Text
+        midi-parsing: { type: sysex, bytes: [
+          "00", "00", "66", "14", "12", "38", "{0}", "{1}", "{2}", "{3}", "{4}", "{5}", "{6}"
+        ]}
+
+      - name: ScribbleTop.10
+        type: Text
+        midi-parsing: { type: sysex, bytes: [
+          "00", "00", "66", "14", "12", "07", "{0}", "{1}", "{2}", "{3}", "{4}", "{5}", "{6}"
+        ]}
+
+      - name: ScribbleBottom.10
+        type: Text
+        midi-parsing: { type: sysex, bytes: [
+          "00", "00", "66", "14", "12", "3F", "{0}", "{1}", "{2}", "{3}", "{4}", "{5}", "{6}"
+        ]}
+
       #
       # BUTTONS
       - name: FaderBank.Down

@@ -99,6 +99,11 @@ class MIDIConfigurationLoader(AbstractConfigurationLoader):
     def load_device_variables(self, device):
         for variable_dict in device['variables']:
             variable_dict['device_name'] = device['name']
+            variable_dict['midi-parsing']['bytes_as_str'] = variable_dict['midi-parsing'].get('bytes', list())
+
+            if variable_dict['name'] in self.variables:
+                raise ValueError(f"MIDI Variable '{variable_dict['name']}' already assigned")
+
             self.variables[variable_dict['name']] = MIDIVariableInfo.from_dict(variable_dict)
 
     #

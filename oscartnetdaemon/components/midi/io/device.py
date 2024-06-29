@@ -56,7 +56,16 @@ def send(queue_out: "Queue[MIDIMessage]", device_info: MIDIDeviceInfo, should_ex
                         velocity=message.velocity
                     ))
 
-                    time.sleep(0.01)
+                elif message.type == MIDIMessageType.SysEx:
+                    midi_out.send(mido.Message(
+                        type=message.type.value,
+                        data=message.data
+                    ))
+
+                else:
+                    print(f'Midi device cant send <{message}>')
+
+                time.sleep(0.01)
 
     except KeyboardInterrupt:
         pass

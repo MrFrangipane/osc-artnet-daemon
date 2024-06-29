@@ -9,5 +9,6 @@ from oscartnetdaemon.components.midi.io.message_type_enum import MIDIMessageType
 @dataclass
 class MIDIParsingInfo:
     type: MIDIMessageType
-    channel: int
+    channel: int = -1
     note: int = -1
+    bytes_as_str: list[str] | None = None
