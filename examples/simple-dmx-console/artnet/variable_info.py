@@ -7,4 +7,4 @@ from oscartnetdaemon.domain_contract.variable_info import VariableInfo
 @dataclass_json(letter_case=LetterCase.KEBAB)
 @dataclass
 class ArtnetVariableInfo(VariableInfo):
-    pass
+    dmx_channel: int

@@ -4,5 +4,6 @@ from oscartnetdaemon.domain_contract.abstract_io_message import AbstractIOMessag
 
 
 @dataclass
-class ArtnetMessage(AbstractIOMessage):
-    pass
+class ArtnetIOMessage(AbstractIOMessage):
+    channel: int
+    value: int
