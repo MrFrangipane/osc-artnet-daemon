@@ -1,0 +1,16 @@
+---
+schema_version: 1
+server-ip-address: ""
+server-ip-address-autodetect: True
+server-port: 8080
+
+variables:
+  - name: Fader01
+    caption: "Fader01"
+    type: Fader
+    osc-address: /fader1
+
+  - name: Fader02
+    caption: "Fader02"
+    type: Fader
+    osc-address: /fader2
