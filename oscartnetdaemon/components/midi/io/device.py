@@ -23,8 +23,6 @@ def receive(queue_in: "Queue[MIDIMessage]", device_info: MIDIDeviceInfo, should_
             except ValueError:
                 print(f'Midi device cant deal with <{mido_message}>')
 
-            time.sleep(0.01)
-
     except KeyboardInterrupt:
         pass
 
@@ -64,8 +62,6 @@ def send(queue_out: "Queue[MIDIMessage]", device_info: MIDIDeviceInfo, should_ex
 
                 else:
                     print(f'Midi device cant send <{message}>')
-
-                time.sleep(0.01)
 
     except KeyboardInterrupt:
         pass

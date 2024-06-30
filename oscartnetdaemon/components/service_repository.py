@@ -1,11 +1,10 @@
-from typing import Type
-from multiprocessing import Process
 import time
+from multiprocessing import Process
+from typing import Type
 
+from oscartnetdaemon.domain_contract.abstract_service_registerer import AbstractServiceRegisterer
 from oscartnetdaemon.domain_contract.service import Service
 from oscartnetdaemon.domain_contract.service_bundle import ServiceBundle
-from oscartnetdaemon.domain_contract.service_registration_info import ServiceRegistrationInfo
-from oscartnetdaemon.domain_contract.abstract_service_registerer import AbstractServiceRegisterer
 
 
 class ServiceRepository:
