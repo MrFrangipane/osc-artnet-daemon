@@ -69,7 +69,7 @@ class Service:
 
                 while not self.io_message_queue_out.empty():
                     message = self.io_message_queue_out.get()
-                    self.io.send_message(message)
+                    self.io.send_io_message(message)
 
                 time.sleep(0.01)
 

@@ -62,7 +62,7 @@ class OSCIO(AbstractIO):
                 client_info=self.clients_repository.get_client_info_by_ip(client_address[0])
             ))
 
-    def send_message(self, message: OSCMessage):
+    def send_io_message(self, message: OSCMessage):
         clients = list(self.clients_repository.clients.values())  # avoid mutation during iteration (could be fixed ?)
         for client in clients:
             client.send_message(message.osc_address, message.osc_value)

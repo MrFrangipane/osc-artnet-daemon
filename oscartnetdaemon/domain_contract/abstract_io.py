@@ -18,7 +18,7 @@ class AbstractIO(ABC):
         pass
 
     @abstractmethod
-    def send_message(self, message: AbstractIOMessage):
+    def send_io_message(self, message: AbstractIOMessage):
         pass
 
     @abstractmethod

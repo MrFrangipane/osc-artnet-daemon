@@ -21,7 +21,7 @@ class MIDIIO(AbstractIO):
             self.devices[device_info.name] = MIDIDevice(device_info, self.components.io_message_queue_in)
             self.devices[device_info.name].start()
 
-    def send_message(self, message: MIDIMessage):
+    def send_io_message(self, message: MIDIMessage):
         self.devices[message.device_name].queue_out.put(message)
 
     def shutdown(self):
