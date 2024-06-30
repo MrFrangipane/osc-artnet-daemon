@@ -21,5 +21,5 @@ class TemplateIO(AbstractIO):
         """
         pass
 
-    def send_message(self, message: TemplateMessage):
+    def send_io_message(self, message: TemplateMessage):
         pass
