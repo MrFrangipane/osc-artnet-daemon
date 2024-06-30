@@ -13,11 +13,7 @@ class MIDIServiceRegisterer(AbstractServiceRegisterer):
 
     @staticmethod
     def make_registration_info() -> ServiceRegistrationInfo:
-        midi_configuration_loader = MIDIConfigurationLoader(filepaths=[
-            "resources/develop/midi-devices.yml",
-            "resources/develop/midi-pages.yml",
-            "resources/develop/midi-layer-groups.yml"
-        ])
+        midi_configuration_loader = MIDIConfigurationLoader()
 
         return ServiceRegistrationInfo(
             configuration_loader=midi_configuration_loader,

@@ -1,2 +1,13 @@
 ---
 schema-version: 1
+variables:
+
+  - name: Fader01
+    caption: "Fader01"
+    type: Fader
+    template-data: "some data"
+
+  - name: Fader02
+    caption: "Fader02"
+    type: Fader
+    template-data: "some data"

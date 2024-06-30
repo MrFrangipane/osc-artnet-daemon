@@ -11,9 +11,7 @@ class TemplateServiceRegisterer(AbstractServiceRegisterer):
 
     @staticmethod
     def make_registration_info() -> ServiceRegistrationInfo:
-        configuration_loader = TemplateConfigurationLoader(filepaths=[
-            "configuration/template.yml"
-        ])
+        configuration_loader = TemplateConfigurationLoader()
         return ServiceRegistrationInfo(
             configuration_loader=configuration_loader,
             io_type=TemplateIO,

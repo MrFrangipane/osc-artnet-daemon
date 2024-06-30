@@ -1,0 +1,15 @@
+---
+schema_version: 1
+devices:
+
+  - name: 'MIDI'
+    midi-port-pattern: "SomeNamePattern"
+    variables:
+
+      - name: Fader01
+        type: Fader
+        midi-parsing: { channel: 6, type: pitchwheel }
+
+      - name: Fader02
+        type: Fader
+        midi-parsing: { channel: 7, type: pitchwheel }

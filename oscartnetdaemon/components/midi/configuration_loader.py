@@ -3,6 +3,7 @@ from copy import copy, deepcopy
 import mido
 import yaml
 
+from oscartnetdaemon.components.midi.argument_parser import parse_command_line_args
 from oscartnetdaemon.components.midi.configuration import MIDIConfiguration
 from oscartnetdaemon.components.midi.context import MIDIContext
 from oscartnetdaemon.components.midi.io.device_info import MIDIDeviceInfo
@@ -28,8 +29,8 @@ class MIDIConfigurationLoader(AbstractConfigurationLoader):
     Subtype of BaseConfiguration can be created to load additional IO specific configuration
     """
 
-    def __init__(self, filepaths):
-        super().__init__(filepaths)
+    def __init__(self):
+        self.filepaths = parse_command_line_args()
 
         self.in_port_names: list[str] = list()
         self.out_port_names: list[str] = list()

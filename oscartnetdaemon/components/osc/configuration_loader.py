@@ -1,5 +1,6 @@
 import yaml
 
+from oscartnetdaemon.components.osc.argument_parser import parse_command_line_args
 from oscartnetdaemon.components.osc.configuration import OSCConfiguration
 from oscartnetdaemon.components.osc.recall.recall_group_info import OSCRecallGroupInfo
 from oscartnetdaemon.components.osc.variable_info import OSCVariableInfo
@@ -15,7 +16,7 @@ class OSCConfigurationLoader(AbstractConfigurationLoader):
     """
 
     def __init__(self, filepaths):
-        super().__init__(filepaths)
+        self.filepaths = parse_command_line_args()
         self.files_content: list[dict] = list()
         self.root_params: dict[str: str | bool | int] = dict()
         self.variables: dict[str, OSCVariableInfo] = dict()
@@ -44,8 +45,8 @@ class OSCConfigurationLoader(AbstractConfigurationLoader):
                 self.files_content.append(content)
                 self.root_params.update(content)
 
-        self.root_params.pop('variables')
-        self.root_params.pop('recall-groups')
+        self.root_params.pop('variables', None)
+        self.root_params.pop('recall-groups', None)
 
     def load_variables(self):
         self.variables = dict()
@@ -60,7 +61,7 @@ class OSCConfigurationLoader(AbstractConfigurationLoader):
         self.recall_groups = dict()
 
         for content in self.files_content:
-            for recall_group_dict in content['recall-groups']:
+            for recall_group_dict in content.get('recall-groups', list()):
                 if recall_group_dict['name'] in self.recall_groups:
                     raise ValueError(f"Recall group '{recall_group_dict['name']}' already assigned")
 
