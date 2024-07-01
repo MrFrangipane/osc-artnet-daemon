@@ -6,6 +6,17 @@ devices:
     midi-port-pattern: "X-Touch-Ext "
     variables:
       #
+      # BUTTONS
+      - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 24 }, name: Button.Select.01 }
+      - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 25 }, name: Button.Select.02 }
+      - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 26 }, name: Button.Select.03 }
+      - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 27 }, name: Button.Select.04 }
+      - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 28 }, name: Button.Select.05 }
+      - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 29 }, name: Button.Select.06 }
+      - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 30 }, name: Button.Select.07 }
+      - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 31 }, name: Button.Select.08 }
+
+      #
       # TEXTS
       - name: Scribble.Top.01
         type: Text
@@ -240,29 +251,28 @@ devices:
 
       #
       # BUTTONS
-      - name: FaderBank.Down
-        type: Button
-        midi-parsing: { channel: 0, type: note_on, note: 46 }
+      - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 40 }, name: Layer.Fixture }
+      - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 42 }, name: Layer.DMX }
+      - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 44 }, name: Layer.Program }
 
-      - name: FaderBank.Up
-        type: Button
-        midi-parsing: { channel: 0, type: note_on, note: 47 }
+      - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 46 }, name: FaderBank.Down }
+      - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 47 }, name: FaderBank.Up }
 
-      - name: Button.F1
-        type: Button
-        midi-parsing: { channel: 0, type: note_on, note: 54 }
+      - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 24 }, name: Button.Select.09 }
+      - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 25 }, name: Button.Select.10 }
+      - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 26 }, name: Button.Select.11 }
+      - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 27 }, name: Button.Select.12 }
+      - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 28 }, name: Button.Select.13 }
+      - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 29 }, name: Button.Select.14 }
+      - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 30 }, name: Button.Select.15 }
+      - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 31 }, name: Button.Select.16 }
 
-      - name: Button.F2
-        type: Button
-        midi-parsing: { channel: 0, type: note_on, note: 55 }
+      - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 54 }, name: Button.F1 }
+      - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 55 }, name: Button.F2 }
+      - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 56 }, name: Button.F3 }
+      - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 57 }, name: Button.F4 }
 
-      - name: Button.F3
-        type: Button
-        midi-parsing: { channel: 0, type: note_on, note: 56 }
-
-      - name: Button.F4
-        type: Button
-        midi-parsing: { channel: 0, type: note_on, note: 57 }
+      - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 51 }, name: Button.Reset }
 
       #
       # FADERS

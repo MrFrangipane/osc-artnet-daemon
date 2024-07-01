@@ -22,6 +22,8 @@ def receive(queue_in: "Queue[MIDIMessage]", device_info: MIDIDeviceInfo, should_
                 queue_in.put(message)
             except ValueError:
                 print(f'Midi device cant deal with <{mido_message}>')
+            else:
+                print(f'Midi device dealt with <{mido_message}>')
 
     except KeyboardInterrupt:
         pass

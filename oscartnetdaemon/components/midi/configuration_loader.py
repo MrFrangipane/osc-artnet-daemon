@@ -259,10 +259,11 @@ class MIDIConfigurationLoader(AbstractConfigurationLoader):
 def unify_layer_groups(layer_groups: list):
     """Ensure all concerned Variables are mapped in all groups"""
     for group in layer_groups:
-        all_sources = list()
-        all_mappings = list()
+        all_sources = group.get('variables', list())
+        all_mappings = [{'source': name, 'target': name} for name in all_sources]
+
         for layer in group['layers']:
-            for mapping in layer['mappings']:
+            for mapping in layer.get('mappings', list()):
                 if mapping['source'] not in all_sources:
                     all_sources.append(mapping['source'])  # FIXME a bit hacky ?
                     all_mappings.append({'source': mapping['source'], 'target': mapping['source']})
@@ -270,7 +271,7 @@ def unify_layer_groups(layer_groups: list):
         for layer in group['layers']:
             layer['mappings'] = _updated_mappings(
                 layer_name=layer['name'],
-                original_mappings=layer['mappings'],
+                original_mappings=layer.get('mappings', list()),
                 all_mappings=all_mappings
             )
 
