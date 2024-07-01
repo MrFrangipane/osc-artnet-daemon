@@ -1,0 +1,321 @@
+---
+schema_version: 1
+devices:
+
+  - name: 'X-Touch-Ext'
+    midi-port-pattern: "X-Touch-Ext "
+    variables:
+      #
+      # TEXTS
+      - name: Scribble.Top.01
+        type: Text
+        midi-parsing: { type: sysex, bytes: [
+          "00", "00", "66", "15", "12", "00", "{0}", "{1}", "{2}", "{3}", "{4}", "{5}", "{6}"
+        ]}
+
+      - name: Scribble.Bottom.01
+        type: Text
+        midi-parsing: { type: sysex, bytes: [
+          "00", "00", "66", "15", "12", "38", "{0}", "{1}", "{2}", "{3}", "{4}", "{5}", "{6}"
+        ]}
+
+      - name: Scribble.Top.02
+        type: Text
+        midi-parsing: { type: sysex, bytes: [
+          "00", "00", "66", "15", "12", "07", "{0}", "{1}", "{2}", "{3}", "{4}", "{5}", "{6}"
+        ]}
+
+      - name: Scribble.Bottom.02
+        type: Text
+        midi-parsing: { type: sysex, bytes: [
+          "00", "00", "66", "15", "12", "3F", "{0}", "{1}", "{2}", "{3}", "{4}", "{5}", "{6}"
+        ]}
+
+      - name: Scribble.Top.03
+        type: Text
+        midi-parsing: { type: sysex, bytes: [
+          "00", "00", "66", "15", "12", "0E", "{0}", "{1}", "{2}", "{3}", "{4}", "{5}", "{6}"
+        ]}
+
+      - name: Scribble.Bottom.03
+        type: Text
+        midi-parsing: { type: sysex, bytes: [
+          "00", "00", "66", "15", "12", "46", "{0}", "{1}", "{2}", "{3}", "{4}", "{5}", "{6}"
+        ]}
+
+      - name: Scribble.Top.04
+        type: Text
+        midi-parsing: { type: sysex, bytes: [
+          "00", "00", "66", "15", "12", "15", "{0}", "{1}", "{2}", "{3}", "{4}", "{5}", "{6}"
+        ]}
+
+      - name: Scribble.Bottom.04
+        type: Text
+        midi-parsing: { type: sysex, bytes: [
+          "00", "00", "66", "15", "12", "4D", "{0}", "{1}", "{2}", "{3}", "{4}", "{5}", "{6}"
+        ]}
+
+      - name: Scribble.Top.05
+        type: Text
+        midi-parsing: { type: sysex, bytes: [
+          "00", "00", "66", "15", "12", "1C", "{0}", "{1}", "{2}", "{3}", "{4}", "{5}", "{6}"
+        ]}
+
+      - name: Scribble.Bottom.05
+        type: Text
+        midi-parsing: { type: sysex, bytes: [
+          "00", "00", "66", "15", "12", "54", "{0}", "{1}", "{2}", "{3}", "{4}", "{5}", "{6}"
+        ]}
+
+      - name: Scribble.Top.06
+        type: Text
+        midi-parsing: { type: sysex, bytes: [
+          "00", "00", "66", "15", "12", "23", "{0}", "{1}", "{2}", "{3}", "{4}", "{5}", "{6}"
+        ]}
+
+      - name: Scribble.Bottom.06
+        type: Text
+        midi-parsing: { type: sysex, bytes: [
+          "00", "00", "66", "15", "12", "5B", "{0}", "{1}", "{2}", "{3}", "{4}", "{5}", "{6}"
+        ]}
+
+      - name: Scribble.Top.07
+        type: Text
+        midi-parsing: { type: sysex, bytes: [
+          "00", "00", "66", "15", "12", "2A", "{0}", "{1}", "{2}", "{3}", "{4}", "{5}", "{6}"
+        ]}
+
+      - name: Scribble.Bottom.07
+        type: Text
+        midi-parsing: { type: sysex, bytes: [
+          "00", "00", "66", "15", "12", "62", "{0}", "{1}", "{2}", "{3}", "{4}", "{5}", "{6}"
+        ]}
+
+      - name: Scribble.Top.08
+        type: Text
+        midi-parsing: { type: sysex, bytes: [
+          "00", "00", "66", "15", "12", "31", "{0}", "{1}", "{2}", "{3}", "{4}", "{5}", "{6}"
+        ]}
+
+      - name: Scribble.Bottom.08
+        type: Text
+        midi-parsing: { type: sysex, bytes: [
+          "00", "00", "66", "15", "12", "69", "{0}", "{1}", "{2}", "{3}", "{4}", "{5}", "{6}"
+        ]}
+
+      #
+      # FADERS
+      - name: Fader.01
+        type: Fader
+        midi-parsing: { channel: 0, type: pitchwheel }
+
+      - name: Fader.02
+        type: Fader
+        midi-parsing: { channel: 1, type: pitchwheel }
+
+      - name: Fader.03
+        type: Fader
+        midi-parsing: { channel: 2, type: pitchwheel }
+
+      - name: Fader.04
+        type: Fader
+        midi-parsing: { channel: 3, type: pitchwheel }
+
+      - name: Fader.05
+        type: Fader
+        midi-parsing: { channel: 4, type: pitchwheel }
+
+      - name: Fader.06
+        type: Fader
+        midi-parsing: { channel: 5, type: pitchwheel }
+
+      - name: Fader.07
+        type: Fader
+        midi-parsing: { channel: 6, type: pitchwheel }
+
+      - name: Fader.08
+        type: Fader
+        midi-parsing: { channel: 7, type: pitchwheel }
+
+  - name: 'X-Touch'
+    midi-port-pattern: "X-Touch "
+    variables:
+      #
+      # TEXTS
+      - name: Scribble.Top.09
+        type: Text
+        midi-parsing: { type: sysex, bytes: [
+          "00", "00", "66", "14", "12", "00", "{0}", "{1}", "{2}", "{3}", "{4}", "{5}", "{6}"
+        ]}
+
+      - name: Scribble.Bottom.09
+        type: Text
+        midi-parsing: { type: sysex, bytes: [
+          "00", "00", "66", "14", "12", "38", "{0}", "{1}", "{2}", "{3}", "{4}", "{5}", "{6}"
+        ]}
+
+      - name: Scribble.Top.10
+        type: Text
+        midi-parsing: { type: sysex, bytes: [
+          "00", "00", "66", "14", "12", "07", "{0}", "{1}", "{2}", "{3}", "{4}", "{5}", "{6}"
+        ]}
+
+      - name: Scribble.Bottom.10
+        type: Text
+        midi-parsing: { type: sysex, bytes: [
+          "00", "00", "66", "14", "12", "3F", "{0}", "{1}", "{2}", "{3}", "{4}", "{5}", "{6}"
+        ]}
+
+      - name: Scribble.Top.11
+        type: Text
+        midi-parsing: { type: sysex, bytes: [
+          "00", "00", "66", "14", "12", "0E", "{0}", "{1}", "{2}", "{3}", "{4}", "{5}", "{6}"
+        ]}
+
+      - name: Scribble.Bottom.11
+        type: Text
+        midi-parsing: { type: sysex, bytes: [
+          "00", "00", "66", "14", "12", "46", "{0}", "{1}", "{2}", "{3}", "{4}", "{5}", "{6}"
+        ]}
+
+      - name: Scribble.Top.12
+        type: Text
+        midi-parsing: { type: sysex, bytes: [
+          "00", "00", "66", "14", "12", "15", "{0}", "{1}", "{2}", "{3}", "{4}", "{5}", "{6}"
+        ]}
+
+      - name: Scribble.Bottom.12
+        type: Text
+        midi-parsing: { type: sysex, bytes: [
+          "00", "00", "66", "14", "12", "4D", "{0}", "{1}", "{2}", "{3}", "{4}", "{5}", "{6}"
+        ]}
+
+      - name: Scribble.Top.13
+        type: Text
+        midi-parsing: { type: sysex, bytes: [
+          "00", "00", "66", "14", "12", "1C", "{0}", "{1}", "{2}", "{3}", "{4}", "{5}", "{6}"
+        ]}
+
+      - name: Scribble.Bottom.13
+        type: Text
+        midi-parsing: { type: sysex, bytes: [
+          "00", "00", "66", "14", "12", "54", "{0}", "{1}", "{2}", "{3}", "{4}", "{5}", "{6}"
+        ]}
+
+      - name: Scribble.Top.14
+        type: Text
+        midi-parsing: { type: sysex, bytes: [
+          "00", "00", "66", "14", "12", "23", "{0}", "{1}", "{2}", "{3}", "{4}", "{5}", "{6}"
+        ]}
+
+      - name: Scribble.Bottom.14
+        type: Text
+        midi-parsing: { type: sysex, bytes: [
+          "00", "00", "66", "14", "12", "5B", "{0}", "{1}", "{2}", "{3}", "{4}", "{5}", "{6}"
+        ]}
+
+      - name: Scribble.Top.15
+        type: Text
+        midi-parsing: { type: sysex, bytes: [
+          "00", "00", "66", "14", "12", "2A", "{0}", "{1}", "{2}", "{3}", "{4}", "{5}", "{6}"
+        ]}
+
+      - name: Scribble.Bottom.15
+        type: Text
+        midi-parsing: { type: sysex, bytes: [
+          "00", "00", "66", "14", "12", "62", "{0}", "{1}", "{2}", "{3}", "{4}", "{5}", "{6}"
+        ]}
+
+      - name: Scribble.Top.16
+        type: Text
+        midi-parsing: { type: sysex, bytes: [
+          "00", "00", "66", "14", "12", "31", "{0}", "{1}", "{2}", "{3}", "{4}", "{5}", "{6}"
+        ]}
+
+      - name: Scribble.Bottom.16
+        type: Text
+        midi-parsing: { type: sysex, bytes: [
+          "00", "00", "66", "14", "12", "69", "{0}", "{1}", "{2}", "{3}", "{4}", "{5}", "{6}"
+        ]}
+
+      #
+      # BUTTONS
+      - name: FaderBank.Down
+        type: Button
+        midi-parsing: { channel: 0, type: note_on, note: 46 }
+
+      - name: FaderBank.Up
+        type: Button
+        midi-parsing: { channel: 0, type: note_on, note: 47 }
+
+      - name: Button.F1
+        type: Button
+        midi-parsing: { channel: 0, type: note_on, note: 54 }
+
+      - name: Button.F2
+        type: Button
+        midi-parsing: { channel: 0, type: note_on, note: 55 }
+
+      - name: Button.F3
+        type: Button
+        midi-parsing: { channel: 0, type: note_on, note: 56 }
+
+      - name: Button.F4
+        type: Button
+        midi-parsing: { channel: 0, type: note_on, note: 57 }
+
+      #
+      # FADERS
+      - name: Fader.09
+        type: Fader
+        midi-parsing: { channel: 0, type: pitchwheel }
+
+      - name: Fader.10
+        type: Fader
+        midi-parsing: { channel: 1, type: pitchwheel }
+
+      - name: Fader.11
+        type: Fader
+        midi-parsing: { channel: 2, type: pitchwheel }
+
+      - name: Fader.12
+        type: Fader
+        midi-parsing: { channel: 3, type: pitchwheel }
+
+      - name: Fader.13
+        type: Fader
+        midi-parsing: { channel: 4, type: pitchwheel }
+
+      - name: Fader.14
+        type: Fader
+        midi-parsing: { channel: 5, type: pitchwheel }
+
+      - name: Fader.15
+        type: Fader
+        midi-parsing: { channel: 6, type: pitchwheel }
+
+      - name: Fader.16
+        type: Fader
+        midi-parsing: { channel: 7, type: pitchwheel }
+
+      - name: Fader.Master
+        type: Fader
+        midi-parsing: { channel: 8, type: pitchwheel }
+
+pages:
+  - name: Pages
+    button-up: FaderBank.Up
+    button-down: FaderBank.Down
+    page-count: 4
+    variables: [
+      Scribble.Top.01, Scribble.Bottom.01, Scribble.Top.02, Scribble.Bottom.02,
+      Scribble.Top.03, Scribble.Bottom.03, Scribble.Top.04, Scribble.Bottom.04,
+      Scribble.Top.05, Scribble.Bottom.05, Scribble.Top.06, Scribble.Bottom.06,
+      Scribble.Top.07, Scribble.Bottom.07, Scribble.Top.08, Scribble.Bottom.08,
+      Scribble.Top.09, Scribble.Bottom.09, Scribble.Top.10, Scribble.Bottom.10,
+      Scribble.Top.11, Scribble.Bottom.11, Scribble.Top.12, Scribble.Bottom.12,
+      Scribble.Top.13, Scribble.Bottom.13, Scribble.Top.14, Scribble.Bottom.14,
+      Scribble.Top.15, Scribble.Bottom.15, Scribble.Top.16, Scribble.Bottom.16,
+      Fader.01, Fader.02, Fader.03, Fader.04, Fader.05, Fader.06, Fader.07, Fader.08,
+      Fader.09, Fader.10, Fader.11, Fader.12, Fader.13, Fader.14, Fader.15, Fader.16
+    ]
