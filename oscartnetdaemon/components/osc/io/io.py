@@ -28,6 +28,8 @@ class OSCIO(AbstractIO):
     def start(self):
         """
         Start IO loop without blocking, deal with in and out queues
+        If needed, initialize variables values
+        (ChangeNotification broadcast happens after all services are started, in service registration order)
         """
         OSCRecallGroupRepository().variable_repository = self.components.variable_repository
         OSCRecallGroupRepository().notification_queue_out = self.components.notification_queue_out

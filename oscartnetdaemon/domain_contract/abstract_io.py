@@ -14,6 +14,8 @@ class AbstractIO(ABC):
     def start(self):
         """
         Start IO loop without blocking, deal with in and out queues
+        If needed, initialize variables values
+        (ChangeNotification broadcast happens after all services are started, in service registration order)
         """
         pass
 

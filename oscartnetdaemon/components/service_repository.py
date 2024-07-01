@@ -25,6 +25,8 @@ class ServiceRepository:
             while not bundle.service.startup_done.is_set():
                 time.sleep(.1)
 
+        print("All services started")
+
         dead_processes: list[str] = list()
         alive_process_count: int = len(self.service_bundles)
         try:

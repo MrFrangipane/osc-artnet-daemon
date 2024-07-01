@@ -20,6 +20,8 @@ class ArtnetIO(AbstractIO):
     def start(self):
         """
         Start IO loop without blocking, deal with in and out queues
+        If needed, initialize variables values
+        (broadcast happens after all services are started, in service registration order)
         """
         variables = list(self.components.variable_repository.variables.values())
         for fixture in self.fixture_repository.fixtures:

@@ -12,6 +12,8 @@ class TemplateIO(AbstractIO):
     def start(self):
         """
         Start IO loop without blocking, deal with in and out queues
+        If needed, initialize variables values
+        (broadcast happens after all services are started, in service registration order)
         """
         pass
 
