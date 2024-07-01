@@ -21,6 +21,9 @@ class ServiceRepository:
         for bundle in self.service_bundles.values():
             bundle.process = Process(target=bundle.service.exec)
             bundle.process.start()
+            print(f"Starting service '{bundle.service.io_type.__name__}'...")
+            while not bundle.service.startup_done.is_set():
+                time.sleep(.1)
 
         dead_processes: list[str] = list()
         alive_process_count: int = len(self.service_bundles)

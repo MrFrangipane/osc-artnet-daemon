@@ -71,7 +71,7 @@ class OSCIO(AbstractIO):
     # CLIENTS
     def register_client(self, client_info: OSCClientInfo):
         new_client = self.clients_repository.register(client_info)
-        self.components.variable_repository.notify_all_variables()
+        self.components.variable_repository.notify_all_variables()  # FIXME find a way to notify only new client
         OSCRecallGroupRepository().register_client(client_info)
 
     def unregister_client(self, client_info: OSCClientInfo):

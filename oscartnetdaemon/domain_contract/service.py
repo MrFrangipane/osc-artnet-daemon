@@ -1,5 +1,5 @@
 import time
-from multiprocessing import Queue
+from multiprocessing import Event, Queue
 
 from oscartnetdaemon.domain_contract.abstract_io import AbstractIO
 from oscartnetdaemon.domain_contract.abstract_io_message import AbstractIOMessage
@@ -29,6 +29,8 @@ class Service:
         self.io_message_queue_in: Queue[AbstractIOMessage] = Queue()
         self.io_message_queue_out: Queue[AbstractIOMessage] = Queue()
 
+        self.startup_done = Event()
+
     def initialize(self):
         self.configuration = self.configuration_loader.load()
         self.variable_repository.create_variables(
@@ -50,8 +52,7 @@ class Service:
         """
         self.initialize()
         self.io.start()
-
-        # FIXME: should happen after all services are started, once per unique variable
+        self.startup_done.set()
         self.variable_repository.notify_all_variables()
 
         try:
