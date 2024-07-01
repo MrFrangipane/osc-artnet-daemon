@@ -12,7 +12,7 @@ def receive(queue_in: "Queue[MIDIMessage]", device_info: MIDIDeviceInfo, should_
     midi_in = mido.open_input(device_info.in_port_name)
     try:
         while not should_exit.is_set():
-            mido_message = midi_in.receive(block=False)  # don't block, we want the KeyboardInterrupt to work
+            mido_message = midi_in.receive(timeout=0.2)  # don't block, we want the KeyboardInterrupt to work
             if mido_message is None:
                 continue
             mido_message_vars = vars(mido_message)

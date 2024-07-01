@@ -16,6 +16,7 @@
 - fix "nested" recall groups issue
 - fix error messages on recall empty slot
 - move MIDIPagination, MIDILayerGroup, OSCRecallGroup to domain contract ?
+- fork mido and add timeout `midi_in.receive(timeout=0.2)`
 
 ## To read
 - https://stackoverflow.com/questions/59402568/python-multiprocessing-queue-not-receiving-puts-from-forked-processes
