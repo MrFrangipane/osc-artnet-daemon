@@ -150,7 +150,8 @@ class MIDIConfigurationLoader(AbstractConfigurationLoader):
                     self.variables[new_paginated_variable.name] = new_paginated_variable
 
             self.paginations[new_pagination.name] = new_pagination
-            print(f"Pages '{new_pagination.name}' not found Variables: {', '.join(set(ignored_variable_names))}")
+            if ignored_variable_names:
+                print(f"Pages '{new_pagination.name}' not found Variables: {', '.join(set(ignored_variable_names))}")
 
         for variable_to_pop_name in set(variable_to_pop_names):
             self.variables.pop(variable_to_pop_name)
@@ -233,7 +234,8 @@ class MIDIConfigurationLoader(AbstractConfigurationLoader):
 
             if new_layer_group.layers:
                 self.layer_groups[new_layer_group.name] = new_layer_group
-                print(f"Layer Group '{new_layer_group.name}' not found Variables: {', '.join(set(ignored_variable_names))}")
+                if ignored_variable_names:
+                    print(f"Layer Group '{new_layer_group.name}' not found Variables: {', '.join(set(ignored_variable_names))}")
             else:
                 print(f"Layer Group ignored '{new_layer_group.name}': unable to create any layer for it")
 
@@ -276,8 +278,6 @@ def apply_wildcards(names: list[str], original_variables_names: list[str]) -> li
 
         else:
             parsed_names += fnmatch.filter(original_variables_names, name)
-
-    print(parsed_names)
 
     return list(set(parsed_names))
 

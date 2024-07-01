@@ -23,12 +23,13 @@ class ArtnetIO(AbstractIO):
         If needed, initialize variables values
         (broadcast happens after all services are started, in service registration order)
         """
-        variables = list(self.components.variable_repository.variables.values())
-        for fixture in self.fixture_repository.fixtures:
-            for channel in fixture.channels:
-                variable = variables[channel.channel_number - 1]
-                variable.info.caption = channel.function
-                variable.value.value = float(channel.value_default / 255.0)
+        # TODO find DMX variables
+        # variables = list(self.components.variable_repository.variables.values())
+        # for fixture in self.fixture_repository.fixtures:
+        #     for channel in fixture.channels:
+        #         variable = variables[channel.channel_number - 1]
+        #         variable.info.caption = channel.function
+        #         variable.value.value = float(channel.value_default / 255.0)
 
         self.server.start()
 

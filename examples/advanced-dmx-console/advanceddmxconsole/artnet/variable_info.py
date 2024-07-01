@@ -7,7 +7,8 @@ from oscartnetdaemon.domain_contract.variable_info import VariableInfo
 @dataclass_json(letter_case=LetterCase.KEBAB)
 @dataclass
 class ArtnetVariableInfo(VariableInfo):
-    dmx_channel: int
     caption: str = ""
+    dmx_channel: int = -1
     scribble_caption: str = ""
     scribble_value: str = ""
+    redirect: str = ""

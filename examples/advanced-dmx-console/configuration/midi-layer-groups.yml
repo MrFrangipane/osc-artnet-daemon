@@ -5,13 +5,13 @@ layer-groups:
     layers:
 
     - name: Fixture
-      button-activate: Layer.Fixture
+      button-activate: Button.Layer.Fixture
 
     - name: DMX
-      button-activate: Layer.DMX
+      button-activate: Button.Layer.DMX
 
     - name: Program
-      button-activate: Layer.Program
+      button-activate: Button.Layer.Program
 
     variables:
       - Scribble.*
