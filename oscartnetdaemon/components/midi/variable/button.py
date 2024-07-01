@@ -11,7 +11,7 @@ from oscartnetdaemon.domain_contract.variable.float import VariableFloat
 
 class MIDIButton(VariableFloat):
 
-    def handle_change_notification(self, notification: ChangeNotification):
+    def handle_change_notification(self):
         """
         From ChangeNotification to IO
         """
@@ -60,7 +60,7 @@ class MIDIButton(VariableFloat):
                 if not MIDIComplianceChecker.with_current_layer(variable_info):
                     continue
                 self.notification_queue_out.put(ChangeNotification(
-                    info=variable_info,
+                    variable_name=variable_info.name,
                     value=None,
                     ignore_value=True
                 ))
@@ -75,14 +75,14 @@ class MIDIButton(VariableFloat):
             # radio-illuminate
             for layer in layer_group_info.layers.values():
                 self.notification_queue_out.put(ChangeNotification(
-                    info=layer.button_activate,
+                    variable_name=layer.button_activate.name,
                     value=ValueFloat(float(layer.name == layer_info.name))
                 ))
 
             # send variable updates
             for variable_info in layer_info.variables:
                 self.notification_queue_out.put(ChangeNotification(
-                    info=variable_info,
+                    variable_name=variable_info.name,
                     value=None,
                     ignore_value=True
                 ))

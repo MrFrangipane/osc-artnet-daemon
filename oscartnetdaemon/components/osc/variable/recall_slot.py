@@ -8,7 +8,7 @@ from oscartnetdaemon.domain_contract.variable.float import VariableFloat
 # FIXME: RecallSlot concept exists in domain contract's VariableType enum, should it ?
 class OSCRecallSlot(VariableFloat):
 
-    def handle_change_notification(self, notification: ChangeNotification):
+    def handle_change_notification(self):
         """
         From ChangeNotification to IO
         """

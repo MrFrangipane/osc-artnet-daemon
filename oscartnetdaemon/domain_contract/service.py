@@ -60,7 +60,7 @@ class Service:
                 # Notifications
                 while not self.notification_queue_in.empty():
                     notification = self.notification_queue_in.get()
-                    self.variable_repository.forward_change_notification(notification)
+                    self.variable_repository.handle_change_notification(notification)
                 #
                 # IO
                 while not self.io_message_queue_in.empty():

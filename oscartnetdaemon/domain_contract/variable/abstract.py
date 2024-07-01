@@ -16,9 +16,9 @@ class AbstractVariable(ABC):
         self.notification_queue_out = notification_queue_out
 
     @abstractmethod
-    def handle_change_notification(self, notification: ChangeNotification):
+    def handle_change_notification(self):
         """
-        From ChangeNotification to IO
+        Send updates to IO
         """
         pass
 
@@ -31,6 +31,6 @@ class AbstractVariable(ABC):
 
     def notify_change(self):
         self.notification_queue_out.put(ChangeNotification(
-            info=self.info,
+            variable_name=self.info.name,
             value=self.value
         ))

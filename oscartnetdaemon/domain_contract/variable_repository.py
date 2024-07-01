@@ -32,16 +32,16 @@ class VariableRepository:
             )
             self.variables[variable_info.name] = new_variable
 
-    def forward_change_notification(self, notification: ChangeNotification):
+    def handle_change_notification(self, notification: ChangeNotification):
         """
-        Forwards ChangeNotification to it's associated Variable
-        Updates Variable's value if pertinent
+        Calls associated Variable's handle_change_notification()
+        Updates Variable's value beforehand if pertinent
         """
-        variable = self.variables.get(notification.info.name, None)
+        variable = self.variables.get(notification.variable_name, None)
         if variable is not None:
             if not notification.ignore_value:
                 variable.value = notification.value
-            variable.handle_change_notification(notification)
+            variable.handle_change_notification()
 
     def broadcast_io_message(self, message: AbstractIOMessage):
         """
@@ -57,6 +57,6 @@ class VariableRepository:
         """
         for variable in self.variables.values():
             self.notification_queue_out.put(ChangeNotification(
-                info=variable.info,
+                variable_name=variable.info.name,
                 value=variable.value
             ))

@@ -14,7 +14,7 @@ class MIDIText(VariableText):
         self.value.value = self.info.name[-7:]
         self.len: int = len(self.info.midi_parsing.bytes_as_str)  # FIXME count only number of {X} fields
 
-    def handle_change_notification(self, notification: ChangeNotification):
+    def handle_change_notification(self):
         """
         From ChangeNotification to IO
         """

@@ -8,7 +8,7 @@ from oscartnetdaemon.domain_contract.variable.float import VariableFloat
 
 class MIDIFader(VariableFloat):
 
-    def handle_change_notification(self, notification: ChangeNotification):
+    def handle_change_notification(self):
         """
         From ChangeNotification to IO
         """

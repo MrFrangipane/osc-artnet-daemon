@@ -6,7 +6,7 @@ from oscartnetdaemon.components.osc.variable_info import OSCVariableInfo
 
 class OSCFader(VariableFloat):
 
-    def handle_change_notification(self, notification: ChangeNotification):
+    def handle_change_notification(self):
         """
         From ChangeNotification to IO
         """

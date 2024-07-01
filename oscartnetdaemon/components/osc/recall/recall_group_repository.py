@@ -60,7 +60,7 @@ class OSCRecallGroupRepository(metaclass=SingletonMetaclass):
 
         for variable_info in recall_group.info.target_variables.values():
             self.notification_queue_out.put(ChangeNotification(
-                info=variable_info,
+                variable_name=variable_info.name,
                 value=copy(slot.values[variable_info.name])
             ))
 

@@ -41,7 +41,7 @@ class OSCPunchPile:
                 value = memory_slot.values.get(variable_info.name, None)
                 if value is not None:
                     self.notification_queue_out.put(ChangeNotification(
-                        info=variable_info,
+                        variable_name=variable_info.name,
                         value=copy(value)
                     ))
 
@@ -53,6 +53,6 @@ class OSCPunchPile:
                 value = previous_memory_slot.values.get(variable_info.name, None)
                 if value is not None:
                     self.notification_queue_out.put(ChangeNotification(
-                        info=variable_info,
+                        variable_name=variable_info.name,
                         value=copy(value)
                     ))
