@@ -1,4 +1,4 @@
-from simpledmxconsole.fixture.definition.varytec_hero_wash_300_fc import VarytecHeroWash300FC
+from advanceddmxconsole.fixture.definition.varytec_hero_wash_300_fc import VarytecHeroWash300FC
 
 
 class FixtureRepository:

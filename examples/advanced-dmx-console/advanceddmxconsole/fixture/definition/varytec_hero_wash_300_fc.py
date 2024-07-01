@@ -1,5 +1,5 @@
-from simpledmxconsole.fixture.base_definition import BaseFixtureDefinition
-from simpledmxconsole.fixture.dmx_channel import DMXChannel, DMXChannelFloat
+from advanceddmxconsole.fixture.base_definition import BaseFixtureDefinition
+from advanceddmxconsole.fixture.dmx_channel import DMXChannel, DMXChannelFloat
 
 
 class VarytecHeroWash300FC(BaseFixtureDefinition):

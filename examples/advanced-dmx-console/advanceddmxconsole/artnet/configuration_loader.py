@@ -2,9 +2,9 @@ import yaml
 
 from oscartnetdaemon.domain_contract.abstract_configuration_loader import AbstractConfigurationLoader
 
-from simpledmxconsole.artnet.argument_parser import parse_command_line_args
-from simpledmxconsole.artnet.configuration import ArtnetConfiguration
-from simpledmxconsole.artnet.variable_info import ArtnetVariableInfo
+from advanceddmxconsole.artnet.argument_parser import parse_command_line_args
+from advanceddmxconsole.artnet.configuration import ArtnetConfiguration
+from advanceddmxconsole.artnet.variable_info import ArtnetVariableInfo
 
 
 class ArtnetConfigurationLoader(AbstractConfigurationLoader):

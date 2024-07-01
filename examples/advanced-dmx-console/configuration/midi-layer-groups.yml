@@ -1,0 +1,9 @@
+---
+schema_version: 1
+layer-groups:
+  - name: Modes
+    layers:
+    - name: Fixture
+      button-activate: Button.F1
+      mappings:
+        - { source: Fader07:0, target: SHOW_07 }

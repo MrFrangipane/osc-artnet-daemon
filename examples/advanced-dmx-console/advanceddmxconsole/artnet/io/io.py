@@ -1,9 +1,9 @@
 from oscartnetdaemon.domain_contract.abstract_io import AbstractIO
 from oscartnetdaemon.domain_contract.service_components import ServiceComponents
 
-from simpledmxconsole.artnet.io.artnet_server import ArtnetServer
-from simpledmxconsole.artnet.io.message import ArtnetIOMessage
-from simpledmxconsole.fixture.fixture_repository import FixtureRepository
+from advanceddmxconsole.artnet.io.artnet_server import ArtnetServer
+from advanceddmxconsole.artnet.io.message import ArtnetIOMessage
+from advanceddmxconsole.fixture.fixture_repository import FixtureRepository
 
 
 class ArtnetIO(AbstractIO):

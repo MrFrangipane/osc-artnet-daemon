@@ -1,6 +1,6 @@
 from copy import copy
 
-from simpledmxconsole.fixture.dmx_channel import BaseDMXChannel, DMXChannel, DMXChannelFloat
+from advanceddmxconsole.fixture.dmx_channel import BaseDMXChannel, DMXChannel, DMXChannelFloat
 
 
 class BaseFixtureDefinition:

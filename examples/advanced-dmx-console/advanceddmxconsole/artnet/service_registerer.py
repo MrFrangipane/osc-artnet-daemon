@@ -2,9 +2,9 @@ from oscartnetdaemon.domain_contract.abstract_service_registerer import Abstract
 from oscartnetdaemon.domain_contract.service_registration_info import ServiceRegistrationInfo
 from oscartnetdaemon.domain_contract.variable_type_enum import VariableType
 
-from simpledmxconsole.artnet.configuration_loader import ArtnetConfigurationLoader
-from simpledmxconsole.artnet.io.io import ArtnetIO
-from simpledmxconsole.artnet.variable.fader import ArtnetFader
+from advanceddmxconsole.artnet.configuration_loader import ArtnetConfigurationLoader
+from advanceddmxconsole.artnet.io.io import ArtnetIO
+from advanceddmxconsole.artnet.variable.fader import ArtnetFader
 
 
 class ArtnetServiceRegisterer(AbstractServiceRegisterer):
