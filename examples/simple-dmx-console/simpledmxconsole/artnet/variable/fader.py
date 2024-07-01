@@ -1,8 +1,9 @@
-from artnet.io.message import ArtnetIOMessage
-from artnet.variable_info import ArtnetVariableInfo
 from oscartnetdaemon.domain_contract.change_notification import ChangeNotification
-from oscartnetdaemon.domain_contract.variable.float import VariableFloat
 from oscartnetdaemon.domain_contract.value.text import ValueText
+from oscartnetdaemon.domain_contract.variable.float import VariableFloat
+
+from simpledmxconsole.artnet.io.message import ArtnetIOMessage
+from simpledmxconsole.artnet.variable_info import ArtnetVariableInfo
 
 
 class ArtnetFader(VariableFloat):

@@ -1,7 +1,8 @@
 from oscartnetdaemon.domain_contract.abstract_io import AbstractIO
 from oscartnetdaemon.domain_contract.service_components import ServiceComponents
-from artnet.io.message import ArtnetIOMessage
-from artnet.io.artnet_server import ArtnetServer
+
+from simpledmxconsole.artnet.io.artnet_server import ArtnetServer
+from simpledmxconsole.artnet.io.message import ArtnetIOMessage
 
 
 class ArtnetIO(AbstractIO):
