@@ -8,7 +8,7 @@ from simpledmxconsole.artnet.variable_info import ArtnetVariableInfo
 
 class ArtnetFader(VariableFloat):
 
-    def handle_change_notification(self, notification: ChangeNotification):
+    def handle_change_notification(self):
         """
         From ChangeNotification to IO
         """
@@ -17,19 +17,30 @@ class ArtnetFader(VariableFloat):
         if info.dmx_channel == -1:
             return
 
-        int_value = int(self.value.value * 255)
         self.io_message_queue_out.put(ArtnetIOMessage(
             channel=info.dmx_channel,
-            value=int_value
+            value=int(self.value.value * 255)
         ))
-        # TODO
-        # self.notification_queue_out.put(ChangeNotification(
-        #     info=ScribbleRepository().top[info.dmx_channel],
-        #     value=ValueText(f"{int_value}")
-        # ))
+
+        self.handle_scribble()
 
     def handle_io_message(self, message: ArtnetIOMessage):
         """
         From IO to ChangeNotification
         """
         pass
+
+    def handle_scribble(self):
+        info: ArtnetVariableInfo = self.info  # FIXME type hint for autocompletion
+
+        if info.scribble_caption:
+            self.notification_queue_out.put(ChangeNotification(
+                variable_name=info.scribble_caption,
+                value=ValueText(info.caption)
+            ))
+
+        if info.scribble_value:
+            self.notification_queue_out.put(ChangeNotification(
+                variable_name=info.scribble_value,
+                value=ValueText(str(int(self.value.value * 255)))
+            ))

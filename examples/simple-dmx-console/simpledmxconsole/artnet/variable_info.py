@@ -8,3 +8,6 @@ from oscartnetdaemon.domain_contract.variable_info import VariableInfo
 @dataclass
 class ArtnetVariableInfo(VariableInfo):
     dmx_channel: int
+    caption: str = ""
+    scribble_caption: str = ""
+    scribble_value: str = ""
