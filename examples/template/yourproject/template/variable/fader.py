@@ -1,12 +1,11 @@
-from oscartnetdaemon.domain_contract.change_notification import ChangeNotification
 from oscartnetdaemon.domain_contract.variable.float import VariableFloat
-from template.io.message import TemplateMessage
-from template.variable_info import TemplateVariableInfo
+from yourproject.template.io.message import TemplateMessage
+from yourproject.template.variable_info import TemplateVariableInfo
 
 
 class TemplateFader(VariableFloat):
 
-    def handle_change_notification(self, notification: ChangeNotification):
+    def handle_change_notification(self):
         """
         From ChangeNotification to IO
         """

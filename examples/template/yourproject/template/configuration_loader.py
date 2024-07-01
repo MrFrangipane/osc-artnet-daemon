@@ -1,7 +1,7 @@
 from oscartnetdaemon.domain_contract.abstract_configuration_loader import AbstractConfigurationLoader
-from template.argument_parser import parse_command_line_args
-from template.configuration import TemplateConfiguration
-from template.variable_info import TemplateVariableInfo
+from yourproject.template.argument_parser import parse_command_line_args
+from yourproject.template.configuration import TemplateConfiguration
+from yourproject.template.variable_info import TemplateVariableInfo
 
 
 class TemplateConfigurationLoader(AbstractConfigurationLoader):

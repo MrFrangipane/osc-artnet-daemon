@@ -2,7 +2,7 @@ from oscartnetdaemon.components.midi.service_registerer import MIDIServiceRegist
 from oscartnetdaemon.components.osc.service_registerer import OSCServiceRegisterer
 from oscartnetdaemon.components.service_repository import ServiceRepository
 
-from template.service_registerer import TemplateServiceRegisterer
+from yourproject.template.service_registerer import TemplateServiceRegisterer
 
 
 if __name__ == '__main__':

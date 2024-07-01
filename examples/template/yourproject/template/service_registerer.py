@@ -1,6 +1,6 @@
-from template.configuration_loader import TemplateConfigurationLoader
-from template.io.io import TemplateIO
-from template.variable.fader import TemplateFader
+from yourproject.template.configuration_loader import TemplateConfigurationLoader
+from yourproject.template.io.io import TemplateIO
+from yourproject.template.variable.fader import TemplateFader
 
 from oscartnetdaemon.domain_contract.abstract_service_registerer import AbstractServiceRegisterer
 from oscartnetdaemon.domain_contract.service_registration_info import ServiceRegistrationInfo

@@ -1,6 +1,6 @@
 from oscartnetdaemon.domain_contract.abstract_io import AbstractIO
 from oscartnetdaemon.domain_contract.service_components import ServiceComponents
-from template.io.message import TemplateMessage
+from yourproject.template.io.message import TemplateMessage
 
 
 class TemplateIO(AbstractIO):
