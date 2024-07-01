@@ -1,3 +1,4 @@
+import fnmatch
 from copy import copy, deepcopy
 
 import mido
@@ -99,18 +100,23 @@ class MIDIConfigurationLoader(AbstractConfigurationLoader):
 
     def load_device_variables(self, device):
         for variable_dict in device['variables']:
+            name = variable_dict['name']
+            if has_wildcards(name):
+                raise ValueError(f"Wildcards not allowed in variable name '{name}'")
+
             variable_dict['device_name'] = device['name']
             variable_dict['midi-parsing']['bytes_as_str'] = variable_dict['midi-parsing'].get('bytes', list())
 
-            if variable_dict['name'] in self.variables:
-                raise ValueError(f"MIDI Variable '{variable_dict['name']}' already assigned")
+            if name in self.variables:
+                raise ValueError(f"MIDI Variable '{name}' already assigned")
 
-            self.variables[variable_dict['name']] = MIDIVariableInfo.from_dict(variable_dict)
+            self.variables[name] = MIDIVariableInfo.from_dict(variable_dict)
 
     #
     # PAGES
     def load_pages(self):
         variable_to_pop_names: list[str] = list()
+        original_variables_names = copy(list(self.variables.keys()))  # Keep a copy for wildcard filtering
         for pagination in self.content.get('pages', list()):
             ignored_variable_names: list[str] = list()
             button_up = self.make_page_button(pagination, MIDIPageDirection.Up)
@@ -129,7 +135,7 @@ class MIDIConfigurationLoader(AbstractConfigurationLoader):
 
             for page_number in range(new_pagination.page_count):
                 new_pagination.variables.append(list())
-                for variable_name in pagination['variables']:
+                for variable_name in apply_wildcards(pagination['variables'], original_variables_names):
                     if variable_name not in self.variables:
                         ignored_variable_names.append(variable_name)
                         continue
@@ -171,7 +177,9 @@ class MIDIConfigurationLoader(AbstractConfigurationLoader):
     #
     # LAYER GROUPS
     def load_layer_groups(self):
-        content = unify_layer_groups(self.content.get('layer-groups', list()))
+        original_variables_names = copy(list(self.variables.keys()))  # Keep a copy for wildcard filtering
+        layer_groups = self.content.get('layer-groups', list())
+        content = unify_layer_groups(layer_groups, original_variables_names)
         variable_to_pop_names: list[str] = list()
         for layer_group in content:
             ignored_variable_names: list[str] = list()
@@ -256,10 +264,28 @@ class MIDIConfigurationLoader(AbstractConfigurationLoader):
         return new_variable
 
 
-def unify_layer_groups(layer_groups: list):
+def has_wildcards(name):
+    return "$" in name or "*" in name
+
+
+def apply_wildcards(names: list[str], original_variables_names: list[str]) -> list[str]:
+    parsed_names = list()
+    for name in names:
+        if not has_wildcards(name):
+            parsed_names.append(name)
+
+        else:
+            parsed_names += fnmatch.filter(original_variables_names, name)
+
+    print(parsed_names)
+
+    return list(set(parsed_names))
+
+
+def unify_layer_groups(layer_groups: list[dict], original_variables_names: list[str]) -> list[dict]:
     """Ensure all concerned Variables are mapped in all groups"""
     for group in layer_groups:
-        all_sources = group.get('variables', list())
+        all_sources = apply_wildcards(group.get('variables', list()), original_variables_names)
         all_mappings = [{'source': name, 'target': name} for name in all_sources]
 
         for layer in group['layers']:

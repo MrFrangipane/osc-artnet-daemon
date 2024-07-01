@@ -5,19 +5,7 @@ pages:
     button-up: FaderBank.Up
     button-down: FaderBank.Down
     page-count: 4
-    variables: [
-      Scribble.Top.01, Scribble.Bottom.01, Scribble.Top.02, Scribble.Bottom.02,
-      Scribble.Top.03, Scribble.Bottom.03, Scribble.Top.04, Scribble.Bottom.04,
-      Scribble.Top.05, Scribble.Bottom.05, Scribble.Top.06, Scribble.Bottom.06,
-      Scribble.Top.07, Scribble.Bottom.07, Scribble.Top.08, Scribble.Bottom.08,
-      Scribble.Top.09, Scribble.Bottom.09, Scribble.Top.10, Scribble.Bottom.10,
-      Scribble.Top.11, Scribble.Bottom.11, Scribble.Top.12, Scribble.Bottom.12,
-      Scribble.Top.13, Scribble.Bottom.13, Scribble.Top.14, Scribble.Bottom.14,
-      Scribble.Top.15, Scribble.Bottom.15, Scribble.Top.16, Scribble.Bottom.16,
-      Fader.01, Fader.02, Fader.03, Fader.04, Fader.05, Fader.06, Fader.07, Fader.08,
-      Fader.09, Fader.10, Fader.11, Fader.12, Fader.13, Fader.14, Fader.15, Fader.,
-      Button.Select.01, Button.Select.02, Button.Select.03, Button.Select.04,
-      Button.Select.05, Button.Select.06, Button.Select.07, Button.Select.08,
-      Button.Select.09, Button.Select.10, Button.Select.11, Button.Select.12,
-      Button.Select.13, Button.Select.14, Button.Select.15, Button.Select.16
-    ]
+    variables:
+      - Scribble.*
+      - Fader.*
+      - Button.Select.*

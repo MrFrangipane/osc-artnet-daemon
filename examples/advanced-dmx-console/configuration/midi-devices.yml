@@ -308,6 +308,6 @@ devices:
         type: Fader
         midi-parsing: { channel: 7, type: pitchwheel }
 
-      - name: Fader.Master
+      - name: MasterFader
         type: Fader
         midi-parsing: { channel: 8, type: pitchwheel }
