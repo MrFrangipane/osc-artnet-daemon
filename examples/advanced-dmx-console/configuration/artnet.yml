@@ -7,135 +7,135 @@ variables:
     - { name: Button.Layer.DMX, type: Button }
     - { name: Button.Layer.Program, type: Button }
 
-    - { name: Fixture.Button.Select.01:0, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.02:0, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.03:0, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.04:0, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.05:0, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.06:0, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.07:0, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.08:0, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.09:0, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.10:0, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.11:0, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.12:0, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.13:0, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.14:0, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.15:0, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.16:0, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.01:1, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.02:1, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.03:1, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.04:1, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.05:1, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.06:1, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.07:1, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.08:1, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.09:1, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.10:1, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.11:1, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.12:1, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.13:1, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.14:1, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.15:1, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.16:1, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.01:2, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.02:2, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.03:2, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.04:2, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.05:2, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.06:2, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.07:2, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.08:2, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.09:2, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.10:2, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.11:2, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.12:2, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.13:2, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.14:2, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.15:2, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.16:2, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.01:3, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.02:3, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.03:3, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.04:3, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.05:3, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.06:3, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.07:3, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.08:3, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.09:3, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.10:3, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.11:3, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.12:3, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.13:3, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.14:3, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.15:3, redirect: Button.Layer.DMX, type: Button }
-    - { name: Fixture.Button.Select.16:3, redirect: Button.Layer.DMX, type: Button }
+    - { name: Fixture.Button.Select.01:0, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.01:0 }
+    - { name: Fixture.Button.Select.02:0, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.02:0 }
+    - { name: Fixture.Button.Select.03:0, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.03:0 }
+    - { name: Fixture.Button.Select.04:0, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.04:0 }
+    - { name: Fixture.Button.Select.05:0, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.05:0 }
+    - { name: Fixture.Button.Select.06:0, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.06:0 }
+    - { name: Fixture.Button.Select.07:0, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.07:0 }
+    - { name: Fixture.Button.Select.08:0, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.08:0 }
+    - { name: Fixture.Button.Select.09:0, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.09:0 }
+    - { name: Fixture.Button.Select.10:0, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.10:0 }
+    - { name: Fixture.Button.Select.11:0, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.11:0 }
+    - { name: Fixture.Button.Select.12:0, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.12:0 }
+    - { name: Fixture.Button.Select.13:0, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.13:0 }
+    - { name: Fixture.Button.Select.14:0, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.14:0 }
+    - { name: Fixture.Button.Select.15:0, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.15:0 }
+    - { name: Fixture.Button.Select.16:0, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.16:0 }
+    - { name: Fixture.Button.Select.01:1, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.01:1 }
+    - { name: Fixture.Button.Select.02:1, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.02:1 }
+    - { name: Fixture.Button.Select.03:1, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.03:1 }
+    - { name: Fixture.Button.Select.04:1, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.04:1 }
+    - { name: Fixture.Button.Select.05:1, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.05:1 }
+    - { name: Fixture.Button.Select.06:1, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.06:1 }
+    - { name: Fixture.Button.Select.07:1, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.07:1 }
+    - { name: Fixture.Button.Select.08:1, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.08:1 }
+    - { name: Fixture.Button.Select.09:1, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.09:1 }
+    - { name: Fixture.Button.Select.10:1, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.10:1 }
+    - { name: Fixture.Button.Select.11:1, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.11:1 }
+    - { name: Fixture.Button.Select.12:1, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.12:1 }
+    - { name: Fixture.Button.Select.13:1, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.13:1 }
+    - { name: Fixture.Button.Select.14:1, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.14:1 }
+    - { name: Fixture.Button.Select.15:1, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.15:1 }
+    - { name: Fixture.Button.Select.16:1, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.16:1 }
+    - { name: Fixture.Button.Select.01:2, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.01:2 }
+    - { name: Fixture.Button.Select.02:2, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.02:2 }
+    - { name: Fixture.Button.Select.03:2, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.03:2 }
+    - { name: Fixture.Button.Select.04:2, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.04:2 }
+    - { name: Fixture.Button.Select.05:2, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.05:2 }
+    - { name: Fixture.Button.Select.06:2, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.06:2 }
+    - { name: Fixture.Button.Select.07:2, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.07:2 }
+    - { name: Fixture.Button.Select.08:2, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.08:2 }
+    - { name: Fixture.Button.Select.09:2, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.09:2 }
+    - { name: Fixture.Button.Select.10:2, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.10:2 }
+    - { name: Fixture.Button.Select.11:2, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.11:2 }
+    - { name: Fixture.Button.Select.12:2, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.12:2 }
+    - { name: Fixture.Button.Select.13:2, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.13:2 }
+    - { name: Fixture.Button.Select.14:2, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.14:2 }
+    - { name: Fixture.Button.Select.15:2, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.15:2 }
+    - { name: Fixture.Button.Select.16:2, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.16:2 }
+    - { name: Fixture.Button.Select.01:3, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.01:3 }
+    - { name: Fixture.Button.Select.02:3, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.02:3 }
+    - { name: Fixture.Button.Select.03:3, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.03:3 }
+    - { name: Fixture.Button.Select.04:3, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.04:3 }
+    - { name: Fixture.Button.Select.05:3, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.05:3 }
+    - { name: Fixture.Button.Select.06:3, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.06:3 }
+    - { name: Fixture.Button.Select.07:3, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.07:3 }
+    - { name: Fixture.Button.Select.08:3, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.08:3 }
+    - { name: Fixture.Button.Select.09:3, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.09:3 }
+    - { name: Fixture.Button.Select.10:3, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.10:3 }
+    - { name: Fixture.Button.Select.11:3, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.11:3 }
+    - { name: Fixture.Button.Select.12:3, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.12:3 }
+    - { name: Fixture.Button.Select.13:3, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.13:3 }
+    - { name: Fixture.Button.Select.14:3, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.14:3 }
+    - { name: Fixture.Button.Select.15:3, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.15:3 }
+    - { name: Fixture.Button.Select.16:3, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.16:3 }
 
     #
     # FADERS
-    - { name: DMX.Fader.01:0, type: Fader, dmx-channel:  1, scribble-caption: DMX.Scribble.Top.01:0,  scribble-value: DMX.Scribble.Bottom.01:0 }
-    - { name: DMX.Fader.02:0, type: Fader, dmx-channel:  2, scribble-caption: DMX.Scribble.Top.02:0,  scribble-value: DMX.Scribble.Bottom.02:0 }
-    - { name: DMX.Fader.03:0, type: Fader, dmx-channel:  3, scribble-caption: DMX.Scribble.Top.03:0,  scribble-value: DMX.Scribble.Bottom.03:0 }
-    - { name: DMX.Fader.04:0, type: Fader, dmx-channel:  4, scribble-caption: DMX.Scribble.Top.04:0,  scribble-value: DMX.Scribble.Bottom.04:0 }
-    - { name: DMX.Fader.05:0, type: Fader, dmx-channel:  5, scribble-caption: DMX.Scribble.Top.05:0,  scribble-value: DMX.Scribble.Bottom.05:0 }
-    - { name: DMX.Fader.06:0, type: Fader, dmx-channel:  6, scribble-caption: DMX.Scribble.Top.06:0,  scribble-value: DMX.Scribble.Bottom.06:0 }
-    - { name: DMX.Fader.07:0, type: Fader, dmx-channel:  7, scribble-caption: DMX.Scribble.Top.07:0,  scribble-value: DMX.Scribble.Bottom.07:0 }
-    - { name: DMX.Fader.08:0, type: Fader, dmx-channel:  8, scribble-caption: DMX.Scribble.Top.08:0,  scribble-value: DMX.Scribble.Bottom.08:0 }
-    - { name: DMX.Fader.09:0, type: Fader, dmx-channel:  9, scribble-caption: DMX.Scribble.Top.09:0,  scribble-value: DMX.Scribble.Bottom.09:0 }
-    - { name: DMX.Fader.10:0, type: Fader, dmx-channel: 10, scribble-caption: DMX.Scribble.Top.10:0,  scribble-value: DMX.Scribble.Bottom.10:0 }
-    - { name: DMX.Fader.11:0, type: Fader, dmx-channel: 11, scribble-caption: DMX.Scribble.Top.11:0,  scribble-value: DMX.Scribble.Bottom.11:0 }
-    - { name: DMX.Fader.12:0, type: Fader, dmx-channel: 12, scribble-caption: DMX.Scribble.Top.12:0,  scribble-value: DMX.Scribble.Bottom.12:0 }
-    - { name: DMX.Fader.13:0, type: Fader, dmx-channel: 13, scribble-caption: DMX.Scribble.Top.13:0,  scribble-value: DMX.Scribble.Bottom.13:0 }
-    - { name: DMX.Fader.14:0, type: Fader, dmx-channel: 14, scribble-caption: DMX.Scribble.Top.14:0,  scribble-value: DMX.Scribble.Bottom.14:0 }
-    - { name: DMX.Fader.15:0, type: Fader, dmx-channel: 15, scribble-caption: DMX.Scribble.Top.15:0,  scribble-value: DMX.Scribble.Bottom.15:0 }
-    - { name: DMX.Fader.16:0, type: Fader, dmx-channel: 16, scribble-caption: DMX.Scribble.Top.16:0,  scribble-value: DMX.Scribble.Bottom.16:0 }
-    - { name: DMX.Fader.01:1, type: Fader, dmx-channel: 17, scribble-caption: DMX.Scribble.Top.01:1,  scribble-value: DMX.Scribble.Bottom.01:1 }
-    - { name: DMX.Fader.02:1, type: Fader, dmx-channel: 18, scribble-caption: DMX.Scribble.Top.02:1,  scribble-value: DMX.Scribble.Bottom.02:1 }
-    - { name: DMX.Fader.03:1, type: Fader, dmx-channel: 19, scribble-caption: DMX.Scribble.Top.03:1,  scribble-value: DMX.Scribble.Bottom.03:1 }
-    - { name: DMX.Fader.04:1, type: Fader, dmx-channel: 20, scribble-caption: DMX.Scribble.Top.04:1,  scribble-value: DMX.Scribble.Bottom.04:1 }
-    - { name: DMX.Fader.05:1, type: Fader, dmx-channel: 21, scribble-caption: DMX.Scribble.Top.05:1,  scribble-value: DMX.Scribble.Bottom.05:1 }
-    - { name: DMX.Fader.06:1, type: Fader, dmx-channel: 22, scribble-caption: DMX.Scribble.Top.06:1,  scribble-value: DMX.Scribble.Bottom.06:1 }
-    - { name: DMX.Fader.07:1, type: Fader, dmx-channel: 23, scribble-caption: DMX.Scribble.Top.07:1,  scribble-value: DMX.Scribble.Bottom.07:1 }
-    - { name: DMX.Fader.08:1, type: Fader, dmx-channel: 24, scribble-caption: DMX.Scribble.Top.08:1,  scribble-value: DMX.Scribble.Bottom.08:1 }
-    - { name: DMX.Fader.09:1, type: Fader, dmx-channel: 25, scribble-caption: DMX.Scribble.Top.09:1,  scribble-value: DMX.Scribble.Bottom.09:1 }
-    - { name: DMX.Fader.10:1, type: Fader, dmx-channel: 26, scribble-caption: DMX.Scribble.Top.10:1,  scribble-value: DMX.Scribble.Bottom.10:1 }
-    - { name: DMX.Fader.11:1, type: Fader, dmx-channel: 27, scribble-caption: DMX.Scribble.Top.11:1,  scribble-value: DMX.Scribble.Bottom.11:1 }
-    - { name: DMX.Fader.12:1, type: Fader, dmx-channel: 28, scribble-caption: DMX.Scribble.Top.12:1,  scribble-value: DMX.Scribble.Bottom.12:1 }
-    - { name: DMX.Fader.13:1, type: Fader, dmx-channel: 29, scribble-caption: DMX.Scribble.Top.13:1,  scribble-value: DMX.Scribble.Bottom.13:1 }
-    - { name: DMX.Fader.14:1, type: Fader, dmx-channel: 30, scribble-caption: DMX.Scribble.Top.14:1,  scribble-value: DMX.Scribble.Bottom.14:1 }
-    - { name: DMX.Fader.15:1, type: Fader, dmx-channel: 31, scribble-caption: DMX.Scribble.Top.15:1,  scribble-value: DMX.Scribble.Bottom.15:1 }
-    - { name: DMX.Fader.16:1, type: Fader, dmx-channel: 32, scribble-caption: DMX.Scribble.Top.16:1,  scribble-value: DMX.Scribble.Bottom.16:1 }
-    - { name: DMX.Fader.01:2, type: Fader, dmx-channel: 33, scribble-caption: DMX.Scribble.Top.01:2,  scribble-value: DMX.Scribble.Bottom.01:2 }
-    - { name: DMX.Fader.02:2, type: Fader, dmx-channel: 34, scribble-caption: DMX.Scribble.Top.02:2,  scribble-value: DMX.Scribble.Bottom.02:2 }
-    - { name: DMX.Fader.03:2, type: Fader, dmx-channel: 35, scribble-caption: DMX.Scribble.Top.03:2,  scribble-value: DMX.Scribble.Bottom.03:2 }
-    - { name: DMX.Fader.04:2, type: Fader, dmx-channel: 36, scribble-caption: DMX.Scribble.Top.04:2,  scribble-value: DMX.Scribble.Bottom.04:2 }
-    - { name: DMX.Fader.05:2, type: Fader, dmx-channel: 37, scribble-caption: DMX.Scribble.Top.05:2,  scribble-value: DMX.Scribble.Bottom.05:2 }
-    - { name: DMX.Fader.06:2, type: Fader, dmx-channel: 38, scribble-caption: DMX.Scribble.Top.06:2,  scribble-value: DMX.Scribble.Bottom.06:2 }
-    - { name: DMX.Fader.07:2, type: Fader, dmx-channel: 39, scribble-caption: DMX.Scribble.Top.07:2,  scribble-value: DMX.Scribble.Bottom.07:2 }
-    - { name: DMX.Fader.08:2, type: Fader, dmx-channel: 40, scribble-caption: DMX.Scribble.Top.08:2,  scribble-value: DMX.Scribble.Bottom.08:2 }
-    - { name: DMX.Fader.09:2, type: Fader, dmx-channel: 41, scribble-caption: DMX.Scribble.Top.09:2,  scribble-value: DMX.Scribble.Bottom.09:2 }
-    - { name: DMX.Fader.10:2, type: Fader, dmx-channel: 42, scribble-caption: DMX.Scribble.Top.10:2,  scribble-value: DMX.Scribble.Bottom.10:2 }
-    - { name: DMX.Fader.11:2, type: Fader, dmx-channel: 43, scribble-caption: DMX.Scribble.Top.11:2,  scribble-value: DMX.Scribble.Bottom.11:2 }
-    - { name: DMX.Fader.12:2, type: Fader, dmx-channel: 44, scribble-caption: DMX.Scribble.Top.12:2,  scribble-value: DMX.Scribble.Bottom.12:2 }
-    - { name: DMX.Fader.13:2, type: Fader, dmx-channel: 45, scribble-caption: DMX.Scribble.Top.13:2,  scribble-value: DMX.Scribble.Bottom.13:2 }
-    - { name: DMX.Fader.14:2, type: Fader, dmx-channel: 46, scribble-caption: DMX.Scribble.Top.14:2,  scribble-value: DMX.Scribble.Bottom.14:2 }
-    - { name: DMX.Fader.15:2, type: Fader, dmx-channel: 47, scribble-caption: DMX.Scribble.Top.15:2,  scribble-value: DMX.Scribble.Bottom.15:2 }
-    - { name: DMX.Fader.16:2, type: Fader, dmx-channel: 48, scribble-caption: DMX.Scribble.Top.16:2,  scribble-value: DMX.Scribble.Bottom.16:2 }
-    - { name: DMX.Fader.01:3, type: Fader, dmx-channel: 49, scribble-caption: DMX.Scribble.Top.01:3,  scribble-value: DMX.Scribble.Bottom.01:3 }
-    - { name: DMX.Fader.02:3, type: Fader, dmx-channel: 50, scribble-caption: DMX.Scribble.Top.02:3,  scribble-value: DMX.Scribble.Bottom.02:3 }
-    - { name: DMX.Fader.03:3, type: Fader, dmx-channel: 51, scribble-caption: DMX.Scribble.Top.03:3,  scribble-value: DMX.Scribble.Bottom.03:3 }
-    - { name: DMX.Fader.04:3, type: Fader, dmx-channel: 52, scribble-caption: DMX.Scribble.Top.04:3,  scribble-value: DMX.Scribble.Bottom.04:3 }
-    - { name: DMX.Fader.05:3, type: Fader, dmx-channel: 53, scribble-caption: DMX.Scribble.Top.05:3,  scribble-value: DMX.Scribble.Bottom.05:3 }
-    - { name: DMX.Fader.06:3, type: Fader, dmx-channel: 54, scribble-caption: DMX.Scribble.Top.06:3,  scribble-value: DMX.Scribble.Bottom.06:3 }
-    - { name: DMX.Fader.07:3, type: Fader, dmx-channel: 55, scribble-caption: DMX.Scribble.Top.07:3,  scribble-value: DMX.Scribble.Bottom.07:3 }
-    - { name: DMX.Fader.08:3, type: Fader, dmx-channel: 56, scribble-caption: DMX.Scribble.Top.08:3,  scribble-value: DMX.Scribble.Bottom.08:3 }
-    - { name: DMX.Fader.09:3, type: Fader, dmx-channel: 57, scribble-caption: DMX.Scribble.Top.09:3,  scribble-value: DMX.Scribble.Bottom.09:3 }
-    - { name: DMX.Fader.10:3, type: Fader, dmx-channel: 58, scribble-caption: DMX.Scribble.Top.10:3,  scribble-value: DMX.Scribble.Bottom.10:3 }
-    - { name: DMX.Fader.11:3, type: Fader, dmx-channel: 59, scribble-caption: DMX.Scribble.Top.11:3,  scribble-value: DMX.Scribble.Bottom.11:3 }
-    - { name: DMX.Fader.12:3, type: Fader, dmx-channel: 60, scribble-caption: DMX.Scribble.Top.12:3,  scribble-value: DMX.Scribble.Bottom.12:3 }
-    - { name: DMX.Fader.13:3, type: Fader, dmx-channel: 61, scribble-caption: DMX.Scribble.Top.13:3,  scribble-value: DMX.Scribble.Bottom.13:3 }
-    - { name: DMX.Fader.14:3, type: Fader, dmx-channel: 62, scribble-caption: DMX.Scribble.Top.14:3,  scribble-value: DMX.Scribble.Bottom.14:3 }
-    - { name: DMX.Fader.15:3, type: Fader, dmx-channel: 63, scribble-caption: DMX.Scribble.Top.15:3,  scribble-value: DMX.Scribble.Bottom.15:3 }
-    - { name: DMX.Fader.16:3, type: Fader, dmx-channel: 64, scribble-caption: DMX.Scribble.Top.16:3,  scribble-value: DMX.Scribble.Bottom.16:3 }
-    - { name: DMX.Fader.Master, type: Fader, dmx-channel: -1 }
+    - { name: DMX.Fader.01:0, type: Fader, index:  0, scribble-caption: DMX.Scribble.Top.01:0,  scribble-value: DMX.Scribble.Bottom.01:0 }
+    - { name: DMX.Fader.02:0, type: Fader, index:  1, scribble-caption: DMX.Scribble.Top.02:0,  scribble-value: DMX.Scribble.Bottom.02:0 }
+    - { name: DMX.Fader.03:0, type: Fader, index:  2, scribble-caption: DMX.Scribble.Top.03:0,  scribble-value: DMX.Scribble.Bottom.03:0 }
+    - { name: DMX.Fader.04:0, type: Fader, index:  3, scribble-caption: DMX.Scribble.Top.04:0,  scribble-value: DMX.Scribble.Bottom.04:0 }
+    - { name: DMX.Fader.05:0, type: Fader, index:  4, scribble-caption: DMX.Scribble.Top.05:0,  scribble-value: DMX.Scribble.Bottom.05:0 }
+    - { name: DMX.Fader.06:0, type: Fader, index:  5, scribble-caption: DMX.Scribble.Top.06:0,  scribble-value: DMX.Scribble.Bottom.06:0 }
+    - { name: DMX.Fader.07:0, type: Fader, index:  6, scribble-caption: DMX.Scribble.Top.07:0,  scribble-value: DMX.Scribble.Bottom.07:0 }
+    - { name: DMX.Fader.08:0, type: Fader, index:  7, scribble-caption: DMX.Scribble.Top.08:0,  scribble-value: DMX.Scribble.Bottom.08:0 }
+    - { name: DMX.Fader.09:0, type: Fader, index:  8, scribble-caption: DMX.Scribble.Top.09:0,  scribble-value: DMX.Scribble.Bottom.09:0 }
+    - { name: DMX.Fader.10:0, type: Fader, index:  9, scribble-caption: DMX.Scribble.Top.10:0,  scribble-value: DMX.Scribble.Bottom.10:0 }
+    - { name: DMX.Fader.11:0, type: Fader, index: 10, scribble-caption: DMX.Scribble.Top.11:0,  scribble-value: DMX.Scribble.Bottom.11:0 }
+    - { name: DMX.Fader.12:0, type: Fader, index: 11, scribble-caption: DMX.Scribble.Top.12:0,  scribble-value: DMX.Scribble.Bottom.12:0 }
+    - { name: DMX.Fader.13:0, type: Fader, index: 12, scribble-caption: DMX.Scribble.Top.13:0,  scribble-value: DMX.Scribble.Bottom.13:0 }
+    - { name: DMX.Fader.14:0, type: Fader, index: 13, scribble-caption: DMX.Scribble.Top.14:0,  scribble-value: DMX.Scribble.Bottom.14:0 }
+    - { name: DMX.Fader.15:0, type: Fader, index: 14, scribble-caption: DMX.Scribble.Top.15:0,  scribble-value: DMX.Scribble.Bottom.15:0 }
+    - { name: DMX.Fader.16:0, type: Fader, index: 15, scribble-caption: DMX.Scribble.Top.16:0,  scribble-value: DMX.Scribble.Bottom.16:0 }
+    - { name: DMX.Fader.01:1, type: Fader, index: 16, scribble-caption: DMX.Scribble.Top.01:1,  scribble-value: DMX.Scribble.Bottom.01:1 }
+    - { name: DMX.Fader.02:1, type: Fader, index: 17, scribble-caption: DMX.Scribble.Top.02:1,  scribble-value: DMX.Scribble.Bottom.02:1 }
+    - { name: DMX.Fader.03:1, type: Fader, index: 18, scribble-caption: DMX.Scribble.Top.03:1,  scribble-value: DMX.Scribble.Bottom.03:1 }
+    - { name: DMX.Fader.04:1, type: Fader, index: 19, scribble-caption: DMX.Scribble.Top.04:1,  scribble-value: DMX.Scribble.Bottom.04:1 }
+    - { name: DMX.Fader.05:1, type: Fader, index: 20, scribble-caption: DMX.Scribble.Top.05:1,  scribble-value: DMX.Scribble.Bottom.05:1 }
+    - { name: DMX.Fader.06:1, type: Fader, index: 21, scribble-caption: DMX.Scribble.Top.06:1,  scribble-value: DMX.Scribble.Bottom.06:1 }
+    - { name: DMX.Fader.07:1, type: Fader, index: 22, scribble-caption: DMX.Scribble.Top.07:1,  scribble-value: DMX.Scribble.Bottom.07:1 }
+    - { name: DMX.Fader.08:1, type: Fader, index: 23, scribble-caption: DMX.Scribble.Top.08:1,  scribble-value: DMX.Scribble.Bottom.08:1 }
+    - { name: DMX.Fader.09:1, type: Fader, index: 24, scribble-caption: DMX.Scribble.Top.09:1,  scribble-value: DMX.Scribble.Bottom.09:1 }
+    - { name: DMX.Fader.10:1, type: Fader, index: 25, scribble-caption: DMX.Scribble.Top.10:1,  scribble-value: DMX.Scribble.Bottom.10:1 }
+    - { name: DMX.Fader.11:1, type: Fader, index: 26, scribble-caption: DMX.Scribble.Top.11:1,  scribble-value: DMX.Scribble.Bottom.11:1 }
+    - { name: DMX.Fader.12:1, type: Fader, index: 27, scribble-caption: DMX.Scribble.Top.12:1,  scribble-value: DMX.Scribble.Bottom.12:1 }
+    - { name: DMX.Fader.13:1, type: Fader, index: 28, scribble-caption: DMX.Scribble.Top.13:1,  scribble-value: DMX.Scribble.Bottom.13:1 }
+    - { name: DMX.Fader.14:1, type: Fader, index: 29, scribble-caption: DMX.Scribble.Top.14:1,  scribble-value: DMX.Scribble.Bottom.14:1 }
+    - { name: DMX.Fader.15:1, type: Fader, index: 30, scribble-caption: DMX.Scribble.Top.15:1,  scribble-value: DMX.Scribble.Bottom.15:1 }
+    - { name: DMX.Fader.16:1, type: Fader, index: 31, scribble-caption: DMX.Scribble.Top.16:1,  scribble-value: DMX.Scribble.Bottom.16:1 }
+    - { name: DMX.Fader.01:2, type: Fader, index: 32, scribble-caption: DMX.Scribble.Top.01:2,  scribble-value: DMX.Scribble.Bottom.01:2 }
+    - { name: DMX.Fader.02:2, type: Fader, index: 33, scribble-caption: DMX.Scribble.Top.02:2,  scribble-value: DMX.Scribble.Bottom.02:2 }
+    - { name: DMX.Fader.03:2, type: Fader, index: 34, scribble-caption: DMX.Scribble.Top.03:2,  scribble-value: DMX.Scribble.Bottom.03:2 }
+    - { name: DMX.Fader.04:2, type: Fader, index: 35, scribble-caption: DMX.Scribble.Top.04:2,  scribble-value: DMX.Scribble.Bottom.04:2 }
+    - { name: DMX.Fader.05:2, type: Fader, index: 36, scribble-caption: DMX.Scribble.Top.05:2,  scribble-value: DMX.Scribble.Bottom.05:2 }
+    - { name: DMX.Fader.06:2, type: Fader, index: 37, scribble-caption: DMX.Scribble.Top.06:2,  scribble-value: DMX.Scribble.Bottom.06:2 }
+    - { name: DMX.Fader.07:2, type: Fader, index: 38, scribble-caption: DMX.Scribble.Top.07:2,  scribble-value: DMX.Scribble.Bottom.07:2 }
+    - { name: DMX.Fader.08:2, type: Fader, index: 39, scribble-caption: DMX.Scribble.Top.08:2,  scribble-value: DMX.Scribble.Bottom.08:2 }
+    - { name: DMX.Fader.09:2, type: Fader, index: 40, scribble-caption: DMX.Scribble.Top.09:2,  scribble-value: DMX.Scribble.Bottom.09:2 }
+    - { name: DMX.Fader.10:2, type: Fader, index: 41, scribble-caption: DMX.Scribble.Top.10:2,  scribble-value: DMX.Scribble.Bottom.10:2 }
+    - { name: DMX.Fader.11:2, type: Fader, index: 42, scribble-caption: DMX.Scribble.Top.11:2,  scribble-value: DMX.Scribble.Bottom.11:2 }
+    - { name: DMX.Fader.12:2, type: Fader, index: 43, scribble-caption: DMX.Scribble.Top.12:2,  scribble-value: DMX.Scribble.Bottom.12:2 }
+    - { name: DMX.Fader.13:2, type: Fader, index: 44, scribble-caption: DMX.Scribble.Top.13:2,  scribble-value: DMX.Scribble.Bottom.13:2 }
+    - { name: DMX.Fader.14:2, type: Fader, index: 45, scribble-caption: DMX.Scribble.Top.14:2,  scribble-value: DMX.Scribble.Bottom.14:2 }
+    - { name: DMX.Fader.15:2, type: Fader, index: 46, scribble-caption: DMX.Scribble.Top.15:2,  scribble-value: DMX.Scribble.Bottom.15:2 }
+    - { name: DMX.Fader.16:2, type: Fader, index: 47, scribble-caption: DMX.Scribble.Top.16:2,  scribble-value: DMX.Scribble.Bottom.16:2 }
+    - { name: DMX.Fader.01:3, type: Fader, index: 48, scribble-caption: DMX.Scribble.Top.01:3,  scribble-value: DMX.Scribble.Bottom.01:3 }
+    - { name: DMX.Fader.02:3, type: Fader, index: 49, scribble-caption: DMX.Scribble.Top.02:3,  scribble-value: DMX.Scribble.Bottom.02:3 }
+    - { name: DMX.Fader.03:3, type: Fader, index: 50, scribble-caption: DMX.Scribble.Top.03:3,  scribble-value: DMX.Scribble.Bottom.03:3 }
+    - { name: DMX.Fader.04:3, type: Fader, index: 51, scribble-caption: DMX.Scribble.Top.04:3,  scribble-value: DMX.Scribble.Bottom.04:3 }
+    - { name: DMX.Fader.05:3, type: Fader, index: 52, scribble-caption: DMX.Scribble.Top.05:3,  scribble-value: DMX.Scribble.Bottom.05:3 }
+    - { name: DMX.Fader.06:3, type: Fader, index: 53, scribble-caption: DMX.Scribble.Top.06:3,  scribble-value: DMX.Scribble.Bottom.06:3 }
+    - { name: DMX.Fader.07:3, type: Fader, index: 54, scribble-caption: DMX.Scribble.Top.07:3,  scribble-value: DMX.Scribble.Bottom.07:3 }
+    - { name: DMX.Fader.08:3, type: Fader, index: 55, scribble-caption: DMX.Scribble.Top.08:3,  scribble-value: DMX.Scribble.Bottom.08:3 }
+    - { name: DMX.Fader.09:3, type: Fader, index: 56, scribble-caption: DMX.Scribble.Top.09:3,  scribble-value: DMX.Scribble.Bottom.09:3 }
+    - { name: DMX.Fader.10:3, type: Fader, index: 57, scribble-caption: DMX.Scribble.Top.10:3,  scribble-value: DMX.Scribble.Bottom.10:3 }
+    - { name: DMX.Fader.11:3, type: Fader, index: 58, scribble-caption: DMX.Scribble.Top.11:3,  scribble-value: DMX.Scribble.Bottom.11:3 }
+    - { name: DMX.Fader.12:3, type: Fader, index: 59, scribble-caption: DMX.Scribble.Top.12:3,  scribble-value: DMX.Scribble.Bottom.12:3 }
+    - { name: DMX.Fader.13:3, type: Fader, index: 60, scribble-caption: DMX.Scribble.Top.13:3,  scribble-value: DMX.Scribble.Bottom.13:3 }
+    - { name: DMX.Fader.14:3, type: Fader, index: 61, scribble-caption: DMX.Scribble.Top.14:3,  scribble-value: DMX.Scribble.Bottom.14:3 }
+    - { name: DMX.Fader.15:3, type: Fader, index: 62, scribble-caption: DMX.Scribble.Top.15:3,  scribble-value: DMX.Scribble.Bottom.15:3 }
+    - { name: DMX.Fader.16:3, type: Fader, index: 63, scribble-caption: DMX.Scribble.Top.16:3,  scribble-value: DMX.Scribble.Bottom.16:3 }
+    - { name: DMX.Fader.Master, type: Fader, index: 64 }

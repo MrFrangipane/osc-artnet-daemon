@@ -15,7 +15,7 @@ class ArtnetIO(AbstractIO):
         self.server = ArtnetServer()
         self.universe = bytearray(512)
 
-        self.fixture_repository = FixtureRepository()
+        self.fixture_repository = FixtureRepository(self.components)
 
     def start(self):
         """
@@ -23,14 +23,7 @@ class ArtnetIO(AbstractIO):
         If needed, initialize variables values
         (broadcast happens after all services are started, in service registration order)
         """
-        # TODO find DMX variables
-        # variables = list(self.components.variable_repository.variables.values())
-        # for fixture in self.fixture_repository.fixtures:
-        #     for channel in fixture.channels:
-        #         variable = variables[channel.channel_number - 1]
-        #         variable.info.caption = channel.function
-        #         variable.value.value = float(channel.value_default / 255.0)
-
+        self.fixture_repository.initialize()
         self.server.start()
 
     def shutdown(self):

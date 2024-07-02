@@ -6,7 +6,8 @@ from advanceddmxconsole.fixture.dmx_channel import BaseDMXChannel, DMXChannel, D
 class BaseFixtureDefinition:
     Channels: list[BaseDMXChannel] = list()
 
-    def __init__(self):
+    def __init__(self, name: str):
+        self.name = name
         self.channels: list[BaseDMXChannel] = list()
 
     def create_channels(self, start_channel: int, skip_unused=True):
