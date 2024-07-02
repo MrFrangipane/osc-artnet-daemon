@@ -1,12 +1,11 @@
-from oscartnetdaemon.domain_contract.change_notification import ChangeNotification
-from oscartnetdaemon.domain_contract.value.text import ValueText
 from oscartnetdaemon.domain_contract.variable.float import VariableFloat
 
 from advanceddmxconsole.artnet.io.message import ArtnetIOMessage
 from advanceddmxconsole.artnet.variable_info import ArtnetVariableInfo
+from advanceddmxconsole.artnet.variable.scribble_mixin import ArtnetScribbleMixin
 
 
-class ArtnetFader(VariableFloat):
+class ArtnetFader(VariableFloat, ArtnetScribbleMixin):
 
     def handle_change_notification(self):
         """
@@ -14,11 +13,11 @@ class ArtnetFader(VariableFloat):
         """
         info: ArtnetVariableInfo = self.info  # FIXME type hint for autocompletion
 
-        if info.dmx_channel == -1:
+        if info.index == -1:
             return
 
         self.io_message_queue_out.put(ArtnetIOMessage(
-            channel=info.dmx_channel,
+            channel=info.index,
             value=int(self.value.value * 255)
         ))
 
@@ -29,18 +28,3 @@ class ArtnetFader(VariableFloat):
         From IO to ChangeNotification
         """
         pass
-
-    def handle_scribble(self):
-        info: ArtnetVariableInfo = self.info  # FIXME type hint for autocompletion
-
-        if info.scribble_caption:
-            self.notification_queue_out.put(ChangeNotification(
-                variable_name=info.scribble_caption,
-                value=ValueText(info.caption)
-            ))
-
-        if info.scribble_value:
-            self.notification_queue_out.put(ChangeNotification(
-                variable_name=info.scribble_value,
-                value=ValueText(str(int(self.value.value * 255)))
-            ))

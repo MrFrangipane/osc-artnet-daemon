@@ -8,7 +8,7 @@ from oscartnetdaemon.domain_contract.variable_info import VariableInfo
 @dataclass
 class ArtnetVariableInfo(VariableInfo):
     caption: str = ""
-    dmx_channel: int = -1
+    index: int = -1
     scribble_caption: str = ""
     scribble_value: str = ""
     redirect: str = ""

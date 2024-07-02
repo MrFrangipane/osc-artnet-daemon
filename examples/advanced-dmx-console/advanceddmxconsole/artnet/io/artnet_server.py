@@ -18,7 +18,6 @@ class ArtnetServer:
         self._is_running = False
 
     def start(self):
-
         try:
             self.target_node_ip = socket.gethostbyname(self.target_node)
             if self.target_node_ip != self.target_node:

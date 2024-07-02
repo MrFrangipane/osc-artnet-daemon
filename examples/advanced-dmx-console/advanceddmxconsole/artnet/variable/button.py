@@ -4,9 +4,10 @@ from oscartnetdaemon.domain_contract.variable.float import VariableFloat
 
 from advanceddmxconsole.artnet.io.message import ArtnetIOMessage
 from advanceddmxconsole.artnet.variable_info import ArtnetVariableInfo
+from advanceddmxconsole.artnet.variable.scribble_mixin import ArtnetScribbleMixin
 
 
-class ArtnetButton(VariableFloat):
+class ArtnetButton(VariableFloat, ArtnetScribbleMixin):
 
     def handle_change_notification(self):
         """
@@ -22,6 +23,8 @@ class ArtnetButton(VariableFloat):
                 variable_name=info.redirect,
                 value=ValueFloat(1.0)
             ))
+
+        self.handle_scribble()
 
     def handle_io_message(self, message: ArtnetIOMessage):
         """
