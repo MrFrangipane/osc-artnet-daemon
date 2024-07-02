@@ -56,12 +56,14 @@ class MIDIButton(VariableFloat):
             page_changed = pagination_info.down()
 
         if page_changed:
+            # send variable updates
             for variable_info in pagination_info.variables[pagination_info.current_page]:
                 if not MIDIComplianceChecker.with_current_layer(variable_info):
                     continue
                 self.notification_queue_out.put(ChangeNotification(
                     variable_name=variable_info.name,
-                    update_value=False
+                    update_value=False,
+                    is_broadcast=False  # Notify only MIDI service
                 ))
 
     def _handle_layer_change(self, info: MIDIVariableInfo):
@@ -86,5 +88,6 @@ class MIDIButton(VariableFloat):
             for variable_info in layer_info.variables:
                 self.notification_queue_out.put(ChangeNotification(
                     variable_name=variable_info.name,
-                    update_value=False
+                    update_value=False,
+                    is_broadcast=False  # Notify only MIDI service
                 ))

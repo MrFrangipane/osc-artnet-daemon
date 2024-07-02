@@ -20,6 +20,8 @@ class ArtnetButton(VariableFloat, ArtnetScribbleMixin):
         if not self.value.value:
             return
 
+        RenameMe().handle_button(info)
+
         if info.redirect:
             self.notification_queue_out.put(ChangeNotification(
                 variable_name=info.name,
@@ -33,10 +35,6 @@ class ArtnetButton(VariableFloat, ArtnetScribbleMixin):
                 variable_name=info.redirect,
                 value=ValueFloat(0.0)
             ))
-
-        # FIXME investigate this (why MIDI is notifying changes on page change ?)
-        # Ensure this comes last, to avoid any layer/page remanence
-        RenameMe().handle_button(info)
 
     def handle_io_message(self, message: ArtnetIOMessage):
         """

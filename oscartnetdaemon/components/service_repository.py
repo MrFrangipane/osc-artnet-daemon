@@ -51,22 +51,11 @@ class ServiceRepository:
                         dead_processes.append(io_type_name)
                         alive_process_count -= 1
 
-                    while not source_bundle.service.notification_queue_out.empty():
-                        # Avoid race condition
-                        if io_type_name in dead_processes:
-                            break
-
-                        notification = source_bundle.service.notification_queue_out.get()
-                        if self.verbose:
-                            value = notification.value.value if notification.value is not None else "None"
-                            print(
-                                io_type_name, ">",
-                                notification.variable_name,
-                                value,
-                                notification.update_value
-                            )
-                        for target_bundle in self.service_bundles.values():
-                            target_bundle.service.notification_queue_in.put(notification)
+                    self.dispatch_notifications(
+                        io_type_name=io_type_name,
+                        source_bundle=source_bundle,
+                        dead_processes=dead_processes
+                    )
 
                 time.sleep(0.01)
 
@@ -78,6 +67,29 @@ class ServiceRepository:
 
         finally:
             self.shutdown()
+
+    def dispatch_notifications(self, io_type_name: str, source_bundle: ServiceBundle, dead_processes: list[str]):
+        while not source_bundle.service.notification_queue_out.empty():
+            # Avoid race condition
+            if io_type_name in dead_processes:
+                break
+
+            notification = source_bundle.service.notification_queue_out.get()
+            if self.verbose:
+                value = notification.value.value if notification.value is not None else "None"
+                print("{io} (broadcast={broadcast}) > {variable_name}={value} (update={update_value})".format(
+                    io=io_type_name,
+                    broadcast=notification.is_broadcast,
+                    variable_name=notification.variable_name,
+                    value=value,
+                    update_value=notification.update_value
+                ))
+
+            if notification.is_broadcast:
+                for target_bundle in self.service_bundles.values():
+                    target_bundle.service.notification_queue_in.put(notification)
+            else:
+                source_bundle.service.notification_queue_in.put(notification)
 
     def shutdown(self):
         for io_name, bundle in self.service_bundles.items():
