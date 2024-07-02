@@ -16,11 +16,12 @@ class MIDIButton(VariableFloat):
         From ChangeNotification to IO
         """
         info: MIDIVariableInfo = self.info  # FIXME type hint for autocompletion
+        value: float = self.value.value
 
-        if info.is_page_button and self.value.value == 1:
+        if info.is_page_button and value == 1:
             self._handle_pagination_change(info)
 
-        elif info.is_layer_button and self.value.value == 1:
+        elif info.is_layer_button and value == 1:
             self._handle_layer_change(info)
 
         if MIDIComplianceChecker.with_current_layer(info) and MIDIComplianceChecker.with_current_page(info):
@@ -75,10 +76,6 @@ class MIDIButton(VariableFloat):
 
             # radio-illuminate
             for layer in layer_group_info.layers.values():
-                if layer.button_activate.name == info.name:
-                    # skip self
-                    continue
-
                 self.notification_queue_out.put(ChangeNotification(
                     variable_name=layer.button_activate.name,
                     value=ValueFloat(float(layer.name == layer_info.name))
