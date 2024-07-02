@@ -5,7 +5,9 @@ from advanceddmxconsole.fixture.dmx_channel import DMXChannel, DMXChannelFloat
 class VarytecHeroWash300FC(BaseFixtureDefinition):
     Channels = [
         DMXChannelFloat("Pan"),  # 1 2
+        DMXChannelFloat("Pan F"),  # 1 2
         DMXChannelFloat("Tilt"),  # 3 4
+        DMXChannelFloat("Tilt F"),  # 3 4
         DMXChannel("Speed"),  # 5
         DMXChannel("Zoom"),  # 6
         DMXChannel("Dimmer", value_default=255),  # 7

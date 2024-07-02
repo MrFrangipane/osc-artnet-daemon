@@ -11,9 +11,9 @@ _logger = logging.getLogger(__name__)
 class ArtnetServer:
 
     def __init__(self):
-        self.target_node: str = "127.0.0.1"
+        self.target_node: str = "192.168.20.12"
         self.target_node_ip: str = ""
-        self.universe_number = 0
+        self.universe_number = 1
         self._stupid_artnet: StupidArtnet | None = None
         self._is_running = False
 

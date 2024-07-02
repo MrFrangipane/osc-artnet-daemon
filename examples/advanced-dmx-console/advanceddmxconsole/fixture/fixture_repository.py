@@ -22,7 +22,7 @@ class FixtureRepository:
         universe_address = 0
         for fixture in self.fixtures:
             fixture.create_channels(universe_address)
-            universe_address += len(fixture.Channels) + 2
+            universe_address += len(fixture.Channels)
 
     def count(self):
         return len(self.fixtures)

@@ -18,14 +18,7 @@ class BaseFixtureDefinition:
 
         self.channels = list()
         for channel in self.Channels:
-            if skip_unused and channel.unused:
-                continue
-
             new_channel = copy(channel)
             new_channel.channel_number = channel_number
             self.channels.append(new_channel)
-
-            if isinstance(channel, DMXChannelFloat):
-                channel_number += 2
-            else:
-                channel_number += 1
+            channel_number += 1
