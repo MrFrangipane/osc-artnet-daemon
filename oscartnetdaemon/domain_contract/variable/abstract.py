@@ -34,3 +34,6 @@ class AbstractVariable(ABC):
             variable_name=self.info.name,
             value=self.value
         ))
+
+    def __repr__(self):
+        return f"<{self.__class__.__name__}(info.name='{self.info.name}')>"

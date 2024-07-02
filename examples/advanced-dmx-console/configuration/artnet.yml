@@ -1,11 +1,48 @@
 ---
 schema-version: 1
+fixtures-types:
+    - name: VarytecHeroWash300FC
+      channels:
+          - { name: Pan }
+          - { name: Pan.F }
+          - { name: Tilt }
+          - { name: Tilt.F }
+          - { name: Speed }
+          - { name: Zoom }
+          - { name: Dimmer, default_int: 255 }
+          - { name: Strobe, default_int: 255 }
+          - { name: Red.1 }
+          - { name: Green.1 }
+          - { name: Blue.1 }
+          - { name: White.1 }
+          - { name: Red.2 }
+          - { name: Green.2 }
+          - { name: Blue.2 }
+          - { name: White.2 }
+          - { name: Red.3 }
+          - { name: Green.3 }
+          - { name: Blue.3 }
+          - { name: White.3 }
+          - { name: ColTemp, unused: True }
+          - { name: ColMacr, unused: True }
+          - { name: SegPatt, unused: True }
+          - { name: SegTran, unused: True }
+          - { name: ZoomAut, unused: True }
+          - { name: PanTAut, unused: True }
+
+fixtures:
+    - name: Wash C
+      type: VarytecHeroWash300FC
+
+    - name: Wash J
+      type: VarytecHeroWash300FC
+
 variables:
     #
     # BUTTONS
     - { name: Button.Layer.Fixture, type: Button }
     - { name: Button.Layer.DMX, type: Button }
-    - { name: Button.Layer.Program, type: Button }
+#    - { name: Button.Layer.Program, type: Button }
 
     - { name: Fixture.Button.Select.01:0, index:  0, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.01:0 }
     - { name: Fixture.Button.Select.02:0, index:  1, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.02:0 }
