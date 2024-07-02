@@ -7,70 +7,70 @@ variables:
     - { name: Button.Layer.DMX, type: Button }
     - { name: Button.Layer.Program, type: Button }
 
-    - { name: Fixture.Button.Select.01:0, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.01:0 }
-    - { name: Fixture.Button.Select.02:0, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.02:0 }
-    - { name: Fixture.Button.Select.03:0, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.03:0 }
-    - { name: Fixture.Button.Select.04:0, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.04:0 }
-    - { name: Fixture.Button.Select.05:0, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.05:0 }
-    - { name: Fixture.Button.Select.06:0, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.06:0 }
-    - { name: Fixture.Button.Select.07:0, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.07:0 }
-    - { name: Fixture.Button.Select.08:0, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.08:0 }
-    - { name: Fixture.Button.Select.09:0, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.09:0 }
-    - { name: Fixture.Button.Select.10:0, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.10:0 }
-    - { name: Fixture.Button.Select.11:0, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.11:0 }
-    - { name: Fixture.Button.Select.12:0, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.12:0 }
-    - { name: Fixture.Button.Select.13:0, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.13:0 }
-    - { name: Fixture.Button.Select.14:0, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.14:0 }
-    - { name: Fixture.Button.Select.15:0, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.15:0 }
-    - { name: Fixture.Button.Select.16:0, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.16:0 }
-    - { name: Fixture.Button.Select.01:1, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.01:1 }
-    - { name: Fixture.Button.Select.02:1, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.02:1 }
-    - { name: Fixture.Button.Select.03:1, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.03:1 }
-    - { name: Fixture.Button.Select.04:1, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.04:1 }
-    - { name: Fixture.Button.Select.05:1, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.05:1 }
-    - { name: Fixture.Button.Select.06:1, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.06:1 }
-    - { name: Fixture.Button.Select.07:1, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.07:1 }
-    - { name: Fixture.Button.Select.08:1, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.08:1 }
-    - { name: Fixture.Button.Select.09:1, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.09:1 }
-    - { name: Fixture.Button.Select.10:1, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.10:1 }
-    - { name: Fixture.Button.Select.11:1, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.11:1 }
-    - { name: Fixture.Button.Select.12:1, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.12:1 }
-    - { name: Fixture.Button.Select.13:1, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.13:1 }
-    - { name: Fixture.Button.Select.14:1, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.14:1 }
-    - { name: Fixture.Button.Select.15:1, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.15:1 }
-    - { name: Fixture.Button.Select.16:1, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.16:1 }
-    - { name: Fixture.Button.Select.01:2, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.01:2 }
-    - { name: Fixture.Button.Select.02:2, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.02:2 }
-    - { name: Fixture.Button.Select.03:2, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.03:2 }
-    - { name: Fixture.Button.Select.04:2, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.04:2 }
-    - { name: Fixture.Button.Select.05:2, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.05:2 }
-    - { name: Fixture.Button.Select.06:2, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.06:2 }
-    - { name: Fixture.Button.Select.07:2, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.07:2 }
-    - { name: Fixture.Button.Select.08:2, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.08:2 }
-    - { name: Fixture.Button.Select.09:2, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.09:2 }
-    - { name: Fixture.Button.Select.10:2, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.10:2 }
-    - { name: Fixture.Button.Select.11:2, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.11:2 }
-    - { name: Fixture.Button.Select.12:2, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.12:2 }
-    - { name: Fixture.Button.Select.13:2, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.13:2 }
-    - { name: Fixture.Button.Select.14:2, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.14:2 }
-    - { name: Fixture.Button.Select.15:2, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.15:2 }
-    - { name: Fixture.Button.Select.16:2, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.16:2 }
-    - { name: Fixture.Button.Select.01:3, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.01:3 }
-    - { name: Fixture.Button.Select.02:3, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.02:3 }
-    - { name: Fixture.Button.Select.03:3, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.03:3 }
-    - { name: Fixture.Button.Select.04:3, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.04:3 }
-    - { name: Fixture.Button.Select.05:3, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.05:3 }
-    - { name: Fixture.Button.Select.06:3, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.06:3 }
-    - { name: Fixture.Button.Select.07:3, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.07:3 }
-    - { name: Fixture.Button.Select.08:3, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.08:3 }
-    - { name: Fixture.Button.Select.09:3, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.09:3 }
-    - { name: Fixture.Button.Select.10:3, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.10:3 }
-    - { name: Fixture.Button.Select.11:3, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.11:3 }
-    - { name: Fixture.Button.Select.12:3, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.12:3 }
-    - { name: Fixture.Button.Select.13:3, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.13:3 }
-    - { name: Fixture.Button.Select.14:3, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.14:3 }
-    - { name: Fixture.Button.Select.15:3, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.15:3 }
-    - { name: Fixture.Button.Select.16:3, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.16:3 }
+    - { name: Fixture.Button.Select.01:0, index:  0, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.01:0 }
+    - { name: Fixture.Button.Select.02:0, index:  1, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.02:0 }
+    - { name: Fixture.Button.Select.03:0, index:  2, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.03:0 }
+    - { name: Fixture.Button.Select.04:0, index:  3, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.04:0 }
+    - { name: Fixture.Button.Select.05:0, index:  4, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.05:0 }
+    - { name: Fixture.Button.Select.06:0, index:  5, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.06:0 }
+    - { name: Fixture.Button.Select.07:0, index:  6, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.07:0 }
+    - { name: Fixture.Button.Select.08:0, index:  7, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.08:0 }
+    - { name: Fixture.Button.Select.09:0, index:  8, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.09:0 }
+    - { name: Fixture.Button.Select.10:0, index:  9, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.10:0 }
+    - { name: Fixture.Button.Select.11:0, index: 10, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.11:0 }
+    - { name: Fixture.Button.Select.12:0, index: 11, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.12:0 }
+    - { name: Fixture.Button.Select.13:0, index: 12, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.13:0 }
+    - { name: Fixture.Button.Select.14:0, index: 13, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.14:0 }
+    - { name: Fixture.Button.Select.15:0, index: 14, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.15:0 }
+    - { name: Fixture.Button.Select.16:0, index: 15, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.16:0 }
+    - { name: Fixture.Button.Select.01:1, index: 16, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.01:1 }
+    - { name: Fixture.Button.Select.02:1, index: 17, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.02:1 }
+    - { name: Fixture.Button.Select.03:1, index: 18, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.03:1 }
+    - { name: Fixture.Button.Select.04:1, index: 19, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.04:1 }
+    - { name: Fixture.Button.Select.05:1, index: 20, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.05:1 }
+    - { name: Fixture.Button.Select.06:1, index: 21, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.06:1 }
+    - { name: Fixture.Button.Select.07:1, index: 22, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.07:1 }
+    - { name: Fixture.Button.Select.08:1, index: 23, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.08:1 }
+    - { name: Fixture.Button.Select.09:1, index: 24, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.09:1 }
+    - { name: Fixture.Button.Select.10:1, index: 25, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.10:1 }
+    - { name: Fixture.Button.Select.11:1, index: 26, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.11:1 }
+    - { name: Fixture.Button.Select.12:1, index: 27, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.12:1 }
+    - { name: Fixture.Button.Select.13:1, index: 28, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.13:1 }
+    - { name: Fixture.Button.Select.14:1, index: 29, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.14:1 }
+    - { name: Fixture.Button.Select.15:1, index: 30, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.15:1 }
+    - { name: Fixture.Button.Select.16:1, index: 31, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.16:1 }
+    - { name: Fixture.Button.Select.01:2, index: 32, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.01:2 }
+    - { name: Fixture.Button.Select.02:2, index: 33, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.02:2 }
+    - { name: Fixture.Button.Select.03:2, index: 34, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.03:2 }
+    - { name: Fixture.Button.Select.04:2, index: 35, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.04:2 }
+    - { name: Fixture.Button.Select.05:2, index: 36, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.05:2 }
+    - { name: Fixture.Button.Select.06:2, index: 37, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.06:2 }
+    - { name: Fixture.Button.Select.07:2, index: 38, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.07:2 }
+    - { name: Fixture.Button.Select.08:2, index: 39, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.08:2 }
+    - { name: Fixture.Button.Select.09:2, index: 40, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.09:2 }
+    - { name: Fixture.Button.Select.10:2, index: 41, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.10:2 }
+    - { name: Fixture.Button.Select.11:2, index: 42, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.11:2 }
+    - { name: Fixture.Button.Select.12:2, index: 43, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.12:2 }
+    - { name: Fixture.Button.Select.13:2, index: 44, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.13:2 }
+    - { name: Fixture.Button.Select.14:2, index: 45, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.14:2 }
+    - { name: Fixture.Button.Select.15:2, index: 46, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.15:2 }
+    - { name: Fixture.Button.Select.16:2, index: 47, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.16:2 }
+    - { name: Fixture.Button.Select.01:3, index: 48, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.01:3 }
+    - { name: Fixture.Button.Select.02:3, index: 49, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.02:3 }
+    - { name: Fixture.Button.Select.03:3, index: 50, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.03:3 }
+    - { name: Fixture.Button.Select.04:3, index: 51, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.04:3 }
+    - { name: Fixture.Button.Select.05:3, index: 52, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.05:3 }
+    - { name: Fixture.Button.Select.06:3, index: 53, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.06:3 }
+    - { name: Fixture.Button.Select.07:3, index: 54, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.07:3 }
+    - { name: Fixture.Button.Select.08:3, index: 55, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.08:3 }
+    - { name: Fixture.Button.Select.09:3, index: 56, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.09:3 }
+    - { name: Fixture.Button.Select.10:3, index: 57, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.10:3 }
+    - { name: Fixture.Button.Select.11:3, index: 58, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.11:3 }
+    - { name: Fixture.Button.Select.12:3, index: 59, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.12:3 }
+    - { name: Fixture.Button.Select.13:3, index: 60, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.13:3 }
+    - { name: Fixture.Button.Select.14:3, index: 61, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.14:3 }
+    - { name: Fixture.Button.Select.15:3, index: 62, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.15:3 }
+    - { name: Fixture.Button.Select.16:3, index: 63, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.16:3 }
 
     #
     # FADERS

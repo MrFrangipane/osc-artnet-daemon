@@ -9,7 +9,7 @@ if __name__ == '__main__':
     service_repository = ServiceRepository()
 
     service_repository.register(MIDIServiceRegisterer)
-    service_repository.register(OSCServiceRegisterer)
+    # service_repository.register(OSCServiceRegisterer)
 
     # Register last to ensure Variable updates will happen last
     service_repository.register(ArtnetServiceRegisterer)

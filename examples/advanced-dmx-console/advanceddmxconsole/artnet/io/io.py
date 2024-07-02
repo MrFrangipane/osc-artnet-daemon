@@ -3,7 +3,7 @@ from oscartnetdaemon.domain_contract.service_components import ServiceComponents
 
 from advanceddmxconsole.artnet.io.artnet_server import ArtnetServer
 from advanceddmxconsole.artnet.io.message import ArtnetIOMessage
-from advanceddmxconsole.fixture.fixture_repository import FixtureRepository
+from advanceddmxconsole.rename_me import RenameMe
 
 
 class ArtnetIO(AbstractIO):
@@ -13,9 +13,6 @@ class ArtnetIO(AbstractIO):
         self.components: ServiceComponents = components  # FIXME: circular import forbids type hinting, maybe a singleton ?
 
         self.server = ArtnetServer()
-        self.universe = bytearray(512)
-
-        self.fixture_repository = FixtureRepository(self.components)
 
     def start(self):
         """
@@ -23,7 +20,7 @@ class ArtnetIO(AbstractIO):
         If needed, initialize variables values
         (broadcast happens after all services are started, in service registration order)
         """
-        self.fixture_repository.initialize()
+        RenameMe().initialize(self.server, self.components)
         self.server.start()
 
     def shutdown(self):
@@ -33,5 +30,4 @@ class ArtnetIO(AbstractIO):
         self.server.stop()
 
     def send_io_message(self, message: ArtnetIOMessage):
-        self.universe[message.channel] = message.value
-        self.server.set_universe(self.universe)
+        pass

@@ -5,6 +5,7 @@ from oscartnetdaemon.domain_contract.variable.float import VariableFloat
 from advanceddmxconsole.artnet.io.message import ArtnetIOMessage
 from advanceddmxconsole.artnet.variable_info import ArtnetVariableInfo
 from advanceddmxconsole.artnet.variable.scribble_mixin import ArtnetScribbleMixin
+from advanceddmxconsole.rename_me import RenameMe
 
 
 class ArtnetButton(VariableFloat, ArtnetScribbleMixin):
@@ -14,7 +15,12 @@ class ArtnetButton(VariableFloat, ArtnetScribbleMixin):
         From ChangeNotification to IO
         """
         info: ArtnetVariableInfo = self.info  # FIXME type hint for autocompletion
-        if self.value.value and info.redirect:
+        self.handle_scribble()
+
+        if not self.value.value:
+            return
+
+        if info.redirect:
             self.notification_queue_out.put(ChangeNotification(
                 variable_name=info.name,
                 value=ValueFloat(0.0)
@@ -23,8 +29,14 @@ class ArtnetButton(VariableFloat, ArtnetScribbleMixin):
                 variable_name=info.redirect,
                 value=ValueFloat(1.0)
             ))
+            self.notification_queue_out.put(ChangeNotification(
+                variable_name=info.redirect,
+                value=ValueFloat(0.0)
+            ))
 
-        self.handle_scribble()
+        # FIXME investigate this (why MIDI is notifying changes on page change ?)
+        # Ensure this comes last, to avoid any layer/page remanence
+        RenameMe().handle_button(info)
 
     def handle_io_message(self, message: ArtnetIOMessage):
         """

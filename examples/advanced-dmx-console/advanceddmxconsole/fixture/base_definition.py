@@ -8,12 +8,15 @@ class BaseFixtureDefinition:
 
     def __init__(self, name: str):
         self.name = name
+        self.universe_address: int = -1
         self.channels: list[BaseDMXChannel] = list()
 
-    def create_channels(self, start_channel: int, skip_unused=True):
-        channel_number = start_channel
-        self.channels = list()
+    def create_channels(self, universe_address: int, skip_unused=True):
+        self.universe_address = universe_address
 
+        channel_number = 0
+
+        self.channels = list()
         for channel in self.Channels:
             if skip_unused and channel.unused:
                 continue

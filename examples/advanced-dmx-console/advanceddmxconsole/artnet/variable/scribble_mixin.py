@@ -1,3 +1,4 @@
+from abc import ABC
 from oscartnetdaemon.domain_contract.change_notification import ChangeNotification
 from oscartnetdaemon.domain_contract.value.text import ValueText
 from oscartnetdaemon.domain_contract.variable.abstract import AbstractVariable
@@ -5,7 +6,7 @@ from oscartnetdaemon.domain_contract.variable.abstract import AbstractVariable
 from advanceddmxconsole.artnet.variable_info import ArtnetVariableInfo
 
 
-class ArtnetScribbleMixin(AbstractVariable):
+class ArtnetScribbleMixin(AbstractVariable, ABC):
     def handle_scribble(self):
         info: ArtnetVariableInfo = self.info  # FIXME type hint for autocompletion
 

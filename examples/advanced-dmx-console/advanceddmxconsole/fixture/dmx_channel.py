@@ -7,8 +7,8 @@ from dataclasses import dataclass
 class BaseDMXChannel:
     function: str = ""
     unused: bool = False
-    value: int = 0
-    value_default: int = 0
+    value: float = 0.0
+    value_default: float = 0.0
     channel_number: int = -1
 
 
@@ -19,5 +19,4 @@ class DMXChannel(BaseDMXChannel):
 
 @dataclass
 class DMXChannelFloat(BaseDMXChannel):
-    value: float = 0
-    value_default: float = 0
+    pass
