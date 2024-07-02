@@ -3,16 +3,16 @@ from oscartnetdaemon.domain_contract.service_components import ServiceComponents
 
 from advanceddmxconsole.artnet.io.artnet_server import ArtnetServer
 from advanceddmxconsole.artnet.io.message import ArtnetIOMessage
+from advanceddmxconsole.configuration import ArtnetConfiguration
 from advanceddmxconsole.rename_me import RenameMe
 
 
-class ArtnetIO(AbstractIO):
+class ArtnetIO(AbstractIO):  # FIXME create an interface mixin with set_universe(universe)
 
     def __init__(self, components: ServiceComponents):
         super().__init__(components)
         self.components: ServiceComponents = components  # FIXME: circular import forbids type hinting, maybe a singleton ?
-
-        self.server = ArtnetServer()
+        self.servers: list[ArtnetServer] = list()
 
     def start(self):
         """
@@ -20,14 +20,26 @@ class ArtnetIO(AbstractIO):
         If needed, initialize variables values
         (broadcast happens after all services are started, in service registration order)
         """
-        RenameMe().initialize(self.server, self.components)
-        self.server.start()
+        configuration: ArtnetConfiguration = self.components.configuration
+        RenameMe().initialize(self, self.components)
+        for target_node in configuration.target_nodes:
+            new_server = ArtnetServer(
+                target_node=target_node,
+                universe_number=configuration.universe
+            )
+            new_server.start()
+            self.servers.append(new_server)
+
+    def set_universe(self, universe: bytearray):
+        for server in self.servers:
+            server.set_universe(universe)
 
     def shutdown(self):
         """
         Gracefully shutdown all IO, Thread, Process, ... that start() may have opened
         """
-        self.server.stop()
+        for server in self.servers:
+            server.stop()
 
     def send_io_message(self, message: ArtnetIOMessage):
         pass

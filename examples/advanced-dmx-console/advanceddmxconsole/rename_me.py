@@ -29,7 +29,6 @@ class RenameMe(metaclass=SingletonMetaclass):
         self.initialize_dmx_faders()
 
         self.display_fixture_list()
-        # self.display_fixture(self.fixture_repository.fixtures[0])
 
     #
     # Handlers
@@ -85,6 +84,9 @@ class RenameMe(metaclass=SingletonMetaclass):
             variable_fader.value.value = float(0.0)
 
     def select_fixture(self, fixture: BaseFixtureDefinition):
+        if fixture == self.current_fixture:
+            return
+
         self.current_fixture = fixture
         self.reset_dmx_faders()
 
