@@ -61,8 +61,7 @@ class MIDIButton(VariableFloat):
                     continue
                 self.notification_queue_out.put(ChangeNotification(
                     variable_name=variable_info.name,
-                    value=None,
-                    ignore_value=True
+                    update_value=False
                 ))
 
     def _handle_layer_change(self, info: MIDIVariableInfo):
@@ -83,6 +82,5 @@ class MIDIButton(VariableFloat):
             for variable_info in layer_info.variables:
                 self.notification_queue_out.put(ChangeNotification(
                     variable_name=variable_info.name,
-                    value=None,
-                    ignore_value=True
+                    update_value=False
                 ))

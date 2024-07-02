@@ -86,6 +86,7 @@ class MIDIConfigurationLoader(AbstractConfigurationLoader):
             in_port_name = _find_in_list(device['midi-port-pattern'], self.in_port_names)
             if not in_port_name:
                 print(f"MIDI Device '{device['name']}' not found")
+                print(f"Variables will be missing: {', '.join([v['name'] for v in device['variables']])}")
                 continue
 
             out_port_name = _find_in_list(device['midi-port-pattern'], self.out_port_names)

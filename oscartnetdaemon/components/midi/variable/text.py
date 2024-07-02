@@ -11,7 +11,7 @@ class MIDIText(VariableText):
     def __init__(self, info: MIDIVariableInfo, io_message_queue_out: "Queue[AbstractIOMessage]", notification_queue_out: "Queue[ChangeNotification]"):
         super().__init__(info, io_message_queue_out, notification_queue_out)
 
-        self.value.value = self.info.name[-7:]
+        # self.value.value = self.info.name[-7:]
         self.len: int = len(self.info.midi_parsing.bytes_as_str)  # FIXME count only number of {X} fields
 
     def handle_change_notification(self):

@@ -39,7 +39,7 @@ class VariableRepository:
         """
         variable = self.variables.get(notification.variable_name, None)
         if variable is not None:
-            if not notification.ignore_value:
+            if notification.update_value:
                 variable.value = notification.value
             variable.handle_change_notification()
 
