@@ -73,6 +73,10 @@ class MIDIButton(VariableFloat):
 
             # radio-illuminate
             for layer in layer_group_info.layers.values():
+                if layer.button_activate.name == info.name:
+                    # skip self
+                    continue
+
                 self.notification_queue_out.put(ChangeNotification(
                     variable_name=layer.button_activate.name,
                     value=ValueFloat(float(layer.name == layer_info.name))

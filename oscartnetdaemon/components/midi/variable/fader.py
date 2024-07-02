@@ -2,7 +2,6 @@ from oscartnetdaemon.components.midi.compliance_checker import MIDIComplianceChe
 from oscartnetdaemon.components.midi.io.message import MIDIMessage
 from oscartnetdaemon.components.midi.io.message_type_enum import MIDIMessageType
 from oscartnetdaemon.components.midi.variable_info import MIDIVariableInfo
-from oscartnetdaemon.domain_contract.change_notification import ChangeNotification
 from oscartnetdaemon.domain_contract.variable.float import VariableFloat
 
 

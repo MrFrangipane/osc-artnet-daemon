@@ -12,6 +12,7 @@ class ServiceRepository:
 
     def __init__(self):
         self.service_bundles: dict[str, ServiceBundle] = dict()
+        self.verbose = False
 
     def register(self, registerer: Type[AbstractServiceRegisterer]):
         registration_info = registerer.make_registration_info()
@@ -56,6 +57,14 @@ class ServiceRepository:
                             break
 
                         notification = source_bundle.service.notification_queue_out.get()
+                        if self.verbose:
+                            value = notification.value.value if notification.value is not None else "None"
+                            print(
+                                io_type_name, ">",
+                                notification.variable_name,
+                                value,
+                                notification.update_value
+                            )
                         for target_bundle in self.service_bundles.values():
                             target_bundle.service.notification_queue_in.put(notification)
 
