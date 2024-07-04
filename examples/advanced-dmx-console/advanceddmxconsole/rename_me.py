@@ -106,9 +106,8 @@ class RenameMe(metaclass=SingletonMetaclass):
                 value=variable.value
             )
 
-    def notify(self, variable_name: str, value: ValueFloat | None = None, update_value=True):
+    def notify(self, variable_name: str, value: ValueFloat | None = None):
         self.components.notification_queue_out.put(ChangeNotification(
             variable_name=variable_name,
-            value=value,
-            update_value=update_value
+            new_value=value
         ))

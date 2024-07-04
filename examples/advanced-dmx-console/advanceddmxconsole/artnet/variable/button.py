@@ -25,15 +25,15 @@ class ArtnetButton(VariableFloat, ArtnetScribbleMixin):
         if info.redirect:
             self.notification_queue_out.put(ChangeNotification(
                 variable_name=info.name,
-                value=ValueFloat(0.0)
+                new_value=ValueFloat(0.0)
             ))
             self.notification_queue_out.put(ChangeNotification(
                 variable_name=info.redirect,
-                value=ValueFloat(1.0)
+                new_value=ValueFloat(1.0)
             ))
             self.notification_queue_out.put(ChangeNotification(
                 variable_name=info.redirect,
-                value=ValueFloat(0.0)
+                new_value=ValueFloat(0.0)
             ))
 
     def handle_io_message(self, message: ArtnetIOMessage):

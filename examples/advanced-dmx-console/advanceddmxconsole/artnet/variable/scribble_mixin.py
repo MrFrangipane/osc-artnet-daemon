@@ -13,11 +13,11 @@ class ArtnetScribbleMixin(AbstractVariable, ABC):
         if info.scribble_caption:
             self.notification_queue_out.put(ChangeNotification(
                 variable_name=info.scribble_caption,
-                value=ValueText(info.caption)
+                new_value=ValueText(info.caption)
             ))
 
         if info.scribble_value:
             self.notification_queue_out.put(ChangeNotification(
                 variable_name=info.scribble_value,
-                value=ValueText(str(int(self.value.value * 255)))
+                new_value=ValueText(str(int(self.value.value * 255)))
             ))
