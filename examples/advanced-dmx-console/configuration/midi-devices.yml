@@ -149,7 +149,7 @@ devices:
         midi-parsing: { channel: 7, type: pitchwheel }
 
   - name: 'X-Touch'
-    midi-port-pattern: "X-Touch "
+    midi-port-pattern: "Lapinotronik "
     variables:
       #
       # TEXTS
