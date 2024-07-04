@@ -1,4 +1,5 @@
 import time
+import logging
 from multiprocessing import Process
 from typing import Type
 
@@ -9,11 +10,13 @@ from oscartnetdaemon.domain_contract.service_bundle import ServiceBundle
 from oscartnetdaemon.python_extensions.queue import clear
 
 
+_logger = logging.getLogger(__name__)
+
+
 class ServiceRepository:
 
     def __init__(self):
         self.service_bundles: dict[str, ServiceBundle] = dict()
-        self.verbose = False
 
     def register(self, registerer: Type[AbstractServiceRegisterer]):
         registration_info = registerer.make_registration_info()
@@ -25,14 +28,14 @@ class ServiceRepository:
             bundle.process = Process(target=bundle.service.exec)
             bundle.process.start()
 
-            print(f"Starting service '{bundle.service.io_type.__name__}'...")
+            _logger.info(f"Starting service '{bundle.service.io_type.__name__}'...")
             while not bundle.service.startup_done.is_set() and bundle.process.is_alive():
                 time.sleep(.1)
 
             if not bundle.process.is_alive():
-                print(f"Service '{bundle.service.io_type.__name__}' finished with code {bundle.process.exitcode}")
+                _logger.warning(f"Service '{bundle.service.io_type.__name__}' finished with code {bundle.process.exitcode}")
 
-        print("Starting process finished")
+        _logger.info("Starting process finished")
 
         dead_processes: list[str] = list()
         alive_process_count: int = len(self.service_bundles)
@@ -48,7 +51,7 @@ class ServiceRepository:
                         continue
 
                     if not source_bundle.process.is_alive():
-                        print(f"Service '{io_type_name}' is dead")
+                        _logger.warning(f"Service '{io_type_name}' is dead")
                         dead_processes.append(io_type_name)
                         alive_process_count -= 1
 
@@ -76,14 +79,13 @@ class ServiceRepository:
                 break
 
             notification = source_bundle.service.notification_queue_out.get()
-            if self.verbose:
-                value = notification.new_value if notification.new_value is not None else "None"
-                print("{io} (scope={scope}) > {variable_name} = {value}".format(
-                    io=io_type_name,
-                    scope=notification.scope.value,
-                    variable_name=notification.variable_name,
-                    value=value
-                ))
+            value = notification.new_value if notification.new_value is not None else "None"
+            _logger.debug("{io} (scope={scope}) > {variable_name} = {value}".format(
+                io=io_type_name,
+                scope=notification.scope.value,
+                variable_name=notification.variable_name,
+                value=value
+            ))
 
             if notification.scope == ChangeNotificationScope.Broadcast:
                 for target_bundle in self.service_bundles.values():
@@ -108,4 +110,4 @@ class ServiceRepository:
             while bundle.process.is_alive():
                 time.sleep(0.01)
 
-            print(f"Process for Service '{io_name}' finished with code {bundle.process.exitcode}")
+            _logger.info(f"Process for Service '{io_name}' finished with code {bundle.process.exitcode}")

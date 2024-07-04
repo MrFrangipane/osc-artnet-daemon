@@ -1,4 +1,5 @@
 import time
+import logging
 from multiprocessing import Event, Process, Queue
 
 import mido
@@ -6,6 +7,9 @@ import mido
 from oscartnetdaemon.components.midi.io.device_info import MIDIDeviceInfo
 from oscartnetdaemon.components.midi.io.message import MIDIMessage
 from oscartnetdaemon.components.midi.io.message_type_enum import MIDIMessageType
+
+
+_logger = logging.getLogger(__name__)
 
 
 def receive(queue_in: "Queue[MIDIMessage]", device_info: MIDIDeviceInfo, should_exit: Event):
@@ -21,10 +25,10 @@ def receive(queue_in: "Queue[MIDIMessage]", device_info: MIDIDeviceInfo, should_
                 message = MIDIMessage.from_dict(mido_message_vars)
                 queue_in.put(message)
             except ValueError:
-                print(f'Midi device cant deal with <{mido_message}>')
+                _logger.debug(f'Midi device cant deal with <{mido_message}>')
             else:
                 pass
-                # print(f'Midi device dealt with <{mido_message}>')
+                _logger.debug(f'Midi device dealt with <{mido_message}>')
 
     except KeyboardInterrupt:
         pass
@@ -64,7 +68,7 @@ def send(queue_out: "Queue[MIDIMessage]", device_info: MIDIDeviceInfo, should_ex
                     ))
 
                 else:
-                    print(f'Midi device cant send <{message}>')
+                    _logger.debug(f'Midi device cant send <{message}>')
 
     except KeyboardInterrupt:
         pass

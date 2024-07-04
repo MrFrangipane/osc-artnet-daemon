@@ -1,3 +1,4 @@
+import logging
 import fnmatch
 from copy import copy, deepcopy
 
@@ -14,6 +15,9 @@ from oscartnetdaemon.components.midi.page_direction_enum import MIDIPageDirectio
 from oscartnetdaemon.components.midi.pagination_info import MIDIPaginationInfo
 from oscartnetdaemon.components.midi.variable_info import MIDIVariableInfo
 from oscartnetdaemon.domain_contract.abstract_configuration_loader import AbstractConfigurationLoader
+
+
+_logger = logging.getLogger(__name__)
 
 
 def _find_in_list(item: str, items: list[str]) -> str:
@@ -85,11 +89,11 @@ class MIDIConfigurationLoader(AbstractConfigurationLoader):
         for device in self.content.get('devices', list()):
             in_port_name = _find_in_list(device['midi-port-pattern'], self.in_port_names)
             if not in_port_name:
-                print(f"MIDI Device '{device['name']}' not found")
-                print(f"Variables will be missing: {', '.join([v['name'] for v in device['variables']])}")
+                _logger.warning(f"MIDI Device '{device['name']}' not found")
+                _logger.warning(f"Variables will be missing: {', '.join([v['name'] for v in device['variables']])}")
                 continue
             else:
-                print(f"MIDI Device '{device['name']}' opened on ports in='{in_port_name}' out='{in_port_name}')")
+                _logger.info(f"MIDI Device '{device['name']}' opened on ports in='{in_port_name}' out='{in_port_name}')")
 
             out_port_name = _find_in_list(device['midi-port-pattern'], self.out_port_names)
 
@@ -154,7 +158,7 @@ class MIDIConfigurationLoader(AbstractConfigurationLoader):
 
             self.paginations[new_pagination.name] = new_pagination
             if ignored_variable_names:
-                print(f"Pages '{new_pagination.name}' not found Variables: {', '.join(set(ignored_variable_names))}")
+                _logger.warning(f"Pages '{new_pagination.name}' not found Variables: {', '.join(set(ignored_variable_names))}")
 
         for variable_to_pop_name in set(variable_to_pop_names):
             self.variables.pop(variable_to_pop_name)
@@ -163,7 +167,7 @@ class MIDIConfigurationLoader(AbstractConfigurationLoader):
         button_name = pagination['button-up' if direction == MIDIPageDirection.Up else 'button-down']
         button = self.variables.get(button_name, None)
         if button is None:
-            print(f"Pagination '{pagination['name']}': unable to find Button '{button_name}'")
+            _logger.warning(f"Pagination '{pagination['name']}': unable to find Button '{button_name}'")
             return
         button.is_page_button = True
         button.pagination_name = pagination['name']
@@ -238,9 +242,12 @@ class MIDIConfigurationLoader(AbstractConfigurationLoader):
             if new_layer_group.layers:
                 self.layer_groups[new_layer_group.name] = new_layer_group
                 if ignored_variable_names:
-                    print(f"Layer Group '{new_layer_group.name}' not found Variables: {', '.join(set(ignored_variable_names))}")
+                    _logger.warning(
+                        f"Layer Group '{new_layer_group.name}' not found Variables: "
+                        f"{', '.join(set(ignored_variable_names))}"
+                    )
             else:
-                print(f"Layer Group ignored '{new_layer_group.name}': unable to create any layer for it")
+                _logger.warning(f"Layer Group ignored '{new_layer_group.name}': unable to create any layer for it")
 
         for variable_to_pop_name in set(variable_to_pop_names):
             self.variables.pop(variable_to_pop_name)
@@ -248,11 +255,11 @@ class MIDIConfigurationLoader(AbstractConfigurationLoader):
     def make_layer_button(self, button_name: str, layer_name: str, layer_group_name: str) -> MIDIVariableInfo | None:
         button = self.variables.get(button_name, None)
         if button is None:
-            print(f"Layer group '{layer_group_name}': unable to find button '{button_name}'")
+            _logger.warning(f"Layer group '{layer_group_name}': unable to find button '{button_name}'")
             return
 
         if button.is_page_button:
-            print(f"Button '{button_name}' is already used for Pagination '{button.pagination_name}'")
+            _logger.warning(f"Button '{button_name}' is already used for Pagination '{button.pagination_name}'")
             return
 
         button.is_layer_button = True

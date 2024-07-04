@@ -1,3 +1,4 @@
+import logging
 from copy import copy
 from multiprocessing import Queue
 
@@ -10,6 +11,9 @@ from oscartnetdaemon.components.osc.variable_info import OSCVariableInfo
 from oscartnetdaemon.domain_contract.change_notification import ChangeNotification
 from oscartnetdaemon.domain_contract.variable_repository import VariableRepository
 from oscartnetdaemon.python_extensions.singleton_metaclass import SingletonMetaclass
+
+
+_logger = logging.getLogger(__name__)
 
 
 class OSCRecallGroupRepository(metaclass=SingletonMetaclass):
@@ -66,7 +70,7 @@ class OSCRecallGroupRepository(metaclass=SingletonMetaclass):
 
     def set_punch_for_slot(self, variable_slot: OSCVariableInfo, client_info: OSCClientInfo, is_punch: bool):
         if client_info is None:
-            print(f"Trying to punch from an unregistered client, aborting")
+            _logger.warning(f"Trying to punch from an unregistered client, aborting")
             return
 
         recall_group = self.recall_groups[variable_slot.recall_group_name]
