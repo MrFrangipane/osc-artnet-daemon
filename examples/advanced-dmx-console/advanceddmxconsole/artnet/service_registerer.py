@@ -6,6 +6,7 @@ from advanceddmxconsole.artnet.io.io import ArtnetIO
 from advanceddmxconsole.artnet.variable.button import ArtnetButton
 from advanceddmxconsole.artnet.variable.fader import ArtnetFader
 from advanceddmxconsole.configuration_loader import ArtnetConfigurationLoader
+from advanceddmxconsole.variable_repository import ArtnetVariableRepository
 
 
 class ArtnetServiceRegisterer(AbstractServiceRegisterer):
@@ -19,5 +20,6 @@ class ArtnetServiceRegisterer(AbstractServiceRegisterer):
             variable_types={
                 VariableType.Fader: ArtnetFader,
                 VariableType.Button: ArtnetButton
-            }
+            },
+            variable_repository_type=ArtnetVariableRepository
         )

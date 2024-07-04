@@ -1,4 +1,5 @@
 import time
+import logging
 from multiprocessing import Event, Queue
 
 from oscartnetdaemon.domain_contract.abstract_io import AbstractIO
@@ -10,6 +11,9 @@ from oscartnetdaemon.domain_contract.service_registration_info import ServiceReg
 from oscartnetdaemon.domain_contract.variable_repository import VariableRepository
 
 
+_logger = logging.getLogger(__name__)
+
+
 class Service:
     def __init__(self, registration_info: ServiceRegistrationInfo):
         self.components = ServiceComponents()
@@ -19,7 +23,16 @@ class Service:
         self.notification_queue_in: Queue[ChangeNotification] = Queue()
         self.notification_queue_out: Queue[ChangeNotification] = Queue()
 
-        self.variable_repository = VariableRepository(
+        if registration_info.variable_repository_type is not None:
+            if not issubclass(registration_info.variable_repository_type, VariableRepository):
+                raise ValueError('Variable repository type is not a subclass of VariableRepository')
+
+            _logger.info(f"{registration_info.io_type.__name__} uses variable repository {registration_info.variable_repository_type.__name__}")
+            variable_repository_type = registration_info.variable_repository_type
+        else:
+            variable_repository_type = VariableRepository
+
+        self.variable_repository = variable_repository_type(
             variable_types=registration_info.variable_types,
             notification_queue_out=self.notification_queue_out
         )
