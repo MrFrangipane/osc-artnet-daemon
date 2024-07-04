@@ -39,8 +39,8 @@ class VariableRepository:
         """
         variable = self.variables.get(notification.variable_name, None)
         if variable is not None:
-            if notification.update_value:
-                variable.value = notification.value
+            if notification.new_value is not None:
+                variable.value = notification.new_value
             variable.handle_change_notification()
 
     def broadcast_io_message(self, message: AbstractIOMessage):
@@ -58,5 +58,5 @@ class VariableRepository:
         for variable in self.variables.values():
             self.notification_queue_out.put(ChangeNotification(
                 variable_name=variable.info.name,
-                value=variable.value
+                new_value=variable.value
             ))

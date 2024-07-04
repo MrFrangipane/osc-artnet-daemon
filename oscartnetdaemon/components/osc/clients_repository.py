@@ -31,7 +31,10 @@ class OSCClientsRepository:
         _logger.info(f"Unregistering client {info.name} ({address})")
         self.clients.pop(info.name)
         self._client_infos.pop(info.name)
-        self._client_infos_by_ip.pop(bytes_as_ip(info.address))
+        try:
+            self._client_infos_by_ip.pop(bytes_as_ip(info.address))
+        except KeyError:
+            _logger.warning(f"Client {info.name} address {bytes_as_ip(info.address)} was not registered")
 
     def get_client_info_by_ip(self, client_ip_address: str) -> OSCClientInfo:
-        return self._client_infos_by_ip[client_ip_address]
+        return self._client_infos_by_ip.get(client_ip_address, None)

@@ -61,7 +61,7 @@ class OSCRecallGroupRepository(metaclass=SingletonMetaclass):
         for variable_info in recall_group.info.target_variables.values():
             self.notification_queue_out.put(ChangeNotification(
                 variable_name=variable_info.name,
-                value=copy(slot.values[variable_info.name])
+                new_value=copy(slot.values[variable_info.name])
             ))
 
     def set_punch_for_slot(self, variable_slot: OSCVariableInfo, client_info: OSCClientInfo, is_punch: bool):

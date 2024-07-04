@@ -3,6 +3,7 @@ from multiprocessing import Process
 from typing import Type
 
 from oscartnetdaemon.domain_contract.abstract_service_registerer import AbstractServiceRegisterer
+from oscartnetdaemon.domain_contract.change_notification_scope_enum import ChangeNotificationScope
 from oscartnetdaemon.domain_contract.service import Service
 from oscartnetdaemon.domain_contract.service_bundle import ServiceBundle
 from oscartnetdaemon.python_extensions.queue import clear
@@ -76,20 +77,26 @@ class ServiceRepository:
 
             notification = source_bundle.service.notification_queue_out.get()
             if self.verbose:
-                value = notification.value.value if notification.value is not None else "None"
-                print("{io} (broadcast={broadcast}) > {variable_name}={value} (update={update_value})".format(
+                value = notification.new_value if notification.new_value is not None else "None"
+                print("{io} (scope={scope}) > {variable_name} = {value}".format(
                     io=io_type_name,
-                    broadcast=notification.is_broadcast,
+                    scope=notification.scope.value,
                     variable_name=notification.variable_name,
-                    value=value,
-                    update_value=notification.update_value
+                    value=value
                 ))
 
-            if notification.is_broadcast:
+            if notification.scope == ChangeNotificationScope.Broadcast:
                 for target_bundle in self.service_bundles.values():
                     target_bundle.service.notification_queue_in.put(notification)
-            else:
+
+            elif notification.scope == ChangeNotificationScope.Local:
                 source_bundle.service.notification_queue_in.put(notification)
+
+            elif notification.scope == ChangeNotificationScope.Foreign:
+                for target_bundle in self.service_bundles.values():
+                    if target_bundle == source_bundle:
+                        continue
+                    target_bundle.service.notification_queue_in.put(notification)
 
     def shutdown(self):
         for io_name, bundle in self.service_bundles.items():

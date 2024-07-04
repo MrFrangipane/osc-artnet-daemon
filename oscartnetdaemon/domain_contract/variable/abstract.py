@@ -3,6 +3,7 @@ from multiprocessing import Queue
 
 from oscartnetdaemon.domain_contract.abstract_io_message import AbstractIOMessage
 from oscartnetdaemon.domain_contract.change_notification import ChangeNotification
+from oscartnetdaemon.domain_contract.change_notification_scope_enum import ChangeNotificationScope
 from oscartnetdaemon.domain_contract.value.base import BaseValue
 from oscartnetdaemon.domain_contract.variable_info import VariableInfo
 
@@ -29,10 +30,11 @@ class AbstractVariable(ABC):
         """
         pass
 
-    def notify_change(self):
+    def notify_change(self, scope: ChangeNotificationScope = ChangeNotificationScope.Broadcast):
         self.notification_queue_out.put(ChangeNotification(
             variable_name=self.info.name,
-            value=self.value
+            new_value=self.value,
+            scope=scope
         ))
 
     def __repr__(self):

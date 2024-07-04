@@ -1,11 +1,11 @@
 from dataclasses import dataclass
 
 from oscartnetdaemon.domain_contract.value.base import BaseValue
+from oscartnetdaemon.domain_contract.change_notification_scope_enum import ChangeNotificationScope
 
 
 @dataclass
 class ChangeNotification:
     variable_name: str
-    value: BaseValue | None = None
-    update_value: bool = True  # FIXME: could this be more elegant ? (two subclasses of a BaseNotification ?)
-    is_broadcast: bool = True
+    new_value: BaseValue | None = None
+    scope: ChangeNotificationScope = ChangeNotificationScope.Broadcast

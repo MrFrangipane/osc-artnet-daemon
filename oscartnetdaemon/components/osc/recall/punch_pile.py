@@ -42,7 +42,7 @@ class OSCPunchPile:
                 if value is not None:
                     self.notification_queue_out.put(ChangeNotification(
                         variable_name=variable_info.name,
-                        value=copy(value)
+                        new_value=copy(value)
                     ))
 
         else:
@@ -54,5 +54,5 @@ class OSCPunchPile:
                 if value is not None:
                     self.notification_queue_out.put(ChangeNotification(
                         variable_name=variable_info.name,
-                        value=copy(value)
+                        new_value=copy(value)
                     ))

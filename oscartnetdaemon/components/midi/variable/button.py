@@ -5,6 +5,7 @@ from oscartnetdaemon.components.midi.io.message_type_enum import MIDIMessageType
 from oscartnetdaemon.components.midi.page_direction_enum import MIDIPageDirection
 from oscartnetdaemon.components.midi.variable_info import MIDIVariableInfo
 from oscartnetdaemon.domain_contract.change_notification import ChangeNotification
+from oscartnetdaemon.domain_contract.change_notification_scope_enum import ChangeNotificationScope
 from oscartnetdaemon.domain_contract.value.float import ValueFloat
 from oscartnetdaemon.domain_contract.variable.float import VariableFloat
 
@@ -63,8 +64,7 @@ class MIDIButton(VariableFloat):
                     continue
                 self.notification_queue_out.put(ChangeNotification(
                     variable_name=variable_info.name,
-                    update_value=False,
-                    is_broadcast=False  # Notify only MIDI service
+                    scope=ChangeNotificationScope.Local
                 ))
 
     def _handle_layer_change(self, info: MIDIVariableInfo):
@@ -78,13 +78,12 @@ class MIDIButton(VariableFloat):
             for layer in layer_group_info.layers.values():
                 self.notification_queue_out.put(ChangeNotification(
                     variable_name=layer.button_activate.name,
-                    value=ValueFloat(float(layer.name == layer_info.name))
+                    new_value=ValueFloat(float(layer.name == layer_info.name))
                 ))
 
             # send variable updates
             for variable_info in layer_info.variables:
                 self.notification_queue_out.put(ChangeNotification(
                     variable_name=variable_info.name,
-                    update_value=False,
-                    is_broadcast=False  # Notify only MIDI service
+                    scope=ChangeNotificationScope.Local
                 ))
