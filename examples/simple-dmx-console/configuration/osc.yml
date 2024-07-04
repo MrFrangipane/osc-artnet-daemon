@@ -4,4 +4,9 @@ server-ip-address: ""
 server-ip-address-autodetect: True
 server-port: 8080
 
-variables: []
+variables:
+  - { name: Fader.01:0, caption: "", type: Fader, osc-address: /Fader.01:0 }
+  - { name: Fader.02:0, caption: "", type: Fader, osc-address: /Fader.02:0 }
+  - { name: Fader.03:0, caption: "", type: Fader, osc-address: /Fader.03:0 }
+  - { name: Fader.04:0, caption: "", type: Fader, osc-address: /Fader.04:0 }
+  - { name: Fader.05:0, caption: "", type: Fader, osc-address: /Fader.05:0 }
