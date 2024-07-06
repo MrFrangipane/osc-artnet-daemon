@@ -1,7 +1,8 @@
+
 import time
 import logging
 from multiprocessing import Process
-from typing import Type
+from typing import Callable, Type
 
 from oscartnetdaemon.domain_contract.abstract_service_registerer import AbstractServiceRegisterer
 from oscartnetdaemon.domain_contract.change_notification_scope_enum import ChangeNotificationScope
@@ -24,7 +25,13 @@ class ServiceRepository:
         self.service_bundles[registration_info.io_type.__name__] = new_bundle
         return new_bundle.service
 
-    def exec(self):
+    def exec(self, post_initialize_callback: Callable | None = None):
+        self.initialize()
+        if post_initialize_callback is not None:
+            post_initialize_callback()
+        self.loop()
+
+    def initialize(self):
         for bundle in self.service_bundles.values():
             bundle.process = Process(target=bundle.service.exec)
             bundle.process.start()
@@ -38,6 +45,7 @@ class ServiceRepository:
 
         _logger.info("Starting process finished")
 
+    def loop(self):
         dead_processes: list[str] = list()
         alive_process_count: int = len(self.service_bundles)
         for io_type_name, bundle in self.service_bundles.items():
