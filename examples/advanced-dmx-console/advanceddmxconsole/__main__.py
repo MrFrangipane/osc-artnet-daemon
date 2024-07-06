@@ -4,7 +4,7 @@ from oscartnetdaemon.components.midi.service_registerer import MIDIServiceRegist
 from oscartnetdaemon.components.osc.service_registerer import OSCServiceRegisterer
 from oscartnetdaemon.components.service_repository import ServiceRepository
 
-from advanceddmxconsole.artnet.service_registerer import ArtnetServiceRegisterer
+from advanceddmxconsole.service_registerer import ArtnetServiceRegisterer
 
 
 logging.basicConfig(level=logging.INFO)

@@ -1,8 +1,8 @@
 from oscartnetdaemon.domain_contract.variable.float import VariableFloat
 
-from advanceddmxconsole.artnet.io.message import ArtnetIOMessage
-from advanceddmxconsole.artnet.variable_info import ArtnetVariableInfo
-from advanceddmxconsole.artnet.variable.scribble_mixin import ArtnetScribbleMixin
+from advanceddmxconsole.io.message import ArtnetIOMessage
+from advanceddmxconsole.variable_info import ArtnetVariableInfo
+from advanceddmxconsole.variable.scribble_mixin import ArtnetScribbleMixin
 from advanceddmxconsole.rename_me import RenameMe
 
 

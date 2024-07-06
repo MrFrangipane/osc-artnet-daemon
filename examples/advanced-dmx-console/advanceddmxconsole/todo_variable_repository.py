@@ -8,6 +8,9 @@ from oscartnetdaemon.domain_contract.variable_repository import VariableReposito
 
 class ArtnetVariableRepository(VariableRepository):
 
+    def initialize(self):
+        pass
+
     def create_variables(self, configuration: BaseConfiguration, io_message_queue_out: "Queue[AbstractIOMessage]"):
         pass
 

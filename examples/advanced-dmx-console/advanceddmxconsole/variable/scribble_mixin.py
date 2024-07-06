@@ -3,7 +3,7 @@ from oscartnetdaemon.domain_contract.change_notification import ChangeNotificati
 from oscartnetdaemon.domain_contract.value.text import ValueText
 from oscartnetdaemon.domain_contract.variable.abstract import AbstractVariable
 
-from advanceddmxconsole.artnet.variable_info import ArtnetVariableInfo
+from advanceddmxconsole.variable_info import ArtnetVariableInfo
 
 
 class ArtnetScribbleMixin(AbstractVariable, ABC):

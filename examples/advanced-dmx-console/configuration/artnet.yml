@@ -42,7 +42,7 @@ variables:
     # BUTTONS
     - { name: Button.Layer.Fixture, type: Button }
     - { name: Button.Layer.DMX, type: Button }
-#    - { name: Button.Layer.Program, type: Button }
+    - { name: Button.Layer.Program, type: Button }
 
     - { name: Fixture.Button.Select.01:0, index:  0, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.01:0 }
     - { name: Fixture.Button.Select.02:0, index:  1, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.02:0 }
@@ -108,6 +108,136 @@ variables:
     - { name: Fixture.Button.Select.14:3, index: 61, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.14:3 }
     - { name: Fixture.Button.Select.15:3, index: 62, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.15:3 }
     - { name: Fixture.Button.Select.16:3, index: 63, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.16:3 }
+
+    - { name: Program.Button.Select.01:0, index:  0, type: Button, scribble-caption: Program.Scribble.Top.01:0 }
+    - { name: Program.Button.Select.02:0, index:  1, type: Button, scribble-caption: Program.Scribble.Top.02:0 }
+    - { name: Program.Button.Select.03:0, index:  2, type: Button, scribble-caption: Program.Scribble.Top.03:0 }
+    - { name: Program.Button.Select.04:0, index:  3, type: Button, scribble-caption: Program.Scribble.Top.04:0 }
+    - { name: Program.Button.Select.05:0, index:  4, type: Button, scribble-caption: Program.Scribble.Top.05:0 }
+    - { name: Program.Button.Select.06:0, index:  5, type: Button, scribble-caption: Program.Scribble.Top.06:0 }
+    - { name: Program.Button.Select.07:0, index:  6, type: Button, scribble-caption: Program.Scribble.Top.07:0 }
+    - { name: Program.Button.Select.08:0, index:  7, type: Button, scribble-caption: Program.Scribble.Top.08:0 }
+    - { name: Program.Button.Select.09:0, index:  8, type: Button, scribble-caption: Program.Scribble.Top.09:0 }
+    - { name: Program.Button.Select.10:0, index:  9, type: Button, scribble-caption: Program.Scribble.Top.10:0 }
+    - { name: Program.Button.Select.11:0, index: 10, type: Button, scribble-caption: Program.Scribble.Top.11:0 }
+    - { name: Program.Button.Select.12:0, index: 11, type: Button, scribble-caption: Program.Scribble.Top.12:0 }
+    - { name: Program.Button.Select.13:0, index: 12, type: Button, scribble-caption: Program.Scribble.Top.13:0 }
+    - { name: Program.Button.Select.14:0, index: 13, type: Button, scribble-caption: Program.Scribble.Top.14:0 }
+    - { name: Program.Button.Select.15:0, index: 14, type: Button, scribble-caption: Program.Scribble.Top.15:0 }
+    - { name: Program.Button.Select.16:0, index: 15, type: Button, scribble-caption: Program.Scribble.Top.16:0 }
+    - { name: Program.Button.Select.01:1, index: 16, type: Button, scribble-caption: Program.Scribble.Top.01:1 }
+    - { name: Program.Button.Select.02:1, index: 17, type: Button, scribble-caption: Program.Scribble.Top.02:1 }
+    - { name: Program.Button.Select.03:1, index: 18, type: Button, scribble-caption: Program.Scribble.Top.03:1 }
+    - { name: Program.Button.Select.04:1, index: 19, type: Button, scribble-caption: Program.Scribble.Top.04:1 }
+    - { name: Program.Button.Select.05:1, index: 20, type: Button, scribble-caption: Program.Scribble.Top.05:1 }
+    - { name: Program.Button.Select.06:1, index: 21, type: Button, scribble-caption: Program.Scribble.Top.06:1 }
+    - { name: Program.Button.Select.07:1, index: 22, type: Button, scribble-caption: Program.Scribble.Top.07:1 }
+    - { name: Program.Button.Select.08:1, index: 23, type: Button, scribble-caption: Program.Scribble.Top.08:1 }
+    - { name: Program.Button.Select.09:1, index: 24, type: Button, scribble-caption: Program.Scribble.Top.09:1 }
+    - { name: Program.Button.Select.10:1, index: 25, type: Button, scribble-caption: Program.Scribble.Top.10:1 }
+    - { name: Program.Button.Select.11:1, index: 26, type: Button, scribble-caption: Program.Scribble.Top.11:1 }
+    - { name: Program.Button.Select.12:1, index: 27, type: Button, scribble-caption: Program.Scribble.Top.12:1 }
+    - { name: Program.Button.Select.13:1, index: 28, type: Button, scribble-caption: Program.Scribble.Top.13:1 }
+    - { name: Program.Button.Select.14:1, index: 29, type: Button, scribble-caption: Program.Scribble.Top.14:1 }
+    - { name: Program.Button.Select.15:1, index: 30, type: Button, scribble-caption: Program.Scribble.Top.15:1 }
+    - { name: Program.Button.Select.16:1, index: 31, type: Button, scribble-caption: Program.Scribble.Top.16:1 }
+    - { name: Program.Button.Select.01:2, index: 32, type: Button, scribble-caption: Program.Scribble.Top.01:2 }
+    - { name: Program.Button.Select.02:2, index: 33, type: Button, scribble-caption: Program.Scribble.Top.02:2 }
+    - { name: Program.Button.Select.03:2, index: 34, type: Button, scribble-caption: Program.Scribble.Top.03:2 }
+    - { name: Program.Button.Select.04:2, index: 35, type: Button, scribble-caption: Program.Scribble.Top.04:2 }
+    - { name: Program.Button.Select.05:2, index: 36, type: Button, scribble-caption: Program.Scribble.Top.05:2 }
+    - { name: Program.Button.Select.06:2, index: 37, type: Button, scribble-caption: Program.Scribble.Top.06:2 }
+    - { name: Program.Button.Select.07:2, index: 38, type: Button, scribble-caption: Program.Scribble.Top.07:2 }
+    - { name: Program.Button.Select.08:2, index: 39, type: Button, scribble-caption: Program.Scribble.Top.08:2 }
+    - { name: Program.Button.Select.09:2, index: 40, type: Button, scribble-caption: Program.Scribble.Top.09:2 }
+    - { name: Program.Button.Select.10:2, index: 41, type: Button, scribble-caption: Program.Scribble.Top.10:2 }
+    - { name: Program.Button.Select.11:2, index: 42, type: Button, scribble-caption: Program.Scribble.Top.11:2 }
+    - { name: Program.Button.Select.12:2, index: 43, type: Button, scribble-caption: Program.Scribble.Top.12:2 }
+    - { name: Program.Button.Select.13:2, index: 44, type: Button, scribble-caption: Program.Scribble.Top.13:2 }
+    - { name: Program.Button.Select.14:2, index: 45, type: Button, scribble-caption: Program.Scribble.Top.14:2 }
+    - { name: Program.Button.Select.15:2, index: 46, type: Button, scribble-caption: Program.Scribble.Top.15:2 }
+    - { name: Program.Button.Select.16:2, index: 47, type: Button, scribble-caption: Program.Scribble.Top.16:2 }
+    - { name: Program.Button.Select.01:3, index: 48, type: Button, scribble-caption: Program.Scribble.Top.01:3 }
+    - { name: Program.Button.Select.02:3, index: 49, type: Button, scribble-caption: Program.Scribble.Top.02:3 }
+    - { name: Program.Button.Select.03:3, index: 50, type: Button, scribble-caption: Program.Scribble.Top.03:3 }
+    - { name: Program.Button.Select.04:3, index: 51, type: Button, scribble-caption: Program.Scribble.Top.04:3 }
+    - { name: Program.Button.Select.05:3, index: 52, type: Button, scribble-caption: Program.Scribble.Top.05:3 }
+    - { name: Program.Button.Select.06:3, index: 53, type: Button, scribble-caption: Program.Scribble.Top.06:3 }
+    - { name: Program.Button.Select.07:3, index: 54, type: Button, scribble-caption: Program.Scribble.Top.07:3 }
+    - { name: Program.Button.Select.08:3, index: 55, type: Button, scribble-caption: Program.Scribble.Top.08:3 }
+    - { name: Program.Button.Select.09:3, index: 56, type: Button, scribble-caption: Program.Scribble.Top.09:3 }
+    - { name: Program.Button.Select.10:3, index: 57, type: Button, scribble-caption: Program.Scribble.Top.10:3 }
+    - { name: Program.Button.Select.11:3, index: 58, type: Button, scribble-caption: Program.Scribble.Top.11:3 }
+    - { name: Program.Button.Select.12:3, index: 59, type: Button, scribble-caption: Program.Scribble.Top.12:3 }
+    - { name: Program.Button.Select.13:3, index: 60, type: Button, scribble-caption: Program.Scribble.Top.13:3 }
+    - { name: Program.Button.Select.14:3, index: 61, type: Button, scribble-caption: Program.Scribble.Top.14:3 }
+    - { name: Program.Button.Select.15:3, index: 62, type: Button, scribble-caption: Program.Scribble.Top.15:3 }
+    - { name: Program.Button.Select.16:3, index: 63, type: Button, scribble-caption: Program.Scribble.Top.16:3 }
+
+    - { name: Program.Button.Rec.01:0, index:  0, type: Button }
+    - { name: Program.Button.Rec.02:0, index:  1, type: Button }
+    - { name: Program.Button.Rec.03:0, index:  2, type: Button }
+    - { name: Program.Button.Rec.04:0, index:  3, type: Button }
+    - { name: Program.Button.Rec.05:0, index:  4, type: Button }
+    - { name: Program.Button.Rec.06:0, index:  5, type: Button }
+    - { name: Program.Button.Rec.07:0, index:  6, type: Button }
+    - { name: Program.Button.Rec.08:0, index:  7, type: Button }
+    - { name: Program.Button.Rec.09:0, index:  8, type: Button }
+    - { name: Program.Button.Rec.10:0, index:  9, type: Button }
+    - { name: Program.Button.Rec.11:0, index: 10, type: Button }
+    - { name: Program.Button.Rec.12:0, index: 11, type: Button }
+    - { name: Program.Button.Rec.13:0, index: 12, type: Button }
+    - { name: Program.Button.Rec.14:0, index: 13, type: Button }
+    - { name: Program.Button.Rec.15:0, index: 14, type: Button }
+    - { name: Program.Button.Rec.16:0, index: 15, type: Button }
+    - { name: Program.Button.Rec.01:1, index: 16, type: Button }
+    - { name: Program.Button.Rec.02:1, index: 17, type: Button }
+    - { name: Program.Button.Rec.03:1, index: 18, type: Button }
+    - { name: Program.Button.Rec.04:1, index: 19, type: Button }
+    - { name: Program.Button.Rec.05:1, index: 20, type: Button }
+    - { name: Program.Button.Rec.06:1, index: 21, type: Button }
+    - { name: Program.Button.Rec.07:1, index: 22, type: Button }
+    - { name: Program.Button.Rec.08:1, index: 23, type: Button }
+    - { name: Program.Button.Rec.09:1, index: 24, type: Button }
+    - { name: Program.Button.Rec.10:1, index: 25, type: Button }
+    - { name: Program.Button.Rec.11:1, index: 26, type: Button }
+    - { name: Program.Button.Rec.12:1, index: 27, type: Button }
+    - { name: Program.Button.Rec.13:1, index: 28, type: Button }
+    - { name: Program.Button.Rec.14:1, index: 29, type: Button }
+    - { name: Program.Button.Rec.15:1, index: 30, type: Button }
+    - { name: Program.Button.Rec.16:1, index: 31, type: Button }
+    - { name: Program.Button.Rec.01:2, index: 32, type: Button }
+    - { name: Program.Button.Rec.02:2, index: 33, type: Button }
+    - { name: Program.Button.Rec.03:2, index: 34, type: Button }
+    - { name: Program.Button.Rec.04:2, index: 35, type: Button }
+    - { name: Program.Button.Rec.05:2, index: 36, type: Button }
+    - { name: Program.Button.Rec.06:2, index: 37, type: Button }
+    - { name: Program.Button.Rec.07:2, index: 38, type: Button }
+    - { name: Program.Button.Rec.08:2, index: 39, type: Button }
+    - { name: Program.Button.Rec.09:2, index: 40, type: Button }
+    - { name: Program.Button.Rec.10:2, index: 41, type: Button }
+    - { name: Program.Button.Rec.11:2, index: 42, type: Button }
+    - { name: Program.Button.Rec.12:2, index: 43, type: Button }
+    - { name: Program.Button.Rec.13:2, index: 44, type: Button }
+    - { name: Program.Button.Rec.14:2, index: 45, type: Button }
+    - { name: Program.Button.Rec.15:2, index: 46, type: Button }
+    - { name: Program.Button.Rec.16:2, index: 47, type: Button }
+    - { name: Program.Button.Rec.01:3, index: 48, type: Button }
+    - { name: Program.Button.Rec.02:3, index: 49, type: Button }
+    - { name: Program.Button.Rec.03:3, index: 50, type: Button }
+    - { name: Program.Button.Rec.04:3, index: 51, type: Button }
+    - { name: Program.Button.Rec.05:3, index: 52, type: Button }
+    - { name: Program.Button.Rec.06:3, index: 53, type: Button }
+    - { name: Program.Button.Rec.07:3, index: 54, type: Button }
+    - { name: Program.Button.Rec.08:3, index: 55, type: Button }
+    - { name: Program.Button.Rec.09:3, index: 56, type: Button }
+    - { name: Program.Button.Rec.10:3, index: 57, type: Button }
+    - { name: Program.Button.Rec.11:3, index: 58, type: Button }
+    - { name: Program.Button.Rec.12:3, index: 59, type: Button }
+    - { name: Program.Button.Rec.13:3, index: 60, type: Button }
+    - { name: Program.Button.Rec.14:3, index: 61, type: Button }
+    - { name: Program.Button.Rec.15:3, index: 62, type: Button }
+    - { name: Program.Button.Rec.16:3, index: 63, type: Button }
 
     #
     # FADERS

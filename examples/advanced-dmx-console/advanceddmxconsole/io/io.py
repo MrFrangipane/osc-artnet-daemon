@@ -1,8 +1,8 @@
 from oscartnetdaemon.domain_contract.abstract_io import AbstractIO
 from oscartnetdaemon.domain_contract.service_components import ServiceComponents
 
-from advanceddmxconsole.artnet.io.artnet_server import ArtnetServer
-from advanceddmxconsole.artnet.io.message import ArtnetIOMessage
+from advanceddmxconsole.io.artnet_server import ArtnetServer
+from advanceddmxconsole.io.message import ArtnetIOMessage
 from advanceddmxconsole.configuration import ArtnetConfiguration
 from advanceddmxconsole.rename_me import RenameMe
 
@@ -21,7 +21,7 @@ class ArtnetIO(AbstractIO):  # FIXME create an interface mixin with set_universe
         (broadcast happens after all services are started, in service registration order)
         """
         configuration: ArtnetConfiguration = self.components.configuration
-        RenameMe().initialize(self, self.components)
+        RenameMe().initialize(self, self.components)  # FIXME hack to give self instead of IO
         for target_node in configuration.target_nodes:
             new_server = ArtnetServer(
                 target_node=target_node,

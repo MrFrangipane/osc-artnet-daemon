@@ -9,3 +9,4 @@ pages:
       - Scribble.*
       - Fader.*
       - Button.Select.*
+      - Button.Rec.*

@@ -16,6 +16,15 @@ devices:
       - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 30 }, name: Button.Select.07 }
       - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 31 }, name: Button.Select.08 }
 
+      - { type: Button, midi-parsing: { channel: 0, type: note_on, note: 00 }, name: Button.Rec.01 }
+      - { type: Button, midi-parsing: { channel: 0, type: note_on, note: 01 }, name: Button.Rec.02 }
+      - { type: Button, midi-parsing: { channel: 0, type: note_on, note: 02 }, name: Button.Rec.03 }
+      - { type: Button, midi-parsing: { channel: 0, type: note_on, note: 03 }, name: Button.Rec.04 }
+      - { type: Button, midi-parsing: { channel: 0, type: note_on, note: 04 }, name: Button.Rec.05 }
+      - { type: Button, midi-parsing: { channel: 0, type: note_on, note: 05 }, name: Button.Rec.06 }
+      - { type: Button, midi-parsing: { channel: 0, type: note_on, note: 06 }, name: Button.Rec.07 }
+      - { type: Button, midi-parsing: { channel: 0, type: note_on, note: 07 }, name: Button.Rec.08 }
+
       #
       # TEXTS
       - name: Scribble.Top.01
@@ -149,10 +158,16 @@ devices:
         midi-parsing: { channel: 7, type: pitchwheel }
 
   - name: 'X-Touch'
-    midi-port-pattern: "Lapinotronik "
+    midi-port-pattern: "X-Touch "
     variables:
       #
       # TEXTS
+      - name: Timecode
+        type: Text
+        midi-parsing: { type: sysex, bytes: [
+          "00", "00", "66", "05", "00", "11", "{0}", "{1}", "{2}", "{3}", "{4}", "{5}", "{6}", "{7}"
+        ] }
+
       - name: Scribble.Top.09
         type: Text
         midi-parsing: { type: sysex, bytes: [
@@ -266,6 +281,15 @@ devices:
       - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 29 }, name: Button.Select.14 }
       - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 30 }, name: Button.Select.15 }
       - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 31 }, name: Button.Select.16 }
+
+      - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 00 }, name: Button.Rec.09 }
+      - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 01 }, name: Button.Rec.10 }
+      - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 02 }, name: Button.Rec.11 }
+      - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 03 }, name: Button.Rec.12 }
+      - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 04 }, name: Button.Rec.13 }
+      - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 05 }, name: Button.Rec.14 }
+      - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 06 }, name: Button.Rec.15 }
+      - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 07 }, name: Button.Rec.16 }
 
       - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 54 }, name: Button.F1 }
       - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 55 }, name: Button.F2 }
