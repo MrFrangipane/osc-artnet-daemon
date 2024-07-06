@@ -23,6 +23,16 @@ class Service:
         self.notification_queue_in: Queue[ChangeNotification] = Queue()
         self.notification_queue_out: Queue[ChangeNotification] = Queue()
 
+        self._make_variable_repository(registration_info)
+
+        self.io: AbstractIO | None = None
+        self.io_type = registration_info.io_type
+        self.io_message_queue_in: Queue[AbstractIOMessage] = Queue()
+        self.io_message_queue_out: Queue[AbstractIOMessage] = Queue()
+
+        self.startup_done = Event()
+
+    def _make_variable_repository(self, registration_info: ServiceRegistrationInfo):
         if registration_info.variable_repository_type is not None:
             if not issubclass(registration_info.variable_repository_type, VariableRepository):
                 raise ValueError('Variable repository type is not a subclass of VariableRepository')
@@ -36,13 +46,7 @@ class Service:
             variable_types=registration_info.variable_types,
             notification_queue_out=self.notification_queue_out
         )
-
-        self.io: AbstractIO | None = None
-        self.io_type = registration_info.io_type
-        self.io_message_queue_in: Queue[AbstractIOMessage] = Queue()
-        self.io_message_queue_out: Queue[AbstractIOMessage] = Queue()
-
-        self.startup_done = Event()
+        self.components.variable_repository = self.variable_repository
 
     def initialize(self):
         self.configuration = self.configuration_loader.load()
@@ -55,7 +59,6 @@ class Service:
         self.components.io_message_queue_out = self.io_message_queue_out
         self.components.notification_queue_in = self.notification_queue_in
         self.components.notification_queue_out = self.notification_queue_out
-        self.components.variable_repository = self.variable_repository
 
         self.io = self.io_type(self.components)
 

@@ -31,6 +31,7 @@ class MIDIButton(VariableFloat):
                 device_name=info.device_name,
                 type=MIDIMessageType.NoteOn,
                 note=info.midi_parsing.note,
+                # TODO invert coloring for non-layer buttons ?
                 velocity=int(self.value.value * 127)
             ))
 

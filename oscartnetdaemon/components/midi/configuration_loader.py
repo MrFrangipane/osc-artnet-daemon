@@ -93,7 +93,7 @@ class MIDIConfigurationLoader(AbstractConfigurationLoader):
                 _logger.warning(f"Variables will be missing: {', '.join([v['name'] for v in device['variables']])}")
                 continue
             else:
-                _logger.info(f"MIDI Device '{device['name']}' opened on ports in='{in_port_name}' out='{in_port_name}')")
+                _logger.info(f"MIDI Device '{device['name']}' opened on ports in='{in_port_name}' out='{in_port_name}'")
 
             out_port_name = _find_in_list(device['midi-port-pattern'], self.out_port_names)
 
