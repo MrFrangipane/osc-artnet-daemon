@@ -1,7 +1,6 @@
 from oscartnetdaemon.domain_contract.service_components import ServiceComponents
 
-from advanceddmxconsole.fixture.definition.varytec_hero_wash_300_fc import VarytecHeroWash300FC
-from advanceddmxconsole.fixture.base_definition import BaseFixtureDefinition
+from advanceddmxconsole.fixture.fixture import Fixture
 
 
 class FixtureRepository:
@@ -9,20 +8,18 @@ class FixtureRepository:
     def __init__(self):
         self.components: ServiceComponents | None = None
 
-        self.fixtures: list[BaseFixtureDefinition] = list()
+        self.fixtures: list[Fixture] = list()
 
     def initialize(self, components: ServiceComponents):
         self.components = components
 
-        self.fixtures = [
-            VarytecHeroWash300FC(name='Wash C'),
-            VarytecHeroWash300FC(name='Wash J')
-        ]
+        for fixture_info in self.components.configuration.fixtures.values():
+            self.fixtures.append(Fixture(fixture_info))
 
         universe_address = 0
         for fixture in self.fixtures:
             fixture.create_channels(universe_address)
-            universe_address += len(fixture.Channels)
+            universe_address += len(fixture.info.type.channels)
 
     def count(self):
         return len(self.fixtures)

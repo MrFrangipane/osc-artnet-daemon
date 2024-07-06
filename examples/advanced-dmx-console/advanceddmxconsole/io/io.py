@@ -21,7 +21,6 @@ class ArtnetIO(AbstractIO):  # FIXME create an interface mixin with set_universe
         (broadcast happens after all services are started, in service registration order)
         """
         configuration: ArtnetConfiguration = self.components.configuration
-        RenameMe().initialize(self, self.components)  # FIXME hack to give self instead of IO
         for target_node in configuration.target_nodes:
             new_server = ArtnetServer(
                 target_node=target_node,
@@ -29,6 +28,9 @@ class ArtnetIO(AbstractIO):  # FIXME create an interface mixin with set_universe
             )
             new_server.start()
             self.servers.append(new_server)
+
+        # Initialize after servers are started (to send default fixtures values)
+        RenameMe().initialize(self, self.components)  # FIXME hack to give self instead of IO
 
     def set_universe(self, universe: bytearray):
         for server in self.servers:

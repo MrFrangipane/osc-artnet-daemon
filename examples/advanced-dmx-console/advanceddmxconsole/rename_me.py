@@ -7,11 +7,12 @@ from oscartnetdaemon.domain_contract.value.float import ValueFloat
 from oscartnetdaemon.domain_contract.variable.abstract import AbstractVariable
 from oscartnetdaemon.python_extensions.singleton_metaclass import SingletonMetaclass
 
-from advanceddmxconsole.fixture.base_definition import BaseFixtureDefinition
-from advanceddmxconsole.io.artnet_server import ArtnetServer
-from advanceddmxconsole.variable_info import ArtnetVariableInfo
+from advanceddmxconsole.fixture.fixture import Fixture
 from advanceddmxconsole.fixture.fixture_repository import FixtureRepository
+from advanceddmxconsole.program.program_info import ProgramInfo
 from advanceddmxconsole.program.program_repository import ProgramRepository
+from advanceddmxconsole.variable_info import ArtnetVariableInfo
+# from advanceddmxconsole.io.io import ArtnetIO  # FIXME circular import
 
 # from advanceddmxconsole.variable_repository import VariableRepository  # TODO
 
@@ -23,10 +24,12 @@ class RenameMe(metaclass=SingletonMetaclass):
     def __init__(self):
         self.components: ServiceComponents | None = None
 
+        self.io: "ArtnetIO | None" = None
+
         self.fixture_repository = FixtureRepository()
         self.program_repository = ProgramRepository(fixture_repository=self.fixture_repository)
 
-        self.current_fixture: BaseFixtureDefinition | None = None
+        self.current_fixture: Fixture | None = None
         self.fixture_list_buttons: list[AbstractVariable] = list()
 
         self.current_program = None
@@ -37,8 +40,8 @@ class RenameMe(metaclass=SingletonMetaclass):
 
         self.universe = bytearray(512)
 
-    def initialize(self, server: ArtnetServer, components: ServiceComponents):
-        self.server = server
+    def initialize(self, io: "ArtnetIO", components: ServiceComponents):
+        self.io = io
         self.components = components
 
         self.fixture_repository.initialize(self.components)
@@ -50,6 +53,8 @@ class RenameMe(metaclass=SingletonMetaclass):
 
         self.display_fixture_list()
         self.display_program_list()
+
+        self.initialize_universe()
 
     #
     # Handlers
@@ -75,7 +80,7 @@ class RenameMe(metaclass=SingletonMetaclass):
 
         universe_channel = self.current_fixture.universe_address + info.index
         self.universe[universe_channel] = int(value.value * 255)
-        self.server.set_universe(self.universe)
+        self.io.set_universe(self.universe)
 
     #
     # Mode Fixture list
@@ -93,7 +98,7 @@ class RenameMe(metaclass=SingletonMetaclass):
         self.reset_fixture_list_captions()
         for variable_index, fixture in enumerate(self.fixture_repository.fixtures):
             variable_button = self.fixture_list_buttons[variable_index]
-            variable_button.info.caption = fixture.name
+            variable_button.info.caption = fixture.info.name
 
         self.notify_all(self.fixture_list_buttons)
 
@@ -110,7 +115,7 @@ class RenameMe(metaclass=SingletonMetaclass):
             variable_fader.info.caption = ""
             variable_fader.value.value = float(0.0)
 
-    def select_fixture(self, fixture: BaseFixtureDefinition):
+    def select_fixture(self, fixture: Fixture):
         if fixture == self.current_fixture:
             return
 
@@ -119,7 +124,7 @@ class RenameMe(metaclass=SingletonMetaclass):
 
         for fader_index, channel in enumerate(fixture.channels):
             variable_fader = self.dmx_faders[fader_index]
-            variable_fader.info.caption = channel.function
+            variable_fader.info.caption = channel.name
             variable_fader.value.value = channel.value
 
         self.notify_all(self.dmx_faders)
@@ -148,33 +153,44 @@ class RenameMe(metaclass=SingletonMetaclass):
 
         self.notify_all(self.program_list_select_buttons)
 
-    def select_program(self, program):
+    def select_program(self, program: ProgramInfo):
         if not program.fixtures:
             _logger.info(f"Program '{program.name}' is empty. Not loading")
             return
 
-        current_fixture_name: str | None = self.current_fixture.name if self.current_fixture is not None else None
+        current_fixture_name: str | None = self.current_fixture.info.name if self.current_fixture is not None else None
 
         self.fixture_repository.fixtures = list()
         for fixture in program.fixtures:
             self.fixture_repository.fixtures.append(deepcopy(fixture))
 
-            if fixture.name == current_fixture_name:
+            if fixture.info.name == current_fixture_name:
                 self.select_fixture(fixture)
 
-            for channel in fixture.channels:
-                universe_channel = fixture.universe_address + channel.channel_number
-                self.universe[universe_channel] = int(channel.value * 255)
+            self.fixture_to_universe(fixture)
 
-        self.server.set_universe(self.universe)
+        self.io.set_universe(self.universe)
         _logger.info(f"Program '{program.name}' loaded")
 
-    def save_program(self, program):
+    def save_program(self, program: ProgramInfo):
         program.fixtures = list()
         for fixture in self.fixture_repository.fixtures:
             program.fixtures.append(deepcopy(fixture))
 
         _logger.info(f"Program '{program.name}' saved")
+
+    #
+    # Universe
+    def initialize_universe(self):
+        for fixture in self.fixture_repository.fixtures:
+            self.fixture_to_universe(fixture)
+
+        self.io.set_universe(self.universe)
+
+    def fixture_to_universe(self, fixture: Fixture):
+        for channel in fixture.channels:
+            universe_channel = fixture.universe_address + channel.channel_number
+            self.universe[universe_channel] = int(channel.value * 255)
 
     #
     # Notify
