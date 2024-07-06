@@ -1,3 +1,4 @@
+PySide6
 dataclasses_json
 mido[ports-rtmidi] @ git+https://github.com/MrFrangipane/mido@main
 python-osc
