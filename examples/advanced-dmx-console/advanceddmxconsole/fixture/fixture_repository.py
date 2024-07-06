@@ -23,3 +23,6 @@ class FixtureRepository:
 
     def count(self):
         return len(self.fixtures)
+
+    def fixture(self, index: int) -> Fixture:
+        return self.fixtures[index % len(self.fixtures)]

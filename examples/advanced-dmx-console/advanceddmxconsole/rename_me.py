@@ -27,11 +27,11 @@ class RenameMe(metaclass=SingletonMetaclass):
         self.io: "ArtnetIO | None" = None
 
         self.fixture_repository = FixtureRepository()
-        self.program_repository = ProgramRepository(fixture_repository=self.fixture_repository)
-
         self.current_fixture: Fixture | None = None
+        self.fixture_pager_index: int = 0  # Fixme move all selection logic to repository
         self.fixture_list_buttons: list[AbstractVariable] = list()
 
+        self.program_repository = ProgramRepository(fixture_repository=self.fixture_repository)
         self.current_program = None
         self.program_list_select_buttons: list[AbstractVariable] = list()
         self.program_list_save_buttons: list[AbstractVariable] = list()
@@ -46,6 +46,7 @@ class RenameMe(metaclass=SingletonMetaclass):
 
         self.fixture_repository.initialize(self.components)
         self.program_repository.initialize(self.components)
+        self.fixture_pager_index = 0
 
         self.initialize_fixture_list_buttons()
         self.initialize_dmx_faders()
@@ -59,9 +60,17 @@ class RenameMe(metaclass=SingletonMetaclass):
     #
     # Handlers
     def handle_button(self, info: ArtnetVariableInfo):
+        # Fixture
         if info.name.startswith('Fixture.Button.Select') and info.index < self.fixture_repository.count():
-            self.select_fixture(self.fixture_repository.fixtures[info.index])
+            self.select_fixture(self.fixture_repository.fixture(info.index))
 
+        elif info.name == 'Channel.Up':
+            self.select_next_fixture()
+
+        elif info.name == 'Channel.Down':
+            self.select_previous_fixture()
+
+        # Program
         elif info.name.startswith('Program.Button.Select') and info.index < self.program_repository.count():
             self.select_program(self.program_repository.programs[info.index])
 
@@ -120,6 +129,7 @@ class RenameMe(metaclass=SingletonMetaclass):
             return
 
         self.current_fixture = fixture
+        self.fixture_pager_index = self.fixture_repository.fixtures.index(fixture)
         self.reset_dmx_faders()
 
         for fader_index, channel in enumerate(fixture.channels):
@@ -128,6 +138,14 @@ class RenameMe(metaclass=SingletonMetaclass):
             variable_fader.value.value = channel.value
 
         self.notify_all(self.dmx_faders)
+
+    def select_next_fixture(self):
+        self.fixture_pager_index += 1
+        self.select_fixture(self.fixture_repository.fixture(self.fixture_pager_index))
+
+    def select_previous_fixture(self):
+        self.fixture_pager_index -= 1
+        self.select_fixture(self.fixture_repository.fixture(self.fixture_pager_index))
 
     #
     # Mode Program
