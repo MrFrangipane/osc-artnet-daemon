@@ -103,11 +103,16 @@ class ServiceRepository:
 
     def shutdown(self):
         for io_name, bundle in self.service_bundles.items():
+            if not bundle.process.is_alive():
+                _logger.info(f"Service '{io_name}' already shut down")
+                continue
+
             clear(bundle.service.notification_queue_out)
             clear(bundle.service.io_message_queue_out)
             clear(bundle.service.notification_queue_in)
             clear(bundle.service.io_message_queue_in)
 
+            bundle.service.should_terminate.set()
             while bundle.process.is_alive():
                 time.sleep(0.01)
 

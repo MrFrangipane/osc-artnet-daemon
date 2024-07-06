@@ -31,6 +31,8 @@ class Service:
         self.io_message_queue_out: Queue[AbstractIOMessage] = Queue()
 
         self.startup_done = Event()
+        self.should_terminate = Event()
+        self._is_shut_down = False
 
     def _make_variable_repository(self, registration_info: ServiceRegistrationInfo):
         if registration_info.variable_repository_type is not None:
@@ -72,7 +74,7 @@ class Service:
         self.variable_repository.notify_all_variables()
 
         try:
-            while True:
+            while not self.should_terminate.is_set():
                 #
                 # Notifications
                 while not self.notification_queue_in.empty():
@@ -100,4 +102,8 @@ class Service:
             self.shutdown()
 
     def shutdown(self):
-        self.io.shutdown()
+        if not self._is_shut_down:
+            self.io.shutdown()
+            self._is_shut_down = True
+        else:
+            _logger.info(f"Service '{self.io_type.__name__}' already shut down")

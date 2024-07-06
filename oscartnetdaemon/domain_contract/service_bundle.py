@@ -1,7 +1,6 @@
 from dataclasses import dataclass
-from multiprocessing import Process, Queue
+from multiprocessing import Process
 
-from oscartnetdaemon.domain_contract.change_notification import ChangeNotification
 from oscartnetdaemon.domain_contract.service import Service
 
 
@@ -9,5 +8,3 @@ from oscartnetdaemon.domain_contract.service import Service
 class ServiceBundle:
     service: Service
     process: Process | None = None
-    # notification_queue_in: "Queue[ChangeNotification] | None" = None
-    # notification_queue_out: "Queue[ChangeNotification] | None" = None
