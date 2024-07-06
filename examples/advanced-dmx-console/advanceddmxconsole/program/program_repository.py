@@ -46,7 +46,6 @@ class ProgramRepository:
                 with open(filepath, 'r') as program_file:
 
                     data = json.load(program_file)
-                    data['fixtures-snapshots'] = data['fixtures']
                     new_program: ProgramInfo = ProgramInfo.from_dict(data)
 
                     if not self.check_compliance(new_program):
