@@ -1,3 +1,4 @@
+import copy
 import json
 import logging
 import os
@@ -19,6 +20,7 @@ class ProgramRepository:
         self.components: ServiceComponents | None = None
         self.fixture_repository: FixtureRepository = fixture_repository
         self.programs: list[ProgramInfo] = list()
+        self.copy_slot: ProgramInfo | None = None
 
     def initialize(self, components: ServiceComponents):
         if not self.fixture_repository.fixtures:
@@ -38,7 +40,7 @@ class ProgramRepository:
                 self.programs.append(ProgramInfo(
                     name=f"Prog.{index+1:02}",
                     index=index,
-                    fixtures_snapshots=list()
+                    fixtures_snapshots=[fixture.snapshot() for fixture in self.fixture_repository.fixtures]
                 ))
 
             else:
@@ -58,7 +60,8 @@ class ProgramRepository:
     def count(self):
         return len(self.programs)
 
-    def save(self, program: ProgramInfo):
+    def save(self, index: int):
+        program = self.programs[index]
         program.fixtures_snapshots = list()
         for fixture in self.fixture_repository.fixtures:
             program.fixtures_snapshots.append(fixture.snapshot())
@@ -69,7 +72,9 @@ class ProgramRepository:
 
         _logger.info(f"Program '{program.name}' saved to {filepath}")
 
-    def load(self, program: ProgramInfo):
+    def load(self, index: int) -> ProgramInfo | None:
+        program = self.programs[index]
+
         if not self.check_compliance(program):
             return
 
@@ -79,12 +84,9 @@ class ProgramRepository:
                 self.universe[fixture.universe_address + channel_index] = int(value * 255)
 
         _logger.info(f"Program '{program.name}' loaded")
+        return program
 
     def check_compliance(self, program: ProgramInfo):
-        if not program.fixtures_snapshots:
-            _logger.info(f"Program '{program.name}' is empty. Not loading")
-            return False
-
         if len(self.fixture_repository.fixtures) != len(program.fixtures_snapshots):
             _logger.warning(f"Program '{program.name}' not compatible with current fixtures")
             return False
@@ -95,3 +97,19 @@ class ProgramRepository:
                 return False
 
         return True
+
+    def reset(self, index: int):
+        program = self.programs[index]
+
+        for fixture, fixture_snapshot in zip(self.fixture_repository.fixtures, program.fixtures_snapshots):
+            for channel_index, channel in enumerate(fixture.channels):
+                channel.value = channel.value_default
+                fixture_snapshot.channel_values[channel_index] = channel.value_default
+                self.universe[fixture.universe_address + channel_index] = int(channel.value * 255)
+
+    def copy(self, index: int):
+        self.copy_slot = copy.deepcopy(self.programs[index])
+
+    def paste(self, index: int):
+        self.programs[index] = copy.deepcopy(self.copy_slot)
+        self.load(index)

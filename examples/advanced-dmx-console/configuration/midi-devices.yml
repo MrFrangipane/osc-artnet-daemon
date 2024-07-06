@@ -166,6 +166,10 @@ devices:
       - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 42 }, name: Button.Layer.DMX }
       - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 44 }, name: Button.Layer.Program }
 
+      - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 51 }, name: Button.Reset }
+      - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 62 }, name: Button.Copy }
+      - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 63 }, name: Button.Paste }
+
       - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 46 }, name: FaderBank.Down }
       - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 47 }, name: FaderBank.Up }
 
@@ -194,8 +198,6 @@ devices:
       - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 55 }, name: Button.F2 }
       - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 56 }, name: Button.F3 }
       - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 57 }, name: Button.F4 }
-
-      - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 51 }, name: Button.Reset }
 
       #
       # FADERS

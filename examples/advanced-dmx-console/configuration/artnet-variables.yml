@@ -3,12 +3,19 @@ schema-version: 1
 variables:
     #
     # BUTTONS
-    - { name: Button.Layer.Fixture, type: Button }
-    - { name: Button.Layer.DMX, type: Button }
-    - { name: Button.Layer.Program, type: Button }
+    - { type: Button, name: Button.Layer.Fixture }
+    - { type: Button, name: Button.Layer.DMX }
+    - { type: Button, name: Button.Layer.Program }
 
-    - { name: Channel.Down, type: Button }
-    - { name: Channel.Up, type: Button }
+    - { type: Button, name: Channel.Down }
+    - { type: Button, name: Channel.Up }
+
+    - { type: Button, name: DMX.Button.Reset }
+    - { type: Button, name: DMX.Button.Copy }
+    - { type: Button, name: DMX.Button.Paste }
+    - { type: Button, name: Program.Button.Reset }
+    - { type: Button, name: Program.Button.Copy }
+    - { type: Button, name: Program.Button.Paste }
 
     - { name: Fixture.Button.Select.01:0, index:  0, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.01:0 }
     - { name: Fixture.Button.Select.02:0, index:  1, redirect: Button.Layer.DMX, type: Button, scribble-caption: Fixture.Scribble.Top.02:0 }

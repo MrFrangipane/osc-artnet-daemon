@@ -14,6 +14,10 @@ layer-groups:
       button-activate: Button.Layer.Program
 
     variables:
+      - Button.Reset
+      - Button.Copy
+      - Button.Paste
+
       - Scribble.*
       - Fader.*
       - MasterFader

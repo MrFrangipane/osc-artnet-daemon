@@ -1,4 +1,3 @@
-import json
 import logging
 import os.path
 from copy import deepcopy
@@ -35,9 +34,10 @@ class AdvancedDmxConsole(metaclass=SingletonMetaclass):
         self.current_fixture: Fixture | None = None
         self.fixture_pager_index: int = 0  # Fixme move all selection logic to repository
         self.fixture_list_buttons: list[AbstractVariable] = list()
+        self.fixture_copy_slot: Fixture | None = None
 
         self.program_repository = ProgramRepository(universe=self.universe, fixture_repository=self.fixture_repository)
-        self.current_program = None
+        self.current_program: ProgramInfo | None = None
         self.program_list_select_buttons: list[AbstractVariable] = list()
         self.program_list_save_buttons: list[AbstractVariable] = list()
 
@@ -68,7 +68,7 @@ class AdvancedDmxConsole(metaclass=SingletonMetaclass):
     def handle_button(self, info: ArtnetVariableInfo):
         # Fixture
         if info.name.startswith('Fixture.Button.Select') and info.index < self.fixture_repository.count():
-            self.select_fixture(self.fixture_repository.fixture(info.index))
+            self.select_fixture(info.index)
 
         elif info.name == 'Channel.Up':
             self.select_next_fixture()
@@ -76,12 +76,30 @@ class AdvancedDmxConsole(metaclass=SingletonMetaclass):
         elif info.name == 'Channel.Down':
             self.select_previous_fixture()
 
+        elif info.name == 'DMX.Button.Reset':
+            self.reset_fixture()
+
+        elif info.name == 'DMX.Button.Copy':
+            self.copy_fixture()
+
+        elif info.name == 'DMX.Button.Paste':
+            self.paste_fixture()
+
         # Program
         elif info.name.startswith('Program.Button.Select') and info.index < self.program_repository.count():
-            self.select_program(self.program_repository.programs[info.index])
+            self.select_program(info.index)
 
         elif info.name.startswith('Program.Button.Rec') and info.index < self.program_repository.count():
-            self.save_program(self.program_repository.programs[info.index])
+            self.save_program(info.index)
+
+        elif info.name == 'Program.Button.Reset':
+            self.reset_program()
+
+        elif info.name == 'Program.Button.Copy':
+            self.copy_program()
+
+        elif info.name == 'Program.Button.Paste':
+            self.paste_program()
 
     def handle_fader(self, info: ArtnetVariableInfo, value: ValueFloat):
         if self.current_fixture is None:
@@ -102,7 +120,7 @@ class AdvancedDmxConsole(metaclass=SingletonMetaclass):
     def initialize_fixture_list_buttons(self):
         self.fixture_list_buttons = list([
             variable for name, variable in self.components.variable_repository.variables.items()
-            if name.startswith('Fixture.')
+            if name.startswith('Fixture.Button.Select')
         ])
 
     def reset_fixture_list_captions(self):
@@ -122,23 +140,23 @@ class AdvancedDmxConsole(metaclass=SingletonMetaclass):
     def initialize_dmx_faders(self):
         self.dmx_faders = list([
             variable for name, variable in self.components.variable_repository.variables.items()
-            if name.startswith('DMX.')
+            if name.startswith('DMX.Fader')
         ])
 
     def reset_dmx_faders(self):
         for variable_fader in self.dmx_faders:
             variable_fader.info.caption = ""
-            variable_fader.value.value = float(0.0)
+            variable_fader.value.value = 0.0
 
-    def select_fixture(self, fixture: Fixture):
-        if fixture == self.current_fixture:
-            return
+    def select_fixture(self, index: int):
+        self.current_fixture = self.fixture_repository.select(index)
+        self.current_fixture_to_faders()
 
-        self.current_fixture = fixture
-        self.fixture_pager_index = self.fixture_repository.fixtures.index(fixture)
+    def current_fixture_to_faders(self):
+        self.fixture_pager_index = self.fixture_repository.fixtures.index(self.current_fixture)
         self.reset_dmx_faders()
 
-        for fader_index, channel in enumerate(fixture.channels):
+        for fader_index, channel in enumerate(self.current_fixture.channels):
             variable_fader = self.dmx_faders[fader_index]
             variable_fader.info.caption = channel.name
             variable_fader.value.value = channel.value
@@ -147,11 +165,35 @@ class AdvancedDmxConsole(metaclass=SingletonMetaclass):
 
     def select_next_fixture(self):
         self.fixture_pager_index += 1
-        self.select_fixture(self.fixture_repository.fixture(self.fixture_pager_index))
+        self.select_fixture(self.fixture_pager_index)
 
     def select_previous_fixture(self):
         self.fixture_pager_index -= 1
-        self.select_fixture(self.fixture_repository.fixture(self.fixture_pager_index))
+        self.select_fixture(self.fixture_pager_index)
+
+    def reset_fixture(self):
+        for channel in self.current_fixture.channels:
+            channel.value = channel.value_default
+
+        self.current_fixture_to_faders()
+
+    def copy_fixture(self):
+        self.fixture_copy_slot = deepcopy(self.current_fixture)
+
+    def paste_fixture(self):
+        if self.fixture_copy_slot is None:
+            return
+
+        type_source = self.fixture_copy_slot.info.type
+        type_target = self.current_fixture.info.type
+        if type_source != type_target:
+            _logger.info(f"Cannot paste '{type_source.name}' onto '{type_target.name}'")
+            return
+
+        for index, channel in enumerate(self.current_fixture.channels):
+            channel.value = self.fixture_copy_slot.channels[index].value
+
+        self.current_fixture_to_faders()
 
     #
     # Mode Program
@@ -177,13 +219,27 @@ class AdvancedDmxConsole(metaclass=SingletonMetaclass):
 
         self.notify_all(self.program_list_select_buttons)
 
-    def select_program(self, program: ProgramInfo):
-        self.program_repository.load(program)
-        self.select_fixture(self.current_fixture)
+    def select_program(self, index: int):
+        self.current_program = self.program_repository.load(index)
+        self.select_fixture(self.fixture_pager_index)
         self.io.set_universe(self.universe)
 
-    def save_program(self, program: ProgramInfo):
-        self.program_repository.save(program)
+    def save_program(self, index: int):
+        self.program_repository.save(index)
+
+    def reset_program(self):
+        self.program_repository.reset(self.current_program.index)
+        self.select_fixture(self.fixture_pager_index)
+        self.io.set_universe(self.universe)
+
+    def copy_program(self):
+        self.program_repository.copy(self.current_program.index)
+
+    def paste_program(self):
+        self.program_repository.paste(self.current_program.index)
+        self.select_fixture(self.fixture_pager_index)
+        self.io.set_universe(self.universe)
+        self.display_program_list()
 
     #
     # Universe
