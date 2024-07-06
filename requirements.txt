@@ -1,5 +1,5 @@
 dataclasses_json
-mido[ports-rtmidi]
+mido[ports-rtmidi] @ git+https://github.com/MrFrangipane/mido@main
 python-osc
 python-rtmidi
 pyyaml
