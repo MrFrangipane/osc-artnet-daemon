@@ -15,8 +15,6 @@ from advanceddmxconsole.program.program_repository import ProgramRepository
 from advanceddmxconsole.variable_info import ArtnetVariableInfo
 # from advanceddmxconsole.io.io import ArtnetIO  # FIXME circular import
 
-# from advanceddmxconsole.variable_repository import VariableRepository  # TODO
-
 
 _logger = logging.getLogger(__name__)
 

@@ -18,10 +18,11 @@ class ServiceRepository:
     def __init__(self):
         self.service_bundles: dict[str, ServiceBundle] = dict()
 
-    def register(self, registerer: Type[AbstractServiceRegisterer]):
+    def register(self, registerer: Type[AbstractServiceRegisterer]) -> Service:
         registration_info = registerer.make_registration_info()
         new_bundle = ServiceBundle(service=Service(registration_info))
         self.service_bundles[registration_info.io_type.__name__] = new_bundle
+        return new_bundle.service
 
     def exec(self):
         for bundle in self.service_bundles.values():
