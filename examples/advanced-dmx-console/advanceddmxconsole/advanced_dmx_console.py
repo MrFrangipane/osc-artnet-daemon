@@ -1,4 +1,6 @@
+import json
 import logging
+import os.path
 from copy import deepcopy
 
 from oscartnetdaemon.domain_contract.change_notification import ChangeNotification
@@ -20,8 +22,11 @@ from advanceddmxconsole.variable_info import ArtnetVariableInfo
 _logger = logging.getLogger(__name__)
 
 
-class RenameMe(metaclass=SingletonMetaclass):
+class AdvancedDmxConsole(metaclass=SingletonMetaclass):
+
     def __init__(self):
+        self.universe = bytearray(512)
+
         self.components: ServiceComponents | None = None
 
         self.io: "ArtnetIO | None" = None
@@ -31,18 +36,19 @@ class RenameMe(metaclass=SingletonMetaclass):
         self.fixture_pager_index: int = 0  # Fixme move all selection logic to repository
         self.fixture_list_buttons: list[AbstractVariable] = list()
 
-        self.program_repository = ProgramRepository(fixture_repository=self.fixture_repository)
+        self.program_repository = ProgramRepository(universe=self.universe, fixture_repository=self.fixture_repository)
         self.current_program = None
         self.program_list_select_buttons: list[AbstractVariable] = list()
         self.program_list_save_buttons: list[AbstractVariable] = list()
 
         self.dmx_faders: list[AbstractVariable] = list()
 
-        self.universe = bytearray(512)
-
     def initialize(self, io: "ArtnetIO", components: ServiceComponents):
         self.io = io
         self.components = components
+
+        if not os.path.isdir(ProgramRepository.DIR_PROGRAMS):
+            os.mkdir(ProgramRepository.DIR_PROGRAMS)
 
         self.fixture_repository.initialize(self.components)
         self.program_repository.initialize(self.components)
@@ -172,43 +178,22 @@ class RenameMe(metaclass=SingletonMetaclass):
         self.notify_all(self.program_list_select_buttons)
 
     def select_program(self, program: ProgramInfo):
-        if not program.fixtures:
-            _logger.info(f"Program '{program.name}' is empty. Not loading")
-            return
-
-        current_fixture_name: str | None = self.current_fixture.info.name if self.current_fixture is not None else None
-
-        self.fixture_repository.fixtures = list()
-        for fixture in program.fixtures:
-            self.fixture_repository.fixtures.append(deepcopy(fixture))
-
-            if fixture.info.name == current_fixture_name:
-                self.select_fixture(fixture)
-
-            self.fixture_to_universe(fixture)
-
+        self.program_repository.load(program)
+        self.select_fixture(self.current_fixture)
         self.io.set_universe(self.universe)
-        _logger.info(f"Program '{program.name}' loaded")
 
     def save_program(self, program: ProgramInfo):
-        program.fixtures = list()
-        for fixture in self.fixture_repository.fixtures:
-            program.fixtures.append(deepcopy(fixture))
-
-        _logger.info(f"Program '{program.name}' saved")
+        self.program_repository.save(program)
 
     #
     # Universe
     def initialize_universe(self):
         for fixture in self.fixture_repository.fixtures:
-            self.fixture_to_universe(fixture)
+            for channel in fixture.channels:
+                universe_channel = fixture.universe_address + channel.channel_number
+                self.universe[universe_channel] = int(channel.value * 255)
 
         self.io.set_universe(self.universe)
-
-    def fixture_to_universe(self, fixture: Fixture):
-        for channel in fixture.channels:
-            universe_channel = fixture.universe_address + channel.channel_number
-            self.universe[universe_channel] = int(channel.value * 255)
 
     #
     # Notify

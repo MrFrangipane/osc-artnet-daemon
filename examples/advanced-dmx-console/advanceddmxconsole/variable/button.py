@@ -2,10 +2,10 @@ from oscartnetdaemon.domain_contract.change_notification import ChangeNotificati
 from oscartnetdaemon.domain_contract.value.float import ValueFloat
 from oscartnetdaemon.domain_contract.variable.float import VariableFloat
 
+from advanceddmxconsole.advanced_dmx_console import AdvancedDmxConsole
 from advanceddmxconsole.io.message import ArtnetIOMessage
-from advanceddmxconsole.variable_info import ArtnetVariableInfo
 from advanceddmxconsole.variable.scribble_mixin import ArtnetScribbleMixin
-from advanceddmxconsole.rename_me import RenameMe
+from advanceddmxconsole.variable_info import ArtnetVariableInfo
 
 
 class ArtnetButton(VariableFloat, ArtnetScribbleMixin):
@@ -20,7 +20,7 @@ class ArtnetButton(VariableFloat, ArtnetScribbleMixin):
         if not self.value.value:
             return
 
-        RenameMe().handle_button(info)
+        AdvancedDmxConsole().handle_button(info)
 
         if info.redirect:
             self.notification_queue_out.put(ChangeNotification(

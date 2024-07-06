@@ -1,5 +1,6 @@
 from advanceddmxconsole.fixture.dmx_channel import DMXChannel
 from advanceddmxconsole.fixture.fixture_info import FixtureInfo
+from advanceddmxconsole.program.fixture_snapshot import FixtureSnapshot
 
 
 class Fixture:
@@ -23,3 +24,9 @@ class Fixture:
                 channel_number=channel_number
             )
             self.channels.append(new_channel)
+
+    def snapshot(self) -> FixtureSnapshot:
+        return FixtureSnapshot(
+            info=self.info,
+            channel_values=[channel.value for channel in self.channels]
+        )

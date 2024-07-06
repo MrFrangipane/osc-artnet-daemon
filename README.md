@@ -17,6 +17,7 @@
 - fix error messages on recall empty slot
 - move MIDIPagination, MIDILayerGroup, OSCRecallGroup to domain contract ?
 - fork mido and add timeout `midi_in.receive(timeout=0.2)
+- find dead code with [vulture](https://github.com/jendrikseipp/vulture)
 - ~~wildcards in config files for variable reference~~
 - unify configuration files ?
 ````yaml

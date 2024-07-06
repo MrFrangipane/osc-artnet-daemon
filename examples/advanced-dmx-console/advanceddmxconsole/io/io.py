@@ -4,7 +4,7 @@ from oscartnetdaemon.domain_contract.service_components import ServiceComponents
 from advanceddmxconsole.io.artnet_server import ArtnetServer
 from advanceddmxconsole.io.message import ArtnetIOMessage
 from advanceddmxconsole.configuration import ArtnetConfiguration
-from advanceddmxconsole.rename_me import RenameMe
+from advanceddmxconsole.advanced_dmx_console import AdvancedDmxConsole
 
 
 class ArtnetIO(AbstractIO):  # FIXME create an interface mixin with set_universe(universe)
@@ -30,7 +30,7 @@ class ArtnetIO(AbstractIO):  # FIXME create an interface mixin with set_universe
             self.servers.append(new_server)
 
         # Initialize after servers are started (to send default fixtures values)
-        RenameMe().initialize(self, self.components)  # FIXME hack to give self instead of IO
+        AdvancedDmxConsole().initialize(self, self.components)  # FIXME hack to give self instead of IO
 
     def set_universe(self, universe: bytearray):
         for server in self.servers:
