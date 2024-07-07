@@ -1,3 +1,5 @@
+import logging
+
 from oscartnetdaemon.domain_contract.abstract_io import AbstractIO
 from oscartnetdaemon.domain_contract.service_components import ServiceComponents
 
@@ -5,6 +7,9 @@ from advanceddmxconsole.io.artnet_server import ArtnetServer
 from advanceddmxconsole.io.message import ArtnetIOMessage
 from advanceddmxconsole.configuration import ArtnetConfiguration
 from advanceddmxconsole.advanced_dmx_console import AdvancedDmxConsole
+
+
+_logger = logging.getLogger(__name__)
 
 
 class ArtnetIO(AbstractIO):  # FIXME create an interface mixin with set_universe(universe)
@@ -20,6 +25,7 @@ class ArtnetIO(AbstractIO):  # FIXME create an interface mixin with set_universe
         If needed, initialize variables values
         (broadcast happens after all services are started, in service registration order)
         """
+        _logger.info("Starting")
         configuration: ArtnetConfiguration = self.components.configuration
         for target_node in configuration.target_nodes:
             new_server = ArtnetServer(

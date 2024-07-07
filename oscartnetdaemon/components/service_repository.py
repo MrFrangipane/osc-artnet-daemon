@@ -1,7 +1,8 @@
-
-import time
 import logging
-from multiprocessing import Process
+import time
+
+from logging import LogRecord
+from multiprocessing import Process, Queue
 from multiprocessing.managers import BaseManager
 from typing import Callable, Type
 
@@ -65,7 +66,6 @@ class ServiceRepository:
 
         for bundle in self.service_bundles.values():
             io_name = bundle.registration_info.io_type.__name__
-
             self.create_process(bundle)
             bundle.process.start()
 
@@ -97,6 +97,8 @@ class ServiceRepository:
                         dead_processes.append(io_type_name)
                         alive_process_count -= 1
 
+                    self.handle_logging(source_bundle.service.components.logging_queue)
+
                     self.dispatch_notifications(
                         io_type_name=io_type_name,
                         source_bundle=source_bundle,
@@ -113,6 +115,13 @@ class ServiceRepository:
 
         finally:
             self.shutdown()
+
+    @staticmethod
+    def handle_logging(queue: Queue):
+        # FIXME
+        while not queue.empty():
+            record: LogRecord = queue.get()
+            _logger.handle(record)
 
     def dispatch_notifications(self, io_type_name: str, source_bundle: ServiceBundle, dead_processes: list[str]):
         while not source_bundle.service.notification_queue_out.empty():

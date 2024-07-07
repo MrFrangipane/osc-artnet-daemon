@@ -1,5 +1,7 @@
 import logging
 import time
+
+from logging.handlers import QueueHandler
 from multiprocessing import Event, Queue
 
 from oscartnetdaemon.domain_contract.abstract_io import AbstractIO
@@ -18,6 +20,7 @@ _logger = logging.getLogger(__name__)
 class Service:
     def __init__(self, registration_info: ServiceRegistrationInfo):
         self.components = ServiceComponents()
+
         self.configuration_loader = registration_info.configuration_loader
         self.configuration: BaseConfiguration | None = None
 
@@ -34,6 +37,14 @@ class Service:
         self.startup_done = Event()
         self.should_terminate = Event()
         self._is_shut_down = False
+
+    def initialize_logging(self):
+        # FIXME
+        loggers = [logging.getLogger(name) for name in logging.root.manager.loggerDict]
+        for logger in loggers:
+            handler = QueueHandler(self.components.logging_queue)
+            logger.addHandler(handler)
+            logger.setLevel(logging.INFO)
 
     def _make_variable_repository(self, registration_info: ServiceRegistrationInfo):
         if registration_info.variable_repository_type is not None:
@@ -71,6 +82,7 @@ class Service:
         """
         Entry point for Service's dedicated multiprocessing.Process
         """
+        self.initialize_logging()
         self.initialize(shared_data)
         self.io.start()
         self.startup_done.set()
