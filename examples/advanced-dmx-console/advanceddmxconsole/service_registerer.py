@@ -7,6 +7,7 @@ from advanceddmxconsole.variable.button import ArtnetButton
 from advanceddmxconsole.variable.fader import ArtnetFader
 from advanceddmxconsole.configuration_loader import ArtnetConfigurationLoader
 # from advanceddmxconsole.variable_repository import ArtnetVariableRepository  TODO
+from advanceddmxconsole.shared_data import SharedData
 
 
 class ArtnetServiceRegisterer(AbstractServiceRegisterer):
@@ -20,6 +21,7 @@ class ArtnetServiceRegisterer(AbstractServiceRegisterer):
             variable_types={
                 VariableType.Fader: ArtnetFader,
                 VariableType.Button: ArtnetButton
-            }
+            },
+            shared_data_type=SharedData
             # variable_repository_type=ArtnetVariableRepository  TODO
         )

@@ -49,8 +49,8 @@ class AdvancedDmxConsole(metaclass=SingletonMetaclass):
             os.mkdir(ProgramRepository.DIR_PROGRAMS)
 
         self.fixture_repository.initialize(self.components)
-        self.program_repository.initialize(self.components)
         self.fixture_pager_index = 0
+        self.program_repository.initialize(self.components)
 
         self.initialize_fixture_list_buttons()
         self.initialize_dmx_faders()

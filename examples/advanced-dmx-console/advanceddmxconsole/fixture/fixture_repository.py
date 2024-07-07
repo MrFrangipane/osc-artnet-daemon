@@ -1,6 +1,7 @@
 from oscartnetdaemon.domain_contract.service_components import ServiceComponents
 
 from advanceddmxconsole.fixture.fixture import Fixture
+from advanceddmxconsole.shared_data import SharedData
 
 
 class FixtureRepository:
@@ -20,6 +21,9 @@ class FixtureRepository:
         for fixture in self.fixtures:
             fixture.create_channels(universe_address)
             universe_address += len(fixture.info.type.channels)
+
+        shared_data: SharedData = self.components.shared_data
+        shared_data.set_fixture_names([fixture.info.name for fixture in self.fixtures])
 
     def count(self):
         return len(self.fixtures)

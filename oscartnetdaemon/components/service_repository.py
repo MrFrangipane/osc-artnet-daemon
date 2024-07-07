@@ -23,6 +23,9 @@ class ServiceRepository:
         self.shared_datas: dict[str, BaseSharedData] = dict()
         self.shared_data_manager: BaseManager | None = None
 
+    def shared_data(self, shared_data_type: Type[BaseSharedData]):
+        return self.shared_datas[shared_data_type.__name__]
+
     def register(self, registerer: Type[AbstractServiceRegisterer]) -> Service:
         registration_info = registerer.make_registration_info()
         new_bundle = ServiceBundle(
@@ -48,12 +51,10 @@ class ServiceRepository:
         self.shared_data_manager.start()
 
     def create_process(self, bundle: ServiceBundle):
-        io_name = bundle.registration_info.io_type.__name__
-
         if bundle.registration_info.shared_data_type is not None:
             shared_data_name = bundle.registration_info.shared_data_type.__name__
             new_shared_data = getattr(self.shared_data_manager, shared_data_name)()
-            self.shared_datas[io_name] = new_shared_data
+            self.shared_datas[shared_data_name] = new_shared_data
             bundle.process = Process(target=bundle.service.exec, args=[new_shared_data])
 
         else:
@@ -64,6 +65,7 @@ class ServiceRepository:
 
         for bundle in self.service_bundles.values():
             io_name = bundle.registration_info.io_type.__name__
+
             self.create_process(bundle)
             bundle.process.start()
 
@@ -142,17 +144,14 @@ class ServiceRepository:
 
     def shutdown(self):
         for io_name, bundle in self.service_bundles.items():
-            if not bundle.process.is_alive():
-                _logger.info(f"Service '{io_name}' already shut down")
-                continue
+            if bundle.process.is_alive():
+                clear(bundle.service.notification_queue_out)
+                clear(bundle.service.io_message_queue_out)
+                clear(bundle.service.notification_queue_in)
+                clear(bundle.service.io_message_queue_in)
 
-            clear(bundle.service.notification_queue_out)
-            clear(bundle.service.io_message_queue_out)
-            clear(bundle.service.notification_queue_in)
-            clear(bundle.service.io_message_queue_in)
-
-            bundle.service.should_terminate.set()
-            while bundle.process.is_alive():
-                time.sleep(0.01)
+                bundle.service.should_terminate.set()
+                while bundle.process.is_alive():
+                    time.sleep(0.01)
 
             _logger.info(f"Process for Service '{io_name}' finished with code {bundle.process.exitcode}")
