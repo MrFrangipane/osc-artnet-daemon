@@ -60,8 +60,9 @@ class ProgramRepository:
     def count(self):
         return len(self.programs)
 
-    def save(self, index: int):
+    def save(self, index: int, new_name: str):
         program = self.programs[index]
+        program.name = new_name
         program.fixtures_snapshots = list()
         for fixture in self.fixture_repository.fixtures:
             program.fixtures_snapshots.append(fixture.snapshot())

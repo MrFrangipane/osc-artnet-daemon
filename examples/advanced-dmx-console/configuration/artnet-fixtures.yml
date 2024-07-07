@@ -31,8 +31,5 @@ fixtures-types:
           - { name: PanTAut, unused: True }
 
 fixtures:
-    - name: Wash C
-      type: VarytecHeroWash300FC
-
-    - name: Wash J
-      type: VarytecHeroWash300FC
+    - { type: VarytecHeroWash300FC, name: Wash C }
+    - { type: VarytecHeroWash300FC, name: Wash J }

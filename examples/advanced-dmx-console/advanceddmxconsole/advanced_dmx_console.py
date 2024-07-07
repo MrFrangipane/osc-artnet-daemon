@@ -147,6 +147,7 @@ class AdvancedDmxConsole(metaclass=SingletonMetaclass):
             variable_fader.value.value = 0.0
 
     def select_fixture(self, index: int):
+        self.components.shared_data.set_selected_fixture_index(index)
         self.current_fixture = self.fixture_repository.select(index)
         self.current_fixture_to_faders()
 
@@ -162,11 +163,11 @@ class AdvancedDmxConsole(metaclass=SingletonMetaclass):
         self.notify_all(self.dmx_faders)
 
     def select_next_fixture(self):
-        self.fixture_pager_index += 1
+        self.fixture_pager_index = (self.fixture_pager_index + 1) % self.fixture_repository.count()
         self.select_fixture(self.fixture_pager_index)
 
     def select_previous_fixture(self):
-        self.fixture_pager_index -= 1
+        self.fixture_pager_index = (self.fixture_pager_index - 1) % self.fixture_repository.count()
         self.select_fixture(self.fixture_pager_index)
 
     def reset_fixture(self):
@@ -222,8 +223,13 @@ class AdvancedDmxConsole(metaclass=SingletonMetaclass):
         self.select_fixture(self.fixture_pager_index)
         self.io.set_universe(self.universe)
 
+        self.components.shared_data.set_current_program_name(self.current_program.name)
+        self.components.shared_data.set_has_current_program_changed(True)
+
     def save_program(self, index: int):
-        self.program_repository.save(index)
+        new_name = self.components.shared_data.get_current_program_name()
+        self.program_repository.save(index, new_name)
+        self.display_program_list()
 
     def reset_program(self):
         self.program_repository.reset(self.current_program.index)

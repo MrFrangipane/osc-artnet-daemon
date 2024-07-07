@@ -38,8 +38,10 @@ class ServiceRepository:
 
     def exec(self, post_initialize_callback: Callable | None = None):
         self.initialize()
+
         if post_initialize_callback is not None:
             post_initialize_callback()
+
         self.loop()
 
     def initialize_shared_data_manager(self):

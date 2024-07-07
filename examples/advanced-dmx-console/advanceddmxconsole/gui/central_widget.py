@@ -1,9 +1,11 @@
+from PySide6.QtCore import Signal
 from PySide6.QtWidgets import QWidget, QLineEdit, QListWidget, QLabel, QGridLayout
-
-from advanceddmxconsole.advanced_dmx_console import AdvancedDmxConsole
 
 
 class CentralWidget(QWidget):
+
+    ProgramNameChanged = Signal(str)
+
     def __init__(self, parent=None):
         super().__init__(parent)
 
@@ -11,6 +13,7 @@ class CentralWidget(QWidget):
 
         self.program_name = QLineEdit()
         self.program_name.setMaxLength(7)
+        self.program_name.textChanged.connect(self.ProgramNameChanged)
 
         layout = QGridLayout(self)
         layout.addWidget(QLabel("Current program name"), 0, 0)
@@ -21,6 +24,23 @@ class CentralWidget(QWidget):
 
         layout.setRowStretch(2, 100)
 
-    def a(self):
-        for fixture in AdvancedDmxConsole().fixture_repository.fixtures:
-            self.fixtures.addItem(fixture.info.name)
+    def set_program_name(self, name: str):
+        self.program_name.setText(name)
+
+    def get_program_name(self) -> str:
+        return self.program_name.text()
+
+    def set_fixture_names(self, names: list[str]):
+        current_names = [self.fixtures.item(i).text() for i in range(self.fixtures.count())]
+        if current_names == names:
+            return
+
+        self.fixtures.clear()
+        self.fixtures.addItems(names)
+
+    def set_selected_fixture(self, index: int):
+        current_selected_fixture_index = self.fixtures.currentRow()
+        if current_selected_fixture_index == index:
+            return
+
+        self.fixtures.setCurrentRow(index)

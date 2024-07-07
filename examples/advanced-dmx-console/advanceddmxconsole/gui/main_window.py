@@ -12,7 +12,8 @@ class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
 
-        self.setCentralWidget(CentralWidget())
+        self.central_widget = CentralWidget()
+        self.setCentralWidget(self.central_widget)
         dock_logger_to_main_window(self)
 
         self.resize(600, 360)
