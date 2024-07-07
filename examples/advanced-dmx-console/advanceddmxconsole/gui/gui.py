@@ -51,7 +51,7 @@ class GUI(QObject):
             self.main_window.show()
         else:
             self.main_window.setWindowFlag(Qt.FramelessWindowHint, True)
-            self.main_window.showMaximized()
+            self.main_window.showFullScreen()
 
         self.q_application.exec()
 
