@@ -13,6 +13,7 @@
 
 ## TODO
 
+- FIX LOG QUEUE
 - fix "nested" recall groups issue
 - fix error messages on recall empty slot
 - move MIDIPagination, MIDILayerGroup, OSCRecallGroup to domain contract ?

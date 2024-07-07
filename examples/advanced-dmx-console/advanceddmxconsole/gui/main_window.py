@@ -15,6 +15,8 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(CentralWidget())
         dock_logger_to_main_window(self)
 
+        self.resize(600, 360)
+
     def showEvent(self, event):
         self.Shown.emit()
         event.accept()
