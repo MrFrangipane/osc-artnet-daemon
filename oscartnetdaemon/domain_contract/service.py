@@ -5,6 +5,7 @@ from multiprocessing import Event, Queue
 from oscartnetdaemon.domain_contract.abstract_io import AbstractIO
 from oscartnetdaemon.domain_contract.abstract_io_message import AbstractIOMessage
 from oscartnetdaemon.domain_contract.base_configuration import BaseConfiguration
+from oscartnetdaemon.domain_contract.base_shared_data import BaseSharedData
 from oscartnetdaemon.domain_contract.change_notification import ChangeNotification
 from oscartnetdaemon.domain_contract.service_components import ServiceComponents
 from oscartnetdaemon.domain_contract.service_registration_info import ServiceRegistrationInfo
@@ -50,7 +51,7 @@ class Service:
         )
         self.components.variable_repository = self.variable_repository
 
-    def initialize(self):
+    def initialize(self, shared_data: BaseSharedData):
         self.configuration = self.configuration_loader.load()
         self.variable_repository.create_variables(
             configuration=self.configuration,
@@ -62,13 +63,15 @@ class Service:
         self.components.notification_queue_in = self.notification_queue_in
         self.components.notification_queue_out = self.notification_queue_out
 
+        self.components.shared_data = shared_data
+
         self.io = self.io_type(self.components)
 
-    def exec(self):
+    def exec(self, shared_data: BaseSharedData | None = None):
         """
         Entry point for Service's dedicated multiprocessing.Process
         """
-        self.initialize()
+        self.initialize(shared_data)
         self.io.start()
         self.startup_done.set()
         self.variable_repository.notify_all_variables()

@@ -6,6 +6,7 @@ from oscartnetdaemon.domain_contract.base_configuration import BaseConfiguration
 from oscartnetdaemon.domain_contract.change_notification import ChangeNotification
 from oscartnetdaemon.domain_contract.variable_repository import VariableRepository
 from oscartnetdaemon.domain_contract.service_registration_info import ServiceRegistrationInfo
+from oscartnetdaemon.domain_contract.base_shared_data import BaseSharedData
 
 
 @dataclass
@@ -20,3 +21,5 @@ class ServiceComponents:
     io_message_queue_out: "Queue[AbstractIOMessage] | None" = None
 
     variable_repository: VariableRepository | None = None
+
+    shared_data: BaseSharedData | None = None

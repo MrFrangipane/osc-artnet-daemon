@@ -6,6 +6,7 @@ from oscartnetdaemon.domain_contract.abstract_io import AbstractIO
 from oscartnetdaemon.domain_contract.variable.abstract import AbstractVariable
 from oscartnetdaemon.domain_contract.variable_type_enum import VariableType
 from oscartnetdaemon.domain_contract.variable_repository import VariableRepository
+from oscartnetdaemon.domain_contract.base_shared_data import BaseSharedData
 
 
 @dataclass
@@ -14,3 +15,4 @@ class ServiceRegistrationInfo:
     io_type: Type[AbstractIO]
     variable_types: dict[VariableType, Type[AbstractVariable]]
     variable_repository_type: Type[VariableRepository] | None = None
+    shared_data_type: Type[BaseSharedData] | None = None

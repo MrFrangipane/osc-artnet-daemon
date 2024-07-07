@@ -19,6 +19,7 @@
 - fork mido and add timeout `midi_in.receive(timeout=0.2)
 - find dead code with [vulture](https://github.com/jendrikseipp/vulture)
 - ~~wildcards in config files for variable reference~~
+- unify inter-process communication (Queues, Managers, Dataclasses)
 - unify configuration files ?
 ````yaml
 ---

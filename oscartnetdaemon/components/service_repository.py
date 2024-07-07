@@ -2,9 +2,11 @@
 import time
 import logging
 from multiprocessing import Process
+from multiprocessing.managers import BaseManager
 from typing import Callable, Type
 
 from oscartnetdaemon.domain_contract.abstract_service_registerer import AbstractServiceRegisterer
+from oscartnetdaemon.domain_contract.base_shared_data import BaseSharedData
 from oscartnetdaemon.domain_contract.change_notification_scope_enum import ChangeNotificationScope
 from oscartnetdaemon.domain_contract.service import Service
 from oscartnetdaemon.domain_contract.service_bundle import ServiceBundle
@@ -18,10 +20,15 @@ class ServiceRepository:
 
     def __init__(self):
         self.service_bundles: dict[str, ServiceBundle] = dict()
+        self.shared_datas: dict[str, BaseSharedData] = dict()
+        self.shared_data_manager: BaseManager | None = None
 
     def register(self, registerer: Type[AbstractServiceRegisterer]) -> Service:
         registration_info = registerer.make_registration_info()
-        new_bundle = ServiceBundle(service=Service(registration_info))
+        new_bundle = ServiceBundle(
+            service=Service(registration_info),
+            registration_info=registration_info
+        )
         self.service_bundles[registration_info.io_type.__name__] = new_bundle
         return new_bundle.service
 
@@ -31,17 +38,41 @@ class ServiceRepository:
             post_initialize_callback()
         self.loop()
 
-    def initialize(self):
+    def initialize_shared_data_manager(self):
         for bundle in self.service_bundles.values():
+            shared_data_type = bundle.registration_info.shared_data_type
+            if shared_data_type is not None:
+                BaseManager.register(shared_data_type.__name__, shared_data_type)
+
+        self.shared_data_manager = BaseManager()
+        self.shared_data_manager.start()
+
+    def create_process(self, bundle: ServiceBundle):
+        io_name = bundle.registration_info.io_type.__name__
+
+        if bundle.registration_info.shared_data_type is not None:
+            shared_data_name = bundle.registration_info.shared_data_type.__name__
+            new_shared_data = getattr(self.shared_data_manager, shared_data_name)()
+            self.shared_datas[io_name] = new_shared_data
+            bundle.process = Process(target=bundle.service.exec, args=[new_shared_data])
+
+        else:
             bundle.process = Process(target=bundle.service.exec)
+
+    def initialize(self):
+        self.initialize_shared_data_manager()
+
+        for bundle in self.service_bundles.values():
+            io_name = bundle.registration_info.io_type.__name__
+            self.create_process(bundle)
             bundle.process.start()
 
-            _logger.info(f"Starting service '{bundle.service.io_type.__name__}'...")
+            _logger.info(f"Starting service '{io_name}'...")
             while not bundle.service.startup_done.is_set() and bundle.process.is_alive():
                 time.sleep(.1)
 
             if not bundle.process.is_alive():
-                _logger.warning(f"Service '{bundle.service.io_type.__name__}' finished with code {bundle.process.exitcode}")
+                _logger.warning(f"Service '{io_name}' finished with code {bundle.process.exitcode}")
 
         _logger.info("Starting process finished")
 
