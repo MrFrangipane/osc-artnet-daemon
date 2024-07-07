@@ -26,6 +26,51 @@ devices:
       - { type: Button, midi-parsing: { channel: 0, type: note_on, note: 07 }, name: Button.Rec.08 }
 
       #
+      # INDICATORS
+      - { type: Indicator, midi-parsing: { channel: 0, type: note_on, note: 08 }, name: Indicator.01 }
+      - { type: Indicator, midi-parsing: { channel: 0, type: note_on, note: 09 }, name: Indicator.02 }
+      - { type: Indicator, midi-parsing: { channel: 0, type: note_on, note: 10 }, name: Indicator.03 }
+      - { type: Indicator, midi-parsing: { channel: 0, type: note_on, note: 11 }, name: Indicator.04 }
+      - { type: Indicator, midi-parsing: { channel: 0, type: note_on, note: 12 }, name: Indicator.05 }
+      - { type: Indicator, midi-parsing: { channel: 0, type: note_on, note: 13 }, name: Indicator.06 }
+      - { type: Indicator, midi-parsing: { channel: 0, type: note_on, note: 14 }, name: Indicator.07 }
+      - { type: Indicator, midi-parsing: { channel: 0, type: note_on, note: 15 }, name: Indicator.08 }
+
+      #
+      # FADERS
+      - name: Fader.01
+        type: Fader
+        midi-parsing: { channel: 0, type: pitchwheel }
+
+      - name: Fader.02
+        type: Fader
+        midi-parsing: { channel: 1, type: pitchwheel }
+
+      - name: Fader.03
+        type: Fader
+        midi-parsing: { channel: 2, type: pitchwheel }
+
+      - name: Fader.04
+        type: Fader
+        midi-parsing: { channel: 3, type: pitchwheel }
+
+      - name: Fader.05
+        type: Fader
+        midi-parsing: { channel: 4, type: pitchwheel }
+
+      - name: Fader.06
+        type: Fader
+        midi-parsing: { channel: 5, type: pitchwheel }
+
+      - name: Fader.07
+        type: Fader
+        midi-parsing: { channel: 6, type: pitchwheel }
+
+      - name: Fader.08
+        type: Fader
+        midi-parsing: { channel: 7, type: pitchwheel }
+
+      #
       # TEXTS
       - name: Scribble.Top.01
         type: Text
@@ -123,40 +168,6 @@ devices:
           "00", "00", "66", "15", "12", "69", "{0}", "{1}", "{2}", "{3}", "{4}", "{5}", "{6}"
         ]}
 
-      #
-      # FADERS
-      - name: Fader.01
-        type: Fader
-        midi-parsing: { channel: 0, type: pitchwheel }
-
-      - name: Fader.02
-        type: Fader
-        midi-parsing: { channel: 1, type: pitchwheel }
-
-      - name: Fader.03
-        type: Fader
-        midi-parsing: { channel: 2, type: pitchwheel }
-
-      - name: Fader.04
-        type: Fader
-        midi-parsing: { channel: 3, type: pitchwheel }
-
-      - name: Fader.05
-        type: Fader
-        midi-parsing: { channel: 4, type: pitchwheel }
-
-      - name: Fader.06
-        type: Fader
-        midi-parsing: { channel: 5, type: pitchwheel }
-
-      - name: Fader.07
-        type: Fader
-        midi-parsing: { channel: 6, type: pitchwheel }
-
-      - name: Fader.08
-        type: Fader
-        midi-parsing: { channel: 7, type: pitchwheel }
-
   - name: 'X-Touch'
     midi-port-pattern: "X-Touch "
     variables:
@@ -198,6 +209,17 @@ devices:
       - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 55 }, name: Button.F2 }
       - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 56 }, name: Button.F3 }
       - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 57 }, name: Button.F4 }
+
+      #
+      # INDICATORS
+      - { type: Indicator, midi-parsing: { channel: 0, type: note_on, note: 08 }, name: Indicator.09 }
+      - { type: Indicator, midi-parsing: { channel: 0, type: note_on, note: 09 }, name: Indicator.10 }
+      - { type: Indicator, midi-parsing: { channel: 0, type: note_on, note: 10 }, name: Indicator.11 }
+      - { type: Indicator, midi-parsing: { channel: 0, type: note_on, note: 11 }, name: Indicator.12 }
+      - { type: Indicator, midi-parsing: { channel: 0, type: note_on, note: 12 }, name: Indicator.13 }
+      - { type: Indicator, midi-parsing: { channel: 0, type: note_on, note: 13 }, name: Indicator.14 }
+      - { type: Indicator, midi-parsing: { channel: 0, type: note_on, note: 14 }, name: Indicator.15 }
+      - { type: Indicator, midi-parsing: { channel: 0, type: note_on, note: 15 }, name: Indicator.16 }
 
       #
       # FADERS

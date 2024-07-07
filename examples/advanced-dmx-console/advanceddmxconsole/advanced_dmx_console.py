@@ -32,12 +32,14 @@ class AdvancedDmxConsole(metaclass=SingletonMetaclass):
         self.current_fixture: Fixture | None = None
         self.fixture_pager_index: int = 0  # Fixme move all selection logic to repository
         self.fixture_list_buttons: list[AbstractVariable] = list()
+        self.fixture_indicators: list[AbstractVariable] = list()
         self.fixture_copy_slot: Fixture | None = None
 
         self.program_repository = ProgramRepository(universe=self.universe, fixture_repository=self.fixture_repository)
         self.current_program: ProgramInfo | None = None
         self.program_list_select_buttons: list[AbstractVariable] = list()
         self.program_list_save_buttons: list[AbstractVariable] = list()
+        self.program_indicators: list[AbstractVariable] = list()
 
         self.dmx_faders: list[AbstractVariable] = list()
 
@@ -53,8 +55,10 @@ class AdvancedDmxConsole(metaclass=SingletonMetaclass):
         self.program_repository.initialize(self.components)
 
         self.initialize_fixture_list_buttons()
+        self.initialize_fixture_indicators()
         self.initialize_dmx_faders()
         self.initialize_program_list_buttons()
+        self.initialize_program_indicators()
 
         self.display_fixture_list()
         self.display_program_list()
@@ -121,6 +125,12 @@ class AdvancedDmxConsole(metaclass=SingletonMetaclass):
             if name.startswith('Fixture.Button.Select')
         ])
 
+    def initialize_fixture_indicators(self):
+        self.fixture_indicators = list([
+            variable for name, variable in self.components.variable_repository.variables.items()
+            if name.startswith('Fixture.Indicator')
+        ])
+
     def reset_fixture_list_captions(self):
         for variable_button in self.fixture_list_buttons:
             variable_button.info.caption = ""
@@ -150,6 +160,9 @@ class AdvancedDmxConsole(metaclass=SingletonMetaclass):
         self.components.shared_data.set_selected_fixture_index(index)
         self.current_fixture = self.fixture_repository.select(index)
         self.current_fixture_to_faders()
+        for indicator in self.fixture_indicators:
+            value = ValueFloat(float(indicator.info.index == index))
+            self.notify(indicator.info.name, value)
 
     def current_fixture_to_faders(self):
         self.fixture_pager_index = self.fixture_repository.fixtures.index(self.current_fixture)
@@ -206,6 +219,12 @@ class AdvancedDmxConsole(metaclass=SingletonMetaclass):
             if name.startswith('Program.Button.Rec')
         ])
 
+    def initialize_program_indicators(self):
+        self.program_indicators = list([
+            variable for name, variable in self.components.variable_repository.variables.items()
+            if name.startswith('Program.Indicator')
+        ])
+
     def reset_program_list_captions(self):
         for variable_button in self.program_list_select_buttons:
             variable_button.info.caption = ""
@@ -225,6 +244,10 @@ class AdvancedDmxConsole(metaclass=SingletonMetaclass):
 
         self.components.shared_data.set_current_program_name(self.current_program.name)
         self.components.shared_data.set_has_current_program_changed(True)
+
+        for indicator in self.program_indicators:
+            value = ValueFloat(float(indicator.info.index == index))
+            self.notify(indicator.info.name, value)
 
     def save_program(self, index: int):
         new_name = self.components.shared_data.get_current_program_name()

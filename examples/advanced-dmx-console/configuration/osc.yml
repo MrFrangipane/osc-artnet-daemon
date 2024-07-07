@@ -1,7 +1,0 @@
----
-schema_version: 1
-server-ip-address: ""
-server-ip-address-autodetect: True
-server-port: 8080
-
-variables: []

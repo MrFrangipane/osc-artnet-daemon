@@ -10,3 +10,4 @@ pages:
       - Fader.*
       - Button.Select.*
       - Button.Rec.*
+      - Indicator.*
