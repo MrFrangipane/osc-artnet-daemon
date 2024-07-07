@@ -71,7 +71,7 @@ class GUI(QObject):
 
         if shared_data.get_has_current_program_changed():
             self.main_window.central_widget.set_program_name(shared_data.get_current_program_name())
-            shared_data.set_current_program_name(False)
+            shared_data.set_has_current_program_changed(False)
 
     def program_name_changed(self, name: str):
         shared_data: ArtnetSharedData = self.service_repository.shared_data(ArtnetSharedData)
