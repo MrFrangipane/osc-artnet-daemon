@@ -6,3 +6,4 @@ class VariableType(Enum):
     Fader = "Fader"
     Button = "Button"
     RecallSlot = 'RecallSlot'
+    Indicator = "Indicator"
