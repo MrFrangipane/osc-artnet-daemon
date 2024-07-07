@@ -1,3 +1,5 @@
+export QT_SCALE_FACTOR=1.5
+
 export PYTHONPATH=${PYTHONPATH}:~/AdvancedDMXConsole/osc-artnet-daemon
 export PYTHONPATH=${PYTHONPATH}:~/AdvancedDMXConsole/osc-artnet-daemon/examples/advanced-dmx-console
 cd ~/AdvancedDMXConsole/osc-artnet-daemon/examples/advanced-dmx-console || exit
