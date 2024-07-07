@@ -23,6 +23,7 @@ class ServiceRepository:
         self.service_bundles: dict[str, ServiceBundle] = dict()
         self.shared_datas: dict[str, BaseSharedData] = dict()
         self.shared_data_manager: BaseManager | None = None
+        self.logging_queue: Queue = Queue()
 
     def shared_data(self, shared_data_type: Type[BaseSharedData]):
         return self.shared_datas[shared_data_type.__name__]
@@ -54,14 +55,15 @@ class ServiceRepository:
         self.shared_data_manager.start()
 
     def create_process(self, bundle: ServiceBundle):
+        args = [self.logging_queue]
+
         if bundle.registration_info.shared_data_type is not None:
             shared_data_name = bundle.registration_info.shared_data_type.__name__
             new_shared_data = getattr(self.shared_data_manager, shared_data_name)()
             self.shared_datas[shared_data_name] = new_shared_data
-            bundle.process = Process(target=bundle.service.exec, args=[new_shared_data])
+            args.append(new_shared_data)
 
-        else:
-            bundle.process = Process(target=bundle.service.exec)
+        bundle.process = Process(target=bundle.service.exec, args=args)
 
     def initialize(self):
         self.initialize_shared_data_manager()
@@ -90,6 +92,8 @@ class ServiceRepository:
 
         try:
             while alive_process_count > 0:
+                self.handle_logging()
+
                 for io_type_name, source_bundle in self.service_bundles.items():
                     if io_type_name in dead_processes:
                         continue
@@ -98,8 +102,6 @@ class ServiceRepository:
                         _logger.warning(f"Service '{io_type_name}' is dead")
                         dead_processes.append(io_type_name)
                         alive_process_count -= 1
-
-                    self.handle_logging(source_bundle.service.components.logging_queue)
 
                     self.dispatch_notifications(
                         io_type_name=io_type_name,
@@ -118,11 +120,9 @@ class ServiceRepository:
         finally:
             self.shutdown()
 
-    @staticmethod
-    def handle_logging(queue: Queue):
-        # FIXME
-        while not queue.empty():
-            record: LogRecord = queue.get()
+    def handle_logging(self):
+        while not self.logging_queue.empty():
+            record: LogRecord = self.logging_queue.get()
             _logger.handle(record)
 
     def dispatch_notifications(self, io_type_name: str, source_bundle: ServiceBundle, dead_processes: list[str]):

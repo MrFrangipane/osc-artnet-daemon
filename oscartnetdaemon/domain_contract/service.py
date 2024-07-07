@@ -38,14 +38,6 @@ class Service:
         self.should_terminate = Event()
         self._is_shut_down = False
 
-    def initialize_logging(self):
-        # FIXME
-        loggers = [logging.getLogger(name) for name in logging.root.manager.loggerDict]
-        for logger in loggers:
-            handler = QueueHandler(self.components.logging_queue)
-            logger.addHandler(handler)
-            logger.setLevel(logging.INFO)
-
     def _make_variable_repository(self, registration_info: ServiceRegistrationInfo):
         if registration_info.variable_repository_type is not None:
             if not issubclass(registration_info.variable_repository_type, VariableRepository):
@@ -78,11 +70,13 @@ class Service:
 
         self.io = self.io_type(self.components)
 
-    def exec(self, shared_data: BaseSharedData | None = None):
+    def exec(self, logging_queue: Queue, shared_data: BaseSharedData | None = None):
         """
         Entry point for Service's dedicated multiprocessing.Process
         """
-        self.initialize_logging()
+        logging.root.addHandler(QueueHandler(logging_queue))
+        logging.root.setLevel(logging.INFO)  # FIXME get logging level from ServiceRepository
+
         self.initialize(shared_data)
         self.io.start()
         self.startup_done.set()

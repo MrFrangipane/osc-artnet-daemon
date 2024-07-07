@@ -1,4 +1,4 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from multiprocessing import Queue
 
 from oscartnetdaemon.domain_contract.abstract_io_message import AbstractIOMessage
@@ -24,4 +24,4 @@ class ServiceComponents:
 
     shared_data: BaseSharedData | None = None
 
-    logging_queue: Queue = field(default_factory=Queue)
+    logging_queue: "Queue | None" = None
