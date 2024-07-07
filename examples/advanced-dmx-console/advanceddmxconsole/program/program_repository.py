@@ -118,4 +118,5 @@ class ProgramRepository:
 
     def paste(self, index: int):
         self.programs[index] = copy.deepcopy(self.copy_slot)
+        self.programs[index].index = index
         self.load(index)
