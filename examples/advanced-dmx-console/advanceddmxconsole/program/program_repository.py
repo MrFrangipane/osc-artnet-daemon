@@ -52,6 +52,11 @@ class ProgramRepository:
 
                     if not self.check_compliance(new_program):
                         _logger.warning(f"Not loaded")
+                        self.programs.append(ProgramInfo(
+                            name=f"Prog.{index + 1:02}",
+                            index=index,
+                            fixtures_snapshots=[fixture.snapshot() for fixture in self.fixture_repository.fixtures]
+                        ))
 
                     else:
                         self.programs.append(new_program)
