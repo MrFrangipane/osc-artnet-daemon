@@ -23,7 +23,10 @@ class FixtureRepository:
             universe_address += len(fixture.info.type.channels)
 
         shared_data: ArtnetSharedData = self.components.shared_data
-        shared_data.set_fixture_names([fixture.info.name for fixture in self.fixtures])
+        shared_data.set_fixture_names([
+            f"[{fixture.universe_address + 1:03}-{fixture.universe_address + len(fixture.channels):03}] {fixture.info.name}"
+            for fixture in self.fixtures
+        ])
 
     def count(self):
         return len(self.fixtures)

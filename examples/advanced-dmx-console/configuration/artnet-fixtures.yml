@@ -30,6 +30,29 @@ fixtures-types:
           - { name: ZoomAut, unused: True }
           - { name: PanTAut, unused: True }
 
+    - name: Tristan200
+      channels:
+          - { name: Pan }
+          - { name: Pan.F }
+          - { name: Tilt }
+          - { name: Tilt.F }
+          - { name: Speed }
+          - { name: Color }
+          - { name: Gobo1 }
+          - { name: Gobo1.R }
+          - { name: Gobo2 }
+          - { name: Prism }
+          - { name: Prism_R }
+          - { name: Frost }
+          - { name: Focus }
+          - { name: Focus.F }
+          - { name: Shutter }
+          - { name: Dimmer }
+          - { name: Dimm.F }
+          - { name: Reset }
+
 fixtures:
     - { type: VarytecHeroWash300FC, name: Wash C }
     - { type: VarytecHeroWash300FC, name: Wash J }
+    - { type: Tristan200, name: Lyre J }
+    - { type: Tristan200, name: Lyre C }
