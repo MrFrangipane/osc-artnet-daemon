@@ -119,7 +119,12 @@ class ProgramRepository:
 
     def paste(self, index: int):
         program = copy.deepcopy(self.copy_slot)
-        program.name = program.name[:-1] + "*"
+
+        if len(program.name) == 7:
+            program.name = program.name[:-1] + "*"
+        else:
+            program.name = program.name + "*"
+
         program.index = index
 
         shared_data: ArtnetSharedData = self.components.shared_data
