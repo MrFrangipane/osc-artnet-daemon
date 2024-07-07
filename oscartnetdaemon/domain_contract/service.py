@@ -1,5 +1,5 @@
-import time
 import logging
+import time
 from multiprocessing import Event, Queue
 
 from oscartnetdaemon.domain_contract.abstract_io import AbstractIO
