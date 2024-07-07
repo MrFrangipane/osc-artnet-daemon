@@ -7,6 +7,7 @@ from oscartnetdaemon.domain_contract.service_components import ServiceComponents
 
 from advanceddmxconsole.fixture.fixture_repository import FixtureRepository
 from advanceddmxconsole.program.program_info import ProgramInfo
+from advanceddmxconsole.shared_data import ArtnetSharedData
 
 
 _logger = logging.getLogger(__name__)
@@ -117,6 +118,13 @@ class ProgramRepository:
         self.copy_slot = copy.deepcopy(self.programs[index])
 
     def paste(self, index: int):
-        self.programs[index] = copy.deepcopy(self.copy_slot)
-        self.programs[index].index = index
+        program = copy.deepcopy(self.copy_slot)
+        program.name = program.name[:-1] + "*"
+        program.index = index
+
+        shared_data: ArtnetSharedData = self.components.shared_data
+        shared_data.set_current_program_name(program.name)
+        shared_data.set_has_current_program_changed(True)
+
+        self.programs[index] = program
         self.load(index)
