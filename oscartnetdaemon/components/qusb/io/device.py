@@ -35,6 +35,10 @@ def _loop(host: str, port: int, should_stop: Event, io_queue_out: "Queue[QuSbIOM
     fast_socket.queue_out.put(midi_message_request.bin())
     try:
         while not should_stop.is_set():
+            if not fast_socket.process.is_alive():
+                _logger.warning("Could not connect to Qu-SB")
+                return
+
             while not fast_socket.queue_in.empty():
                 parser.feed(fast_socket.queue_in.get())
 
@@ -139,7 +143,7 @@ class QuSbDevice:
             self.host, self.port, self.should_stop, self.queue_out, self.queue_in, startup_done
         ])
         self.process.start()
-        while not startup_done.is_set():
+        while not startup_done.is_set() and self.process.is_alive():
             time.sleep(0.01)
 
     def is_alive(self) -> bool:

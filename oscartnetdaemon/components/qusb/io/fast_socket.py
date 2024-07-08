@@ -11,7 +11,10 @@ _SOCKET_TIMEOUT = 0.0001
 def socket_loop(host: str, port: int, queue_in: "Queue[bytes]", queue_out: "Queue[bytes]", should_stop: Event):
     midi_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     midi_socket.settimeout(_SOCKET_TIMEOUT)
-    midi_socket.connect((host, port))
+    try:
+        midi_socket.connect((host, port))
+    except TimeoutError:
+        return
 
     try:
         while not should_stop.is_set():
