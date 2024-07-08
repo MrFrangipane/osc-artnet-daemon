@@ -16,6 +16,43 @@ from oscartnetdaemon.components.qusb.parameter_type_enum import QuSbParameterTyp
 _logger = logging.getLogger("QuSbDevice")
 
 
+def _loop(host: str, port: int, should_stop: Event, io_queue_out: "Queue[QuSbIOMessage]", io_queue_in: "Queue[QuSbIOMessage]"):
+    fast_socket = FastSocket(host, port)
+    fast_socket.start()
+    parser = Parser()
+
+    io_message: QuSbIOMessage = QuSbIOMessage()
+
+    #
+    # Request device state
+    midi_message_request = Message(
+        type=MIDIMessageType.SysEx.value,
+        data=QuSbConstants.SYSEX_REQUEST_STATE
+    )
+    fast_socket.queue_out.put(midi_message_request.bin())
+    try:
+        while not should_stop.is_set():
+            while not fast_socket.queue_in.empty():
+                parser.feed(fast_socket.queue_in.get())
+
+            while parser.messages:
+                midi_message = parser.messages.popleft()
+
+                process_midi_message(midi_message, io_message)
+                if io_message.is_complete:
+                    io_queue_in.put(copy(io_message))
+                    io_message = QuSbIOMessage()
+
+            while not io_queue_out.empty():
+                process_io_message(fast_socket.queue_out, io_queue_out.get())
+
+    except KeyboardInterrupt:
+        pass
+
+    finally:
+        fast_socket.stop()
+
+
 def process_midi_message(midi_message: Message, io_message: QuSbIOMessage):
     if midi_message is None or midi_message.type == MIDIMessageType.ActiveSensing.value:
         return
@@ -68,43 +105,6 @@ def process_io_message(socket_queue_out: "Queue[bytes]", io_message: QuSbIOMessa
         control=QuSbConstants.NRPN_DATA_ENTRY_FINE,
         value=0,  # TODO: check if really always 0
     ).bin())
-
-
-def _loop(host: str, port: int, should_stop: Event, io_queue_out: "Queue[QuSbIOMessage]", io_queue_in: "Queue[QuSbIOMessage]"):
-    fast_socket = FastSocket(host, port)
-    fast_socket.start()
-    parser = Parser()
-
-    io_message: QuSbIOMessage = QuSbIOMessage()
-
-    #
-    # Request device state
-    midi_message_request = Message(
-        type=MIDIMessageType.SysEx.value,
-        data=QuSbConstants.SYSEX_REQUEST_STATE
-    )
-    fast_socket.queue_out.put(midi_message_request.bin())
-    try:
-        while not should_stop.is_set():
-            while not fast_socket.queue_in.empty():
-                parser.feed(fast_socket.queue_in.get())
-
-            while parser.messages:
-                midi_message = parser.messages.popleft()
-
-                process_midi_message(midi_message, io_message)
-                if io_message.is_complete:
-                    io_queue_in.put(copy(io_message))
-                    io_message = QuSbIOMessage()
-
-            while not io_queue_out.empty():
-                process_io_message(fast_socket.queue_out, io_queue_out.get())
-
-    except KeyboardInterrupt:
-        pass
-
-    finally:
-        fast_socket.stop()
 
 
 class QuSbDevice:

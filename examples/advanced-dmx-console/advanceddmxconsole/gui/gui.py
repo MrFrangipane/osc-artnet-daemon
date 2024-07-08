@@ -28,8 +28,11 @@ class GUI(QObject):
 
         self.service_repository = ServiceRepository()
         self.service_repository.register(MIDIServiceRegisterer)
+
+        # Register last to initialize Variables from there
+        self.service_repository.register(ArtnetServiceRegisterer)
         self.service_repository.register(QuSbServiceRegisterer)
-        self.service_repository.register(ArtnetServiceRegisterer)  # Register last to initialize Variables from there
+
         self.thread = Thread(
             target=self.service_repository.exec,
             kwargs={'post_initialize_callback': self._post_initialize_callback},
