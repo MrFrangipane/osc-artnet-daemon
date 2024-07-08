@@ -95,7 +95,7 @@ class AdvancedDmxConsole(metaclass=SingletonMetaclass):
             self.save_program(info.index)
 
         elif info.name == 'Program.Button.Reset':
-            self.reset_program()
+            self.reset_all_fixtures()
 
         elif info.name == 'Program.Button.Copy':
             self.copy_program()
@@ -189,6 +189,15 @@ class AdvancedDmxConsole(metaclass=SingletonMetaclass):
 
         self.current_fixture_to_faders()
 
+    def reset_all_fixtures(self):
+        for fixture in self.fixture_repository.fixtures:
+            for channel_index, channel in enumerate(fixture.channels):
+                channel.value = channel.value_default
+                self.universe[fixture.universe_address + channel_index] = int(channel.value * 255)
+
+        self.select_fixture(self.fixture_pager_index)
+        self.io.set_universe(self.universe)
+
     def copy_fixture(self):
         self.fixture_copy_slot = deepcopy(self.current_fixture)
 
@@ -253,11 +262,6 @@ class AdvancedDmxConsole(metaclass=SingletonMetaclass):
         new_name = self.components.shared_data.get_current_program_name()
         self.program_repository.save(index, new_name)
         self.display_program_list()
-
-    def reset_program(self):
-        self.program_repository.reset(self.current_program.index)
-        self.select_fixture(self.fixture_pager_index)
-        self.io.set_universe(self.universe)
 
     def copy_program(self):
         self.program_repository.copy(self.current_program.index)

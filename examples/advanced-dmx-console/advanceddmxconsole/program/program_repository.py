@@ -105,19 +105,13 @@ class ProgramRepository:
 
         return True
 
-    def reset(self, index: int):
-        program = self.programs[index]
-
-        for fixture, fixture_snapshot in zip(self.fixture_repository.fixtures, program.fixtures_snapshots):
-            for channel_index, channel in enumerate(fixture.channels):
-                channel.value = channel.value_default
-                fixture_snapshot.channel_values[channel_index] = channel.value_default
-                self.universe[fixture.universe_address + channel_index] = int(channel.value * 255)
-
     def copy(self, index: int):
         self.copy_slot = copy.deepcopy(self.programs[index])
 
     def paste(self, index: int):
+        if self.copy_slot is None:
+            return
+
         program = copy.deepcopy(self.copy_slot)
 
         if len(program.name) == 7:
