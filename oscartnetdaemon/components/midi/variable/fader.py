@@ -7,10 +7,17 @@ from oscartnetdaemon.domain_contract.variable.float import VariableFloat
 
 class MIDIFader(VariableFloat):
 
+    def __init__(self, info: "VariableInfo", io_message_queue_out: "Queue[AbstractIOMessage]", notification_queue_out: "Queue[ChangeNotification]"):
+        super().__init__(info, io_message_queue_out, notification_queue_out)
+        self.is_touch: bool = False
+
     def handle_change_notification(self):
         """
         From ChangeNotification to IO
         """
+        if self.is_touch:
+            return
+
         info: MIDIVariableInfo = self.info  # FIXME type hint for autocompletion
         if MIDIComplianceChecker.with_current_layer(info) and MIDIComplianceChecker.with_current_page(info):
             self.io_message_queue_out.put(MIDIMessage(
@@ -24,8 +31,10 @@ class MIDIFader(VariableFloat):
         """
         From IO to ChangeNotification
         """
-        if not MIDIComplianceChecker.with_io_message(self.info, message):
-            return
+        if MIDIComplianceChecker.with_io_message(self.info, message):
+            self.value.value = float(message.pitch + 8192) / 16380.0
+            self.notify_change()
 
-        self.value.value = float(message.pitch + 8192) / 16380.0
-        self.notify_change()
+        if MIDIComplianceChecker.with_io_message_and_parsing(self.info, self.info.midi_touch, message):
+            self.is_touch = bool(message.velocity)
+            self.notify_change()

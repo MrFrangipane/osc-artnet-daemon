@@ -11,6 +11,7 @@ from oscartnetdaemon.components.midi.page_direction_enum import MIDIPageDirectio
 class MIDIVariableInfo(VariableInfo):
     device_name: str
     midi_parsing: MIDIParsingInfo
+    midi_touch: MIDIParsingInfo | None = None
 
     is_page_button: bool = False
     pagination_name: str = ""
