@@ -1,6 +1,8 @@
 from PySide6.QtCore import Signal
 from PySide6.QtWidgets import QWidget, QLineEdit, QListWidget, QLabel, QGridLayout
 
+from pyside6helpers.group import make_group
+
 
 class CentralWidget(QWidget):
 
@@ -20,7 +22,7 @@ class CentralWidget(QWidget):
         layout.addWidget(self.program_name, 1, 0)
         layout.addWidget(QWidget(), 2, 0)
 
-        layout.addWidget(self.fixtures, 0, 1, 3, 1)
+        layout.addWidget(make_group("Fixtures", [self.fixtures]), 0, 1, 3, 1)
 
         layout.setRowStretch(2, 100)
 
