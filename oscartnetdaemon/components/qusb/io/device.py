@@ -1,4 +1,5 @@
 import logging
+import time
 
 from copy import copy
 from multiprocessing import Event, Process, Queue
@@ -11,12 +12,13 @@ from oscartnetdaemon.components.qusb.constants import QuSbConstants
 from oscartnetdaemon.components.qusb.io.fast_socket import FastSocket
 from oscartnetdaemon.components.qusb.io.message import QuSbIOMessage
 from oscartnetdaemon.components.qusb.parameter_type_enum import QuSbParameterType
+from oscartnetdaemon.domain_contract.change_notification_scope_enum import ChangeNotificationScope
 
 
 _logger = logging.getLogger("QuSbDevice")
 
 
-def _loop(host: str, port: int, should_stop: Event, io_queue_out: "Queue[QuSbIOMessage]", io_queue_in: "Queue[QuSbIOMessage]"):
+def _loop(host: str, port: int, should_stop: Event, io_queue_out: "Queue[QuSbIOMessage]", io_queue_in: "Queue[QuSbIOMessage]", startup_done: Event):
     fast_socket = FastSocket(host, port)
     fast_socket.start()
     parser = Parser()
@@ -24,7 +26,8 @@ def _loop(host: str, port: int, should_stop: Event, io_queue_out: "Queue[QuSbIOM
     io_message: QuSbIOMessage = QuSbIOMessage()
 
     #
-    # Request device state
+    # Request device state, broadcast scope
+    scope = ChangeNotificationScope.Broadcast
     midi_message_request = Message(
         type=MIDIMessageType.SysEx.value,
         data=QuSbConstants.SYSEX_REQUEST_STATE
@@ -38,8 +41,14 @@ def _loop(host: str, port: int, should_stop: Event, io_queue_out: "Queue[QuSbIOM
             while parser.messages:
                 midi_message = parser.messages.popleft()
 
+                # End of device state request, back to foreign scope
+                if bytearray(midi_message.bytes()[1:-1]) == QuSbConstants.SYSEX_REQUEST_STATE_END:
+                    startup_done.set()
+                    scope = ChangeNotificationScope.Foreign
+
                 process_midi_message(midi_message, io_message)
                 if io_message.is_complete:
+                    io_message.scope = scope
                     io_queue_in.put(copy(io_message))
                     io_message = QuSbIOMessage()
 
@@ -125,10 +134,13 @@ class QuSbDevice:
         self.process: Process | None = None
 
     def start(self):
+        startup_done = Event()
         self.process = Process(target=_loop, args=[
-            self.host, self.port, self.should_stop, self.queue_out, self.queue_in
+            self.host, self.port, self.should_stop, self.queue_out, self.queue_in, startup_done
         ])
         self.process.start()
+        while not startup_done.is_set():
+            time.sleep(0.01)
 
     def is_alive(self) -> bool:
         return self.process.is_alive()

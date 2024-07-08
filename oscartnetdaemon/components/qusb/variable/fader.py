@@ -37,4 +37,4 @@ class QuSbFader(VariableFloat):
 
         if self.int_value != message.value:
             self.value.value = float(message.value / 127.0)
-            self.notify_change(scope=ChangeNotificationScope.Foreign)
+            self.notify_change(scope=message.scope)
