@@ -5,6 +5,7 @@ import os
 
 from oscartnetdaemon.domain_contract.service_components import ServiceComponents
 
+from advanceddmxconsole.fixture.dmx_channel import DMXChannel
 from advanceddmxconsole.fixture.fixture_repository import FixtureRepository
 from advanceddmxconsole.program.program_info import ProgramInfo
 from advanceddmxconsole.shared_data import ArtnetSharedData
@@ -80,7 +81,8 @@ class ProgramRepository:
 
         _logger.info(f"Program '{program.name}' saved to {filepath}")
 
-    def load(self, index: int) -> ProgramInfo | None:
+    def load(self, index: int, master_fader: float) -> ProgramInfo | None:
+        # FIXME unify program loading etc
         self.current_program_index = index
         program = self.programs[index]
 
@@ -89,8 +91,12 @@ class ProgramRepository:
 
         for fixture, fixture_snapshot in zip(self.fixture_repository.fixtures, program.fixtures_snapshots):
             for channel_index, value in enumerate(fixture_snapshot.channel_values):
-                fixture.channels[channel_index].value = value
-                self.universe[fixture.universe_address + channel_index] = int(value * 255)
+                channel: DMXChannel = fixture.channels[channel_index]
+                channel.value = value
+                if channel.master_dimmed:
+                    self.universe[fixture.universe_address + channel_index] = int(value * master_fader * 255)
+                else:
+                    self.universe[fixture.universe_address + channel_index] = int(value * 255)
 
         _logger.info(f"Program '{program.name}' loaded")
         return program
