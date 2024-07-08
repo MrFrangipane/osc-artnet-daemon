@@ -4,10 +4,11 @@ from copy import copy
 from multiprocessing import Event, Process, Queue
 
 from mido.messages import Message
-from mido.sockets import BaseIOPort, connect
+from mido.parser import Parser
 
 from oscartnetdaemon.components.midi.io.message_type_enum import MIDIMessageType
 from oscartnetdaemon.components.qusb.constants import QuSbConstants
+from oscartnetdaemon.components.qusb.io.fast_socket import FastSocket
 from oscartnetdaemon.components.qusb.io.message import QuSbIOMessage
 from oscartnetdaemon.components.qusb.parameter_type_enum import QuSbParameterType
 
@@ -43,34 +44,37 @@ def process_midi_message(midi_message: Message, io_message: QuSbIOMessage):
                 io_message.is_complete = True
 
 
-def process_io_message(midi_tcp: BaseIOPort, io_message: QuSbIOMessage):
+def process_io_message(socket_queue_out: "Queue[bytes]", io_message: QuSbIOMessage):
     if io_message.parameter == QuSbParameterType.Unknown:
         return
 
-    midi_tcp.send(Message(
+    socket_queue_out.put(Message(
         type=MIDIMessageType.ControlChange.value,
         control=QuSbConstants.NRPN_CHANNEL,
         value=io_message.channel
-    ))
-    midi_tcp.send(Message(
+    ).bin())
+    socket_queue_out.put(Message(
         type=MIDIMessageType.ControlChange.value,
         control=QuSbConstants.NRPN_PARAMETER,
         value=QuSbConstants.CHANNEL_ENUM_PARAMETER_CODE[io_message.parameter],
-    ))
-    midi_tcp.send(Message(
+    ).bin())
+    socket_queue_out.put(Message(
         type=MIDIMessageType.ControlChange.value,
         control=QuSbConstants.NRPN_VALUE,
         value=io_message.value,
-    ))
-    midi_tcp.send(Message(
+    ).bin())
+    socket_queue_out.put(Message(
         type=MIDIMessageType.ControlChange.value,
         control=QuSbConstants.NRPN_DATA_ENTRY_FINE,
         value=0,  # TODO: check if really always 0
-    ))
+    ).bin())
 
 
-def _loop(host: str, port: int, should_stop: Event, queue_out: "Queue[QuSbIOMessage]", queue_in: "Queue[QuSbIOMessage]"):
-    midi_tcp: BaseIOPort = connect(host, port)
+def _loop(host: str, port: int, should_stop: Event, io_queue_out: "Queue[QuSbIOMessage]", io_queue_in: "Queue[QuSbIOMessage]"):
+    fast_socket = FastSocket(host, port)
+    fast_socket.start()
+    parser = Parser()
+
     io_message: QuSbIOMessage = QuSbIOMessage()
 
     #
@@ -79,44 +83,35 @@ def _loop(host: str, port: int, should_stop: Event, queue_out: "Queue[QuSbIOMess
         type=MIDIMessageType.SysEx.value,
         data=QuSbConstants.SYSEX_REQUEST_STATE
     )
-    midi_tcp.send(midi_message_request)
-    while True:
-        midi_message = midi_tcp.receive()
-        if bytearray(midi_message.bytes()[1:-1]) == QuSbConstants.SYSEX_REQUEST_STATE_END:
-            break
-
-        process_midi_message(midi_message, io_message)
-        if io_message.is_complete:
-            queue_in.put(copy(io_message))
-            io_message = QuSbIOMessage()
-
-    #
-    # Actual loop
+    fast_socket.queue_out.put(midi_message_request.bin())
     try:
         while not should_stop.is_set():
-            midi_message = midi_tcp.receive(block=False)
+            while not fast_socket.queue_in.empty():
+                parser.feed(fast_socket.queue_in.get())
 
-            if midi_message is None:
-                continue
+            while parser.messages:
+                midi_message = parser.messages.popleft()
 
-            process_midi_message(midi_message, io_message)
-            if io_message.is_complete:
-                print(io_message)
-                queue_in.put(copy(io_message))
-                io_message = QuSbIOMessage()
-                print(io_message)
+                process_midi_message(midi_message, io_message)
+                if io_message.is_complete:
+                    io_queue_in.put(copy(io_message))
+                    io_message = QuSbIOMessage()
 
-            while not queue_out.empty():
-                process_io_message(midi_tcp, queue_out.get())
+            while not io_queue_out.empty():
+                process_io_message(fast_socket.queue_out, io_queue_out.get())
 
     except KeyboardInterrupt:
         pass
 
     finally:
-        midi_tcp.close()
+        fast_socket.stop()
 
 
 class QuSbDevice:
+    """
+    Send/receive MIDI messages over TCP from Allen&Heath Qu-SB
+    Converts to/from QuSbIOMessage
+    """
 
     def __init__(self, host: str, port: int, queue_in: "Queue[QuSbIOMessage]", should_stop: Event):
         self.host = host
@@ -126,9 +121,6 @@ class QuSbDevice:
         self.queue_out: "Queue[QuSbIOMessage]" = Queue()
 
         self.should_stop = should_stop
-
-        self.midi_tcp: BaseIOPort | None = None
-        self.io_message: QuSbIOMessage = QuSbIOMessage()
 
         self.process: Process | None = None
 

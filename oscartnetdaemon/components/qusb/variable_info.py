@@ -7,4 +7,6 @@ from oscartnetdaemon.domain_contract.variable_info import VariableInfo
 @dataclass_json(letter_case=LetterCase.KEBAB)
 @dataclass
 class QuSbVariableInfo(VariableInfo):
-    pass
+    caption: str
+    channel: int
+

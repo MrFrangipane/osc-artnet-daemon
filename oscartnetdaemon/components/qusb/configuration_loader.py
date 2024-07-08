@@ -17,7 +17,12 @@ class QuSbConfigurationLoader(AbstractConfigurationLoader):
 
     def load(self) -> QuSbConfiguration:
         self.variables = {
-            'Fader1': QuSbVariableInfo(name='Fader1', type=VariableType.Fader)
+            'Fader1': QuSbVariableInfo(
+                name='Audio.Fader.01:0',
+                type=VariableType.Fader,
+                caption="",
+                channel=32
+            )
         }
         return QuSbConfiguration(
             variable_infos=self.variables,
