@@ -132,7 +132,7 @@ class ProgramRepository:
 
         self.copy_slot = copied_program
 
-    def paste(self, index: int):
+    def paste(self, index: int, master_fader: float):
         if self.copy_slot is None:
             return
 
@@ -150,4 +150,4 @@ class ProgramRepository:
         shared_data.set_has_current_program_changed(True)
 
         self.programs[index] = program
-        self.load(index)
+        self.load(index, master_fader)

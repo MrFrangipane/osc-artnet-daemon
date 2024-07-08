@@ -257,7 +257,7 @@ class AdvancedDmxConsole(metaclass=SingletonMetaclass):
         self.notify_all(self.program_list_select_buttons)
 
     def select_program(self, index: int):
-        self.current_program = self.program_repository.load(index)
+        self.current_program = self.program_repository.load(index, self.master_fader_value)
         self.select_fixture(self.fixture_pager_index)
         self.io.set_universe(self.universe)
 
@@ -280,7 +280,7 @@ class AdvancedDmxConsole(metaclass=SingletonMetaclass):
         if self.current_program is None:
             return
 
-        self.program_repository.paste(self.current_program.index)
+        self.program_repository.paste(self.current_program.index, self.master_fader_value)
         self.select_fixture(self.fixture_pager_index)
         self.io.set_universe(self.universe)
         self.display_program_list()
