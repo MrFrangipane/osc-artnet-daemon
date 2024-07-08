@@ -12,3 +12,4 @@ class ArtnetVariableInfo(VariableInfo):
     scribble_caption: str = ""
     scribble_value: str = ""
     redirect: str = ""
+    is_master: bool = False

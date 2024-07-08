@@ -347,6 +347,8 @@ variables:
 
     #
     # FADERS
+    - { name: MasterFader, type: Fader, index: -1, is_master: True }
+
     - { name: DMX.Fader.01:0, type: Fader, index:  0, scribble-caption: DMX.Scribble.Top.01:0,  scribble-value: DMX.Scribble.Bottom.01:0 }
     - { name: DMX.Fader.02:0, type: Fader, index:  1, scribble-caption: DMX.Scribble.Top.02:0,  scribble-value: DMX.Scribble.Bottom.02:0 }
     - { name: DMX.Fader.03:0, type: Fader, index:  2, scribble-caption: DMX.Scribble.Top.03:0,  scribble-value: DMX.Scribble.Bottom.03:0 }
@@ -411,4 +413,3 @@ variables:
     - { name: DMX.Fader.14:3, type: Fader, index: 61, scribble-caption: DMX.Scribble.Top.14:3,  scribble-value: DMX.Scribble.Bottom.14:3 }
     - { name: DMX.Fader.15:3, type: Fader, index: 62, scribble-caption: DMX.Scribble.Top.15:3,  scribble-value: DMX.Scribble.Bottom.15:3 }
     - { name: DMX.Fader.16:3, type: Fader, index: 63, scribble-caption: DMX.Scribble.Top.16:3,  scribble-value: DMX.Scribble.Bottom.16:3 }
-    - { name: DMX.Fader.Master, type: Fader, index: 64 }

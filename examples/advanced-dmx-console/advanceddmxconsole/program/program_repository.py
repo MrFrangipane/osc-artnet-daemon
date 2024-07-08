@@ -22,6 +22,7 @@ class ProgramRepository:
         self.fixture_repository: FixtureRepository = fixture_repository
         self.programs: list[ProgramInfo] = list()
         self.copy_slot: ProgramInfo | None = None
+        self.current_program_index: int | None = None
 
     def initialize(self, components: ServiceComponents):
         if not self.fixture_repository.fixtures:
@@ -80,6 +81,7 @@ class ProgramRepository:
         _logger.info(f"Program '{program.name}' saved to {filepath}")
 
     def load(self, index: int) -> ProgramInfo | None:
+        self.current_program_index = index
         program = self.programs[index]
 
         if not self.check_compliance(program):
@@ -105,8 +107,24 @@ class ProgramRepository:
 
         return True
 
-    def copy(self, index: int):
-        self.copy_slot = copy.deepcopy(self.programs[index])
+    def copy(self):
+        # FIXME move this to fixture repo ?
+        if self.current_program_index is None:
+            name = "Temp"
+            index = -1
+        else:
+            name = self.programs[self.current_program_index].name
+            index = self.programs[self.current_program_index].index
+
+        copied_program = ProgramInfo(
+            name=name,
+            index=index,
+            fixtures_snapshots=list()
+        )
+        for fixture in self.fixture_repository.fixtures:
+            copied_program.fixtures_snapshots.append(fixture.snapshot())
+
+        self.copy_slot = copied_program
 
     def paste(self, index: int):
         if self.copy_slot is None:

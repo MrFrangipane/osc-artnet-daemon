@@ -21,7 +21,8 @@ class Fixture:
                 unused=channel_info.unused,
                 value=value_default,
                 value_default=value_default,
-                channel_number=channel_number
+                channel_number=channel_number,
+                master_dimmed=channel_info.master_dimmed
             )
             self.channels.append(new_channel)
 

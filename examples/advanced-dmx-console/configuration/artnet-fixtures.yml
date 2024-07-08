@@ -9,7 +9,7 @@ fixtures-types:
           - { name: Tilt.F }
           - { name: Speed }
           - { name: Zoom }
-          - { name: Dimmer, default_int: 255 }
+          - { name: Dimmer, default_int: 255, master-dimmed: True }
           - { name: Strobe, default_int: 255 }
           - { name: Red.1 }
           - { name: Green.1 }
@@ -42,12 +42,12 @@ fixtures-types:
           - { name: Gobo1.R }
           - { name: Gobo2 }
           - { name: Prism }
-          - { name: Prism_R }
+          - { name: Prism.R }
           - { name: Frost }
           - { name: Focus }
           - { name: Focus.F }
           - { name: Shutter }
-          - { name: Dimmer }
+          - { name: Dimmer, master-dimmed: True }
           - { name: Dimm.F }
           - { name: Reset }
 

@@ -42,6 +42,7 @@ class AdvancedDmxConsole(metaclass=SingletonMetaclass):
         self.program_indicators: list[AbstractVariable] = list()
 
         self.dmx_faders: list[AbstractVariable] = list()
+        self.master_fader_value: float = 0.0
 
     def initialize(self, io: "ArtnetIO", components: ServiceComponents):
         self.io = io
@@ -98,12 +99,17 @@ class AdvancedDmxConsole(metaclass=SingletonMetaclass):
             self.reset_all_fixtures()
 
         elif info.name == 'Program.Button.Copy':
-            self.copy_program()
+            self.copy_all_fixtures()
 
         elif info.name == 'Program.Button.Paste':
             self.paste_program()
 
     def handle_fader(self, info: ArtnetVariableInfo, value: ValueFloat):
+        if info.is_master:
+            self.master_fader_value = value.value
+            self.master_fader_to_universe()
+            return
+
         if self.current_fixture is None:
             return
 
@@ -114,7 +120,11 @@ class AdvancedDmxConsole(metaclass=SingletonMetaclass):
         channel.value = value.value
 
         universe_channel = self.current_fixture.universe_address + info.index
-        self.universe[universe_channel] = int(value.value * 255)
+        if channel.master_dimmed:
+            universe_value = int(value.value * self.master_fader_value * 255)
+        else:
+            universe_value = int(value.value * 255)
+        self.universe[universe_channel] = universe_value
         self.io.set_universe(self.universe)
 
     #
@@ -263,10 +273,13 @@ class AdvancedDmxConsole(metaclass=SingletonMetaclass):
         self.program_repository.save(index, new_name)
         self.display_program_list()
 
-    def copy_program(self):
-        self.program_repository.copy(self.current_program.index)
+    def copy_all_fixtures(self):
+        self.program_repository.copy()
 
     def paste_program(self):
+        if self.current_program is None:
+            return
+
         self.program_repository.paste(self.current_program.index)
         self.select_fixture(self.fixture_pager_index)
         self.io.set_universe(self.universe)
@@ -279,6 +292,17 @@ class AdvancedDmxConsole(metaclass=SingletonMetaclass):
             for channel in fixture.channels:
                 universe_channel = fixture.universe_address + channel.channel_number
                 self.universe[universe_channel] = int(channel.value * 255)
+
+        self.io.set_universe(self.universe)
+
+    def master_fader_to_universe(self):
+        for fixture in self.fixture_repository.fixtures:
+            for channel in fixture.channels:
+                if not channel.master_dimmed:
+                    continue
+                universe_channel = fixture.universe_address + channel.channel_number
+                value = int(channel.value * self.master_fader_value * 255)
+                self.universe[universe_channel] = value
 
         self.io.set_universe(self.universe)
 

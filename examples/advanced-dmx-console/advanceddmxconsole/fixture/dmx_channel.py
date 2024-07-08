@@ -8,3 +8,4 @@ class DMXChannel:
     value: float = 0.0
     value_default: float = 0.0
     channel_number: int = -1
+    master_dimmed: bool = False

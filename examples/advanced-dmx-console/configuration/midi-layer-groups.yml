@@ -23,7 +23,6 @@ layer-groups:
 
       - Scribble.*
       - Fader.*
-      - MasterFader
       - Button.Select.*
       - Button.Rec.*
       - Indicator.*
