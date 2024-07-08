@@ -9,4 +9,5 @@ cd ~/AdvancedDMXConsole/osc-artnet-daemon/examples/advanced-dmx-console || exit
   -o configuration/osc.yml \
   -a configuration/artnet-variables.yml configuration/artnet-fixtures.yml \
   -n 192.168.20.12 \
-  -u 1
+  -u 1 \
+  -q configuration/qu-sb.yml
