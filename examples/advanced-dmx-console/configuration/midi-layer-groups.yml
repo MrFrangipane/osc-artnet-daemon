@@ -13,6 +13,9 @@ layer-groups:
     - name: Program
       button-activate: Button.Layer.Program
 
+    - name: Audio
+      button-activate: Button.Layer.Audio
+
     variables:
       - Button.Reset
       - Button.Copy

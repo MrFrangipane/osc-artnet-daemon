@@ -184,6 +184,7 @@ devices:
       - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 40 }, name: Button.Layer.Fixture }
       - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 42 }, name: Button.Layer.DMX }
       - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 44 }, name: Button.Layer.Program }
+      - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 41 }, name: Button.Layer.Audio }
 
       - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 51 }, name: Button.Reset }
       - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 62 }, name: Button.Copy }

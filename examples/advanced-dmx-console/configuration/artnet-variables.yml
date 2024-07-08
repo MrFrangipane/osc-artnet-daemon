@@ -6,6 +6,7 @@ variables:
     - { type: Button, name: Button.Layer.Fixture }
     - { type: Button, name: Button.Layer.DMX }
     - { type: Button, name: Button.Layer.Program }
+    - { type: Button, name: Button.Layer.Audio }
 
     - { type: Button, name: Channel.Down }
     - { type: Button, name: Channel.Up }

@@ -11,6 +11,8 @@ class QuSbFader(VariableFloat):
         From ChangeNotification to IO
         """
         info: QuSbVariableInfo = self.info  # FIXME type hint for autocompletion
+        if info.channel == -1:
+            return
 
         self.io_message_queue_out.put(QuSbIOMessage(
             channel=info.channel,
