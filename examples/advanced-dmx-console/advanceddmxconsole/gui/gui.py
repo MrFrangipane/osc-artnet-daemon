@@ -8,6 +8,7 @@ from PySide6.QtWidgets import QApplication
 from pyside6helpers import css
 
 from oscartnetdaemon.components.midi.service_registerer import MIDIServiceRegisterer
+# from oscartnetdaemon.components.osc.service_registerer import OSCServiceRegisterer
 from oscartnetdaemon.components.qusb.service_registerer import QuSbServiceRegisterer
 from oscartnetdaemon.components.service_repository import ServiceRepository
 
@@ -28,6 +29,7 @@ class GUI(QObject):
 
         self.service_repository = ServiceRepository()
         self.service_repository.register(MIDIServiceRegisterer)
+        # self.service_repository.register(OSCServiceRegisterer)
 
         # Register last to initialize Variables from there
         self.service_repository.register(ArtnetServiceRegisterer)
