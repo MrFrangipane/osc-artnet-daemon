@@ -1,6 +1,25 @@
 ---
 schema-version: 1
 fixtures-types:
+
+    - name: OctostripBar
+      channels:
+          - { name: Rainbow }
+          - { name: Red, master-dimmed: True }
+          - { name: Green, master-dimmed: True }
+          - { name: Blue, master-dimmed: True }
+          - { name: Strobe }
+          - { name: Chase }
+
+    - name: TwoBrightPar7IP
+      channels:
+          - { name: Red, master-dimmed: True }
+          - { name: Green, master-dimmed: True }
+          - { name: Blue, master-dimmed: True }
+          - { name: White, master-dimmed: True }
+          - { name: Amber, master-dimmed: True }
+          - { name: UV, master-dimmed: True }
+
     - name: VarytecHeroWash300FC
       channels:
           - { name: Pan }
@@ -52,7 +71,23 @@ fixtures-types:
           - { name: Reset }
 
 fixtures:
-    - { type: VarytecHeroWash300FC, name: Wash C }
-    - { type: VarytecHeroWash300FC, name: Wash J }
+    - { type: OctostripBar, name: Octo 1 }
+    - { type: OctostripBar, name: Octo 2 }
+    - { type: OctostripBar, name: Octo 3 }
+    - { type: OctostripBar, name: Octo 4 }
+    - { type: OctostripBar, name: Octo 5 }
+    - { type: OctostripBar, name: Octo 6 }
+    - { type: OctostripBar, name: Octo 7 }
+    - { type: OctostripBar, name: Octo 8 }
+
     - { type: Tristan200, name: Lyre J }
     - { type: Tristan200, name: Lyre C }
+
+    - { type: TwoBrightPar7IP, name: PAR 1 }
+    - { type: TwoBrightPar7IP, name: PAR 2 }
+    - { type: TwoBrightPar7IP, name: PAR 3 }
+    - { type: TwoBrightPar7IP, name: PAR 4 }
+    - { type: TwoBrightPar7IP, name: PAR 5 }
+
+    - { type: VarytecHeroWash300FC, name: Wash C }
+    - { type: VarytecHeroWash300FC, name: Wash J }
