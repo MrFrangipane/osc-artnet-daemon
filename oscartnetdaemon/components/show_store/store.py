@@ -20,9 +20,10 @@ class ShowStore(AbstractShowStore):
             FixtureGroup([OSCArtnetFixturesAPI.get_fixture("Tristan200")() for _ in range(2)]),
             FixtureGroup([OSCArtnetFixturesAPI.get_fixture("TwoBrightPar")() for _ in range(5)]),
             FixtureGroup([OSCArtnetFixturesAPI.get_fixture("HeroWash")() for _ in range(2)]),
+            FixtureGroup([OSCArtnetFixturesAPI.get_fixture("RGBPixel")() for _ in range(2)])
         ])
 
-    def items_by_type(self, type_name):
+    def items_by_type(self, type_name):  # FIXME make a dict ?
         for item in self.show.items:
             if type(item.fixture).__name__ == type_name:
                 yield item
