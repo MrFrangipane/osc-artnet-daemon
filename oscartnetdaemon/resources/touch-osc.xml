@@ -11418,7 +11418,7 @@ end</value>
 									</property>
 									<property type="b">
 										<key>outline</key>
-										<value>1</value>
+										<value>0</value>
 									</property>
 									<property type="i">
 										<key>outlineStyle</key>
@@ -11732,7 +11732,7 @@ end</value>
 									</property>
 									<property type="b">
 										<key>outline</key>
-										<value>1</value>
+										<value>0</value>
 									</property>
 									<property type="i">
 										<key>outlineStyle</key>
@@ -12046,7 +12046,7 @@ end</value>
 									</property>
 									<property type="b">
 										<key>outline</key>
-										<value>1</value>
+										<value>0</value>
 									</property>
 									<property type="i">
 										<key>outlineStyle</key>
@@ -12360,7 +12360,7 @@ end</value>
 									</property>
 									<property type="b">
 										<key>outline</key>
-										<value>1</value>
+										<value>0</value>
 									</property>
 									<property type="i">
 										<key>outlineStyle</key>

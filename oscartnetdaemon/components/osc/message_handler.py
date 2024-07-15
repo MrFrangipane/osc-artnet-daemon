@@ -78,4 +78,13 @@ class MessageHandler:
         elif control_name == 'pattern':
             Components().osc_state_model.mood.pattern = value
 
+        elif control_name == 'on_octo':
+            Components().osc_state_model.mood.on_octo = value
+        elif control_name == 'on_lyre':
+            Components().osc_state_model.mood.on_lyre = value
+        elif control_name == 'on_wash':
+            Components().osc_state_model.mood.on_wash = value
+        elif control_name == 'on_par':
+            Components().osc_state_model.mood.on_par = value
+
         Components().osc_message_sender.send(control_name, value, sender)

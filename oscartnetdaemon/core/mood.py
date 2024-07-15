@@ -13,5 +13,10 @@ class Mood:
     pattern: int = 0
     texture: float = 0.5
 
+    on_octo: float = 1.0
+    on_lyre: float = 1.0
+    on_wash: float = 1.0
+    on_par: float = 1.0
+
     master_dimmer: float = 1.0
     recallable_dimmer: float = 1.0
