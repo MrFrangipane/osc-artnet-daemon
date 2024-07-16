@@ -8,7 +8,9 @@ class SequencePattern(BasePattern):
     def __init__(self, *pattern_array: List[List[int]]):
         self.pattern_array = pattern_array
     
-    def read_pattern(self, group_position, time_scale, beat_counter, smooth=0.5) -> float:
+    def read_pattern(self, group_position, time_scale, beat_counter, parameter=0.) -> float:
+        smooth = parameter
+        
         beat_counter = beat_counter * time_scale
         f_group_index = (len(self.pattern_array) - 1) * group_position
 
