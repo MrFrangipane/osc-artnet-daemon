@@ -13,6 +13,8 @@ class Mood:
     pattern: int = 0
     texture: float = 0.5
 
+    pattern_parameter: float = 0.0
+
     on_octo: float = 1.0
     on_lyre: float = 1.0
     on_wash: float = 1.0
