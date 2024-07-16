@@ -27,6 +27,7 @@ class AdvancedDmxConsole(metaclass=SingletonMetaclass):
         self.components: ServiceComponents | None = None
 
         self.io: "ArtnetIO | None" = None
+        self.is_bypass = False
 
         self.fixture_repository = FixtureRepository()
         self.current_fixture: Fixture | None = None
@@ -87,6 +88,10 @@ class AdvancedDmxConsole(metaclass=SingletonMetaclass):
 
         elif info.name == 'DMX.Button.Paste':
             self.paste_fixture()
+
+        elif info.name == 'Button.Artnet.Bypass':
+            self.is_bypass = not self.is_bypass
+            self.io.set_bypass(self.is_bypass)
 
         # Program
         elif info.name.startswith('Program.Button.Select') and info.index < self.program_repository.count():

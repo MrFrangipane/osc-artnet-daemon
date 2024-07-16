@@ -181,6 +181,8 @@ devices:
     variables:
       #
       # BUTTONS
+      - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 53 }, name: Button.Artnet.Bypass }
+
       - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 40 }, name: Button.Layer.Fixture }
       - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 42 }, name: Button.Layer.DMX }
       - {type: Button, midi-parsing: { channel: 0, type: note_on, note: 44 }, name: Button.Layer.Program }

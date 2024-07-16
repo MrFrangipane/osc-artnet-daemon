@@ -3,6 +3,8 @@ schema-version: 1
 variables:
     #
     # BUTTONS
+    - { type: Button, name: Button.Artnet.Bypass }
+
     - { type: Button, name: Button.Layer.Fixture }
     - { type: Button, name: Button.Layer.DMX }
     - { type: Button, name: Button.Layer.Program }

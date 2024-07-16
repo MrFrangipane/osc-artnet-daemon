@@ -18,6 +18,17 @@ class ArtnetIO(AbstractIO):  # FIXME create an interface mixin with set_universe
         super().__init__(components)
         self.components: ServiceComponents = components  # FIXME: circular import forbids type hinting, maybe a singleton ?
         self.servers: list[ArtnetServer] = list()
+        self._is_bypass: bool = False
+        self.universe = bytearray(512)
+
+    def set_bypass(self, is_bypass: bool):
+        if is_bypass != self._is_bypass:
+            self._is_bypass = is_bypass
+
+            if is_bypass:
+                self.shutdown()
+            else:
+                self.start_servers()
 
     def start(self):
         """
@@ -26,21 +37,27 @@ class ArtnetIO(AbstractIO):  # FIXME create an interface mixin with set_universe
         (broadcast happens after all services are started, in service registration order)
         """
         _logger.info("Starting")
+        self.start_servers()
+
+        # Initialize after servers are started (to send default fixtures values)
+        AdvancedDmxConsole().initialize(self, self.components)  # FIXME hack to give self instead of IO
+
+    def set_universe(self, universe: bytearray):
+        self.universe = universe
+        for server in self.servers:
+            server.set_universe(universe)
+
+    def start_servers(self):
         configuration: ArtnetConfiguration = self.components.configuration
+
         for target_node in configuration.target_nodes:
             new_server = ArtnetServer(
                 target_node=target_node,
                 universe_number=configuration.universe
             )
             new_server.start()
+            new_server.set_universe(self.universe)
             self.servers.append(new_server)
-
-        # Initialize after servers are started (to send default fixtures values)
-        AdvancedDmxConsole().initialize(self, self.components)  # FIXME hack to give self instead of IO
-
-    def set_universe(self, universe: bytearray):
-        for server in self.servers:
-            server.set_universe(universe)
 
     def shutdown(self):
         """
