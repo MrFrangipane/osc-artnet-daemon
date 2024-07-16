@@ -80,6 +80,8 @@ class MessageHandler:
 
         elif control_name == 'pattern_parameter':
             Components().osc_state_model.mood.pattern_parameter = value
+        elif control_name == 'pattern_playmode':
+            Components().osc_state_model.mood.pattern_playmode = value
 
         elif control_name == 'on_octo':
             Components().osc_state_model.mood.on_octo = value
