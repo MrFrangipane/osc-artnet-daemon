@@ -68,8 +68,7 @@ class MessageHandler:
             Components().osc_state_model.mood.hue = value
         elif control_name == 'texture':
             Components().osc_state_model.mood.texture = value
-        elif control_name == 'blinking':
-            Components().osc_state_model.mood.blinking = value
+
         elif control_name == 'bpm_scale':
             # fixme: we need an interop service between tosc and mood
             Components().osc_state_model.mood.bpm_scale = value
@@ -91,5 +90,12 @@ class MessageHandler:
             Components().osc_state_model.mood.on_wash = value
         elif control_name == 'on_par':
             Components().osc_state_model.mood.on_par = value
+
+        elif control_name == 'on_talk':
+            Components().osc_state_model.mood.on_talk = value
+        elif control_name == 'on_white':
+            Components().osc_state_model.mood.on_white = value
+        elif control_name == 'on_strobe':
+            Components().osc_state_model.mood.on_strobe = value
 
         Components().osc_message_sender.send(control_name, value, sender)

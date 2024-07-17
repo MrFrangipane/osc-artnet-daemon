@@ -6,7 +6,6 @@ class Mood:
     bpm: float = 0.0
     beat_counter: float = 0.0
 
-    blinking: float = 0.5
     bpm_scale: int = 2  # fixme: we need an interop service between tosc and mood
     hue: float = 0.0
     palette: int = 0
@@ -20,6 +19,10 @@ class Mood:
     on_lyre: float = 1.0
     on_wash: float = 1.0
     on_par: float = 1.0
+
+    on_talk: float = 0.0
+    on_white: float = 0.0
+    on_strobe: float = 0.0
 
     master_dimmer: float = 1.0
     recallable_dimmer: float = 1.0
