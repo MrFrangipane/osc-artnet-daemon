@@ -1,7 +1,6 @@
 import logging
 from copy import copy
 
-from oscartnetdaemon.components.argument_parser import parse_args
 from oscartnetdaemon.components.launcher import Launcher
 from oscartnetdaemon.core.channel_info import ChannelInfo
 from oscartnetdaemon.core.components import Components
@@ -46,17 +45,6 @@ class OSCArtnetDaemonAPI:
         :param configuration: The configuration to be set.
         :type configuration: Configuration
         """
-        Components().configuration = configuration
-
-    @staticmethod
-    def configure_from_command_line() -> Configuration:
-        """
-        Configures the components by parsing command-line arguments and returns the configuration.
-
-        :return: The configuration parsed from the command line.
-        :rtype: Configuration
-        """
-        configuration = parse_args()
         if configuration.is_verbose:
             logging.basicConfig(level=logging.DEBUG)
         else:
@@ -64,8 +52,9 @@ class OSCArtnetDaemonAPI:
 
         Components().configuration = configuration
 
-        _logger.info(f"Configuration loaded from command line arguments {configuration}")
-        return configuration
+    @staticmethod
+    def load_project(filepath: str) -> None:
+        Components().project_persistence.load(filepath)
 
     @property
     def channels_info(self) -> list[ChannelInfo]:
@@ -76,7 +65,7 @@ class OSCArtnetDaemonAPI:
 
     @property
     def show_items(self) -> list[ShowItem]:
-        if Components().show_store is None:
+        if Components().show_store is None or Components().show_store.show is None:
             return list()
 
         return Components().show_store.show.items
@@ -87,11 +76,12 @@ class OSCArtnetDaemonAPI:
         """
         self._launcher.start(blocking=True)
 
-    def start(self):
+    def start(self) -> bool:
         """
         Starts the launcher in non-blocking mode.
         """
         self._launcher.start(blocking=False)
+        return self._launcher.was_started
 
     def stop(self):
         """

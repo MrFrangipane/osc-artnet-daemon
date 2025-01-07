@@ -6,6 +6,7 @@ from oscartnetdaemon.components.fixtures_updater.abstract import AbstractFixture
 from oscartnetdaemon.components.mood_store.abstract import AbstractMoodStore
 from oscartnetdaemon.components.osc.abstract_message_sender import AbstractOSCMessageSender
 from oscartnetdaemon.components.osc.server_abstract import AbstractOSCServer
+# from oscartnetdaemon.components.project_persistence.abstract_project_persistence import AbstractProjectPersistence
 from oscartnetdaemon.components.show_store.abstract import AbstractShowStore
 from oscartnetdaemon.components.midi_tempo import MIDITempo
 
@@ -27,6 +28,7 @@ class Components(metaclass=SingletonMetaclass):
     osc_server: AbstractOSCServer = None
     osc_message_sender: AbstractOSCMessageSender = None
     show_store: AbstractShowStore = None
+    project_persistence = None  # FIXME create abstract class
 
     #
     # Models

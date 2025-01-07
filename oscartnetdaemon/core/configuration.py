@@ -1,8 +1,11 @@
 from dataclasses import dataclass
 
+from dataclasses_json import dataclass_json
+
 # FIXME use https://docs.python.org/3.10/library/ipaddress.html
 
 
+@dataclass_json
 @dataclass
 class Configuration:
     is_verbose: bool

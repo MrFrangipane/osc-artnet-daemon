@@ -1,9 +1,14 @@
+import logging
+
 from oscartnetfixtures import OSCArtnetFixturesAPI
 
 from oscartnetdaemon.components.show_store.abstract import AbstractShowStore
 from oscartnetdaemon.components.show_store.loader import ShowLoader
 
 from oscartnetdaemon.core.fixture.group import FixtureGroup
+
+
+_logger = logging.getLogger(__name__)
 
 
 class ShowStore(AbstractShowStore):
@@ -13,15 +18,20 @@ class ShowStore(AbstractShowStore):
     def __init__(self):
         super().__init__()
 
-    def load_show(self):
+    def load_show(self, fixtures_structure: list[list[str]]) -> None:
+        self._fixtures_structure = fixtures_structure
+        self.reload_fixtures()
+
+    def reload_fixtures(self) -> None:
         OSCArtnetFixturesAPI.reload_definitions()
-        self.show = ShowLoader().from_fixtures(title="Show", fixtures=[
-            FixtureGroup([OSCArtnetFixturesAPI.get_fixture("OctostripBar")() for _ in range(8)]),
-            FixtureGroup([OSCArtnetFixturesAPI.get_fixture("Tristan200")() for _ in range(2)]),
-            FixtureGroup([OSCArtnetFixturesAPI.get_fixture("TwoBrightPar")() for _ in range(5)]),
-            FixtureGroup([OSCArtnetFixturesAPI.get_fixture("HeroWash")() for _ in range(2)]),
-            FixtureGroup([OSCArtnetFixturesAPI.get_fixture("RGBPixel")() for _ in range(2)])
-        ])
+        fixtures = [
+            FixtureGroup([
+                OSCArtnetFixturesAPI.get_fixture(fixture_type)() for fixture_type in fixture_group
+            ]) for fixture_group in self._fixtures_structure
+        ]
+
+        self.show = ShowLoader().from_fixtures(title="Show", fixtures=fixtures)
+        _logger.info(f"Loaded show fixtures")
 
     def items_by_type(self, type_name):  # FIXME make a dict ?
         for item in self.show.items:

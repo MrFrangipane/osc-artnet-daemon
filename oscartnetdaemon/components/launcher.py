@@ -9,6 +9,7 @@ from oscartnetdaemon.components.midi_tempo import MIDITempo
 from oscartnetdaemon.components.mood_store.mood_store import MoodStore
 from oscartnetdaemon.components.osc.message_sender import OSCMessageSender
 from oscartnetdaemon.components.osc.server import OSCServer
+from oscartnetdaemon.components.project_persistence.project_persistence import ProjectPersistence
 from oscartnetdaemon.components.show_store.store import ShowStore
 from oscartnetdaemon.core.components import Components
 
@@ -22,17 +23,20 @@ class Launcher:
         self._fixture_thread: Thread = None
         self._midi_thread: Thread = None
         self._osc_thread: Thread = None
-        self._was_started = False
+        self.was_started = False
         self._is_running = False
 
         Components().show_store = ShowStore()
-        Components().show_store.load_show()  # so GUI can have a list of fixtures (fixme)
         Components().mood_store = MoodStore()  # let's keep stored moods between starts/restarts
+        Components().project_persistence = ProjectPersistence()
 
-    def start(self, blocking) -> None:
+    def start(self, blocking):
         configuration = Components().configuration
+        if configuration is None:
+            _logger.error("Configuration not loaded, maybe no project loaded ?")
+            return
 
-        Components().show_store.load_show()
+        Components().show_store.reload_fixtures()
 
         #
         # OSC
@@ -85,10 +89,10 @@ class Launcher:
             self.stop()
 
         else:
-            self._was_started = True
+            self.was_started = True
 
     def stop(self):
-        if self._was_started:
+        if self.was_started:
             Components().fixture_updater.stop()
             Components().discovery.stop()
             Components().midi_tempo.stop()

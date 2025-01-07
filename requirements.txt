@@ -3,5 +3,6 @@ stupidartnet==1.4.0
 zeroconf
 mido[ports-rtmidi]
 python-rtmidi
+dataclasses-json
 pyside6-helpers @ git+https://github.com/MrFrangipane/pyside6-helpers@main
 oscartnetfixtures @ git+https://github.com/MrFrangipane/osc-artnet-fixtures@main
