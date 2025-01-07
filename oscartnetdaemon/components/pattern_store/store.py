@@ -25,4 +25,7 @@ class PatternStore:
         return self.data[fixture_type][pattern_index][group_place]
 
     def set_pattern(self, fixture_type: str, group_place: int, pattern_index: int, pattern: list[dict[str, int]]):
+        if fixture_type not in self.data:
+            self.data[fixture_type] = []
+
         self.data[fixture_type][pattern_index][group_place] = pattern
