@@ -9,6 +9,7 @@ from oscartnetdaemon.components.midi_tempo import MIDITempo
 from oscartnetdaemon.components.mood_store.mood_store import MoodStore
 from oscartnetdaemon.components.osc.message_sender import OSCMessageSender
 from oscartnetdaemon.components.osc.server import OSCServer
+from oscartnetdaemon.components.pattern_store.store import PatternStore
 from oscartnetdaemon.components.project_persistence.project_persistence import ProjectPersistence
 from oscartnetdaemon.components.show_store.store import ShowStore
 from oscartnetdaemon.core.components import Components
@@ -28,6 +29,7 @@ class Launcher:
 
         Components().show_store = ShowStore()
         Components().mood_store = MoodStore()  # let's keep stored moods between starts/restarts
+        Components().pattern_store = PatternStore()
         Components().project_persistence = ProjectPersistence()
 
     def start(self, blocking):

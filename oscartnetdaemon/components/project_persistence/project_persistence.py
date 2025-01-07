@@ -13,18 +13,13 @@ _logger = logging.getLogger(__name__)
 class ProjectPersistence:
 
     def __init__(self):
-        self._project = Project(
-            name="New project",
-            configuration=parse_args(),
-            fixtures=[]
-        )
+        self._project: Project = None
         self.filepath: str = ""
 
     def new(self) -> None:
         self._project = Project(
             name="New project",
-            configuration=parse_args(),
-            fixtures=[]
+            configuration=parse_args()
         )
         self._load_project()
 
@@ -52,6 +47,9 @@ class ProjectPersistence:
 
     def save_as(self, filepath: str) -> None:
         self.filepath = filepath
+
+        self._project.patterns = Components().pattern_store.data
+
         with open(filepath, "w") as f:
             json.dump(self._project.to_dict(), f, indent=2)
         _logger.info(f"Saved project to {self.filepath}")
@@ -62,3 +60,4 @@ class ProjectPersistence:
     def _load_project(self):
         Components().configuration = self._project.configuration
         Components().show_store.load_show(self._project.fixtures)
+        Components().pattern_store.data = self._project.patterns
