@@ -10,4 +10,4 @@ from oscartnetdaemon.core.configuration import Configuration
 class Project:
     name: str
     configuration: Configuration
-    fixtures: list[str]
+    fixtures: list[list[str]]

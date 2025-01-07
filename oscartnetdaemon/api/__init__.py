@@ -52,9 +52,32 @@ class OSCArtnetDaemonAPI:
 
         Components().configuration = configuration
 
+
+    #
+    # Project
+    @staticmethod
+    def new_project():
+        Components().project_persistence.new()
+
     @staticmethod
     def load_project(filepath: str) -> None:
         Components().project_persistence.load(filepath)
+
+    @staticmethod
+    def save_project_as(filepath: str) -> None:
+        Components().project_persistence.save_as(filepath)
+
+    @staticmethod
+    def save_project() -> str:
+        return Components().project_persistence.save()
+
+    @staticmethod
+    def is_direct_save_available() -> bool:
+        return Components().project_persistence.is_direct_save_available()
+
+    @staticmethod
+    def project_filepath() -> str:
+        return Components().project_persistence.filepath
 
     @property
     def channels_info(self) -> list[ChannelInfo]:
