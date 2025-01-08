@@ -15,8 +15,8 @@ class OSCStateModel:
         Mood = 0
         Groups = 1
         Tristan200 = 2
-        TwoBrightPar = 3
-        PatternEdition = 4
+        PatternEdition = 3
+        TwoBrightPar = 4
 
     current_page: Page = Page.Mood
     mood: Mood = field(default_factory=Mood)
