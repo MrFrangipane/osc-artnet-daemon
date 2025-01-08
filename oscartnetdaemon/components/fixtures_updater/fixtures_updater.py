@@ -95,15 +95,10 @@ class FixturesUpdater(AbstractFixturesUpdater):
         mood.beat_counter = Components().midi_tempo.beat_counter
 
         for show_item in Components().show_store.show.items:
-            # fixme: better models please (ShowItem, Fixture, ...)
-            show_item.fixture.group_position = show_item.group.position
-            show_item.fixture.group_place = show_item.group.place
-            show_item.fixture.group_size = show_item.group.size
-            show_item.fixture.mood = mood
-            group_dimmer = Components().show_store.show.groups_dimmers[
-                show_item.group.index - 1]  # FIXME this should be starting at 0
-            channels = show_item.fixture.map_to_channels(group_dimmer)
-            self.universe[show_item.channel.first:show_item.channel.last] = channels
+            group_dimmer = Components().show_store.show.groups_dimmers[show_item.group_info.index - 1]  # FIXME this should be starting at 0
+            channels = show_item.fixture.map_to_channels(mood, group_dimmer, show_item.group_info)
+
+            self.universe[show_item.channel_info.first:show_item.channel_info.last] = channels
 
         for artnet_server in Components().artnet_servers:
             artnet_server.set_universe(self.universe)
@@ -120,15 +115,25 @@ class FixturesUpdater(AbstractFixturesUpdater):
     def channels_info(self) -> list[ChannelInfo]:
         infos = list()
         for show_item in Components().show_store.show.items:
-            for dmx_index in range(show_item.channel.first, show_item.channel.last):
+            for dmx_index in range(show_item.channel_info.first, show_item.channel_info.last):
                 channel_info = ChannelInfo(
                     dmx_index=dmx_index,
                     fixture_index=show_item.fixture_index,
-                    group_index=show_item.group.index,
+                    group_index=show_item.group_info.index,
                     value=self.universe[dmx_index]
                 )
                 infos.append(channel_info)
         return infos
 
-    def set_pattern_edition_step(slef, show_item: ShowItem, step: dict[str, int]):
-        print(f"show_pattern_step: {show_item} {step}")
+    def set_pattern_edition_step(self, show_item: ShowItem, step: dict[str, int]):
+        self.universe = bytearray(512)
+
+        # fixme: duplicate from self._mood()
+        mood = copy(Components().osc_state_model.mood)
+        group_dimmer = Components().show_store.show.groups_dimmers[
+            show_item.group_info.index - 1]  # FIXME this should be starting at 0
+        channels = show_item.fixture.map_to_channels(mood, group_dimmer, show_item.group_info)
+        self.universe[show_item.channel_info.first:show_item.channel_info.last] = channels
+
+        for artnet_server in Components().artnet_servers:
+            artnet_server.set_universe(self.universe)

@@ -39,10 +39,10 @@ class PatternStore:
         if pattern_index not in self.data.fixture_type[show_item.name].pattern_index:
             return dict()
 
-        if show_item.group_place not in self.data.fixture_type[show_item.name].pattern_index[pattern_index].group_place:
+        if show_item.group_info.place not in self.data.fixture_type[show_item.name].pattern_index[pattern_index].group_place:
             return dict()
 
-        return self.data.fixture_type[show_item.name].pattern_index[pattern_index].group_place[show_item.group_place].step
+        return self.data.fixture_type[show_item.name].pattern_index[pattern_index].group_place[show_item.group_info.place].step
 
     def set_steps(self, show_item: ShowItem, pattern_index: int, steps: dict[dict[str, int]]):
         if show_item.name not in self.data.fixture_type:
@@ -51,10 +51,10 @@ class PatternStore:
         if pattern_index not in self.data.fixture_type[show_item.name].pattern_index:
             self.data.fixture_type[show_item.name].pattern_index[pattern_index] = PatternGroupPlaceContainer()
 
-        if show_item.group_place not in self.data.fixture_type[show_item.name].pattern_index[pattern_index].group_place:
-            self.data.fixture_type[show_item.name].pattern_index[pattern_index].group_place[show_item.group_place] = PatternStepContainer()
+        if show_item.group_info.place not in self.data.fixture_type[show_item.name].pattern_index[pattern_index].group_place:
+            self.data.fixture_type[show_item.name].pattern_index[pattern_index].group_place[show_item.group_info.place] = PatternStepContainer()
 
-        self.data.fixture_type[show_item.name].pattern_index[pattern_index].group_place[show_item.group_place].step = steps
+        self.data.fixture_type[show_item.name].pattern_index[pattern_index].group_place[show_item.group_info.place].step = steps
 
     # FIXME create a PatternEditor class
     def wheel_changed(self, wheel):
