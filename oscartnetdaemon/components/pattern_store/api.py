@@ -26,3 +26,11 @@ class PatternStoreAPI:
             group_place=group_place,
             steps=steps
         )
+
+    @staticmethod
+    def set_wheel_callback(callback: callable):
+        Components().pattern_store.set_wheel_callback(callback)
+
+    @staticmethod
+    def set_wheel_value(value: float):
+        Components().pattern_store.set_wheel_value(value)

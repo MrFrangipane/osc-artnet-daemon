@@ -28350,7 +28350,7 @@ function onValueChanged(valueName)
   if (valueName == "touch" and self.values.touch) then
       shouldSetOrigin = true
   end
-
+  
   if (valueName == "x") then
     if (shouldSetOrigin) then
       shouldSetOrigin = false
@@ -28600,7 +28600,7 @@ end</value>
 													<partial>
 														<type>PROPERTY</type>
 														<conversion>STRING</conversion>
-														<value>name</value>
+														<value>parent.name</value>
 														<scaleMin>0</scaleMin>
 														<scaleMax>1</scaleMax>
 													</partial>

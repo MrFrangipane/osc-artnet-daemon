@@ -7,6 +7,7 @@ class PatternStore:
 
     def __init__(self):
         self.data: PatternStoreContainer = PatternStoreContainer()
+        self._wheel_call_back: callable = None
 
     def get_step_while_playing(self, fixture_type: str, group_place: int) -> dict[str, int]:
         beat_counter = Components().midi_tempo.beat_counter
@@ -54,3 +55,19 @@ class PatternStore:
             self.data.fixture_type[fixture_type].pattern_index[pattern_index].group_place[group_place] = PatternStepContainer()
 
         self.data.fixture_type[fixture_type].pattern_index[pattern_index].group_place[group_place].step = steps
+
+    # FIXME create a PatternEditor class
+    def wheel_changed(self, wheel):
+        if self._wheel_call_back is not None:
+            self._wheel_call_back(wheel)
+
+    def set_wheel_callback(self, callback: callable):
+        self._wheel_call_back = callback
+
+    @staticmethod
+    def set_wheel_value(value: float):
+        # TODO use an API instead of Component
+        if Components().osc_message_sender is not None:
+            Components().osc_message_sender.send_to_all_raw(
+                f"/#pattern_edition/wheel", value
+            )
