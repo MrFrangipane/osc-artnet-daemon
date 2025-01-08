@@ -96,14 +96,14 @@ class FixturesUpdater(AbstractFixturesUpdater):
 
         for show_item in Components().show_store.show.items:
             # fixme: better models please (ShowItem, Fixture, ...)
-            show_item.fixture.group_position = show_item.group_position
-            show_item.fixture.group_place = show_item.group_place
-            show_item.fixture.group_size = show_item.group_size
+            show_item.fixture.group_position = show_item.group.position
+            show_item.fixture.group_place = show_item.group.place
+            show_item.fixture.group_size = show_item.group.size
             show_item.fixture.mood = mood
             group_dimmer = Components().show_store.show.groups_dimmers[
-                show_item.group_index - 1]  # FIXME this should be starting at 0
+                show_item.group.index - 1]  # FIXME this should be starting at 0
             channels = show_item.fixture.map_to_channels(group_dimmer)
-            self.universe[show_item.channel_first:show_item.channel_last] = channels
+            self.universe[show_item.channel.first:show_item.channel.last] = channels
 
         for artnet_server in Components().artnet_servers:
             artnet_server.set_universe(self.universe)
@@ -120,11 +120,11 @@ class FixturesUpdater(AbstractFixturesUpdater):
     def channels_info(self) -> list[ChannelInfo]:
         infos = list()
         for show_item in Components().show_store.show.items:
-            for dmx_index in range(show_item.channel_first, show_item.channel_last):
+            for dmx_index in range(show_item.channel.first, show_item.channel.last):
                 channel_info = ChannelInfo(
                     dmx_index=dmx_index,
                     fixture_index=show_item.fixture_index,
-                    group_index=show_item.group_index,
+                    group_index=show_item.group.index,
                     value=self.universe[dmx_index]
                 )
                 infos.append(channel_info)

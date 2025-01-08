@@ -1,10 +1,12 @@
 from dataclasses import fields
 
-from oscartnetdaemon.core.mood import Mood
 from oscartnetdaemon.core.fixture.base import BaseFixture
 from oscartnetdaemon.core.fixture.group import FixtureGroup
-from oscartnetdaemon.core.show.show import Show
+from oscartnetdaemon.core.mood import Mood
+from oscartnetdaemon.core.show.channel_info import ChannelInfo
+from oscartnetdaemon.core.show.group_info import GroupInfo
 from oscartnetdaemon.core.show.item import ShowItem
+from oscartnetdaemon.core.show.show import Show
 
 
 class ShowLoader:
@@ -46,20 +48,29 @@ class ShowLoader:
 
     def _fixture_to_show_item(self, fixture: BaseFixture, is_group, group_position, group_place) -> ShowItem:
         channel_count = len(fields(fixture.Mapping))
+
+        group_info = GroupInfo(
+            index=self._group_index if is_group else 0,
+            size=self._group_size if is_group else 1,
+            position=group_position,
+            place=group_place
+        )
+
+        channel_info = ChannelInfo(
+            first=self._channel_start_index,
+            last=self._channel_start_index + channel_count,
+            count=channel_count
+        )
+
         new_item = ShowItem(
             name=type(fixture).__name__,
             fixture=fixture,
             fixture_index=self._fixture_index,
-            channel_first=self._channel_start_index,
-            channel_last=self._channel_start_index + channel_count,
-            channel_count=channel_count,
-            group_index=self._group_index if is_group else 0,
-            group_size=self._group_size if is_group else 1,
-            group_position=group_position,
-            group_place=group_place
+            group=group_info,
+            channel=channel_info
         )
 
-        self._channel_start_index += new_item.channel_count
+        self._channel_start_index += new_item.channel.count
         self._fixture_index += 1
 
         return new_item
