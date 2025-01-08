@@ -96,7 +96,8 @@ class FixturesUpdater(AbstractFixturesUpdater):
 
         for show_item in Components().show_store.show.items:
             group_dimmer = Components().show_store.show.groups_dimmers[show_item.info.group_info.index - 1]  # FIXME this should be starting at 0
-            channels = show_item.fixture.map_to_channels(mood, group_dimmer, show_item.info.group_info)
+            show_item.fixture.update_mapping(mood, group_dimmer, show_item.info.group_info)
+            channels = show_item.fixture.map_to_channels()
 
             self.universe[show_item.info.channel_info.first:show_item.info.channel_info.last] = channels
 
@@ -129,12 +130,8 @@ class FixturesUpdater(AbstractFixturesUpdater):
         self.universe = bytearray(512)
 
         fixture = Components().show_store.item_by_info(show_item_info).fixture
-
-        # fixme: duplicate from self._mood()
-        mood = copy(Components().osc_state_model.mood)
-        group_dimmer = Components().show_store.show.groups_dimmers[
-            show_item_info.group_info.index - 1]  # FIXME this should be starting at 0
-        channels = fixture.map_to_channels(mood, group_dimmer, show_item_info.group_info)
+        fixture.apply_pattern_step(step)
+        channels = fixture.map_to_channels()
         self.universe[show_item_info.channel_info.first:show_item_info.channel_info.last] = channels
 
         for artnet_server in Components().artnet_servers:

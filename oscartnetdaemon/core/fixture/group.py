@@ -20,5 +20,5 @@ class FixtureGroup(BaseFixture):
 
         self.dimmer = 1.0
 
-    def map_to_channels(self, mood: Mood, group_position: float):
+    def update_mapping(self, mood: Mood, group_position: float):
         raise RuntimeError("Groups should not call this function")

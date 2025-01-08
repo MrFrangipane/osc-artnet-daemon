@@ -17,6 +17,20 @@ class BaseFixture(metaclass=AbstractFixtureMetaclass):
         self.address = address
         self._mapping = self.Mapping()
 
+    def apply_pattern_step(self, step: dict[str, int]):
+        for parameter, value in step.items():
+            setattr(self._mapping, parameter, value)
+
+    def apply_pattern_while_playing(self, group_info: ShowItemGroupInfo):
+        step = PatternStoreAPI.get_step_while_playing(
+            fixture_type=self.__class__.__name__,
+            group_place=group_info.place
+        )
+        self.apply_pattern_step(step=step)
+
+    def map_to_channels(self):
+        return list(vars(self._mapping).values())
+
     @abstractmethod
-    def map_to_channels(self, mood: Mood, dimmer_value: float, group_info: ShowItemGroupInfo) -> list[int]:
+    def update_mapping(self, mood: Mood, dimmer_value: float, group_info: ShowItemGroupInfo) -> list[int]:
         pass
