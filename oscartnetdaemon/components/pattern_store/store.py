@@ -2,6 +2,10 @@ from oscartnetdaemon.core.components import Components
 from oscartnetdaemon.core.pattern.store_containers import PatternStoreContainer, PatternIndexContainer, PatternGroupPlaceContainer, PatternStepContainer
 from oscartnetdaemon.core.show.item_info import ShowItemInfo
 
+def _lerp_dict(a: dict, b: dict, factor: float) -> dict:
+    keys = set(a.keys()).union(b.keys())
+    return {key: int(float(a.get(key, 0)) * (1 - factor)) + int(float(b.get(key, 0)) * factor) for key in keys}
+
 
 class PatternStore:
 
@@ -28,9 +32,17 @@ class PatternStore:
         if not pattern.step:
             return dict()
 
-        # TODO call @diffty's interpolation
+        #
+        # Interpolation
+        step_id = int(beat) % len(pattern.step)
+        next_step_id = (step_id + 1) % len(pattern.step)
 
-        return pattern.step.get(int(beat) % len(pattern.step), dict())
+        step = pattern.step.get(step_id, dict())
+        next_step = pattern.step.get(next_step_id, dict())
+        factor = beat - int(beat)
+
+        interpolated = _lerp_dict(step, next_step, factor)
+        return _lerp_dict(step, interpolated, mood.pattern_parameter)
 
     def get_steps(self, show_item_info: ShowItemInfo, pattern_index: int) -> dict[int, dict[str, int]]:
         if show_item_info.name not in self.data.fixture_type:
