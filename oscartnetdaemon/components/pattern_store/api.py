@@ -1,4 +1,5 @@
 from oscartnetdaemon.core.components import Components
+from oscartnetdaemon.core.show.item import ShowItem
 
 
 class PatternStoreAPI:
@@ -11,19 +12,17 @@ class PatternStoreAPI:
         )
 
     @staticmethod
-    def get_steps(fixture_type: str, pattern_index: int, group_place: int) -> dict[int, dict[str, int]]:
+    def get_steps(show_item: ShowItem, pattern_index: int) -> dict[int, dict[str, int]]:
         return Components().pattern_store.get_steps(
-            fixture_type=fixture_type,
-            pattern_index=pattern_index,
-            group_place=group_place
+            show_item=show_item,
+            pattern_index=pattern_index
         )
 
     @staticmethod
-    def set_steps(fixture_type: str, pattern_index: int, group_place: int, steps: dict[int, dict[str, int]]):
+    def set_steps(show_item: ShowItem, pattern_index: int, steps: dict[int, dict[str, int]]):
         Components().pattern_store.set_steps(
-            fixture_type=fixture_type,
+            show_item=show_item,
             pattern_index=pattern_index,
-            group_place=group_place,
             steps=steps
         )
 
@@ -34,3 +33,11 @@ class PatternStoreAPI:
     @staticmethod
     def set_wheel_value(value: float):
         Components().pattern_store.set_wheel_value(value)
+
+    @staticmethod
+    def set_current_step(show_item: ShowItem, pattern_index: int, step_index: int):
+        Components().pattern_store.set_current_step(
+            show_item=show_item,
+            pattern_index=pattern_index,
+            step_index=step_index
+        )

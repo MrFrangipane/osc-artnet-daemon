@@ -1,12 +1,13 @@
 import logging
 import time
-import math
 from copy import copy
 
 from oscartnetdaemon.components.fixtures_updater.abstract import AbstractFixturesUpdater
 from oscartnetdaemon.core.channel_info import ChannelInfo
 from oscartnetdaemon.core.components import Components
 from oscartnetdaemon.core.osc.state_model import OSCStateModel
+from oscartnetdaemon.core.show.item import ShowItem
+
 
 from oscartnetfixtures.python_extensions.math import map_to_int  # FIXME !!
 
@@ -128,3 +129,6 @@ class FixturesUpdater(AbstractFixturesUpdater):
                 )
                 infos.append(channel_info)
         return infos
+
+    def set_pattern_edition_step(slef, show_item: ShowItem, step: dict[str, int]):
+        print(f"show_pattern_step: {show_item} {step}")

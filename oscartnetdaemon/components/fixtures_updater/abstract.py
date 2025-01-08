@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
-from oscartnetdaemon.components.show_store.store import ShowStore
 from oscartnetdaemon.core.channel_info import ChannelInfo
+from oscartnetdaemon.core.show.item import ShowItem
 
 
 class AbstractFixturesUpdater(ABC):
@@ -19,4 +19,8 @@ class AbstractFixturesUpdater(ABC):
     @abstractmethod
     def channels_info(self) -> list[ChannelInfo]:
         """Returns a list of ChannelInfo. One for each active channel in the universe"""
+        pass
+
+    @staticmethod
+    def set_pattern_edition_step(show_item: ShowItem, step: dict[str, int]):
         pass

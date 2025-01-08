@@ -1,6 +1,6 @@
 from oscartnetdaemon.core.components import Components
-from oscartnetdaemon.core.pattern.store_containers import (
-    PatternStoreContainer, PatternIndexContainer, PatternGroupPlaceContainer, PatternStepContainer)
+from oscartnetdaemon.core.pattern.store_containers import PatternStoreContainer, PatternIndexContainer, PatternGroupPlaceContainer, PatternStepContainer
+from oscartnetdaemon.core.show.item import ShowItem
 
 
 class PatternStore:
@@ -32,29 +32,29 @@ class PatternStore:
 
         return pattern.step.get(int(beat) % len(pattern.step), dict())
 
-    def get_steps(self, fixture_type: str, pattern_index: int, group_place: int) -> dict[int, dict[str, int]]:
-        if fixture_type not in self.data.fixture_type:
+    def get_steps(self, show_item: ShowItem, pattern_index: int) -> dict[int, dict[str, int]]:
+        if show_item.name not in self.data.fixture_type:
             return dict()
 
-        if pattern_index not in self.data.fixture_type[fixture_type].pattern_index:
+        if pattern_index not in self.data.fixture_type[show_item.name].pattern_index:
             return dict()
 
-        if group_place not in self.data.fixture_type[fixture_type].pattern_index[pattern_index].group_place:
+        if show_item.group_place not in self.data.fixture_type[show_item.name].pattern_index[pattern_index].group_place:
             return dict()
 
-        return self.data.fixture_type[fixture_type].pattern_index[pattern_index].group_place[group_place].step
+        return self.data.fixture_type[show_item.name].pattern_index[pattern_index].group_place[show_item.group_place].step
 
-    def set_steps(self, fixture_type: str, pattern_index: int, group_place: int, steps: dict[dict[str, int]]):
-        if fixture_type not in self.data.fixture_type:
-            self.data.fixture_type[fixture_type] = PatternIndexContainer()
+    def set_steps(self, show_item: ShowItem, pattern_index: int, steps: dict[dict[str, int]]):
+        if show_item.name not in self.data.fixture_type:
+            self.data.fixture_type[show_item.name] = PatternIndexContainer()
 
-        if pattern_index not in self.data.fixture_type[fixture_type].pattern_index:
-            self.data.fixture_type[fixture_type].pattern_index[pattern_index] = PatternGroupPlaceContainer()
+        if pattern_index not in self.data.fixture_type[show_item.name].pattern_index:
+            self.data.fixture_type[show_item.name].pattern_index[pattern_index] = PatternGroupPlaceContainer()
 
-        if group_place not in self.data.fixture_type[fixture_type].pattern_index[pattern_index].group_place:
-            self.data.fixture_type[fixture_type].pattern_index[pattern_index].group_place[group_place] = PatternStepContainer()
+        if show_item.group_place not in self.data.fixture_type[show_item.name].pattern_index[pattern_index].group_place:
+            self.data.fixture_type[show_item.name].pattern_index[pattern_index].group_place[show_item.group_place] = PatternStepContainer()
 
-        self.data.fixture_type[fixture_type].pattern_index[pattern_index].group_place[group_place].step = steps
+        self.data.fixture_type[show_item.name].pattern_index[pattern_index].group_place[show_item.group_place].step = steps
 
     # FIXME create a PatternEditor class
     def wheel_changed(self, wheel):
@@ -67,7 +67,20 @@ class PatternStore:
     @staticmethod
     def set_wheel_value(value: float):
         # TODO use an API instead of Component
-        if Components().osc_message_sender is not None:
-            Components().osc_message_sender.send_to_all_raw(
-                f"/#pattern_edition/wheel", value
-            )
+        if Components().osc_message_sender is None:
+            return
+
+        Components().osc_message_sender.send_to_all_raw(
+            f"/#pattern_edition/wheel", value
+        )
+
+    def set_current_step(self, show_item: ShowItem, pattern_index: int, step_index: int):
+        # TODO use an API instead of Component
+        if Components().fixture_updater is None:
+            return
+
+        step = self.get_steps(show_item, pattern_index).get(step_index, None)
+        Components().fixture_updater.set_pattern_edition_step(
+            show_item=show_item,
+            step=step
+        )
