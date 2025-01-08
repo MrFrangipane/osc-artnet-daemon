@@ -127,6 +127,9 @@ class FixturesUpdater(AbstractFixturesUpdater):
         return infos
 
     def set_pattern_edition_step(self, show_item_info: ShowItemInfo, step: dict[str, int]):
+        if Components().osc_state_model.current_page != OSCStateModel.Page.PatternEdition:
+            return
+        
         fixture = Components().show_store.item_by_info(show_item_info).fixture
         fixture.apply_pattern_step(step)
         channels = fixture.map_to_channels()
