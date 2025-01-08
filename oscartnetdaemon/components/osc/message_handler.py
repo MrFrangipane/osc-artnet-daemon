@@ -19,6 +19,10 @@ class MessageHandler:
             if len(values) != 1:
                 return
 
+            if path_items[1] == 'DEVICE_NAME_TAB':
+                _logger.warning(f"Device was not discovered, check Bonjour service")
+                return
+
             if 'pager' in path_items:
                 Components().osc_state_model.current_page = OSCStateModel.Page(values[0])
                 return
@@ -97,5 +101,7 @@ class MessageHandler:
                 Components().osc_state_model.mood.on_strobe = value
 
             Components().osc_message_sender.send(control_name, value, sender)
+
         except Exception as e:
             _logger.warning(str(e))
+            raise
