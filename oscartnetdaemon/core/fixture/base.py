@@ -18,6 +18,7 @@ class BaseFixture(metaclass=AbstractFixtureMetaclass):
         self._mapping = self.Mapping()
 
     def apply_pattern_step(self, step: dict[str, int]):
+        self._mapping = self.Mapping()
         for parameter, value in step.items():
             setattr(self._mapping, parameter, value)
 
