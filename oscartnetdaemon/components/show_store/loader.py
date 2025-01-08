@@ -6,6 +6,7 @@ from oscartnetdaemon.core.mood import Mood
 from oscartnetdaemon.core.show.channel_info import ShowItemChannelInfo
 from oscartnetdaemon.core.show.group_info import ShowItemGroupInfo
 from oscartnetdaemon.core.show.item import ShowItem
+from oscartnetdaemon.core.show.item_info import ShowItemInfo
 from oscartnetdaemon.core.show.show import Show
 
 
@@ -63,14 +64,16 @@ class ShowLoader:
         )
 
         new_item = ShowItem(
-            name=type(fixture).__name__,
+            info=ShowItemInfo(
+                name=type(fixture).__name__,
+                fixture_index=self._fixture_index,
+                group_info=group_info,
+                channel_info=channel_info
+            ),
             fixture=fixture,
-            fixture_index=self._fixture_index,
-            group_info=group_info,
-            channel_info=channel_info
         )
 
-        self._channel_start_index += new_item.channel_info.count
+        self._channel_start_index += new_item.info.channel_info.count
         self._fixture_index += 1
 
         return new_item

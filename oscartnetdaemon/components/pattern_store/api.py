@@ -1,5 +1,5 @@
 from oscartnetdaemon.core.components import Components
-from oscartnetdaemon.core.show.item import ShowItem
+from oscartnetdaemon.core.show.item_info import ShowItemInfo
 
 
 class PatternStoreAPI:
@@ -12,16 +12,16 @@ class PatternStoreAPI:
         )
 
     @staticmethod
-    def get_steps(show_item: ShowItem, pattern_index: int) -> dict[int, dict[str, int]]:
+    def get_steps(show_item_info: ShowItemInfo, pattern_index: int) -> dict[int, dict[str, int]]:
         return Components().pattern_store.get_steps(
-            show_item=show_item,
+            show_item_info=show_item_info,
             pattern_index=pattern_index
         )
 
     @staticmethod
-    def set_steps(show_item: ShowItem, pattern_index: int, steps: dict[int, dict[str, int]]):
+    def set_steps(show_item_info: ShowItemInfo, pattern_index: int, steps: dict[int, dict[str, int]]):
         Components().pattern_store.set_steps(
-            show_item=show_item,
+            show_item_info=show_item_info,
             pattern_index=pattern_index,
             steps=steps
         )
@@ -35,9 +35,9 @@ class PatternStoreAPI:
         Components().pattern_store.set_wheel_value(value)
 
     @staticmethod
-    def set_current_step(show_item: ShowItem, pattern_index: int, step_index: int):
+    def set_current_step(show_item_info: ShowItemInfo, pattern_index: int, step_index: int):
         Components().pattern_store.set_current_step(
-            show_item=show_item,
+            show_item_info=show_item_info,
             pattern_index=pattern_index,
             step_index=step_index
         )

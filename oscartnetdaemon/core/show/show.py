@@ -1,6 +1,7 @@
 from dataclasses import dataclass, field
 
-from oscartnetdaemon.core.show.item import ShowItem
+# from oscartnetdaemon.core.show.item import ShowItem
+# FIXME circular dependency with BaseFixture
 
 
 @dataclass
@@ -15,5 +16,5 @@ class Show:
     :vartype items: list[ShowItem]
     """
     title: str
-    items: list[ShowItem] = field(default_factory=list)
+    items: list = field(default_factory=list)  # list[ShowItem]
     groups_dimmers: list[float] = field(default_factory=lambda: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0])

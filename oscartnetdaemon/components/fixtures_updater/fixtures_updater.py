@@ -6,7 +6,7 @@ from oscartnetdaemon.components.fixtures_updater.abstract import AbstractFixture
 from oscartnetdaemon.core.channel_info import ChannelInfo
 from oscartnetdaemon.core.components import Components
 from oscartnetdaemon.core.osc.state_model import OSCStateModel
-from oscartnetdaemon.core.show.item import ShowItem
+from oscartnetdaemon.core.show.item_info import ShowItemInfo
 
 
 from oscartnetfixtures.python_extensions.math import map_to_int  # FIXME !!
@@ -95,10 +95,10 @@ class FixturesUpdater(AbstractFixturesUpdater):
         mood.beat_counter = Components().midi_tempo.beat_counter
 
         for show_item in Components().show_store.show.items:
-            group_dimmer = Components().show_store.show.groups_dimmers[show_item.group_info.index - 1]  # FIXME this should be starting at 0
-            channels = show_item.fixture.map_to_channels(mood, group_dimmer, show_item.group_info)
+            group_dimmer = Components().show_store.show.groups_dimmers[show_item.info.group_info.index - 1]  # FIXME this should be starting at 0
+            channels = show_item.fixture.map_to_channels(mood, group_dimmer, show_item.info.group_info)
 
-            self.universe[show_item.channel_info.first:show_item.channel_info.last] = channels
+            self.universe[show_item.info.channel_info.first:show_item.info.channel_info.last] = channels
 
         for artnet_server in Components().artnet_servers:
             artnet_server.set_universe(self.universe)
@@ -115,25 +115,27 @@ class FixturesUpdater(AbstractFixturesUpdater):
     def channels_info(self) -> list[ChannelInfo]:
         infos = list()
         for show_item in Components().show_store.show.items:
-            for dmx_index in range(show_item.channel_info.first, show_item.channel_info.last):
+            for dmx_index in range(show_item.info.channel_info.first, show_item.info.channel_info.last):
                 channel_info = ChannelInfo(
                     dmx_index=dmx_index,
-                    fixture_index=show_item.fixture_index,
-                    group_index=show_item.group_info.index,
+                    fixture_index=show_item.info.fixture_index,
+                    group_index=show_item.info.group_info.index,
                     value=self.universe[dmx_index]
                 )
                 infos.append(channel_info)
         return infos
 
-    def set_pattern_edition_step(self, show_item: ShowItem, step: dict[str, int]):
+    def set_pattern_edition_step(self, show_item_info: ShowItemInfo, step: dict[str, int]):
         self.universe = bytearray(512)
+
+        fixture = Components().show_store.item_by_info(show_item_info).fixture
 
         # fixme: duplicate from self._mood()
         mood = copy(Components().osc_state_model.mood)
         group_dimmer = Components().show_store.show.groups_dimmers[
-            show_item.group_info.index - 1]  # FIXME this should be starting at 0
-        channels = show_item.fixture.map_to_channels(mood, group_dimmer, show_item.group_info)
-        self.universe[show_item.channel_info.first:show_item.channel_info.last] = channels
+            show_item_info.group_info.index - 1]  # FIXME this should be starting at 0
+        channels = fixture.map_to_channels(mood, group_dimmer, show_item_info.group_info)
+        self.universe[show_item_info.channel_info.first:show_item_info.channel_info.last] = channels
 
         for artnet_server in Components().artnet_servers:
             artnet_server.set_universe(self.universe)

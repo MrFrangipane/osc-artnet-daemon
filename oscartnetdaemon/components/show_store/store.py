@@ -4,6 +4,8 @@ from oscartnetfixtures import OSCArtnetFixturesAPI
 
 from oscartnetdaemon.components.show_store.abstract import AbstractShowStore
 from oscartnetdaemon.components.show_store.loader import ShowLoader
+from oscartnetdaemon.core.show.item import ShowItem
+from oscartnetdaemon.core.show.item_info import ShowItemInfo
 
 from oscartnetdaemon.core.fixture.group import FixtureGroup
 
@@ -37,3 +39,8 @@ class ShowStore(AbstractShowStore):
         for item in self.show.items:
             if type(item.fixture).__name__ == type_name:
                 yield item
+
+    def item_by_info(self, show_item_info: ShowItemInfo) -> ShowItem:
+        for item in self.show.items:
+            if item.info == show_item_info:
+                return item

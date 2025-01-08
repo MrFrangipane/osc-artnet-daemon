@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from oscartnetdaemon.core.fixture.abstract_metaclass import AbstractFixtureMetaclass
 from oscartnetdaemon.core.mood import Mood
 from oscartnetdaemon.core.show.group_info import ShowItemGroupInfo
+from oscartnetdaemon.components.pattern_store.api import PatternStoreAPI
 
 
 class BaseFixture(metaclass=AbstractFixtureMetaclass):

@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 from oscartnetdaemon.core.channel_info import ChannelInfo
-from oscartnetdaemon.core.show.item import ShowItem
+from oscartnetdaemon.core.show.item_info import ShowItemInfo
 
 
 class AbstractFixturesUpdater(ABC):
@@ -22,5 +22,5 @@ class AbstractFixturesUpdater(ABC):
         pass
 
     @staticmethod
-    def set_pattern_edition_step(show_item: ShowItem, step: dict[str, int]):
+    def set_pattern_edition_step(show_item_info: ShowItemInfo, step: dict[str, int]):
         pass
