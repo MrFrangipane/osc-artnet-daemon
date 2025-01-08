@@ -1,11 +1,12 @@
 import math
 from typing import List
 
-from oscartnetdaemon.core.pattern.base import BasePattern
+from oscartnetdaemon.core.pattern.abstract import AbstractPattern
 
 
-class SequencePattern(BasePattern):
+class SequencePattern(AbstractPattern):
     def __init__(self, *pattern_array: List[List[int]]):
+        super().__init__()
         self.pattern_array = pattern_array
     
     def read_pattern(self, group_position, time_scale, beat_counter, parameter=0., playmode=0) -> float:
