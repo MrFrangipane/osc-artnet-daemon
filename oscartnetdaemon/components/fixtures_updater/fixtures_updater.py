@@ -127,8 +127,6 @@ class FixturesUpdater(AbstractFixturesUpdater):
         return infos
 
     def set_pattern_edition_step(self, show_item_info: ShowItemInfo, step: dict[str, int]):
-        self.universe = bytearray(512)
-
         fixture = Components().show_store.item_by_info(show_item_info).fixture
         fixture.apply_pattern_step(step)
         channels = fixture.map_to_channels()
