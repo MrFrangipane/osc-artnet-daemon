@@ -3,6 +3,7 @@ from dataclasses import dataclass, field
 from dataclasses_json import dataclass_json
 
 from oscartnetdaemon.core.configuration import Configuration
+from oscartnetdaemon.core.pattern.store_containers import PatternStoreContainer
 
 
 @dataclass_json
@@ -11,4 +12,4 @@ class Project:
     name: str
     configuration: Configuration
     fixtures: list[list[str]] = field(default_factory=list)
-    patterns: dict[str, list[list[list[dict[str, int]]]]] = field(default_factory=dict)
+    patterns: PatternStoreContainer = field(default_factory=PatternStoreContainer)
