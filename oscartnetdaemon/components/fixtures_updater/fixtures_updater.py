@@ -15,7 +15,7 @@ _logger = logging.getLogger(__name__)
 
 
 class FixturesUpdater(AbstractFixturesUpdater):
-    sleep_interval = 1.0 / 40
+    sleep_interval = 1.0 / 60
 
     def __init__(self):
         super().__init__()

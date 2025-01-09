@@ -4,7 +4,12 @@ from oscartnetdaemon.core.show.item_info import ShowItemInfo
 
 def _lerp_dict(a: dict, b: dict, factor: float) -> dict:
     keys = set(a.keys()).union(b.keys())
-    return {key: int(float(a.get(key, 0)) * (1 - factor)) + int(float(b.get(key, 0)) * factor) for key in keys}
+
+    return {
+        key: int(float(a.get(key, 0)) * (1 - factor)) + int(float(b.get(key, 0)) * factor)
+        if a.get(key, 0) != b.get(key, 0) else b.get(key, 0)
+        for key in keys
+    }
 
 
 def _stretch_time(time: float, factor: float) -> float:
