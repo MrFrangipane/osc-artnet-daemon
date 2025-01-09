@@ -17,6 +17,7 @@ class ProjectPersistence:
         self.filepath: str = ""
 
     def new(self) -> None:
+        self.filepath: str = ""
         self._project = Project(
             name="New project",
             configuration=parse_args()
