@@ -40,7 +40,7 @@ class ShowLoader:
                     show_items.append(self._fixture_to_show_item(
                         sub_fixture,
                         is_group=True,
-                        group_position=float(i) / (len(fixture.fixtures) - 1),
+                        group_position=float(i) / (self._group_size - 1) if self._group_size > 1 else 0.5,
                         group_place=i
                     ))
                 self._group_index += 1
