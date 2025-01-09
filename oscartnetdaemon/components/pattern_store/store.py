@@ -7,6 +7,16 @@ def _lerp_dict(a: dict, b: dict, factor: float) -> dict:
     return {key: int(float(a.get(key, 0)) * (1 - factor)) + int(float(b.get(key, 0)) * factor) for key in keys}
 
 
+def _stretch_time(time: float, factor: float) -> float:
+    if factor == 0.0:
+        return 0.0
+
+    if time >= factor:
+        return 1.0
+
+    return time / factor
+
+
 class PatternStore:
 
     def __init__(self):
@@ -39,10 +49,8 @@ class PatternStore:
 
         step = pattern.step.get(step_id, dict())
         next_step = pattern.step.get(next_step_id, dict())
-        factor = beat - int(beat)
-
-        interpolated = _lerp_dict(step, next_step, factor)
-        return _lerp_dict(step, interpolated, mood.pattern_parameter)
+        factor = _stretch_time(beat - int(beat), mood.pattern_parameter)
+        return _lerp_dict(step, next_step, factor)
 
     def get_steps(self, show_item_info: ShowItemInfo, pattern_index: int) -> dict[int, dict[str, int]]:
         if show_item_info.name not in self.data.fixture_type:
