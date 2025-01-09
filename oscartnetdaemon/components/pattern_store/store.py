@@ -104,3 +104,9 @@ class PatternStore:
             show_item_info=show_item_info,
             step=step
         )
+
+    def pattern_names(self) -> list[str]:
+        return self.data.pattern_names
+
+    def set_pattern_name(self, pattern_index: int, name: str) -> None:
+        self.data.pattern_names[pattern_index] = name

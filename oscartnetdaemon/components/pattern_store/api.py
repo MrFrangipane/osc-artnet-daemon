@@ -41,3 +41,16 @@ class PatternStoreAPI:
             pattern_index=pattern_index,
             step_index=step_index
         )
+
+    @staticmethod
+    def pattern_names() -> list[str]:
+        return Components().pattern_store.pattern_names()
+
+    @staticmethod
+    def set_pattern_name(pattern_index: int, name: str) -> None:
+        Components().pattern_store.set_pattern_name(pattern_index=pattern_index, name=name)
+
+        # FIXME create OSCAPI ?
+        if Components().osc_message_sender is None:
+            return
+        Components().osc_message_sender.send_pattern_names_to_all()

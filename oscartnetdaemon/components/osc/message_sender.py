@@ -5,6 +5,7 @@ from pythonosc.udp_client import SimpleUDPClient
 from oscartnetdaemon.core.osc_client_info import OSCClientInfo
 from oscartnetdaemon.core.components import Components
 from oscartnetdaemon.components.osc.abstract_message_sender import AbstractOSCMessageSender
+from oscartnetdaemon.components.pattern_store.api import PatternStoreAPI
 
 _logger = logging.getLogger(__name__)
 
@@ -25,6 +26,9 @@ class OSCMessageSender(AbstractOSCMessageSender):
         _logger.debug(f"Sending /device_name, /device_address to {info.name}")
         new_client.send_message('/device_name', info.name)
         new_client.send_message('/device_address', address)
+
+        for pattern_index, pattern_name in enumerate(PatternStoreAPI.pattern_names()):
+            new_client.send_message(f"/{info.name}/pattern_name_{pattern_index}", pattern_name)
 
         self.send_mood_to_all()
 
@@ -58,6 +62,10 @@ class OSCMessageSender(AbstractOSCMessageSender):
             if name == "master_dimmer":
                 continue
             self.send(name, value, "Server")
+
+    def send_pattern_names_to_all(self):
+        for pattern_index, pattern_name in enumerate(PatternStoreAPI.pattern_names()):
+            self.send(f"pattern_name_{pattern_index}", pattern_name, "Server")
 
     def send_to_all_raw(self, address, value):
         for client_name in self._clients:

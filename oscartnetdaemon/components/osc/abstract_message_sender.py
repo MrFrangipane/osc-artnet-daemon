@@ -26,5 +26,9 @@ class AbstractOSCMessageSender(ABC):
         pass
 
     @abstractmethod
+    def send_pattern_names_to_all(self):
+        pass
+
+    @abstractmethod
     def send_to_all_raw(self, address, value):
         pass

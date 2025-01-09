@@ -25,3 +25,4 @@ class PatternIndexContainer:
 @dataclass
 class PatternStoreContainer:
     fixture_type: dict[str, PatternIndexContainer] = field(default_factory=dict)
+    pattern_names: list[str] = field(default_factory=lambda: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"])
