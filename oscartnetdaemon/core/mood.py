@@ -20,6 +20,7 @@ class Mood:
     on_wash: float = 1.0
     on_par: float = 1.0
 
+    on_smoke: float = 0.0
     on_white: float = 0.0
     on_strobe: float = 0.0
 

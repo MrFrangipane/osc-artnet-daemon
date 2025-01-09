@@ -95,6 +95,8 @@ class MessageHandler:
                 Components().osc_state_model.mood.on_wash = value
             elif control_name == 'on_par':
                 Components().osc_state_model.mood.on_par = value
+            elif control_name == 'on_smoke':
+                Components().osc_state_model.mood.on_smoke = value
             elif control_name == 'on_white':
                 Components().osc_state_model.mood.on_white = value
             elif control_name == 'on_strobe':
