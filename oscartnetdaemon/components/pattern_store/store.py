@@ -69,7 +69,7 @@ class PatternStore:
 
         return self.data.fixture_type[show_item_info.name].pattern_index[pattern_index].group_place[show_item_info.group_info.place].step
 
-    def set_steps(self, show_item_info: ShowItemInfo, pattern_index: int, steps: dict[dict[str, int]]):
+    def set_steps(self, show_item_info: ShowItemInfo, pattern_index: int, steps: dict[int, dict[str, int]]):
         if show_item_info.name not in self.data.fixture_type:
             self.data.fixture_type[show_item_info.name] = PatternIndexContainer()
 
@@ -115,3 +115,14 @@ class PatternStore:
 
     def set_pattern_name(self, pattern_index: int, name: str) -> None:
         self.data.pattern_names[pattern_index] = name
+
+    def shift_steps(self, show_item_info: ShowItemInfo, pattern_index: int, offset: int) -> None:
+        steps = self.get_steps(show_item_info, pattern_index)
+        if not steps:
+            return
+
+        new_steps = dict()
+        for step_index in range(len(steps)):
+            new_steps[step_index] = steps[(step_index - offset) % len(steps)]
+
+        self.set_steps(show_item_info, pattern_index, new_steps)
