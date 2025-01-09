@@ -56,9 +56,5 @@ class PatternStoreAPI:
         Components().osc_message_sender.send_pattern_names_to_all()
 
     @staticmethod
-    def shift_left(show_item_info: ShowItemInfo, pattern_index: int) -> None:
-        Components().pattern_store.shift_steps(show_item_info=show_item_info, pattern_index=pattern_index, offset=-1)
-
-    @staticmethod
-    def shift_right(show_item_info: ShowItemInfo, pattern_index: int) -> None:
-        Components().pattern_store.shift_steps(show_item_info=show_item_info, pattern_index=pattern_index, offset=1)
+    def shift_steps(show_item_info: ShowItemInfo, pattern_index: int, offset: int) -> None:
+        Components().pattern_store.shift_steps(show_item_info=show_item_info, pattern_index=pattern_index, offset=offset)
