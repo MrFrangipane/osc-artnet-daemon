@@ -6,6 +6,10 @@ from oscartnetdaemon.core.osc_client_info import OSCClientInfo
 class AbstractOSCMessageSender(ABC):
 
     @abstractmethod
+    def ensure_registered(self, ip_address: str, port: int):
+        pass
+
+    @abstractmethod
     def register_client(self, info: OSCClientInfo):
         pass
 

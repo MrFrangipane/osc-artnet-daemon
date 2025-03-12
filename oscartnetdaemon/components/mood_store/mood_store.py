@@ -1,5 +1,6 @@
 import logging
 from copy import copy
+from ipaddress import IPv4Address
 
 from oscartnetdaemon.components.mood_store.abstract import AbstractMoodStore
 from oscartnetdaemon.core.components import Components
@@ -57,24 +58,25 @@ class _ClientMoodStore:
 
 class MoodStore(AbstractMoodStore):
     def __init__(self):
+        # TODO : dont register clients in two places (MoodStore + MessageSender)
         self._clients_stores: dict[str, _ClientMoodStore] = dict()
 
     def register_client(self, info: OSCClientInfo):
-        _logger.debug(f"Registering client {info.name}")
-        if info.name not in self._clients_stores:
-            self._clients_stores[info.name] = _ClientMoodStore(info)
+        ip_address = str(IPv4Address(info.address))
+        if ip_address not in self._clients_stores:
+            self._clients_stores[ip_address] = _ClientMoodStore(info)
 
     def unregister_client(self, info: OSCClientInfo):
         pass  # keep data alive (for when client reconnects)
 
-    def save(self, sender, scene_name):
-        self._clients_stores[sender].save(scene_name)
+    def save(self, sender_ip, scene_name):
+        self._clients_stores[sender_ip].save(scene_name)
 
-    def recall(self, sender, scene_name):
-        self._clients_stores[sender].recall(scene_name)
+    def recall(self, sender_ip, scene_name):
+        self._clients_stores[sender_ip].recall(scene_name)
 
-    def set_punch(self, sender, scene_name, is_punch):
-        self._clients_stores[sender].set_punch(scene_name, is_punch)
+    def set_punch(self, sender_ip, scene_name, is_punch):
+        self._clients_stores[sender_ip].set_punch(scene_name, is_punch)
 
-    def set_temporary_modifier(self, sender, is_active):
-        self._clients_stores[sender].set_temporary_modifier(is_active)
+    def set_temporary_modifier(self, sender_ip, is_active):
+        self._clients_stores[sender_ip].set_temporary_modifier(is_active)

@@ -16,7 +16,3 @@ class AbstractOSCServer(ABC):
     @abstractmethod
     def stop(self):
         pass
-
-    @abstractmethod
-    def _handle(self, address, *values):
-        pass

@@ -76,9 +76,10 @@ class Launcher:
         self._fixture_thread.start()
 
         # Discovery
-        Components().discovery = Discovery(address_mask=configuration.osc_server_address)
-        self._discovery_thread: Thread = Thread(target=Components().discovery.start, daemon=True)
-        self._discovery_thread.start()
+        # TODO check with resolume and OSX devices on the network before restoring
+        # Components().discovery = Discovery(address_mask=configuration.osc_server_address)
+        # self._discovery_thread: Thread = Thread(target=Components().discovery.start, daemon=True)
+        # self._discovery_thread.start()
 
         #
         # Loop

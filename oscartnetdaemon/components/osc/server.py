@@ -1,12 +1,10 @@
 import logging
-from datetime import datetime
 
 from pythonosc.dispatcher import Dispatcher
 from pythonosc.osc_server import ThreadingOSCUDPServer
 
 from oscartnetdaemon.components.osc.server_abstract import AbstractOSCServer
 from oscartnetdaemon.components.osc.message_handler import MessageHandler
-from oscartnetdaemon.core.components import Components
 
 _logger = logging.getLogger(__name__)
 
@@ -26,7 +24,7 @@ class OSCServer(AbstractOSCServer):
             server_address=(self.address, self.port),
             dispatcher=self._dispatcher
         )
-        self._server.dispatcher.set_default_handler(self._handle)
+        self._server.dispatcher.set_default_handler(self._message_handler.handle, needs_reply_address=True)
         self._server.serve_forever()
 
     def stop(self):
@@ -34,8 +32,3 @@ class OSCServer(AbstractOSCServer):
         self._server.server_close()
         _logger.info(f"Last OSC message received {self._last_message_datetime}")
         _logger.info(f"OSC server stopped")
-
-    def _handle(self, address, *values):
-        _logger.debug(f"{address} {values}")
-        self._last_message_datetime = datetime.now()
-        self._message_handler.handle(address, values)
