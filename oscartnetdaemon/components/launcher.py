@@ -97,7 +97,7 @@ class Launcher:
     def stop(self):
         if self.was_started:
             Components().fixture_updater.stop()
-            Components().discovery.stop()
+            # Components().discovery.stop()
             Components().midi_tempo.stop()
             Components().osc_server.stop()
             for artnet_server in Components().artnet_servers:
