@@ -22,3 +22,7 @@ def hsl_to_rgbw(h: float, s: float, l: float) -> [float, float, float, float]:
         (factor_ * b) - white,
         white
     )
+
+
+def colorize(mapping_value: int, colorize_factor: float, color_value: float) -> int:
+    return int(color_value * mapping_value * colorize_factor + mapping_value * (1.0 - colorize_factor))

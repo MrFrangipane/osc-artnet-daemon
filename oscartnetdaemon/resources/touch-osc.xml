@@ -31476,7 +31476,7 @@ end</value>
 												<key>text</key>
 												<locked>0</locked>
 												<lockedDefaultCurrent>1</lockedDefaultCurrent>
-												<default>0.556</default>
+												<default>1</default>
 												<defaultPull>0</defaultPull>
 											</value>
 											<value>
@@ -31595,7 +31595,7 @@ end</value>
 												<key>text</key>
 												<locked>0</locked>
 												<lockedDefaultCurrent>1</lockedDefaultCurrent>
-												<default>142</default>
+												<default>255</default>
 												<defaultPull>0</defaultPull>
 											</value>
 											<value>
