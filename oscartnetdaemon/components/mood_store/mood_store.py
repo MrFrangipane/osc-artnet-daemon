@@ -19,7 +19,8 @@ class _ClientMoodStore:
             'a': Mood(),
             'b': Mood(),
             'c': Mood(),
-            'd': Mood()
+            'd': Mood(),
+            'e': Mood()
         }
         self._is_punching = False
         self._punch_pile: list[str] = ['before_punch']
