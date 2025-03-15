@@ -1,8 +1,10 @@
+from dataclasses import fields
 from datetime import datetime
-import logging
 from typing import Union
+import logging
 
 from oscartnetdaemon.core.components import Components
+from oscartnetdaemon.core.mood import Mood
 from oscartnetdaemon.core.osc.state_model import OSCStateModel
 
 _logger = logging.getLogger(__name__)
@@ -13,6 +15,8 @@ class MessageHandler:
         self._last_message_datetime: Union[datetime.date, None] = None
         if Components().osc_message_sender is None:
             raise ValueError("No message sender is configured")
+
+        self._mood_attributes = [field.name for field in fields(Mood)]
 
     def handle(self, reply: tuple[str, int], address: str, *values) -> None:
         client_ip, client_port = reply
@@ -61,51 +65,18 @@ class MessageHandler:
                 return
 
             #
-            # Controls
+            # Controls - specific
             if control_name == "temporary_modifier":
                 Components().mood_store.set_temporary_modifier(client_ip, value)
 
-            if control_name == "tap_tempo" and value == 1:
+            elif control_name == "tap_tempo" and value == 1:
                 # fixme: specific OSC messages to notify other (messages get lost in timings)
                 Components().midi_tempo.send_tap()
 
-            elif control_name == 'recallable_dimmer':
-                Components().osc_state_model.mood.recallable_dimmer = value
-            elif control_name == 'master_dimmer':
-                Components().osc_state_model.mood.master_dimmer = value
-
-            elif control_name == 'hue':
-                Components().osc_state_model.mood.hue = value
-            elif control_name == 'texture':
-                Components().osc_state_model.mood.texture = value
-
-            elif control_name == 'bpm_scale':
-                # fixme: we need an interop service between tosc and mood
-                Components().osc_state_model.mood.bpm_scale = value
-            elif control_name == 'palette':
-                Components().osc_state_model.mood.palette = value
-            elif control_name == 'pattern':
-                Components().osc_state_model.mood.pattern = value
-
-            elif control_name == 'pattern_parameter':
-                Components().osc_state_model.mood.pattern_parameter = value
-            elif control_name == 'pattern_playmode':
-                Components().osc_state_model.mood.pattern_playmode = value
-
-            elif control_name == 'on_octo':
-                Components().osc_state_model.mood.on_octo = value
-            elif control_name == 'on_lyre':
-                Components().osc_state_model.mood.on_lyre = value
-            elif control_name == 'on_wash':
-                Components().osc_state_model.mood.on_wash = value
-            elif control_name == 'on_par':
-                Components().osc_state_model.mood.on_par = value
-            elif control_name == 'on_smoke':
-                Components().osc_state_model.mood.on_smoke = value
-            elif control_name == 'on_white':
-                Components().osc_state_model.mood.on_white = value
-            elif control_name == 'on_strobe':
-                Components().osc_state_model.mood.on_strobe = value
+            #
+            # Controls - all others
+            elif control_name in self._mood_attributes:
+                setattr(Components().osc_state_model.mood, control_name, value)
 
             Components().osc_message_sender.send(control_name, value, client_ip)
 

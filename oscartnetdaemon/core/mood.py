@@ -10,7 +10,6 @@ class Mood:
     hue: float = 0.0
     palette: int = 0
     pattern: int = 0
-    texture: float = 0.5
 
     pattern_parameter: float = 0.0
     pattern_playmode: int = 0
@@ -19,6 +18,11 @@ class Mood:
     on_lyre: float = 1.0
     on_wash: float = 1.0
     on_par: float = 1.0
+
+    colorize_octo: float = 1.0
+    colorize_lyre: float = 1.0
+    colorize_wash: float = 1.0
+    colorize_par: float = 1.0
 
     on_smoke: float = 0.0
     on_white: float = 0.0
