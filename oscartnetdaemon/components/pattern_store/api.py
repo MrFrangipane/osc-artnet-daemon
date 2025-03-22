@@ -58,3 +58,10 @@ class PatternStoreAPI:
     @staticmethod
     def shift_steps(show_item_info: ShowItemInfo, pattern_index: int, offset: int) -> None:
         Components().pattern_store.shift_steps(show_item_info=show_item_info, pattern_index=pattern_index, offset=offset)
+
+    @staticmethod
+    def set_current_pattern(pattern_index: int):
+        # FIXME very hacky !!
+        if Components().osc_message_sender is not None:
+            Components().osc_state_model.mood.pattern = pattern_index
+            Components().osc_message_sender.send_mood_to_all()
