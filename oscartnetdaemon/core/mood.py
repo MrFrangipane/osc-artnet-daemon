@@ -30,3 +30,5 @@ class Mood:
 
     master_dimmer: float = 1.0
     recallable_dimmer: float = 1.0
+
+    beam_shape: int = 0
