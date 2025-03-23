@@ -53,6 +53,8 @@ class _ClientMoodStore:
 
     @staticmethod
     def _set_mood(mood: Mood):
+        master = Components().osc_state_model.mood.master_dimmer
+        mood.master_dimmer = master
         Components().osc_state_model.mood = copy(mood)
         Components().osc_message_sender.send_mood_to_all()
 

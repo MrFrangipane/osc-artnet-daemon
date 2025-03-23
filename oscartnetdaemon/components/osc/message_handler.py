@@ -38,8 +38,6 @@ class MessageHandler:
 
             _, page, control_name = path_items
 
-            print(page, control_name)
-
             # fixme: we shouldn't know what to do here
             if page.startswith('#two_bright_par'):
                 par_index, value_name = control_name.split("_")
