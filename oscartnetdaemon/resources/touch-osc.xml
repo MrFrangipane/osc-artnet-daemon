@@ -3433,7 +3433,7 @@ end</value>
 										<key>text</key>
 										<locked>0</locked>
 										<lockedDefaultCurrent>1</lockedDefaultCurrent>
-										<default>Fall sync</default>
+										<default>E</default>
 										<defaultPull>0</defaultPull>
 									</value>
 									<value>
@@ -3607,7 +3607,7 @@ end</value>
 										<key>text</key>
 										<locked>0</locked>
 										<lockedDefaultCurrent>1</lockedDefaultCurrent>
-										<default>Circle</default>
+										<default>D</default>
 										<defaultPull>0</defaultPull>
 									</value>
 									<value>
@@ -3781,7 +3781,7 @@ end</value>
 										<key>text</key>
 										<locked>0</locked>
 										<lockedDefaultCurrent>1</lockedDefaultCurrent>
-										<default>Fall</default>
+										<default>C</default>
 										<defaultPull>0</defaultPull>
 									</value>
 									<value>
@@ -3955,7 +3955,7 @@ end</value>
 										<key>text</key>
 										<locked>0</locked>
 										<lockedDefaultCurrent>1</lockedDefaultCurrent>
-										<default>Phare Ch</default>
+										<default>B</default>
 										<defaultPull>0</defaultPull>
 									</value>
 									<value>
@@ -4129,7 +4129,7 @@ end</value>
 										<key>text</key>
 										<locked>0</locked>
 										<lockedDefaultCurrent>1</lockedDefaultCurrent>
-										<default>Phare</default>
+										<default>A</default>
 										<defaultPull>0</defaultPull>
 									</value>
 									<value>
@@ -13310,7 +13310,7 @@ end</value>
 										<key>text</key>
 										<locked>0</locked>
 										<lockedDefaultCurrent>1</lockedDefaultCurrent>
-										<default>Fixe</default>
+										<default>H</default>
 										<defaultPull>0</defaultPull>
 									</value>
 									<value>
@@ -13484,7 +13484,7 @@ end</value>
 										<key>text</key>
 										<locked>0</locked>
 										<lockedDefaultCurrent>1</lockedDefaultCurrent>
-										<default>DJ</default>
+										<default>G</default>
 										<defaultPull>0</defaultPull>
 									</value>
 									<value>
@@ -13658,7 +13658,7 @@ end</value>
 										<key>text</key>
 										<locked>0</locked>
 										<lockedDefaultCurrent>1</lockedDefaultCurrent>
-										<default>DJ ch</default>
+										<default>F</default>
 										<defaultPull>0</defaultPull>
 									</value>
 									<value>

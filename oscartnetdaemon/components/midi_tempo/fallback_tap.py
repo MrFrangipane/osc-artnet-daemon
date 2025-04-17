@@ -67,12 +67,11 @@ class FallbackTapMidiTempo(AbstractMIDITempo):
         now = time.time()
 
         if self._is_tapping and self._tap_count >= 2:
-            average_tap_interval = (now - self._first_tap) / self._tap_count
+            average_tap_interval = (self._latest_tap - self._first_tap) / (self._tap_count - 1)
             since_latest_tap = now - self._latest_tap
 
             if since_latest_tap > average_tap_interval * 1.5:
                 self._is_tapping = False
-
                 if average_tap_interval >= self._minimum_tap_interval:
                     self._beat_origin = self._first_tap
                     self._bpm = 60 / average_tap_interval
