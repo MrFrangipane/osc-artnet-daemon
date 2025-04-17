@@ -18,7 +18,7 @@ class AbstractOSCMessageSender(ABC):
         pass
 
     @abstractmethod
-    def send(self, control_name, value, sender):
+    def send(self, control_name, value, sender_ip):
         pass
 
     @abstractmethod

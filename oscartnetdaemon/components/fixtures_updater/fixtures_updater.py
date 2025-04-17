@@ -91,8 +91,9 @@ class FixturesUpdater(AbstractFixturesUpdater):
         # fixme: create a component that transforms OSC model to FixtureUpdater model
         # todo: add a "last midi message" timestamp to let fixtures deal with time if no midi was received ?
         mood = copy(Components().osc_state_model.mood)
-        mood.bpm = Components().midi_tempo.bpm
-        mood.beat_counter = Components().midi_tempo.beat_counter
+        tempo = Components().midi_tempo.info()
+        mood.bpm = tempo.bpm
+        mood.beat_counter = tempo.beat_counter
 
         for show_item in Components().show_store.show.items:
             group_dimmer = Components().show_store.show.groups_dimmers[show_item.info.group_info.index - 1]  # FIXME this should be starting at 0

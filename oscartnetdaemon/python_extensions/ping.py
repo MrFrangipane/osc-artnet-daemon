@@ -8,6 +8,7 @@ def ping(host):
     Returns True if host (str) responds to a ping request.
     Remember that a host may not respond to a ping (ICMP) request even if the host name is valid.
     """
-    param = '-n' if platform.system().lower() == 'windows' else '-c'
-    command = ['ping', param, '1', host]
-    return subprocess.call(command) == 0
+    if platform.system().lower() == 'windows':
+        return subprocess.call(['ping', '-n', '1', "-w", "500", host]) == 0
+
+    return subprocess.call(['ping', '-c', '1', host]) == 0

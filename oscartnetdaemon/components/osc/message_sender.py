@@ -56,7 +56,7 @@ class OSCMessageSender(AbstractOSCMessageSender):
         for ip_address, client in self._clients.items():
 
             # FIXME: very hacky
-            bpm = Components().midi_tempo.bpm
+            bpm = Components().midi_tempo.info().bpm
             client.send_message(f"/mood/bpm_value", f"{bpm:.1f}")
             # FIXME: ----------
 

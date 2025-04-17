@@ -29,9 +29,9 @@ class PatternStore:
         self._wheel_call_back: callable = None
 
     def get_step_while_playing(self, fixture_type: str, group_place: int) -> dict[str, int]:
-        beat_counter = Components().midi_tempo.beat_counter
+        tempo = Components().midi_tempo.info()
         mood = Components().osc_state_model.mood
-        beat = beat_counter * [.25, .5, 1.0, 2.0, 4.0][mood.bpm_scale]
+        beat = tempo.beat_counter * [.25, .5, 1.0, 2.0, 4.0][mood.bpm_scale]
         pattern_index = mood.pattern
 
         if fixture_type not in self.data.fixture_type:

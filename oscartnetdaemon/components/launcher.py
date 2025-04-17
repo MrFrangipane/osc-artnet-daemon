@@ -5,7 +5,7 @@ from threading import Thread
 from oscartnetdaemon.components.artnet_server import ArtnetServer
 from oscartnetdaemon.components.discovery.discovery import Discovery
 from oscartnetdaemon.components.fixtures_updater.fixtures_updater import FixturesUpdater
-from oscartnetdaemon.components.midi_tempo import MIDITempo
+from oscartnetdaemon.components.midi_tempo.injector import inject_midi_tempo
 from oscartnetdaemon.components.mood_store.mood_store import MoodStore
 from oscartnetdaemon.components.osc.message_sender import OSCMessageSender
 from oscartnetdaemon.components.osc.server import OSCServer
@@ -52,9 +52,7 @@ class Launcher:
 
         #
         # MIDI
-        Components().midi_tempo = MIDITempo()
-        Components().midi_tempo.set_in_port(configuration.midi_in_port)
-        Components().midi_tempo.set_out_port(configuration.midi_out_port)
+        inject_midi_tempo()
         self._midi_thread: Thread = Thread(target=Components().midi_tempo.start, daemon=True)
         self._midi_thread.start()
 
