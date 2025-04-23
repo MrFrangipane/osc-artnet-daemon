@@ -1,3 +1,4 @@
+import argparse
 import logging
 from copy import copy
 
@@ -23,6 +24,21 @@ class OSCArtnetDaemonAPI:
         OSCArtnetDaemonAPI instance initializer.
         """
         self._launcher = Launcher()
+
+    @staticmethod
+    def configure_from_command_line():
+        """
+        Configures the components by parsing command-line arguments and returns the configuration.
+
+        :return: The configuration parsed from the command line.
+        :rtype: Configuration
+        """
+        parser = argparse.ArgumentParser(description="OSCArtnetDaemon")
+        parser.add_argument("-p", "--project-filepath", help="The project filepath.", required=True)
+        args, _ = parser.parse_known_args()
+
+        if args.project_filepath:
+            OSCArtnetDaemonAPI.load_project(args.project_filepath)
 
     @property
     def artnet_universe(self):
@@ -51,7 +67,6 @@ class OSCArtnetDaemonAPI:
             logging.basicConfig(level=logging.INFO)
 
         Components().configuration = configuration
-
 
     #
     # Project
