@@ -2,6 +2,7 @@ import argparse
 import logging
 from copy import copy
 
+from oscartnetdaemon.components.argument_parser import parse_project_filepath
 from oscartnetdaemon.components.launcher import Launcher
 from oscartnetdaemon.core.channel_info import ChannelInfo
 from oscartnetdaemon.core.components import Components
@@ -33,12 +34,8 @@ class OSCArtnetDaemonAPI:
         :return: The configuration parsed from the command line.
         :rtype: Configuration
         """
-        parser = argparse.ArgumentParser(description="OSCArtnetDaemon")
-        parser.add_argument("-p", "--project-filepath", help="The project filepath.", required=True)
-        args, _ = parser.parse_known_args()
-
-        if args.project_filepath:
-            OSCArtnetDaemonAPI.load_project(args.project_filepath)
+        project_filepath = parse_project_filepath()
+        OSCArtnetDaemonAPI.load_project(project_filepath)
 
     @property
     def artnet_universe(self):

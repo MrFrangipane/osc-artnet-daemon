@@ -6,6 +6,16 @@ from oscartnetdaemon.core.configuration import Configuration
 _logger = logging.getLogger(__name__)
 
 
+def parse_project_filepath() -> str:
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "-f", "--filepath-project",
+        help="Project filepath to load. If not provided, a new project will be created."
+    )
+    arguments, _ = parser.parse_known_args()
+    return arguments.filepath_project
+
+
 def parse_args() -> Configuration:
     parser = argparse.ArgumentParser()
 
