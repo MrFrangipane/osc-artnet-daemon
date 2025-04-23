@@ -3,12 +3,14 @@ import platform
 import subprocess
 
 
-def ping(host):
+def ping(host: str, timeout: float=.5):
     """
     Returns True if host (str) responds to a ping request.
     Remember that a host may not respond to a ping (ICMP) request even if the host name is valid.
     """
     if platform.system().lower() == 'windows':
-        return subprocess.call(['ping', '-n', '1', "-w", "500", host]) == 0
+        timeout = str(int(timeout * 1000))
+        return subprocess.call(['ping', '-n', '1', "-w", timeout, host]) == 0
 
-    return subprocess.call(['ping', '-c', '1', host]) == 0
+    timeout = str(timeout)
+    return subprocess.call(['timeout', timeout, 'ping', '-c', '1', host]) == 0
