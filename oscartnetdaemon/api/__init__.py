@@ -1,4 +1,3 @@
-import argparse
 import logging
 from copy import copy
 
@@ -34,6 +33,7 @@ class OSCArtnetDaemonAPI:
         :return: The configuration parsed from the command line.
         :rtype: Configuration
         """
+        logging.basicConfig(level=logging.INFO)
         project_filepath = parse_project_filepath()
         OSCArtnetDaemonAPI.load_project(project_filepath)
 
