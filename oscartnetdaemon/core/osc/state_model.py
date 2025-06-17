@@ -14,9 +14,9 @@ class OSCStateModel:
     class Page(IntEnum):
         Mood = 0
         Groups = 1
-        Tristan200 = 2
-        PatternEdition = 3
-        TwoBrightPar = 4
+        PatternEdition = 2
+        Tristan200 = -1
+        TwoBrightPar = -1
 
     current_page: Page = Page.Mood
     mood: Mood = field(default_factory=Mood)
