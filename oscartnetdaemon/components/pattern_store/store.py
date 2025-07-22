@@ -2,12 +2,15 @@ from oscartnetdaemon.core.components import Components
 from oscartnetdaemon.core.pattern.store_containers import PatternStoreContainer, PatternIndexContainer, PatternGroupPlaceContainer, PatternStepContainer
 from oscartnetdaemon.core.show.item_info import ShowItemInfo
 
-def _lerp_dict(a: dict, b: dict, factor: float) -> dict:
+def _lerp_dict_with_invert(a: dict, b: dict, factor: float, inverted_keys: list[str]) -> dict:
     keys = set(a.keys()).union(b.keys())
 
     return {
-        key: int(float(a.get(key, 0)) * (1 - factor)) + int(float(b.get(key, 0)) * factor)
-        if a.get(key, 0) != b.get(key, 0) else b.get(key, 0)
+        key: (255 - int(float(a.get(key, 0)) * (1 - factor)) + int(float(b.get(key, 0)) * factor) if key in inverted_keys else
+          int(float(a.get(key, 0)) * (1 - factor)) + int(float(b.get(key, 0)) * factor)
+        ) if a.get(key, 0) != b.get(key, 0) else (255 - b.get(key, 0) if key in inverted_keys else
+            b.get(key, 0)
+        )
         for key in keys
     }
 
@@ -55,7 +58,7 @@ class PatternStore:
         step = pattern.step.get(step_id, dict())
         next_step = pattern.step.get(next_step_id, dict())
         factor = _stretch_time(beat - int(beat), mood.pattern_parameter)
-        return _lerp_dict(step, next_step, factor)
+        return _lerp_dict_with_invert(step, next_step, factor, pattern.inverted_keys)
 
     def get_steps(self, show_item_info: ShowItemInfo, pattern_index: int) -> dict[int, dict[str, int]]:
         if show_item_info.name not in self.data.fixture_type:
@@ -69,7 +72,7 @@ class PatternStore:
 
         return self.data.fixture_type[show_item_info.name].pattern_index[pattern_index].group_place[show_item_info.group_info.place].step
 
-    def set_steps(self, show_item_info: ShowItemInfo, pattern_index: int, steps: dict[int, dict[str, int]]):
+    def set_steps(self, show_item_info: ShowItemInfo, pattern_index: int, steps: dict[int, dict[str, int]], inverted_keys: list[str]):
         if show_item_info.name not in self.data.fixture_type:
             self.data.fixture_type[show_item_info.name] = PatternIndexContainer()
 
@@ -79,7 +82,9 @@ class PatternStore:
         if show_item_info.group_info.place not in self.data.fixture_type[show_item_info.name].pattern_index[pattern_index].group_place:
             self.data.fixture_type[show_item_info.name].pattern_index[pattern_index].group_place[show_item_info.group_info.place] = PatternStepContainer()
 
-        self.data.fixture_type[show_item_info.name].pattern_index[pattern_index].group_place[show_item_info.group_info.place].step = steps
+        step_container = self.data.fixture_type[show_item_info.name].pattern_index[pattern_index].group_place[show_item_info.group_info.place]
+        step_container.step = steps
+        step_container.inverted_keys = inverted_keys
 
     # FIXME create a PatternEditor class
     def wheel_changed(self, wheel):

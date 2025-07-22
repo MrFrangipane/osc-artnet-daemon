@@ -7,6 +7,7 @@ from dataclasses_json import dataclass_json
 @dataclass
 class PatternStepContainer:
     step: dict[int, dict[str, int]] = field(default_factory=dict)
+    inverted_keys: list[str] = field(default_factory=list)
 
 
 @dataclass_json
