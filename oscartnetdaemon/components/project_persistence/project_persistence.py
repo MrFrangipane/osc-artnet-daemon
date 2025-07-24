@@ -34,8 +34,8 @@ class ProjectPersistence:
             try:
                 self._project = Project.from_json(f.read())
                 _logger.info(f"Loaded project from {filepath}")
-            except json.JSONDecodeError:
-                _logger.warning(f"Could not load project from {filepath}. Creating new project.")
+            except (json.JSONDecodeError, TypeError) as e:
+                _logger.warning(f"Could not load project from {filepath}. Creating new project. ({e})")
                 self.new()
                 return
 
