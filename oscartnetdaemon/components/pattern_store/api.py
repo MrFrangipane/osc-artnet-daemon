@@ -1,4 +1,5 @@
 from oscartnetdaemon.core.components import Components
+from oscartnetdaemon.core.pattern.store_containers import PatternStepContainer
 from oscartnetdaemon.core.show.item_info import ShowItemInfo
 
 
@@ -12,8 +13,8 @@ class PatternStoreAPI:
         )
 
     @staticmethod
-    def get_steps(show_item_info: ShowItemInfo, pattern_index: int) -> dict[int, dict[str, int]]:
-        return Components().pattern_store.get_steps(
+    def get_step_container(show_item_info: ShowItemInfo, pattern_index: int) -> PatternStepContainer | None:
+        return Components().pattern_store.get_step_container(
             show_item_info=show_item_info,
             pattern_index=pattern_index
         )

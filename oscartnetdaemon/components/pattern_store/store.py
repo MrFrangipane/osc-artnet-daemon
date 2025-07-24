@@ -6,7 +6,7 @@ def _lerp_dict_with_invert(a: dict, b: dict, factor: float, inverted_keys: list[
     keys = set(a.keys()).union(b.keys())
 
     return {
-        key: (255 - int(float(a.get(key, 0)) * (1 - factor)) + int(float(b.get(key, 0)) * factor) if key in inverted_keys else
+        key: (255 - (int(float(a.get(key, 0)) * (1 - factor)) + int(float(b.get(key, 0)) * factor)) if key in inverted_keys else
           int(float(a.get(key, 0)) * (1 - factor)) + int(float(b.get(key, 0)) * factor)
         ) if a.get(key, 0) != b.get(key, 0) else (255 - b.get(key, 0) if key in inverted_keys else
             b.get(key, 0)
@@ -60,17 +60,17 @@ class PatternStore:
         factor = _stretch_time(beat - int(beat), mood.pattern_parameter)
         return _lerp_dict_with_invert(step, next_step, factor, pattern.inverted_keys)
 
-    def get_steps(self, show_item_info: ShowItemInfo, pattern_index: int) -> dict[int, dict[str, int]]:
+    def get_step_container(self, show_item_info: ShowItemInfo, pattern_index: int) -> PatternStepContainer:
         if show_item_info.name not in self.data.fixture_type:
-            return dict()
+            return PatternStepContainer()
 
         if pattern_index not in self.data.fixture_type[show_item_info.name].pattern_index:
-            return dict()
+            return PatternStepContainer()
 
         if show_item_info.group_info.place not in self.data.fixture_type[show_item_info.name].pattern_index[pattern_index].group_place:
-            return dict()
+            return PatternStepContainer()
 
-        return self.data.fixture_type[show_item_info.name].pattern_index[pattern_index].group_place[show_item_info.group_info.place].step
+        return self.data.fixture_type[show_item_info.name].pattern_index[pattern_index].group_place[show_item_info.group_info.place]
 
     def set_steps(self, show_item_info: ShowItemInfo, pattern_index: int, steps: dict[int, dict[str, int]], inverted_keys: list[str]):
         if show_item_info.name not in self.data.fixture_type:
@@ -109,7 +109,7 @@ class PatternStore:
         if Components().fixture_updater is None:
             return
 
-        step = self.get_steps(show_item_info, pattern_index).get(step_index, None)
+        step = self.get_step_container(show_item_info, pattern_index).step.get(step_index, None)
         Components().fixture_updater.set_pattern_edition_step(
             show_item_info=show_item_info,
             step=step
@@ -122,12 +122,12 @@ class PatternStore:
         self.data.pattern_names[pattern_index] = name
 
     def shift_steps(self, show_item_info: ShowItemInfo, pattern_index: int, offset: int) -> None:
-        steps = self.get_steps(show_item_info, pattern_index)
-        if not steps:
+        step_container = self.get_step_container(show_item_info, pattern_index)
+        if not step_container.step:
             return
 
         new_steps = dict()
-        for step_index in range(len(steps)):
-            new_steps[step_index] = steps[(step_index - offset) % len(steps)]
+        for step_index in range(len(step_container.step)):
+            new_steps[step_index] = step_container.step[(step_index - offset) % len(step_container.step)]
 
-        self.set_steps(show_item_info, pattern_index, new_steps)
+        self.set_steps(show_item_info, pattern_index, new_steps, step_container.inverted_keys)
