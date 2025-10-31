@@ -32,3 +32,7 @@ class Mood:
     recallable_dimmer: float = 1.0
 
     beam_shape: int = 0
+
+    autoplay_on: float = 0.0
+    autoplay_interval: int = 0
+    autoplay_current: int = -1

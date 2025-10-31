@@ -5,6 +5,8 @@ from copy import copy
 from oscartnetdaemon.components.fixtures_updater.abstract import AbstractFixturesUpdater
 from oscartnetdaemon.core.channel_info import ChannelInfo
 from oscartnetdaemon.core.components import Components
+from oscartnetdaemon.core.midi_tempo_info import MIDITempoInfo
+from oscartnetdaemon.core.mood import Mood
 from oscartnetdaemon.core.osc.state_model import OSCStateModel
 from oscartnetdaemon.core.show.item_info import ShowItemInfo
 
@@ -95,6 +97,8 @@ class FixturesUpdater(AbstractFixturesUpdater):
         mood.bpm = tempo.bpm
         mood.beat_counter = tempo.beat_counter
 
+        mood = self._autoplay(mood, tempo)
+
         for show_item in Components().show_store.show.items:
             group_dimmer = Components().show_store.show.groups_dimmers[show_item.info.group_info.index - 1]  # FIXME this should be starting at 0
             show_item.fixture.update_mapping(mood, group_dimmer, show_item.info.group_info)
@@ -104,6 +108,19 @@ class FixturesUpdater(AbstractFixturesUpdater):
 
         for artnet_server in Components().artnet_servers:
             artnet_server.set_universe(self.universe)
+
+    def _autoplay(self, mood: Mood, tempo: MIDITempoInfo) -> Mood:
+        osc_state_model = Components().osc_state_model
+        if not mood.autoplay_on:
+            osc_state_model.autoplay_current_scene = -1
+
+        else:
+            autoplay_scene = int(tempo.beat_counter / (2 ** (3 + mood.autoplay_interval))) % 4
+            if osc_state_model.autoplay_current_scene != autoplay_scene:
+                osc_state_model.autoplay_current_scene = autoplay_scene
+                Components().mood_store.recall(osc_state_model.autoplay_lastest_client, "abcd"[autoplay_scene])
+
+        return mood
 
     def stop(self):
         self._is_running = False

@@ -28,3 +28,7 @@ class AbstractMoodStore(ABC):
     @abstractmethod
     def set_temporary_modifier(self, sender, is_active):
         pass
+
+    @abstractmethod
+    def set_autoplay(self, sender, is_autoplay):
+        pass

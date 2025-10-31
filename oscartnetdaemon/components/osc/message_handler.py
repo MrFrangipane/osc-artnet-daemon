@@ -73,6 +73,9 @@ class MessageHandler:
                 # fixme: specific OSC messages to notify other (messages get lost in timings)
                 Components().midi_tempo.send_tap()
 
+            elif control_name == "autoplay_on":
+                Components().mood_store.set_autoplay(client_ip, value)
+
             #
             # Controls - all others
             elif control_name in self._mood_attributes:

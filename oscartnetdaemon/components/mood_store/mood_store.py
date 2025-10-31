@@ -51,10 +51,27 @@ class _ClientMoodStore:
         else:
             self._set_mood(self._mood_store['before_temp'])
 
+    def set_autoplay(self, is_autoplay):
+        osc_state_model = Components().osc_state_model
+        osc_state_model.mood.autoplay_on = is_autoplay
+        if not is_autoplay:
+            osc_state_model.autoplay_current_scene = -1
+            osc_state_model.autoplay_lastest_client = ""
+        osc_state_model.autoplay_lastest_client = '.'.join(str(int(b)) for b in self._client_info.address)
+        mood = copy(Components().osc_state_model.mood)
+        self._set_mood(mood)
+
     @staticmethod
     def _set_mood(mood: Mood):
         master = Components().osc_state_model.mood.master_dimmer
+        autoplay_on = Components().osc_state_model.mood.autoplay_on
+        autoplay_interval = Components().osc_state_model.mood.autoplay_interval
+
         mood.master_dimmer = master
+        mood.autoplay_on = autoplay_on
+        mood.autoplay_interval = autoplay_interval
+        mood.autoplay_current = Components().osc_state_model.autoplay_current_scene
+
         Components().osc_state_model.mood = copy(mood)
         Components().osc_message_sender.send_mood_to_all()
 
@@ -83,3 +100,6 @@ class MoodStore(AbstractMoodStore):
 
     def set_temporary_modifier(self, sender_ip, is_active):
         self._clients_stores[sender_ip].set_temporary_modifier(is_active)
+
+    def set_autoplay(self, sender_ip, is_autoplay):
+        self._clients_stores[sender_ip].set_autoplay(is_autoplay)

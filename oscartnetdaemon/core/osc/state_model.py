@@ -18,9 +18,11 @@ class OSCStateModel:
         Tristan200 = -1
         TwoBrightPar = -1
 
+    autoplay_current_scene: int = -1
+    autoplay_lastest_client: str = ""
     current_page: Page = Page.Mood
-    mood: Mood = field(default_factory=Mood)
-    tristan_200: Tristan200 = field(default_factory=Tristan200)
     groups: Groups = field(default_factory=Groups)
-    two_bright_par: TwoBrightPar = field(default_factory=TwoBrightPar)
+    mood: Mood = field(default_factory=Mood)
     pattern_edition: PatternEdition = field(default_factory=PatternEdition)
+    tristan_200: Tristan200 = field(default_factory=Tristan200)
+    two_bright_par: TwoBrightPar = field(default_factory=TwoBrightPar)
