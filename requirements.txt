@@ -1,7 +1,7 @@
 python-osc
 stupidartnet==1.4.0
 zeroconf
-mido[ports-rtmidi]
+mido[ports-rtmidi] @ git+https://github.com/MrFrangipane/mido@main
 python-rtmidi
 dataclasses-json
 pyside6-helpers @ git+https://github.com/MrFrangipane/pyside6-helpers@main
