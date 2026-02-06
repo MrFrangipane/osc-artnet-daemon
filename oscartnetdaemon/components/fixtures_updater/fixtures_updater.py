@@ -104,7 +104,11 @@ class FixturesUpdater(AbstractFixturesUpdater):
             show_item.fixture.update_mapping(mood, group_dimmer, show_item.info.group_info)
             channels = show_item.fixture.map_to_channels()
 
-            self.universe[show_item.info.channel_info.first:show_item.info.channel_info.last] = channels
+            try:
+                self.universe[show_item.info.channel_info.first:show_item.info.channel_info.last] = channels
+            except TypeError:
+                _logger.error(f"Error while updating fixture {show_item.info.name} {channels}")
+                raise
 
         for artnet_server in Components().artnet_servers:
             artnet_server.set_universe(self.universe)
